@@ -1,6 +1,7 @@
 # Web de MultitecUA
 
-Proyecto colaborativo desarrollado por los miembros de la asociación MultitecUA
+Proyecto colaborativo para el desarollo de una web informativa por los miembros de la asociación MultitecUA de la Universidad de Alicante.
+
 
 
 ## Build docker
