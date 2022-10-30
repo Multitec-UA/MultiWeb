@@ -86,10 +86,3 @@ $(document).ready(function() {
 
 
 });
-//SCROLLBAR
-/*let progress = document.getElementById('progressbar');
-let totalHeight = document.body.scrollHeight - window.innerHeight;
-window.onscroll = function() {
-    let progressHeight = (window.pageYOffset / document.body.scrollHeight) * 1000;
-    progress.style.height = progressHeight + '%';
-}*/
