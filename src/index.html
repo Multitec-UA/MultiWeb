@@ -30,31 +30,23 @@
                             <div class="col-xs-4">
                                 <div class="logo">
                                     <a href="index.html">
-                                        <img src="../assets/images/logoMT.png" class="menu-logo fa fa-viacoin"> </a>
+                                        <img src="../assets/images/MTLogoLargo.png" class="menu-logo"> </a>
                                 </div>
                             </div>
                             <div class="col-xs-8 d-flex flex-row menu text-right menu-links">
-                                <a href="index.html" class="menu-link">
-                                    Inicio
-                                </a>
-                                <a href="#about" class="menu-link">
-                                    Sobre Nosotros
-                                </a>
-                                <a href="#inscription" class="menu-link">
-                                    Inscripción
-                                </a>
-                                <a href="#events" class="menu-link">
-                                    Eventos
-                                </a>
-                                <a href="#contact" class="menu-link">
-                                    Contacto
-                                </a>
+                                <a href="#home" class="menu-link">Inicio</a>
+                                <a href="#about" class="menu-link">Sobre Nosotros</a>
+                                <a href="#events" class="menu-link">Eventos</a>
+                                <a href="#workstation" class="menu-link">Medios</a>
+                                <a href="#contact" class="menu-link">Contacto</a>
+                                <a class="btn menu-btn" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScUgnTDeFS4IErOHhtsAlvXYzBPHJbyEPPjxN6O61Fq7W8aDw/viewform">INSCRÍBETE</a>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
-            <div class="container">
+            <div id="home" class="container">
                 <div class="row">
                     <div class="intro-box">
                         <div class="intro">
@@ -81,6 +73,8 @@
                     </div>
                 </div>
             </div>
+
+
         </section>
         <section class="purpose section">
             <div class="container">
@@ -104,7 +98,7 @@
                         <div class="vira-card">
                             <div class="vira-card-header">
                                 <div class="card-icon">
-                                    <span class="fa fa-bicycle" aria-hidden="true"></span>
+                                    <span class="fa fa-calendar" aria-hidden="true"></span>
                                 </div>
                             </div>
                             <div class="vira-card-content">
@@ -140,7 +134,7 @@
                     <div class="col-sm-5 section">
                         <h2 class="title">¿Cómo puedo unirme?</h2>
                         <p>
-                            ¡Muy sencillo! Haz clic en el botón de abajo y rellena el cuestionario. Al finalizar nos pondremos en contacto contigo en un plazo máximo de 48 h. Inscribirse no es gratuito, pero una cuota de <b class="red_text">5 € anuales</b>                            es muy asequible destinados al mantenimiento y desarrollo de la asociación.
+                            ¡Muy sencillo! Haz clic en el botón de abajo y rellena el cuestionario. Al finalizar nos pondremos en contacto contigo en un plazo máximo de 48 h. Inscribirse no es gratuito, existe un cuota de <b class="red_text">5 € anuales</b>                            destinada al mantenimiento y desarrollo de la asociación.
                         </p>
                         <a class="btn news-btn" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLScUgnTDeFS4IErOHhtsAlvXYzBPHJbyEPPjxN6O61Fq7W8aDw/viewform">INSCRÍBETE</a>
                     </div>
@@ -148,7 +142,54 @@
             </div>
         </section>
 
-        <section id="workstation" class="work section">
+        <section id="events" class="team section">
+            <div class="container">
+                <h2 class="title">Nuestro principales eventos</h2>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="vira-card">
+                            <div class="vira-card-header">
+                                <img class="img-responsive" src="../assets/images/cianciathon.jpg">
+                            </div>
+                            <div class="vira-card-content">
+                                <h3>Cienciathon</h3>
+                                <p>
+                                    Combina la ciencia y la tecnología en esta hackathon de tres días junto al Parque Científico de la Universidad de Alicante donde se desarrollan ideas innovadoras para resolver problemas actuales.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="vira-card">
+                            <div class="vira-card-header">
+                                <img class="img-responsive" src="../assets/images/uadevcon.jpg">
+                            </div>
+                            <div class="vira-card-content">
+                                <h3>UA Games Devs</h3>
+                                <p>
+                                    Los estudiantes de Ingeniería Multimedia de Escuela Politécnica Superior de la UA muestran a la luz sus proyectos que han desarrollado durante el curso.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="vira-card">
+                            <div class="vira-card-header">
+                                <img class="img-responsive" src="../assets/images/sorpresa.jpg">
+                            </div>
+                            <div class="vira-card-content">
+                                <h3>PROXIMAMENTE</h3>
+                                <p>
+                                    Quien sabe que más puede ocurrir en el futuro...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="workstation" class="work section expert">
             <div class="container">
                 <h2 class="title">Multitec en los medios</h2>
                 <div id="workstation-slider" class="owl-carousel">
@@ -233,80 +274,20 @@
                 </div>
             </div>
         </section>
-        <section class="watch bg-img">
-            <div class="container">
-                <h2 class="title">Nuestra nueva imagen</h2>
-                <div class="row">
-                    <div class="col-sm-12 video-container">
-                        <iframe class="youtube" src="https://www.youtube.com/embed/Q-QD20UgGE4" title="MULTITEC 2022" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="events" class="team section">
-            <div class="container">
-                <h2 class="title">Nuestro principales eventos</h2>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="vira-card">
-                            <div class="vira-card-header">
-                                <img class="img-responsive" src="../assets/images/cianciathon.jpg">
-                            </div>
-                            <div class="vira-card-content">
-                                <h3>Cienciathon</h3>
-                                <p>
-                                    Combina la ciencia y la tecnología en esta hackathon de tres días junto al Parque Científico de la Universidad de Alicante donde se desarrollan ideas innovadoras para resolver problemas actuales.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="vira-card">
-                            <div class="vira-card-header">
-                                <img class="img-responsive" src="../assets/images/uadevcon.jpg">
-                            </div>
-                            <div class="vira-card-content">
-                                <h3>UA Games Devs</h3>
-                                <p>
-                                    Los estudiantes de Ingeniería Multimedia de Escuela Politécnica Superior de la UA muestran a la luz sus proyectos que han desarrollado durante el curso.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="vira-card">
-                            <div class="vira-card-header">
-                                <img class="img-responsive" src="../assets/images/sorpresa.jpg">
-                            </div>
-                            <div class="vira-card-content">
-                                <h3>PROXIMAMENTE</h3>
-                                <p>
-                                    Quien sabe que más puede ocurrir en el futuro...
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         <section class="subscribe section bg-img">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <p>¡Suscríbete para enterarte de todos nuestros eventos y novedades!</p>
-                        <form class="form-inline">
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="user-email" placeholder="Escribe aquí tu email">
-                            </div>
-                            <button type="submit" class="btn vira-btn">Enviar</button>
-                        </form>
+                        <p>¡Únete a nuestro grupo de Telegram para enterarte de todos nuestros eventos y novedades!</p>
+                        <a href="https://t.me/+QRah0Zpc83k1YzQ0" class="btn vira-btn" target="_blank">UNIRSE</a>
                     </div>
                 </div>
             </div>
         </section>
         <section id="contact" class="contact section">
             <div class="container">
-                <h2 class="title">Dejanos un mensaje</h2>
+                <h2 class="title">Contacta con nosotros</h2>
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="vira-card">
@@ -324,12 +305,12 @@
                     <div class="col-sm-4">
                         <div class="vira-card">
                             <div class="vira-card-header">
-                                <span class="fa fa-phone" aria-hidden="true"></span>
+                                <span class="fa fa-paper-plane" aria-hidden="true"></span>
                             </div>
                             <div class="vira-card-content">
-                                <h3>Telegram</h3>
+                                <h3>Redes Sociales</h3>
                                 <p>
-                                    <a href="https://t.me/+QRah0Zpc83k1YzQ0" class="telegram-link">Únete a Telegram</a>
+                                    Envianos un mensaje directo
                                 </p>
                             </div>
                         </div>
@@ -337,12 +318,12 @@
                     <div class="col-sm-4">
                         <div class="vira-card">
                             <div class="vira-card-header">
-                                <span class="fa fa-paper-plane" aria-hidden="true"></span>
+                                <span class="fa fa-envelope" aria-hidden="true"></span>
                             </div>
                             <div class="vira-card-content">
                                 <h3>Email</h3>
                                 <p>
-                                    contact@multitecua.com
+                                    contacto.multitecua@gmail.com
                                 </p>
                             </div>
                         </div>
@@ -361,6 +342,9 @@
                                 </a>
                                 <a href="https://www.twitch.tv/multitecua" target="_blank">
                                     <li><span class="ion-social-twitch"></span></li>
+                                </a>
+                                <a href="https://www.youtube.com/channel/UComtzTLqL-jHvRhiQVrzPJg" target="_blank">
+                                    <li><span class="ion-social-youtube"></span></li>
                                 </a>
                             </ul>
                         </div>
