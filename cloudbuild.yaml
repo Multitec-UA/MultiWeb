@@ -1,0 +1,31 @@
+steps:
+- id: DEPLOY:Build
+  name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'build'
+  - '-t'
+  - '${_DEPLOY_IMAGE_PATH}'
+  - '.'
+
+- id: DEPLOY:Push
+  name: 'gcr.io/cloud-builders/docker'
+  args: 
+  - 'push'
+  - '${_DEPLOY_IMAGE_PATH}'
+
+- id: DEPLOY:Raise
+  name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - '${_SERVICE}'
+  - '--image'
+  - '${_DEPLOY_IMAGE_PATH}'
+  - '--region'
+  - '${_LOCATION}'
+
+substitutions:
+  _DEPLOY_IMAGE_PATH: ${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE}
+
+timeout: 600s
