@@ -13,3 +13,6 @@ docker build -t multiweb .
 ```
 docker run -d -p 80:80 -t multiweb
 ```
+
+## Deploy
+Caundo se hace push con un cambio a la rama principal, se despliega en GCloud
