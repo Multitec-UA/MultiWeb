@@ -510,7 +510,7 @@ section {
 /*Home page*/
 
 .header {
-    background-image: url(../images/main.jpg);
+    background-image: url(../images/multitec-banner.webp);
     height: 100vh;
     position: relative;
     min-height: 659px;
@@ -577,7 +577,7 @@ section {
 }
 
 .expert .bg-img {
-    background-image: url(../images/inscripcion_section.jpg);
+    background-image: url(../images/inscripcion.webp);
     background-position-x: 85%;
     height: 100%;
 }
