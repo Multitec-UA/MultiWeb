@@ -1,0 +1,106 @@
+@import 'https://fonts.googleapis.com/css?family=Ubuntu:wght@400;700&display=swap';
+@import 'https://fonts.googleapis.com/css?family=Poppins:wght@100;300;400;500&display=swap';
+
+/*Global Settings*/
+
+:root {
+    /*Colours*/
+    --main-color: #a30006;
+    /*Fonts*/
+    --main-font: 'Ubuntu', sans-serif;
+    --second-font: 'Poppins', sans-serif;
+}
+body {
+    background-color: white;
+}
+svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -400px;
+}
+.message-box {
+    height: 200px;
+    width: 380px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: 50px;
+    color: #424242;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+}
+.message-box h1 {
+    font-size: 100px;
+    line-height: 46px;
+    margin-bottom: 40px;
+}
+
+.buttons-con .action-link-wrap {
+    margin-top: 40px;
+}
+.buttons-con .action-link-wrap a {
+    font-family: var(--second-font);
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 5px 30px;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--main-color);
+    margin-top: 20px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.buttons-con .action-link-wrap a:hover {
+    color: #fff;
+    background-color: #fff;
+    border-color: var(--main-color);
+    color: var(--main-color);
+    border: 1px solid #a30006;
+}
+
+p{
+    font-family: var(--second-font);
+}
+  
+#Polygon-1 , #Polygon-2 , #Polygon-3 , #Polygon-4 , #Polygon-4, #Polygon-5 {
+    animation: float 2s infinite ease-in-out alternate;
+}
+#Polygon-2 {
+    animation-delay: .4s; 
+}
+#Polygon-3 {
+    animation-delay: .8s; 
+}
+#Polygon-4 {
+    animation-delay: .12s; 
+}
+#Polygon-5 {
+    animation-delay: .16s; 
+}
+  
+@keyframes float {
+      100% {
+      transform: translateY(20px);
+    }
+}
+@media (max-width: 450px) {
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -250px;
+      margin-left: -190px;
+    }
+    .message-box {
+      top: 50%;
+      left: 50%;
+      margin-top: -100px;
+      margin-left: -190px;
+      text-align: center;
+    }
+}
