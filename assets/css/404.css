@@ -88,19 +88,24 @@ p{
       transform: translateY(20px);
     }
 }
-@media (max-width: 450px) {
+
+@media (max-width: 800px) {
     svg {
-      position: absolute;
+      display: none;
       top: 50%;
       left: 50%;
       margin-top: -250px;
       margin-left: -190px;
+      width: 380px;
+      height: 500px;
     }
+    
     .message-box {
       top: 50%;
       left: 50%;
       margin-top: -100px;
       margin-left: -190px;
       text-align: center;
+      font-size: 15px;
     }
 }
