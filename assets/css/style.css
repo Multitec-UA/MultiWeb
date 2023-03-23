@@ -91,7 +91,7 @@ section {
     width: 40px;
     background-color: var(--main-color);
     position: absolute;
-    top: 81px;
+    top: 80px;
     left: calc(50% - 20px);
 }
 
@@ -675,12 +675,6 @@ section {
     color: #fff;
 }
 
-.subscribe p {
-    color: #fff;
-    font-size: 32px;
-    margin-bottom: 35px;
-}
-
 .subscribe .form-control {
     width: 320px;
     margin-bottom: 0;
@@ -695,10 +689,72 @@ section {
     margin-bottom: 45px;
 }
 
+.faq-title{
+    font-size: 32px;
+    color: #fff;
+    font-family: var(--main-font);
+}
 
-/*.contact .vira-card:hover{
-	box-shadow: 0px 4px 2px rgba(17, 17, 17, 0.3);
-}*/
+.faq-title:after{
+    content: '';
+    height: 5px;
+    width: 40px;
+    background-color: white;
+    position: absolute;
+    top: 81px;
+    left: calc(50% - 20px);
+}
+
+.faq-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.faq-question {
+    font-family: var(--second-font);
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    cursor: pointer;
+    padding: 30px 20px;
+    width: 60%;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    margin: auto;
+}
+
+.faq-question:hover {
+    font-size: 21px;
+}
+
+
+.faq-answer {
+    font-family: var(--second-font);
+    font-weight: 100;
+    font-size: 15px;
+    color: #fff;
+    padding: 0 250px;
+    overflow: hidden;
+    display: block;
+
+    animation-duration: 0.4s;
+    animation-name: animate-fade;
+    animation-fill-mode: backwards;
+}
+
+
+.faq-question:after {
+    content: "+";
+    font-size: 20px;
+    color: #fff;
+    float: right;
+}
+
+.faq-active:after {
+    content: "-";
+}
 
 .contact .vira-card .vira-card-header {
     margin-bottom: 15px;
@@ -721,6 +777,8 @@ section {
 
 .maps{
     border-radius: 20px;
+    width: 600px; 
+    height: 450px;
 }
 
 .footer {
@@ -808,6 +866,12 @@ section {
     .vira-card {
         margin-bottom: 60px;
     }
+
+    .maps{
+        border-radius: 20px;
+        width: 350px; 
+        height: 225px;
+    }
 }
 
 ::-webkit-scrollbar {
@@ -856,9 +920,39 @@ section {
     width: 100%;
 }
 
+@keyframes animate-fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 @media only screen and (max-width: 995px) {
     .menu-links {
         display: none;
+    }
+
+    .maps{
+        border-radius: 20px;
+        width: 400px; 
+        height: 250px;
+    }
+    .faq-answer {
+        padding: 0 10px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .maps{
+        border-radius: 20px;
+        width: 300px; 
+        height: 200px;
+    }
+
+    .faq-answer {
+        padding: 0 10px;
+    }
+
+    .title:after {
+        top: 120px;
     }
 }
 
