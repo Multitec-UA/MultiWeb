@@ -10,7 +10,6 @@ $(document).ready(function() {
     });
 
     // Smooth Scroll
-
     $('a[href*="#"]:not([href="#"])').click(function() {
         if (
             location.pathname.replace(/^\//, '') ==
@@ -119,12 +118,9 @@ let i;
 
 for (i = 0; i < faq.length; i++) {
     faq[i].addEventListener("click", function () {
-        /* Toggle between adding and removing the "active" class,
-        to highlight the button that controls the panel */
         this.classList.toggle("faq-active");
 
-        /* Toggle between hiding and showing the active panel */
-        var body = this.nextElementSibling;
+        const body = this.nextElementSibling;
         if (body.style.display === "block") {
             body.style.display = "none";
         } else {
