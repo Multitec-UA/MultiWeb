@@ -57,6 +57,10 @@ section {
     text-align: center;
 }
 
+ul { 
+    padding:0 
+}
+
 .blockquote p {
     font-size: 32px;
     line-height: 45px;
@@ -77,10 +81,21 @@ section {
     font-size: 15px;
 }
 
+.section-title{
+    font-size: 32px;
+    font-family: var(--main-font);
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #424242;
+    margin-bottom: 100px;
+    margin-top: 0;
+}
+
 .text-title {
     font-family: var(--second-font);
     text-transform: none;
     color: #fff;
+    margin-top: 10px;
     letter-spacing: 2px;
     font-weight: normal;
 }
@@ -417,6 +432,16 @@ section {
     border-radius: 5rem;
 }
 
+.social-icons-form ul a li {
+    display: inline-block;
+    list-style-type: none;
+    color: var(--main-color);
+    font-size: 18px;
+    line-height: 32px;
+    width: 36px;
+    margin-top: 30px;
+}
+
 .social-icons {
     margin-top: 30px;
 }
@@ -723,6 +748,7 @@ section {
     outline: none;
     transition: 0.4s;
     margin: auto;
+    text-transform: uppercase;
 }
 
 .faq-question:hover {
@@ -775,6 +801,22 @@ section {
     font-size: 18px;
 }
 
+.contact-title{
+    font-size: 21px;
+    letter-spacing: 2px;
+    margin-bottom: 45px;
+    font-family: var(--main-font);
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #424242;
+    margin-bottom: 35px;
+    margin-top: 0;
+}
+
+.telegram{
+
+}
+
 .maps{
     border-radius: 20px;
     width: 600px; 
@@ -789,12 +831,6 @@ section {
 
 .footer span {
     color: var(--main-color);
-}
-
-.footer p {
-    font-size: 21px;
-    color: #fff;
-    margin-bottom: 0;
 }
 
 .footer a {
@@ -834,6 +870,12 @@ section {
     font-size: 14px;
     font-family: var(--second-font);
     font-style: italic;
+    color: #fff;
+}
+
+.footer-little{
+    font-size: 14px;
+    color: #fff;
 }
 
 /*animations*/
@@ -889,17 +931,21 @@ section {
     color: var(--main-color);
 }
 
+.telegram {
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+.telegram:hover{
+    text-decoration: underline;
+    color: var(--main-color);
+}
+
 .youtube {
     -webkit-box-shadow: 10px 10px 61px -18px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 10px 10px 61px -18px rgba(0, 0, 0, 0.75);
     box-shadow: 10px 10px 61px -18px rgba(0, 0, 0, 0.75);
 }
-
-.telegram-link {
-    color: var(--main-color);
-}
-
-
 
 .video-container {
     height: 0;
@@ -938,6 +984,10 @@ section {
     .faq-answer {
         padding: 0 10px;
     }
+
+    .title:after {
+        top: 100px;
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -953,6 +1003,10 @@ section {
 
     .title:after {
         top: 120px;
+    }
+
+    .title:after {
+        top: 95px;
     }
 }
 
