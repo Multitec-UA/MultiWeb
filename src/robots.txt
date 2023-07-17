@@ -1,3 +1,8 @@
 User-agent: *
-Disallow: 
+Disallow: /enlaces
+Disallow: /enlaces/
+Disallow: /inscripciones/curso-programacion
+Disallow: /inscripciones/curso-programacion/
+Disallow: /stream
+Disallow: /stream/
 Sitemap: https://multitecua.com/sitemap.xml
