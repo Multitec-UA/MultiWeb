@@ -2,6 +2,11 @@
 
 Proyecto colaborativo para el desarollo de una web informativa por los miembros de la asociación MultitecUA de la Universidad de Alicante.
 
+## Version
+##########
+release-v1
+##########
+
 
 
 ## Build docker
