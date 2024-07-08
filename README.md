@@ -4,7 +4,7 @@ Proyecto colaborativo para el desarollo de una web informativa por los miembros 
 
 ## Version
 ##########
-release-v1
+release-v2
 ##########
 
 
