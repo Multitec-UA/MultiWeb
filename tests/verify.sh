@@ -28,7 +28,14 @@ pass() { printf '  \033[32mok\033[0m   %s\n' "$1"; }
 fail() { printf '  \033[31mFAIL\033[0m %s\n' "$1"; FAILED=1; }
 head1() { printf '\n== %s\n' "$1"; }
 
-HTML_PAGES=(src/index.html src/inscripcion.html src/enlaces.html src/404.html)
+# Eight files, four pages: since 2026-08-29 every page of this site exists in Spanish
+# at the URL it always had and in English under /en/, and both are generated from
+# i18n/templates + i18n/strings.json (see group 24). Every check below that iterates
+# HTML_PAGES therefore checks the English half too, which is the point — an accessibility
+# or SEO regression that only lands on one language is exactly the kind that ships.
+HTML_PAGES=(src/index.html src/inscripcion.html src/enlaces.html src/404.html
+            src/en/index.html src/en/inscripcion.html src/en/enlaces.html src/en/404.html)
+ES_PAGES=(src/index.html src/inscripcion.html src/enlaces.html src/404.html)
 
 # ---------------------------------------------------------------------------
 head1 "1. Every local asset a page references actually exists"
@@ -40,24 +47,42 @@ head1 "1. Every local asset a page references actually exists"
 # The served tree is not the source tree: the Dockerfile copies src/ to the web root and
 # assets/ *beneath* it, so a page's "../assets/x" resolves to "<root>/assets/x" because the
 # browser clamps ".." at the root. We resolve references the same way the browser does.
-missing=0
-refs=0
-for page in "${HTML_PAGES[@]}"; do
-  # href/src attributes plus url(...) inside inline <style>, local ones only.
-  grep -oE '(href|src)="[^"]+"' "$page" | sed -E 's/^(href|src)="//; s/"$//' \
-  | grep -vE '^(https?:|//|data:|mailto:|tel:|#)' \
-  | while read -r ref; do
-      clean="${ref%%\?*}"; clean="${clean%%#*}"
-      [ -z "$clean" ] && continue
-      # strip any number of leading ../ and any /assets/vN/ cache-busting segment
-      p="$(printf '%s' "$clean" | sed -E 's#^(\.\./)+##; s#^/##; s#^assets/v[0-9]+/#assets/#')"
-      case "$p" in
-        assets/*) disk="$p" ;;
-        *)        disk="src/$p" ;;
-      esac
-      [ -e "$disk" ] || echo "MISSING $page -> $ref (looked for $disk)"
-    done
-done > /tmp/verify-missing.$$ 2>/dev/null
+# Resolution is done in Python because it now has to be exact: with a second language
+# tree under src/en/ a reference is only correct relative to the directory the page is
+# SERVED from, and "../assets/x" means one thing from / and another from /en/. Doing it
+# with sed the old way would have silently passed a link that 404s in the container.
+python3 - > /tmp/verify-missing.$$ 2>&1 <<'PYREF'
+import pathlib, posixpath, re
+
+ROOT = pathlib.Path(".")
+pages = sorted(ROOT.glob("src/*.html")) + sorted(ROOT.glob("src/en/*.html"))
+# nginx serves a few pretty URLs that are not files: /enlaces, /en/enlaces, /stream.
+conf = (ROOT / "nginx/default.conf").read_text(encoding="utf-8")
+locations = set(re.findall(r"location\s*=\s*(/\S*)", conf))
+
+for page in pages:
+    served = "/" + str(page.relative_to("src")).replace("index.html", "")
+    base = posixpath.dirname(posixpath.join("/", str(page.relative_to("src")))) + "/"
+    for ref in re.findall(r'(?:href|src)="([^"]+)"', page.read_text(encoding="utf-8")):
+        if re.match(r"^(https?:|//|data:|mailto:|tel:|#)", ref):
+            continue
+        clean = ref.split("?")[0].split("#")[0]
+        if not clean:
+            continue
+        url = clean if clean.startswith("/") else posixpath.join(base, clean)
+        url = posixpath.normpath(url)
+        if clean.endswith("/") and not url.endswith("/"):
+            url += "/"
+        if url in locations or url.rstrip("/") in locations:
+            continue                      # nginx answers this one without a file
+        rel = url.lstrip("/")
+        rel = re.sub(r"^assets/v[0-9]+/", "assets/", rel)
+        if rel.endswith("/") or rel == "":
+            rel += "index.html"
+        disk = ROOT / rel if rel.startswith("assets/") else ROOT / "src" / rel
+        if not disk.is_file():
+            print("MISSING %s -> %s (looked for %s)" % (page, ref, disk))
+PYREF
 missing=$(wc -l < /tmp/verify-missing.$$)
 if [ "$missing" -eq 0 ]; then
   pass "no page references a local file that does not exist"
@@ -134,13 +159,13 @@ head1 "4. Every icon-only link has an accessible name"
 # WHY: the 15 social icons were <a> wrapping <li> wrapping an empty <span> styled by an icon
 # font. A screen reader announced "link" fifteen times with no destination. Also: <a> is not
 # a permitted child of <ul> — the nesting was inverted.
-unnamed=$(tr '\n' ' ' < src/index.html \
+unnamed=$(tr '\n' ' ' < src/index.html src/en/index.html \
   | grep -oE '<a [^>]*>[[:space:]]*(<li>[[:space:]]*)?<span class="ion-[^"]*"[^>]*></span>' \
   | grep -vc 'aria-label=')
 [ "${unnamed:-0}" -eq 0 ] && pass "no icon-only link without aria-label" \
                           || fail "$unnamed icon-only link(s) with no accessible name"
 
-invalid=$(tr '\n' ' ' < src/index.html | grep -cE '<ul[^>]*>[[:space:]]*<a ')
+invalid=$(tr '\n' ' ' < src/index.html src/en/index.html | grep -cE '<ul[^>]*>[[:space:]]*<a ')
 [ "$invalid" -eq 0 ] && pass "no <a> is a direct child of a <ul>" \
                      || fail "$invalid <ul> with an <a> as a direct child (invalid HTML)"
 
@@ -307,12 +332,15 @@ done
 # tripped it. Raised to 345000 for twelve, deliberately — that weight is not an extra, it
 # is the weight `h1..h6 { font-weight: 700 }` has been asking for since this site was
 # written and the browser had been faking with a synthetic smear of the regular face.
+# Raised again to 360000 on 2026-08-29 for Poppins 700 (13,248 B, two files), the same
+# defect as Ubuntu's and the last one: .faq-question is `font-weight: bold` and every
+# <strong> in a FAQ answer is 700, in a family that only ever shipped 400.
 nfonts=$(find assets/fonts -name '*.woff2' 2>/dev/null | wc -l)
 fontbytes=$(find assets/fonts -name '*.woff2' -printf '%s\n' 2>/dev/null | awk '{t+=$1} END {print t+0}')
-if [ "$nfonts" -gt 0 ] && [ "$fontbytes" -le 345000 ]; then
-  pass "$nfonts self-hosted woff2, $fontbytes B on disk (budget 345000)"
+if [ "$nfonts" -gt 0 ] && [ "$fontbytes" -le 360000 ]; then
+  pass "$nfonts self-hosted woff2, $fontbytes B on disk (budget 360000)"
 else
-  fail "self-hosted fonts: $nfonts file(s), $fontbytes B (budget 345000)"
+  fail "self-hosted fonts: $nfonts file(s), $fontbytes B (budget 360000)"
 fi
 
 # WHY: every heading on this site is Ubuntu at font-weight 700, and until 2026-08-29 no
@@ -330,6 +358,19 @@ grep -q "font-weight: 700;" assets/css/style.css \
 grep -q "ubuntu-700-latin.woff2" assets/css/404.css \
   && pass "404.css carries the same Ubuntu 700" \
   || fail "404.css draws headings at 700 with no 700 face"
+
+# WHY: the identical defect in the other family, found while fixing Ubuntu's and left
+# open until 2026-08-29. Poppins is --second-font: it draws .faq-question (font-weight:
+# bold), every <strong> inside a .faq-answer, and .link-item on enlaces.html at 600. With
+# only a 400 face on disk the browser smeared all of them. 404.css is deliberately NOT
+# included: nothing on that page asks Poppins for a weight above 500, so the face would
+# be downloaded by nobody.
+for f in assets/fonts/poppins-latin.woff2 assets/fonts/poppins-700-latin.woff2; do
+  [ -s "$f" ] || fail "Poppins is missing a weight: $f"
+done
+grep -q "poppins-700-latin.woff2" assets/css/style.css \
+  && pass "Poppins ships a real 700, not a synthetic one" \
+  || fail "style.css declares no Poppins 700 @font-face"
 
 # WHY: a src: url() that 404s is a font that silently falls back to Times. Group 1 resolves
 # every url(../...) in our stylesheets, but only if the rules are actually reachable from
@@ -354,7 +395,7 @@ head1 "11. A phone has navigation"
 # got the logo and nothing else. No way to reach any section of an 11,000px page, and no
 # INSCRÍBETE, on the page students arrive at from Instagram. style.css styled the panel and
 # script.js drove it; only the markup was ever missing. Audit item 2.1.
-for page in src/index.html src/inscripcion.html; do
+for page in src/index.html src/inscripcion.html src/en/index.html src/en/inscripcion.html; do
   flat=$(tr '\n' ' ' < "$page")
   ok=1
   case "$flat" in *'id="menu-item"'*) ;; *) echo "  $page: no #menu-item panel"; ok=0 ;; esac
@@ -404,15 +445,17 @@ head1 "12. The FAQ can be opened without a mouse"
 # aria-expanded, no key handler. A keyboard or switch user could not open any of them,
 # including "¿Cómo puedo unirme?", the answer most likely to decide whether somebody pays
 # the 12 euros. Audit item 2.4.
-qs=$(grep -c 'class="faq-question"' src/index.html)
-btn=$(grep -c 'class="faq-question" role="button" tabindex="0" aria-expanded="false"' src/index.html)
+qs=$(cat src/index.html src/en/index.html | grep -c 'class="faq-question"')
+btn=$(cat src/index.html src/en/index.html | grep -c 'class="faq-question" role="button" tabindex="0" aria-expanded="false"')
 [ "$qs" -gt 0 ] && [ "$qs" -eq "$btn" ] \
-  && pass "all $qs FAQ questions are role=button, tabindex=0, aria-expanded" \
+  && pass "all $qs FAQ questions are role=button, tabindex=0, aria-expanded (both languages)" \
   || fail "$btn of $qs FAQ questions are keyboard-reachable"
 # every aria-controls must point at an id that exists, or the answer is announced by nobody
 danglers=0
-for id in $(grep -oE 'aria-controls="faq-answer-[0-9]+"' src/index.html | sed -E 's/.*"(.*)"/\1/'); do
-  grep -q "id=\"$id\"" src/index.html || { echo "  aria-controls=$id points at nothing"; danglers=$((danglers+1)); }
+for f in src/index.html src/en/index.html; do
+for id in $(grep -oE 'aria-controls="faq-answer-[0-9]+"' "$f" | sed -E 's/.*"(.*)"/\1/'); do
+  grep -q "id=\"$id\"" "$f" || { echo "  $f aria-controls=$id points at nothing"; danglers=$((danglers+1)); }
+done
 done
 [ "$danglers" -eq 0 ] && pass "every FAQ aria-controls resolves to an answer" \
                       || fail "$danglers dangling aria-controls"
@@ -533,7 +576,7 @@ done
 # social marks, three places each on index.html, and every one of them must resolve to a
 # <symbol> that exists in the same document — a <use href="#ic-x"> pointing at nothing
 # renders as absolutely nothing, silently, and looks exactly like a page with no icons.
-grep -qE 'class="(ion-social|fa fa-[a-z]|fa-solid|fa-brands|fa-regular)' src/*.html \
+grep -qE 'class="(ion-social|fa fa-[a-z]|fa-solid|fa-brands|fa-regular)' src/*.html src/en/*.html \
   && fail "an icon-font glyph class is back" || pass "no icon-font glyph class left in any page"
 # Every <use href="#x"> must resolve to a <symbol id="x"> in the SAME document. A <use>
 # pointing at nothing renders as absolutely nothing, silently, and looks exactly like a
@@ -546,14 +589,14 @@ for page in "${HTML_PAGES[@]}"; do
   done
   totaluse=$((totaluse + $(grep -cE '<use href="#ic-' "$page" || true)))
 done
-[ "$badref" -eq 0 ] && [ "$totaluse" -ge 32 ] \
+[ "$badref" -eq 0 ] && [ "$totaluse" -ge 74 ] \
   && pass "$totaluse inline SVG icons, every one resolving to a <symbol> in its own page" \
   || fail "the inline SVG sprites are broken ($totaluse <use>, badref=$badref)"
 # And every <symbol> must carry a SQUARE viewBox. Font Awesome's are 0 0 640 512 and
 # 0 0 448 512; dropped into a square CSS box they either squash or, with width:auto,
 # blow out to the CSS default 300px and push the glyph clean out of its container.
 sq=0; nsq=0
-for vb in $(grep -ohE '<symbol id="ic-[a-z0-9-]+" viewBox="[^"]+"' src/*.html | sed -E 's/.*viewBox="([^"]+)"/\1/' | tr ' ' ':'); do
+for vb in $(grep -ohE '<symbol id="ic-[a-z0-9-]+" viewBox="[^"]+"' src/*.html src/en/*.html | sed -E 's/.*viewBox="([^"]+)"/\1/' | tr ' ' ':'); do
   w=$(echo "$vb" | cut -d: -f3); h=$(echo "$vb" | cut -d: -f4)
   if [ "$w" = "$h" ]; then sq=$((sq+1)); else echo "    non-square symbol viewBox: $vb"; nsq=$((nsq+1)); fi
 done
@@ -579,27 +622,64 @@ head1 "19. sitemap.xml and robots.txt describe the site that exists"
 # and left out inscripcion.html, the canonical, indexable page that carries the whole
 # conversion flow. robots.txt Disallowed /inscripciones/curso-programacion, a path that has
 # never existed. Both are files nothing reads back, so both rotted quietly.
-locs=$(grep -oE '<loc>[^<]+</loc>' src/sitemap.xml | sed 's#</\?loc>##g')
-smfail=0
-# every <loc> must correspond to a file that exists and is not noindex
-for loc in $locs; do
-  page="${loc#https://multitecua.com/}"
-  [ -z "$page" ] && page="index.html"
-  if [ ! -e "src/$page" ]; then echo "    sitemap lists $loc but src/$page does not exist"; smfail=1; fi
-  if grep -qE '<meta name="robots" content="[^"]*noindex' "src/$page" 2>/dev/null; then
-    echo "    sitemap lists $loc but $page is noindex"; smfail=1
-  fi
-done
-# and every indexable page must be in the sitemap
-for page in "${HTML_PAGES[@]}"; do
-  base="$(basename "$page")"
-  grep -qE '<meta name="robots" content="[^"]*noindex' "$page" && continue
-  url="https://multitecua.com/$base"
-  [ "$base" = "index.html" ] && url="https://multitecua.com/"
-  printf '%s\n' "$locs" | grep -qx "$url" || { echo "    $base is indexable but is not in sitemap.xml"; smfail=1; }
-done
-[ "$smfail" -eq 0 ] && pass "sitemap.xml lists every indexable page and nothing that does not exist" \
-                    || fail "sitemap.xml and src/ disagree"
+# With two language trees the sitemap has two jobs, so this is Python: every <loc> has
+# to resolve to a real, indexable file, every indexable file has to appear once, and the
+# xhtml:link alternates have to be RECIPROCAL — Google discards a whole hreflang set the
+# moment one side does not point back, which fails silently and would leave the English
+# pages competing with the Spanish ones instead of complementing them.
+python3 - > /tmp/verify-sitemap.$$ 2>&1 <<'PYSM'
+import pathlib, re
+SITE = "https://multitecua.com"
+xml = pathlib.Path("src/sitemap.xml").read_text(encoding="utf-8")
+
+def to_file(url):
+    rel = url[len(SITE):].lstrip("/")
+    if rel == "" or rel.endswith("/"):
+        rel += "index.html"
+    return pathlib.Path("src") / rel
+
+locs = re.findall(r"<loc>([^<]+)</loc>", xml)
+for loc in locs:
+    f = to_file(loc)
+    if not f.is_file():
+        print("    sitemap lists %s but %s does not exist" % (loc, f))
+    elif re.search(r'<meta name="robots" content="[^"]*noindex', f.read_text(encoding="utf-8")):
+        print("    sitemap lists %s but %s is noindex" % (loc, f))
+
+want = []
+for f in sorted(pathlib.Path("src").glob("*.html")) + sorted(pathlib.Path("src/en").glob("*.html")):
+    if re.search(r'<meta name="robots" content="[^"]*noindex', f.read_text(encoding="utf-8")):
+        continue
+    rel = str(f.relative_to("src"))
+    want.append(SITE + "/" + rel.replace("index.html", ""))
+for url in want:
+    if url not in locs:
+        print("    %s is indexable but is not in sitemap.xml" % url)
+for url in locs:
+    if url not in want:
+        print("    sitemap lists %s, which is not an indexable page" % url)
+
+# reciprocity: inside every <url> block the alternates must name this loc as one of them
+for block in re.findall(r"<url>(.*?)</url>", xml, re.S):
+    loc = re.search(r"<loc>([^<]+)</loc>", block).group(1)
+    alts = dict(re.findall(r'<xhtml:link rel="alternate" hreflang="([^"]+)" href="([^"]+)"', block))
+    if set(alts) != {"es", "en", "x-default"}:
+        print("    %s: alternates are %s, expected es/en/x-default" % (loc, sorted(alts)))
+        continue
+    if loc not in (alts["es"], alts["en"]):
+        print("    %s does not list itself among its own alternates" % loc)
+    if alts["x-default"] != alts["es"]:
+        print("    %s: x-default is %s, it must be the Spanish URL" % (loc, alts["x-default"]))
+    if not to_file(alts["es"]).is_file() or not to_file(alts["en"]).is_file():
+        print("    %s: an alternate points at a file that does not exist" % loc)
+PYSM
+if [ ! -s /tmp/verify-sitemap.$$ ]; then
+  pass "sitemap.xml lists every indexable page in both languages, with reciprocal hreflang"
+else
+  cat /tmp/verify-sitemap.$$
+  fail "sitemap.xml and src/ disagree"
+fi
+rm -f /tmp/verify-sitemap.$$
 grep -qE '^Sitemap: https://multitecua.com/sitemap.xml' src/robots.txt \
   && pass "robots.txt points at the sitemap" || fail "robots.txt lost its Sitemap line"
 rbfail=0
@@ -625,7 +705,7 @@ head1 "20. The structured data parses, and says true things"
 # the whole thing without a word.
 ld=$(python3 - <<'PY' 2>&1
 import json, re, sys
-s = open("src/index.html", encoding="utf-8").read()
+s = "".join(open(f, encoding="utf-8").read() for f in ("src/index.html", "src/en/index.html"))
 blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', s, re.S)
 if not blocks:
     print("NO-JSONLD"); sys.exit()
@@ -666,10 +746,27 @@ for dead in 'forms.gle/NsEx9PLxG9cKZWiV8' 'youtube.com/@multitecua7745'; do
 done
 [ "$deadfail" -eq 0 ] && pass "neither known-dead URL is referenced anywhere" || fail "a known-dead URL is back in the tree"
 
+# WHY: the members' Claude seats service must NOT be reachable from the public site.
+# Sergio, 2026-08-29: "ahora mismo no tiene que ser accesible desde ningún sitio". It is
+# still in Stripe test mode and the board has not opened it, so a link to it from the
+# page students arrive at from Instagram sends them to something that cannot serve them.
+# Three links to it were added earlier the same day, on index.html, inscripcion.html and
+# enlaces.html, on an instruction that turned out to be wrong; they are gone. This check
+# is what stops them coming back in six months when nobody remembers the conversation.
+# When the board does open the service, delete this check in the same commit that adds
+# the link, so the decision is visible in one diff.
+seats=$(grep -rniE 'claude\.multitecua|//claude\.' src assets i18n 2>/dev/null || true)
+if [ -z "$seats" ]; then
+  pass "nothing links to the members-only seats service (it is not public yet)"
+else
+  printf '%s\n' "$seats" | sed 's/^/    /'
+  fail "a link to the members-only seats service is back — it must not be reachable from the public site"
+fi
+
 if curl -sS -o /dev/null --max-time 12 https://www.ua.es/ 2>/dev/null; then
   UA_STR='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
   bad=0; n=0
-  for u in $(grep -rhoE 'https://[^"'"'"' >]+' src/*.html | sed 's/[",)]*$//' \
+  for u in $(grep -rhoE 'https://[^"'"'"' >]+' src/*.html src/en/*.html | sed 's/[",)]*$//' \
              | grep -vE 'schema\.org|w3\.org|multitecua\.com|sitemaps\.org' | sort -u); do
     n=$((n+1))
     code=$(curl -sS -o /dev/null -w '%{http_code}' -L --max-time 25 -A "$UA_STR" "$u" 2>/dev/null || echo 000)
@@ -702,9 +799,118 @@ printf '%s' "$html_hdr" | grep -qi 'cache-control: no-cache' \
 code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE_URL/assets/css/style.css")
 [ "$code" = "200" ] && pass "unversioned asset URLs still resolve (200)" \
                     || fail "unversioned asset URL returned $code — old links would break"
+
+# WHY: the whole language policy is a claim about what the SERVER does with an
+# unqualified request. Sergio's rule is that multitecua.com is Spanish — not
+# browser-negotiated, not geolocated — so this asks for the homepage with an English
+# Accept-Language and insists on getting Spanish back. It is the one check that would
+# catch somebody "helpfully" adding content negotiation later.
+es_html=$(curl -sS -H 'Accept-Language: en-GB,en;q=0.9' "$BASE_URL/")
+printf '%s' "$es_html" | grep -q '<html lang="es-ES">' \
+  && pass "/ is Spanish even when the browser asks for English" \
+  || fail "/ did not answer in Spanish — something is negotiating on Accept-Language"
+en_html=$(curl -sS -H 'Accept-Language: es-ES,es;q=0.9' "$BASE_URL/en/")
+printf '%s' "$en_html" | grep -q '<html lang="en">' \
+  && pass "/en/ is English even when the browser asks for Spanish" \
+  || fail "/en/ did not answer in English"
+for pair in "/en:301" "/en/:200" "/en/inscripcion.html:200" "/en/enlaces:200" "/enlaces:200"; do
+  u="${pair%%:*}"; want="${pair##*:}"
+  got=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE_URL$u")
+  [ "$got" = "$want" ] && pass "$u -> $got" || fail "$u -> $got, expected $want"
+done
+# WHY: without `error_page 404 /en/404.html` inside `location /en/`, a dead English URL
+# answers with the SPANISH 404 — the one place on this site the language could flip
+# under a visitor without them touching anything.
+en404=$(curl -sS "$BASE_URL/en/no-such-page")
+printf '%s' "$en404" | grep -q 'Page not found' \
+  && pass "a dead URL under /en/ gets the English 404" \
+  || fail "a dead URL under /en/ does not get the English 404"
+es404=$(curl -sS "$BASE_URL/no-such-page")
+printf '%s' "$es404" | grep -q 'Página no encontrada' \
+  && pass "a dead URL at the root gets the Spanish 404" \
+  || fail "a dead URL at the root does not get the Spanish 404"
 else
   head1 "22. Live headers — SKIPPED (set BASE_URL to a running preview to include)"
 fi
+
+# ---------------------------------------------------------------------------
+head1 "24. Two languages that stay two languages"
+# WHY: this site is Spanish by default with English one tap away (Sergio, 2026-08-29).
+# The failure that needs a test is not "the translation is bad" — it is somebody editing
+# the Spanish and forgetting the English, which produces a page that looks completely
+# fine and is half-translated. Both languages live in ONE table, i18n/strings.json, and
+# the pages in src/ are GENERATED from it; tests/test_i18n.py proves the table is
+# complete and that what is committed is still what the table renders.
+if python3 tests/test_i18n.py > /tmp/verify-i18n.$$ 2>&1; then
+  while IFS= read -r line; do
+    case "$line" in PASS\ *) pass "${line#PASS }" ;; esac
+  done < /tmp/verify-i18n.$$
+else
+  cat /tmp/verify-i18n.$$
+  fail "tests/test_i18n.py failed — the two languages have diverged"
+fi
+rm -f /tmp/verify-i18n.$$
+
+# WHY: the switch is the entire mechanism. It is a plain <a> so that it works with
+# JavaScript off and so that a shared URL carries its language; if it ever became a
+# button, a <select> or an onclick, both of those properties would go without anything
+# else in this file noticing.
+python3 - > /tmp/verify-switch.$$ 2>&1 <<'PYSW'
+import pathlib, re
+
+pages = sorted(pathlib.Path("src").glob("*.html")) + sorted(pathlib.Path("src/en").glob("*.html"))
+ANCHOR = re.compile(r"<a\b[^>]*>")
+for page in pages:
+    html = page.read_text(encoding="utf-8")
+    anchors = ANCHOR.findall(html)
+    # A switch is an <a> that declares the language of what is on the other end. That is
+    # the marker rather than a class name, because the phone panel's copy is styled by
+    # the panel and carries no class of its own.
+    switches = [a for a in anchors if "hreflang=" in a]
+    if not switches:
+        print("    %s has no language switch" % page)
+    for a in switches:
+        if 'href="' not in a:
+            print("    %s: the switch has no href — it is not a link" % page)
+        if " lang=" not in a:
+            print("    %s: the switch must carry lang= as well as hreflang=" % page)
+    if re.search(r"onclick=|<select\b", html):
+        print("    %s: the switch must stay a plain link, with no script" % page)
+    # An English page that links back into the Spanish tree drops the visitor's language
+    # without warning. The English pages link relatively (inscripcion.html, #faq), which
+    # keeps them inside /en/ for free; the only root-absolute hrefs they may carry are
+    # /en/..., /assets/... and the one switch back to Spanish.
+    own, other = ("/en/", "/") if page.parent.name == "en" else ("/", "/en/")
+    for a in anchors:
+        if a in switches:
+            continue
+        m = re.search(r'href="(/[^"]*)"', a)
+        if not m or m.group(1).startswith("/assets/"):
+            continue
+        href = m.group(1)
+        in_en = href == "/en" or href.startswith("/en/")
+        if (page.parent.name == "en") != in_en:
+            print("    %s links into the other language outside the switch: %s" % (page, href))
+PYSW
+if [ ! -s /tmp/verify-switch.$$ ]; then
+  pass "all 8 pages carry a plain-link language switch, and no English page leaks into Spanish"
+else
+  cat /tmp/verify-switch.$$
+  fail "the language switch is broken on at least one page"
+fi
+rm -f /tmp/verify-switch.$$
+
+# WHY: Spanish is the default, and the default is a property of the FILES, not of a
+# redirect or a header — /index.html is the Spanish page and always will be.
+grep -q '<html lang="es-ES">' src/index.html \
+  && pass "the page at the site root is the Spanish one" \
+  || fail "src/index.html is not Spanish — the default language moved"
+
+# WHY: nginx has to answer /en/ and /en/enlaces, and a missing page under /en/ has to
+# get the English 404. These are directives; group 22 checks the responses.
+for d in 'location /en/' 'error_page 404 /en/404.html' 'location = /en/enlaces' 'location = /en '; do
+  grep -qF "$d" nginx/default.conf && pass "nginx: ${d}" || fail "nginx: missing ${d}"
+done
 
 # ---------------------------------------------------------------------------
 if [ -n "${DETECT:-}" ]; then

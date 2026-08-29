@@ -2,25 +2,60 @@
 <!-- Every indexable page the site has, and nothing else. inscripcion.html carries the
      whole conversion flow and was missing from here entirely; enlaces.html stays out
      because it is noindex and Disallowed, and 404.html is noindex by definition.
-     tests/verify.sh group 16 fails if this list and src/*.html ever disagree. -->
+     tests/verify.sh group 16 fails if this list and src/*.html ever disagree.
+
+     Since 2026-08-29 every page exists in two languages: Spanish at the URL it has
+     always had, English under /en/. Each <url> carries the xhtml:link alternates for
+     BOTH languages plus x-default, which is what tells a crawler these are one page in
+     two languages rather than two pages that happen to say the same thing — and which
+     is what makes it show a Spanish result to a Spanish reader and the English one to
+     everybody else. The alternates must be reciprocal or Google ignores the whole set,
+     so they are generated in pairs and never edited one side at a time. -->
 <urlset
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
 <url>
   <loc>https://multitecua.com/</loc>
-  <lastmod>2026-08-29T12:40:32+00:00</lastmod>
+  <xhtml:link rel="alternate" hreflang="es" href="https://multitecua.com/"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://multitecua.com/en/"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://multitecua.com/"/>
+  <lastmod>2026-08-29T15:40:00+00:00</lastmod>
   <changefreq>monthly</changefreq>
   <priority>1.00</priority>
 </url>
 
 <url>
-  <loc>https://multitecua.com/inscripcion.html</loc>
-  <lastmod>2026-08-29T12:40:32+00:00</lastmod>
+  <loc>https://multitecua.com/en/</loc>
+  <xhtml:link rel="alternate" hreflang="es" href="https://multitecua.com/"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://multitecua.com/en/"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://multitecua.com/"/>
+  <lastmod>2026-08-29T15:40:00+00:00</lastmod>
   <changefreq>monthly</changefreq>
   <priority>0.90</priority>
+</url>
+
+<url>
+  <loc>https://multitecua.com/inscripcion.html</loc>
+  <xhtml:link rel="alternate" hreflang="es" href="https://multitecua.com/inscripcion.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://multitecua.com/en/inscripcion.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://multitecua.com/inscripcion.html"/>
+  <lastmod>2026-08-29T15:40:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.90</priority>
+</url>
+
+<url>
+  <loc>https://multitecua.com/en/inscripcion.html</loc>
+  <xhtml:link rel="alternate" hreflang="es" href="https://multitecua.com/inscripcion.html"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://multitecua.com/en/inscripcion.html"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://multitecua.com/inscripcion.html"/>
+  <lastmod>2026-08-29T15:40:00+00:00</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.80</priority>
 </url>
 
 </urlset>

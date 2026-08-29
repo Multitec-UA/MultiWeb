@@ -295,3 +295,37 @@ body {
         font-size: 22px;
     }
 }
+
+/* ---------------------------------------------------------------------------
+   The language switch, same mechanism as every other page: a plain <a> to the
+   other language's copy of this page. It sits under the two buttons rather than
+   beside them, because on a dead link the way back into the site matters more
+   than the language it is written in.
+   --------------------------------------------------------------------------- */
+.lang-switch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 12px;
+    margin-top: 12px;
+    color: #767676;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.lang-switch:hover,
+.lang-switch:focus {
+    color: var(--main-color);
+    text-decoration: underline;
+}
+
+.lang-switch .ic-fa {
+    width: 1.05em;
+    height: 1.05em;
+    fill: currentColor;
+    vertical-align: -0.2em;
+    margin-right: 8px;
+}

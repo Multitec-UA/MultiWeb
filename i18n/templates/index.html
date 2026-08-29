@@ -1,26 +1,24 @@
 <!DOCTYPE html>
-<html lang="es-ES">
+<html lang="{{@lang_tag}}">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Bienvenido a MultitecUA. Somos una asociación de la Universidad de Alicante dedicada a fomentar la ciencia, la tecnología y la innovación.">
+    <meta name="description" content="{{index_meta_description}}">
     <meta name="author" content="MultitecUA" />
-    <link rel="canonical" href="https://multitecua.com/">
-    <link rel="alternate" hreflang="es" href="https://multitecua.com/">
-    <link rel="alternate" hreflang="en" href="https://multitecua.com/en/">
-    <link rel="alternate" hreflang="x-default" href="https://multitecua.com/">
+    <link rel="canonical" href="{{@canonical}}">
+{{@alternates}}
 
-    <title>MultitecUA | Asociación de ciencia y tecnología</title>
+    <title>{{index_title}}</title>
     <link rel="shortcut icon" type="image/x-icon" href="../assets/v5/images/favicon.webp" />
 
-    <meta property="og:locale" content="es_ES">
-    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale" content="{{@og_locale}}">
+    <meta property="og:locale:alternate" content="{{@og_locale_alt}}">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="MultitecUA | Asociación de ciencia y tecnología · Alicante">
-    <meta property="og:description" content="MultitecUA es una asociación dedicada a fomentar la ciencia, la tecnología y la innovación.">
-    <meta property="og:url" content="https://multitecua.com/">
+    <meta property="og:title" content="{{index_og_title}}">
+    <meta property="og:description" content="{{index_og_description}}">
+    <meta property="og:url" content="{{@canonical}}">
     <meta property="og:site_name" content="MultitecUA">
     <!-- A real 1.91:1 social card, not the wordmark on a white field: the association's
          own group photograph, darkened, with the wordmark and the site's red rule over it.
@@ -30,13 +28,13 @@
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Miembros de MultitecUA con el logotipo de la asociación">
+    <meta property="og:image:alt" content="{{og_image_alt}}">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MultitecUA | Asociación de la Universidad de Alicante">
-    <meta name="twitter:description" content="MultitecUA es una asociación de la Universidad de Alicante dedicada a fomentar la tecnología y la innovación entre estudiantes mediante la gamificación.">
-    <meta name="twitter:label1" content="Tiempo de lectura">
-    <meta name="twitter:data1" content="5 minutos">
+    <meta name="twitter:title" content="{{index_twitter_title}}">
+    <meta name="twitter:description" content="{{index_twitter_description}}">
+    <meta name="twitter:label1" content="{{twitter_label_reading}}">
+    <meta name="twitter:data1" content="{{twitter_data_reading}}">
     <meta name="twitter:image" content="https://multitecua.com/assets/images/og-card.jpg">
 
     <link href="../assets/v5/css/bootstrap.min.css" rel="stylesheet">
@@ -113,23 +111,23 @@
                         <div class="row">
                             <div class="col-xs-4">
                                 <div class="logo">
-                                    <a href="/">
-                                        <img alt="Logo de la asociación MultitecUA de la Universidad de Alicante" src="../assets/v5/images/multitec-logo.webp" class="menu-logo" width="1080" height="200">
+                                    <a href="{{@home_href}}">
+                                        <img alt="{{alt_logo}}" src="../assets/v5/images/multitec-logo.webp" class="menu-logo" width="1080" height="200">
                                     </a>
                                 </div>
                             </div>
                             <div class="col-xs-8 d-flex flex-row text-right menu-links">
-                                <a href="#home" class="menu-link">Inicio</a>
-                                <a href="#about" class="menu-link">Sobre Nosotros</a>
-                                <a href="#events" class="menu-link">Eventos</a>
-                                <a href="#workstation" class="menu-link">Medios</a>
-                                <a href="#faq" class="menu-link">Preguntas</a>
-                                <a href="#contact" class="menu-link">Contacto</a>
-                                <a href="inscripcion.html" class="btn menu-btn" >INSCRÍBETE</a>
-                                <a href="/en/" class="menu-link lang-link" hreflang="en" lang="en" aria-label="View in English"><svg class="ic-fa" aria-hidden="true" focusable="false"><use href="#ic-globe"></use></svg>EN</a>
+                                <a href="#home" class="menu-link">{{nav_home}}</a>
+                                <a href="#about" class="menu-link">{{nav_about}}</a>
+                                <a href="#events" class="menu-link">{{nav_events}}</a>
+                                <a href="#workstation" class="menu-link">{{nav_media}}</a>
+                                <a href="#faq" class="menu-link">{{nav_faq}}</a>
+                                <a href="#contact" class="menu-link">{{nav_contact}}</a>
+                                <a href="inscripcion.html" class="btn menu-btn" >{{nav_join_caps}}</a>
+                                <a href="{{@alt_href}}" class="menu-link lang-link" hreflang="{{@alt_lang}}" lang="{{@alt_lang}}" aria-label="{{@alt_aria}}"><svg class="ic-fa" aria-hidden="true" focusable="false"><use href="#ic-globe"></use></svg>{{@alt_code}}</a>
                             </div>
                             <div class="col-xs-8 text-right menu-toggle-wrap">
-                                <button type="button" class="menu m" id="menu-toggle" aria-controls="menu-item" aria-expanded="false" aria-label="Abrir el menú">
+                                <button type="button" class="menu m" id="menu-toggle" aria-controls="menu-item" aria-expanded="false" aria-label="{{alt_menu_toggle}}">
                                     <svg class="menu-icon" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true" focusable="false">
                                     <path class="menu-icon-bars" d="M4 8h22M4 15h22M4 22h22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
                                     <path class="menu-icon-x" d="M7 7l16 16M23 7L7 23" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
@@ -141,14 +139,14 @@
                 </div>
                 <div id="menu-item" class="menu-item hide-menu">
                     <ul>
-                        <li><a href="#home">Inicio</a></li>
-                        <li><a href="#about">Sobre Nosotros</a></li>
-                        <li><a href="#events">Eventos</a></li>
-                        <li><a href="#workstation">Medios</a></li>
-                        <li><a href="#faq">Preguntas</a></li>
-                        <li><a href="#contact">Contacto</a></li>
-                        <li><a href="inscripcion.html" class="menu-item-cta">Inscríbete</a></li>
-                        <li><a href="/en/" hreflang="en" lang="en" aria-label="View in English"><svg class="ic-fa" aria-hidden="true" focusable="false"><use href="#ic-globe"></use></svg>English</a></li>
+                        <li><a href="#home">{{nav_home}}</a></li>
+                        <li><a href="#about">{{nav_about}}</a></li>
+                        <li><a href="#events">{{nav_events}}</a></li>
+                        <li><a href="#workstation">{{nav_media}}</a></li>
+                        <li><a href="#faq">{{nav_faq}}</a></li>
+                        <li><a href="#contact">{{nav_contact}}</a></li>
+                        <li><a href="inscripcion.html" class="menu-item-cta">{{nav_join}}</a></li>
+                        <li><a href="{{@alt_href}}" hreflang="{{@alt_lang}}" lang="{{@alt_lang}}" aria-label="{{@alt_aria}}"><svg class="ic-fa" aria-hidden="true" focusable="false"><use href="#ic-globe"></use></svg>{{@alt_endonym}}</a></li>
                     </ul>
                 </div>
             </nav>
@@ -156,9 +154,9 @@
                 <div class="row">
                     <div class="intro-box">
                         <div class="intro">
-                            <h1>Somos la asociación MultitecUA</h1>
-                            <p class="text-title">Universidad de Alicante</p>
-                            <a href="inscripcion.html" class="btn vira-btn">¡ME APUNTO!</a>
+                            <h1>{{hero_title}}</h1>
+                            <p class="text-title">{{hero_subtitle}}</p>
+                            <a href="inscripcion.html" class="btn vira-btn">{{hero_cta}}</a>
                         </div>
                     </div>
                 </div>
@@ -169,19 +167,19 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-8 col-sm-offset-2">
-                            <h2 class="title">Asociación de la UA</h2>
-                            <p>Multitec es una asociación multidisciplinar sin ánimo de lucro formada por cualquier entusiasta de la ciencia o la tecnología. El objetivo de formar una comunidad donde poder compartir conocimientos, difundir información y aprender nuevas cosas juntos.</p>
-                            <p><br> Somos más que una comunidad. Multitec es una familia que nace del espíritu y del objetivo común de ir más allá en lo tecnológico y personal. Multitec pretende ser un lugar de encuentro, un puente entre lo laboral y lo académico, y ser referentes en nuevas metodologías de aprendizaje.</p>
-                            <p><br> Actualmente, contamos con más de <b>100</b> miembros.</p>
-                            <p><i><br> "No hay que tener miedo a hacerlo mal, sino miedo a no hacer nada."</i></p>
-                            <img alt="Logo de la asociación MultitecUA de la Universidad de Alicante" src="../assets/v5/images/mtua-logo.webp" class="association-logo" width="1200" height="675" loading="lazy">
+                            <h2 class="title">{{about_title}}</h2>
+                            <p>{{about_p1}}</p>
+                            <p><br> {{about_p2}}</p>
+                            <p><br> {{about_members}}</p>
+                            <p><i><br> {{about_quote}}</i></p>
+                            <img alt="{{alt_logo}}" src="../assets/v5/images/mtua-logo.webp" class="association-logo" width="1200" height="675" loading="lazy">
                         </div>
                     </div>
                 </div>
             </section>            
             <section class="purpose section">
                 <div class="container">
-                    <h2 class="title">Descubre Multitec</h2>
+                    <h2 class="title">{{purpose_title}}</h2>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="vira-card">
@@ -191,8 +189,8 @@
                                     </div>
                                 </div>
                                 <div class="vira-card-content">
-                                    <h3>Divulgación</h3>
-                                    <p>Compartimos información de diferentes ámbitos y aprendemos en comunidad sobre nuevas tecnologías, nuevas ciencias y nuevas experiencias. Entérate de eventos, ofertas laborales y noticias interesantes con nosotros.</p>
+                                    <h3>{{purpose_1_title}}</h3>
+                                    <p>{{purpose_1_body}}</p>
                                 </div>
                             </div>
                         </div>
@@ -204,8 +202,8 @@
                                     </div>
                                 </div>
                                 <div class="vira-card-content">
-                                    <h3>Eventos</h3>
-                                    <p>Participamos en eventos presenciales y online con diferentes enfoques para poder desarrollarnos, aprender nuevas habilidades y descubrir nuestro lado más inquieto. ¡También nos encanta organizarlos junto a nuestros colaboradores!</p>
+                                    <h3>{{purpose_2_title}}</h3>
+                                    <p>{{purpose_2_body}}</p>
                                 </div>
                             </div>
                         </div>
@@ -217,8 +215,8 @@
                                     </div>
                                 </div>
                                 <div class="vira-card-content">
-                                    <h3>Proyectos</h3>
-                                    <p>Nos encanta quedar entre nosotros para proponer nuevos proyectos y aprender en el proceso. Si tienes una idea o una motivación, ¡ponla sobre la mesa para poder hacerla todos juntos y desarrollar nuestras habilidades en comunidad!</p>
+                                    <h3>{{purpose_3_title}}</h3>
+                                    <p>{{purpose_3_body}}</p>
                                 </div>
                             </div>
                         </div>
@@ -232,17 +230,17 @@
                             <div></div>
                         </div>
                         <div class="col-sm-5 section">
-                            <h2 class="title">Forma parte de Multitec</h2>
-                            <p>Para formar parte de esta familia, haz clic en el botón de abajo y rellena el cuestionario. Inscribirse no es gratuito, existe un cuota de <b class="red_text">12 € anuales</b> destinada al mantenimiento y desarrollo de la asociación. En la sección de <a href="#faq"><b class="red_text">preguntas</b></a> puedes consultar los beneficios de ser miembro.</p>
-                            <a class="btn news-btn" href="inscripcion.html">MÁS INFORMACIÓN E INSCRIPCIÓN</a>
+                            <h2 class="title">{{join_title}}</h2>
+                            <p>{{join_body}}</p>
+                            <a class="btn news-btn" href="inscripcion.html">{{join_cta}}</a>
                             <div class="col-sm-12">
                                 <div class="social-icons-form">
                                     <ul>
-                                        <li><a href="https://www.instagram.com/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en Instagram"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-instagram"></use></svg></a></li>
-                                        <li><a href="https://twitter.com/MultiTecUA" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en Twitter"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitter"></use></svg></a></li>
-                                        <li><a href="https://www.linkedin.com/company/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en LinkedIn"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-linkedin"></use></svg></a></li>
-                                        <li><a href="https://www.twitch.tv/multitecua" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en Twitch"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitch"></use></svg></a></li>
-                                        <li><a href="https://www.youtube.com/channel/UComtzTLqL-jHvRhiQVrzPJg" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en YouTube"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-youtube"></use></svg></a></li>
+                                        <li><a href="https://www.instagram.com/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="{{aria_instagram}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-instagram"></use></svg></a></li>
+                                        <li><a href="https://twitter.com/MultiTecUA" target="_blank" rel="noopener noreferrer" aria-label="{{aria_twitter}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitter"></use></svg></a></li>
+                                        <li><a href="https://www.linkedin.com/company/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="{{aria_linkedin}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-linkedin"></use></svg></a></li>
+                                        <li><a href="https://www.twitch.tv/multitecua" target="_blank" rel="noopener noreferrer" aria-label="{{aria_twitch}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitch"></use></svg></a></li>
+                                        <li><a href="https://www.youtube.com/channel/UComtzTLqL-jHvRhiQVrzPJg" target="_blank" rel="noopener noreferrer" aria-label="{{aria_youtube}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-youtube"></use></svg></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -252,40 +250,40 @@
             </section>
             <section id="events" class="team section">
                 <div class="container">
-                    <h2 class="title">Eventos de la asociación</h2>
+                    <h2 class="title">{{events_title}}</h2>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="vira-card">
                                 <div class="vira-card-header">
                                     <a href="https://cienciathon.org/" target="_blank" rel="noopener noreferrer">
-                                        <img alt="Evento Cienciathon de MultitecUA y Parque Científico de la Universidad de Alicante" class="img-responsive" src="../assets/v5/images/cianciathon.webp" width="720" height="558" loading="lazy">
+                                        <img alt="{{alt_event_cienciathon}}" class="img-responsive" src="../assets/v5/images/cianciathon.webp" width="720" height="558" loading="lazy">
                                     </a>
                                 </div>
                                 <div class="vira-card-content">
-                                    <h3>Cienciathon</h3>
-                                    <p>Combina la ciencia y la tecnología en esta hackathon de tres días junto al Parque Científico de la Universidad de Alicante donde se desarrollan ideas innovadoras para resolver problemas actuales.</p>
+                                    <h3>{{event_1_title}}</h3>
+                                    <p>{{event_1_body}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="vira-card">
                                 <div class="vira-card-header">
-                                    <img alt="Evento UAGames Devcon de MultitecUA y Escuela Politécnica Superior de la UA" class="img-responsive" src="../assets/v5/images/uagames-devcon.webp" width="720" height="558" loading="lazy">
+                                    <img alt="{{alt_event_devcon}}" class="img-responsive" src="../assets/v5/images/uagames-devcon.webp" width="720" height="558" loading="lazy">
                                 </div>
                                 <div class="vira-card-content">
-                                    <h3>UAGames DevCon</h3>
-                                    <p>Los estudiantes de Ingeniería Multimedia de Escuela Politécnica Superior de la UA muestran a la luz sus proyectos que han desarrollado durante el curso.</p>
+                                    <h3>{{event_2_title}}</h3>
+                                    <p>{{event_2_body}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="vira-card rounded">
                                 <div class="vira-card-header">
-                                    <img alt="Evento Gamejam Alicante de MultitecUA" class="img-responsive" src="../assets/v5/images/gamejam.webp" width="720" height="558" loading="lazy">
+                                    <img alt="{{alt_event_gamejam}}" class="img-responsive" src="../assets/v5/images/gamejam.webp" width="720" height="558" loading="lazy">
                                 </div>
                                 <div class="vira-card-content">
-                                    <h3>Gamejam Alicante</h3>
-                                    <p>El evento insignia de desarrollo de videojuegos en Alicante. Varios grupos desarrollan un videojuego en un tiempo de 48h en base a un tema determinado que los participantes no conocen hasta el comienzo del evento.</p>
+                                    <h3>{{event_3_title}}</h3>
+                                    <p>{{event_3_body}}</p>
                                 </div>
                             </div>
                         </div>
@@ -294,93 +292,93 @@
             </section>
             <section id="workstation" class="work section expert">
                 <div class="container">
-                    <h2 class="title">Multitec en las noticias</h2>
+                    <h2 class="title">{{press_title}}</h2>
                     <div id="workstation-slider" class="owl-carousel">
                         <div class="item">
                             <div class="vira-card">
                                 <div class="vira-card-header">
-                                    <img alt="Noticia de UAParc sobre Gamejam Alicante" class="img-responsive" src="../assets/v5/images/news_8.webp" width="768" height="512" loading="lazy">
+                                    <img alt="{{alt_news_1}}" class="img-responsive" src="../assets/v5/images/news_8.webp" width="768" height="512" loading="lazy">
                                 </div>
                                 <div class="vira-card-content">
                                     <p class="news-newspaper">UAPARC</p>
-                                    <h3><a href="https://uaparc.es/amantes-de-los-videojuegos-se-dan-cita-en-parque-cientifico-de-la-ua-para-participar-en-la-xi-gamejam-alicante/">Amantes de los videojuegos se dan cita en el Parque Científico de la UA para participar en la XI Gamejam Alicante</a></h3>
+                                    <h3><a href="https://uaparc.es/amantes-de-los-videojuegos-se-dan-cita-en-parque-cientifico-de-la-ua-para-participar-en-la-xi-gamejam-alicante/">{{press_1}}</a></h3>
                                 </div>
                             </div>
                         </div>
                         <div class="item">
                             <div class="vira-card">
                                 <div class="vira-card-header">
-                                    <img alt="Noticia de Alicante Plaza sobre MultitecUA" class="img-responsive" src="../assets/v5/images/news_7.webp" width="600" height="400" loading="lazy">
+                                    <img alt="{{alt_news_2}}" class="img-responsive" src="../assets/v5/images/news_7.webp" width="600" height="400" loading="lazy">
                                 </div>
                                 <div class="vira-card-content">
                                     <p class="news-newspaper">ALICANTE PLAZA</p>
-                                    <h3><a href="https://alicanteplaza.es/el-parque-cientifico-de-la-ua-acoge-la-xi-edicion-de-game-jam-alicante">El Parque Científico de la UA acoge la XI edición de Game Jam Alicante</a></h3>
+                                    <h3><a href="https://alicanteplaza.es/el-parque-cientifico-de-la-ua-acoge-la-xi-edicion-de-game-jam-alicante">{{press_2}}</a></h3>
                                 </div>
                             </div>
                         </div>
                         <div class="item">
                             <div class="vira-card">
                                 <div class="vira-card-header">
-                                    <img alt="Noticia de Alicante Plaza sobre MultitecUA" class="img-responsive" src="../assets/v5/images/news_1.webp" width="768" height="512" loading="lazy">
+                                    <img alt="{{alt_news_2}}" class="img-responsive" src="../assets/v5/images/news_1.webp" width="768" height="512" loading="lazy">
                                 </div>
                                 <div class="vira-card-content">
                                     <p class="news-newspaper">ALICANTE PLAZA</p>
-                                    <h3><a href="https://alicanteplaza.es/multitecua-una-asociacion-de-estudiantes-enfocada-a-emprender-con-proyectos-tecnologicos">MultitecUA: una asociación de estudiantes enfocada a emprender con proyectos tecnológicos</a></h3>
+                                    <h3><a href="https://alicanteplaza.es/multitecua-una-asociacion-de-estudiantes-enfocada-a-emprender-con-proyectos-tecnologicos">{{press_3}}</a></h3>
                                 </div>
                             </div>
                         </div>
                         <div class="item">
                             <div class="vira-card">
                                 <div class="vira-card-header">
-                                    <img alt="Noticia de El Mundo sobre MultitecUA" class="img-responsive" src="../assets/v5/images/news_2.webp" width="600" height="400" loading="lazy">
+                                    <img alt="{{alt_news_3}}" class="img-responsive" src="../assets/v5/images/news_2.webp" width="600" height="400" loading="lazy">
                                 </div>
                                 <div class="vira-card-content">
                                     <p class="news-newspaper">EL MUNDO</p>
-                                    <h3><a href="https://www.elmundo.es/comunidad-valenciana/alicante/2019/08/10/5d4da6fafdddffcba18b4610.html">Distrito Digital celebrará su primer gran congreso a finales de octubre</a></h3>
+                                    <h3><a href="https://www.elmundo.es/comunidad-valenciana/alicante/2019/08/10/5d4da6fafdddffcba18b4610.html">{{press_4}}</a></h3>
                                 </div>
                             </div>
                         </div>
                         <div class="item">
                             <div class="vira-card">
                                 <div class="vira-card-header">
-                                    <img alt="Noticia de Alicante Plaza sobre la Cianciathon de MultitecUA" class="img-responsive" src="../assets/v5/images/news_3.webp" width="768" height="512" loading="lazy">
+                                    <img alt="{{alt_news_4}}" class="img-responsive" src="../assets/v5/images/news_3.webp" width="768" height="512" loading="lazy">
                                 </div>
                                 <div class="vira-card-content">
                                     <p class="news-newspaper">ALICANTE PLAZA</p>
-                                    <h3><a href="https://alicanteplaza.es/cuarta-edicion-cienciathon-pca">Soluciones en el ámbito 'one health' nacen de la cuarta edición del Cienciathon del PCA</a></h3>
+                                    <h3><a href="https://alicanteplaza.es/cuarta-edicion-cienciathon-pca">{{press_5}}</a></h3>
                                 </div>
                             </div>
                         </div>
                         <div class="item">
                             <div class="vira-card">
                                 <div class="vira-card-header">
-                                    <img alt="Noticia de MURCIA.COM sobre MultitecUA" class="img-responsive" src="../assets/v5/images/news_4.webp" width="768" height="512" loading="lazy">
+                                    <img alt="{{alt_news_5}}" class="img-responsive" src="../assets/v5/images/news_4.webp" width="768" height="512" loading="lazy">
                                 </div>
                                 <div class="vira-card-content">
                                     <p class="news-newspaper">MURCIA.COM</p>
-                                    <h3><a href="https://www.murcia.com/noticias/2019/03/29-hackforgood-ucam.asp">SIET, una App para las alergias alimenticias, gana el H4G 2019</a></h3>
+                                    <h3><a href="https://www.murcia.com/noticias/2019/03/29-hackforgood-ucam.asp">{{press_6}}</a></h3>
                                 </div>
                             </div>
                         </div>
                         <div class="item">
                             <div class="vira-card">
                                 <div class="vira-card-header">
-                                    <img alt="Noticia de Torreviejaip sobre MultitecUA" class="img-responsive" src="../assets/v5/images/news_5.webp" width="768" height="512" loading="lazy">
+                                    <img alt="{{alt_news_6}}" class="img-responsive" src="../assets/v5/images/news_5.webp" width="768" height="512" loading="lazy">
                                 </div>
                                 <div class="vira-card-content">
                                     <p class="news-newspaper">TORREVIEJAIP</p>
-                                    <h3><a href="https://www.torreviejaip.tv/cultura/2019030125334/la-tecnologia-del-futuro-aterriza-en-torrevieja.html">La tecnología del futuro aterriza en Torrevieja</a></h3>
+                                    <h3><a href="https://www.torreviejaip.tv/cultura/2019030125334/la-tecnologia-del-futuro-aterriza-en-torrevieja.html">{{press_7}}</a></h3>
                                 </div>
                             </div>
                         </div>
                         <div class="item">
                             <div class="vira-card">
                                 <div class="vira-card-header">
-                                    <img alt="Noticia de diario Información sobre MultitecUA" class="img-responsive" src="../assets/v5/images/news_6.webp" width="768" height="512" loading="lazy">
+                                    <img alt="{{alt_news_7}}" class="img-responsive" src="../assets/v5/images/news_6.webp" width="768" height="512" loading="lazy">
                                 </div>
                                 <div class="vira-card-content">
                                     <p class="news-newspaper">INFORMACIÓN</p>
-                                    <h3><a href="https://www.informacion.es/economia/2019/10/23/distrito-digital-congrega-talento-tecnologico-5289659.html">Distrito Digital congrega al talento tecnológico de Alicante en Tech Communities Day</a></h3>
+                                    <h3><a href="https://www.informacion.es/economia/2019/10/23/distrito-digital-congrega-talento-tecnologico-5289659.html">{{press_8}}</a></h3>
                                 </div>
                             </div>
                         </div>
@@ -389,72 +387,72 @@
             </section>
 
             <section id="faq" class="subscribe section bg-img">
-                <h2 class="faq-title title">Preguntas y respuestas</h2>
+                <h2 class="faq-title title">{{faq_title}}</h2>
                 <div class="faq-container">
-                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-1">¿Cuáles son los beneficios de unirse?</p>
+                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-1">{{faq_q1}}</p>
                     <div id="faq-answer-1" style="display: none;">
                         <ul>
-                            <li class="faq-answer"><strong><hr>Regalo de bienvenida:</strong> Recibirás un paquete de bienvenida que incluye una camiseta, bolígrafo y pulsera de MT.</li>
-                            <li class="faq-answer"><strong><hr>Acceso a grupos internos:</strong> Únete a nuestros grupos en WhatsApp, Telegram y Discord para estar siempre conectado.</li>
-                            <li class="faq-answer"><strong><hr>Participación en asambleas:</strong> Tendrás voz y voto en las asambleas, pudiendo influir en las decisiones importantes.</li>
-                            <li class="faq-answer"><strong><hr>Acceso a la Multicasa:</strong> Un espacio exclusivo para los miembros, equipado con:  
-                                <br>- Mesas de estudio y coworking para socios e invitados.
-                                <br>- Áreas para eventos y socialización.
-                                <br>- Impresoras 3D (Resina y filamento).
-                                <br>- Proyector para ordenador y videojuegos (Wii con catálogo completo).
-                                <br>- Arduinos y material de electrónica.
-                                <br>- Ordenadores retirados para montar tu propio servidor linux.
-                                <br>- Nevera, microondas y cafetera.
+                            <li class="faq-answer"><strong><hr>{{faq_b1_label}}</strong> {{faq_b1}}</li>
+                            <li class="faq-answer"><strong><hr>{{faq_b2_label}}</strong> {{faq_b2}}</li>
+                            <li class="faq-answer"><strong><hr>{{faq_b3_label}}</strong> {{faq_b3}}</li>
+                            <li class="faq-answer"><strong><hr>{{faq_b4_label}}</strong> {{faq_b4}}  
+                                <br>- {{faq_b4_item1}}
+                                <br>- {{faq_b4_item2}}
+                                <br>- {{faq_b4_item3}}
+                                <br>- {{faq_b4_item4}}
+                                <br>- {{faq_b4_item5}}
+                                <br>- {{faq_b4_item6}}
+                                <br>- {{faq_b4_item7}}
                             </li>
-                            <li class="faq-answer"><strong><hr>Servidor compartido de Minecraft:</strong> Disfruta de acceso al servidor de Minecraft junto a tus amigos.</li>
-                            <li class="faq-answer"><strong><hr>Reserva de salas en la EPS:</strong> Posibilidad de reservar salas de trabajo y eventos en la Escuela Politécnica Superior.</li>
-                            <li class="faq-answer"><strong><hr>Alojamiento web:</strong> Hospedaje de sitios web y APIs bajo el dominio multitecua.com.</li>
-                            <li class="faq-answer"><strong><hr>Participación en elecciones:</strong> Derecho a voto y a presentar candidatura en las elecciones de la junta directiva.</li>
-                            <li class="faq-answer"><strong><hr>Recursos y talleres gratuitos:</strong> Acceso sin coste a todos los recursos y talleres organizados por la asociación.</li>
-                            <li class="faq-answer"><strong><hr>Material y eventos exclusivos:</strong> Disfruta de material, eventos y mucho más, diseñados específicamente para nuestros miembros.</li>
+                            <li class="faq-answer"><strong><hr>{{faq_b5_label}}</strong> {{faq_b5}}</li>
+                            <li class="faq-answer"><strong><hr>{{faq_b7_label}}</strong> {{faq_b7}}</li>
+                            <li class="faq-answer"><strong><hr>{{faq_b8_label}}</strong> {{faq_b8}}</li>
+                            <li class="faq-answer"><strong><hr>{{faq_b9_label}}</strong> {{faq_b9}}</li>
+                            <li class="faq-answer"><strong><hr>{{faq_b10_label}}</strong> {{faq_b10}}</li>
+                            <li class="faq-answer"><strong><hr>{{faq_b11_label}}</strong> {{faq_b11}}</li>
                         </ul>
                     </div>
                 </div>
                 <div class="faq-container">
-                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-2">¿Quienes pueden formar parte de Multitec?</p>
+                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-2">{{faq_q2}}</p>
                     <div id="faq-answer-2" style="display: none;">
-                        <p class="faq-answer"><b>Cualquier estudiante o egresado de la Universidad de Alicante</b> interesado en la innovación, aprender más allá de las clases y pasarlo bien puede unirse a Multitec. No importa el grado o la facultad al que pertenezcas, puedes unirte siempre que quieras. Las personas que no pertenezcan a la UA pueden formar parte siempre y cuando sean premiados en alguno de nuestros eventos.</p>
+                        <p class="faq-answer">{{faq_a2}}</p>
                     </div>
                 </div>
                 <div class="faq-container">
-                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-3">¿Cuándo puedo inscribirme?</p>
+                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-3">{{faq_q3}}</p>
                     <div id="faq-answer-3" style="display: none;">
-                        <p class="faq-answer">¡En cualquier momento!. Estamos activos durante todo el año y haciendo cosas en todo momento, por lo cual puedes inscribirte a mitad de curso si así lo deseas sin miedo a que llegues tarde.</p>
+                        <p class="faq-answer">{{faq_a3}}</p>
                     </div>
                 </div>
                 <div class="faq-container">
-                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-4">¿Cómo puedo unirme?</p>
+                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-4">{{faq_q4}}</p>
                     <div id="faq-answer-4" style="display: none;">
-                        <p class="faq-answer">Para unirte a Multitec, simplemente debes ir a la sección de <a style="text-decoration: underline; color: #fff" href="inscripcion.html">inscripción</a> y pagar la cuota anual de <b>12 €</b>.</p>
+                        <p class="faq-answer">{{faq_a4}}</p>
                     </div>
                 </div>
                 <div class="faq-container">
-                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-5">¿Hay algún requisito para unirse?</p>
+                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-5">{{faq_q5}}</p>
                     <div id="faq-answer-5" style="display: none;">
-                        <p class="faq-answer">No hay requisitos específicos para unirse a Multitec, más allá de estar interesado en la tecnología, la innovación y estar dispuesto a colaborar y aprender en equipo.</p>
+                        <p class="faq-answer">{{faq_a5}}</p>
                     </div>
                 </div>
                 <div class="faq-container">
-                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-6">¿Cómo puedo participar en los proyectos de Multitec?</p>
+                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-6">{{faq_q6}}</p>
                     <div id="faq-answer-6" style="display: none;">
-                        <span class="faq-answer">En Multitec existen proyectos internos que, para participar en ellos, debes antes formar parte de la asociación y después eres libre de decidir en qué participar. Por otro lado, organizamos eventos abiertos al público donde todo el mundo puede participar como la Cienciathon o la Gamejam Alicante.</span>
+                        <span class="faq-answer">{{faq_a6}}</span>
                     </div>
                 </div>
                 <div class="faq-container">
-                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-7">¿Puedo inscribirme a Multitec si soy de intercambio?</p>
+                    <p class="faq-question" role="button" tabindex="0" aria-expanded="false" aria-controls="faq-answer-7">{{faq_q7}}</p>
                     <div id="faq-answer-7" style="display: none;">
-                        <p class="faq-answer">¡Por supuesto! MultitecUA es una asociación abierta a estudiantes de todas partes del mundo que estén cursando estudios en la Universidad de Alicante. Te animamos a unirte y participar en nuestras actividades, ¡será una experiencia enriquecedora!</p>
+                        <p class="faq-answer">{{faq_a7}}</p>
                     </div>
                 </div>
             </section>
             <section id="contact" class="contact section">
                 <div class="container">
-                    <h2 class="title section-title">Contacta con nosotros</h2>
+                    <h2 class="title section-title">{{contact_title}}</h2>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="vira-card">
@@ -462,8 +460,8 @@
                                     <span class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-map"></use></svg></span>
                                 </div>
                                 <div class="vira-card-content">
-                                    <p class="contact-title">Ubicación</p>
-                                    <p>Colegio Mayor de la Universidad de Alicante</p>
+                                    <p class="contact-title">{{contact_location_label}}</p>
+                                    <p>{{contact_location}}</p>
                                 </div>
                             </div>
                         </div>
@@ -473,16 +471,16 @@
                                     <span class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-paper-plane"></use></svg></span>
                                 </div>
                                 <div class="vira-card-content">
-                                    <p class="contact-title">Redes Sociales</p>
-                                    <p>Envíanos un mensaje directo</p>
+                                    <p class="contact-title">{{contact_social_label}}</p>
+                                    <p>{{contact_social}}</p>
                                     <div class="col-sm-12">
                                         <div class="social-icons-form">
                                             <ul>
-                                                <li><a href="https://www.instagram.com/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en Instagram"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-instagram"></use></svg></a></li>
-                                                <li><a href="https://twitter.com/MultiTecUA" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en Twitter"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitter"></use></svg></a></li>
-                                                <li><a href="https://www.linkedin.com/company/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en LinkedIn"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-linkedin"></use></svg></a></li>
-                                                <li><a href="https://www.twitch.tv/multitecua" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en Twitch"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitch"></use></svg></a></li>
-                                                <li><a href="https://www.youtube.com/channel/UComtzTLqL-jHvRhiQVrzPJg" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en YouTube"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-youtube"></use></svg></a></li>
+                                                <li><a href="https://www.instagram.com/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="{{aria_instagram}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-instagram"></use></svg></a></li>
+                                                <li><a href="https://twitter.com/MultiTecUA" target="_blank" rel="noopener noreferrer" aria-label="{{aria_twitter}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitter"></use></svg></a></li>
+                                                <li><a href="https://www.linkedin.com/company/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="{{aria_linkedin}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-linkedin"></use></svg></a></li>
+                                                <li><a href="https://www.twitch.tv/multitecua" target="_blank" rel="noopener noreferrer" aria-label="{{aria_twitch}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitch"></use></svg></a></li>
+                                                <li><a href="https://www.youtube.com/channel/UComtzTLqL-jHvRhiQVrzPJg" target="_blank" rel="noopener noreferrer" aria-label="{{aria_youtube}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-youtube"></use></svg></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -495,25 +493,25 @@
                                     <span class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-envelope"></use></svg></span>
                                 </div>
                                 <div class="vira-card-content">
-                                    <p class="contact-title">Email</p>
+                                    <p class="contact-title">{{contact_email_label}}</p>
                                     <p>contacto@multitecua.com</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-sm-12 text-center">
-                            <p>También puedes unirte a nuestro grupo de <a class="telegram" href="https://t.me/MultitecUA">Telegram</a></p>
+                            <p>{{contact_telegram}}</p>
                         </div>
 
                         <iframe class="maps" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12509.692053929966!2d-0.509647!3d38.3854672!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6237f905204eff%3A0xc5aef6bd02c91fc8!2sMultitecUA!5e0!3m2!1ses!2ses!4v1679493824847!5m2!1ses!2ses" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         <div class="col-sm-12">
                             <div class="social-icons">
                                 <ul>
-                                    <li><a href="https://www.instagram.com/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en Instagram"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-instagram"></use></svg></a></li>
-                                    <li><a href="https://twitter.com/MultiTecUA" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en Twitter"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitter"></use></svg></a></li>
-                                    <li><a href="https://www.linkedin.com/company/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en LinkedIn"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-linkedin"></use></svg></a></li>
-                                    <li><a href="https://www.twitch.tv/multitecua" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en Twitch"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitch"></use></svg></a></li>
-                                    <li><a href="https://www.youtube.com/channel/UComtzTLqL-jHvRhiQVrzPJg" target="_blank" rel="noopener noreferrer" aria-label="MultitecUA en YouTube"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-youtube"></use></svg></a></li>
+                                    <li><a href="https://www.instagram.com/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="{{aria_instagram}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-instagram"></use></svg></a></li>
+                                    <li><a href="https://twitter.com/MultiTecUA" target="_blank" rel="noopener noreferrer" aria-label="{{aria_twitter}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitter"></use></svg></a></li>
+                                    <li><a href="https://www.linkedin.com/company/multitecua/" target="_blank" rel="noopener noreferrer" aria-label="{{aria_linkedin}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-linkedin"></use></svg></a></li>
+                                    <li><a href="https://www.twitch.tv/multitecua" target="_blank" rel="noopener noreferrer" aria-label="{{aria_twitch}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-twitch"></use></svg></a></li>
+                                    <li><a href="https://www.youtube.com/channel/UComtzTLqL-jHvRhiQVrzPJg" target="_blank" rel="noopener noreferrer" aria-label="{{aria_youtube}}"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-youtube"></use></svg></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -525,19 +523,19 @@
             <div class="footer-container">
                 <div class="footer-row">
                     <div class="footer-center">
-                        <p class="footer-little">Colaboran con nosotros:</p>
+                        <p class="footer-little">{{footer_partners}}</p>
                         <a href="https://uaparc.es/">
-                            <img class="association-logo" src="../assets/v5/images/pca.webp" alt="Logo del Parque Científico de la Universidad de Alicante" width="800" height="450" loading="lazy">
+                            <img class="association-logo" src="../assets/v5/images/pca.webp" alt="{{alt_logo_pca}}" width="800" height="450" loading="lazy">
                         </a>
                         <a href="https://www.ua.es/">
-                            <img class="association-logo" src="../assets/v5/images/ua.webp" alt="Logo de la Universidad de Alicante" width="800" height="450" loading="lazy">
+                            <img class="association-logo" src="../assets/v5/images/ua.webp" alt="{{alt_logo_ua}}" width="800" height="450" loading="lazy">
                         </a>
                         <a href="https://eps.ua.es/">
-                            <img class="association-logo" src="../assets/v5/images/eps.webp" alt="Logo de la Escuela Politécnica Superior de la Universidad de Alicante" width="800" height="450" loading="lazy">
+                            <img class="association-logo" src="../assets/v5/images/eps.webp" alt="{{alt_logo_eps}}" width="800" height="450" loading="lazy">
                         </a>
                     </div>
                 </div>
-                <p><small class="footer-copy">Creado con &hearts; por Multitec.</small></p>
+                <p><small class="footer-copy">{{footer_copy}}</small></p>
             </div>
         </footer>
     </div>

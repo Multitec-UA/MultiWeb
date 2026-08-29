@@ -3,6 +3,8 @@ User-agent: *
 # the index here too so it never competes with the homepage for the brand query.
 Disallow: /enlaces
 Disallow: /enlaces/
+Disallow: /en/enlaces
+Disallow: /en/enlaces/
 # /stream is a 301 to Twitch, not a page.
 Disallow: /stream
 Disallow: /stream/

@@ -285,3 +285,43 @@ body {
         padding: var(--spacing-sm);
     }
 } 
+/* ---------------------------------------------------------------------------
+   The language switch. A plain <a> to /en/enlaces (or back to /enlaces): no
+   JavaScript, no cookie, no Accept-Language — an unqualified visit is Spanish
+   and the link is the whole mechanism. Sized like a small .link-item so it
+   still clears 44px under a thumb, which is the only input this page ever gets.
+   --------------------------------------------------------------------------- */
+.lang-switch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 var(--spacing-md);
+    margin: 0 auto var(--spacing-lg);
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid transparent;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: var(--transition);
+}
+
+.lang-switch:hover,
+.lang-switch:focus {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    text-decoration: none;
+}
+
+.lang-switch .ic-fa {
+    width: 1.05em;
+    height: 1.05em;
+    fill: currentColor;
+    vertical-align: -0.2em;
+    margin-right: 10px;
+    color: var(--primary-color);
+}

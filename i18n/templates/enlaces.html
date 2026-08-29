@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="es-ES">
+<html lang="{{@lang_tag}}">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-        content="Enlaces oficiales de MultitecUA, asociación de estudiantes de la Universidad de Alicante dedicada a fomentar la tecnología y la innovación.">
+        content="{{enl_meta_description}}">
     <meta name="author" content="MultitecUA" />
     <meta name="robots" content="noindex, nofollow">
-    <link rel="canonical" href="https://multitecua.com/enlaces">
+    <link rel="canonical" href="{{@canonical}}">
 
-    <title>MultitecUA | Enlaces Oficiales</title>
+    <title>{{enl_title}}</title>
     <link rel="shortcut icon" type="image/x-icon" href="../assets/v5/images/favicon.webp" />
 
-    <meta property="og:locale" content="es_ES">
-    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale" content="{{@og_locale}}">
+    <meta property="og:locale:alternate" content="{{@og_locale_alt}}">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="MultitecUA | Enlaces oficiales">
+    <meta property="og:title" content="{{enl_og_title}}">
     <meta property="og:description"
-        content="Enlaces oficiales de MultitecUA, asociación de estudiantes de la Universidad de Alicante dedicada a fomentar la tecnología y la innovación.">
-    <meta property="og:url" content="https://multitecua.com/enlaces">
+        content="{{enl_og_description}}">
+    <meta property="og:url" content="{{@canonical}}">
     <meta property="og:site_name" content="MultitecUA">
     <meta property="og:image" content="https://multitecua.com/assets/images/og-card.jpg">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Miembros de MultitecUA con el logotipo de la asociación">
+    <meta property="og:image:alt" content="{{og_image_alt}}">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MultitecUA | Enlaces oficiales">
+    <meta name="twitter:title" content="{{enl_twitter_title}}">
     <meta name="twitter:description"
-        content="Enlaces oficiales de MultitecUA, asociación de estudiantes de la Universidad de Alicante.">
+        content="{{enl_twitter_description}}">
     <meta name="twitter:image" content="https://multitecua.com/assets/images/og-card.jpg">
 
     <!-- CSS Resources -->
@@ -59,16 +59,15 @@
     <main class="enlaces-container">
         <!-- The page's only heading level 1. The logo is the visible title, so this
              is announced and not drawn: without it the outline started at h3. -->
-        <h1 class="sr-only">MultitecUA — Enlaces oficiales</h1>
+        <h1 class="sr-only">{{enl_h1}}</h1>
         <div class="logo-container">
-            <img src="../assets/v5/images/multitec-logo.webp" alt="Logo MultitecUA" width="1080" height="200"
+            <img src="../assets/v5/images/multitec-logo.webp" alt="{{alt_logo_short}}" width="1080" height="200"
                 loading="eager">
         </div>
 
-        <p class="description">Asociación de estudiantes de la Universidad de Alicante dedicada a fomentar la tecnología
-            y la innovación</p>
+        <p class="description">{{enl_description}}</p>
 
-        <a href="/en/enlaces" class="lang-switch" hreflang="en" lang="en" aria-label="View in English"><svg class="ic-fa" aria-hidden="true" focusable="false"><use href="#ic-globe"></use></svg>English</a>
+        <a href="{{@alt_href}}" class="lang-switch" hreflang="{{@alt_lang}}" lang="{{@alt_lang}}" aria-label="{{@alt_aria}}"><svg class="ic-fa" aria-hidden="true" focusable="false"><use href="#ic-globe"></use></svg>{{@alt_endonym}}</a>
 
         <!-- SECCIÓN 1: INSCRIPCIÓN -->
         <section class="links-container">
@@ -78,54 +77,54 @@
                  every visitor arriving from the Instagram bio is meant to press, so the whole
                  conversion path from Instagram was dead. It now goes to the page that takes
                  the payment. -->
-            <a href="/inscripcion.html" class="link-item primary" target="_blank" rel="noopener">
-                <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-user-plus"></use></svg></i> INSCRÍBETE EN MULTITECUA
+            <a href="{{@join_href}}" class="link-item primary" target="_blank" rel="noopener">
+                <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-user-plus"></use></svg></i> {{enl_cta_join}}
             </a>
         </section>
 
         <div class="main-sections">
             <!-- SECCIÓN 2: PÁGINA WEB -->
             <section class="section-box">
-                <h2 class="section-title">Sitio Oficial</h2>
-                <a href="/" class="link-item secondary" target="_blank" rel="noopener">
-                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-globe"></use></svg></i> Página Web Oficial
+                <h2 class="section-title">{{enl_section_site}}</h2>
+                <a href="{{@home_href}}" class="link-item secondary" target="_blank" rel="noopener">
+                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-globe"></use></svg></i> {{enl_link_site}}
                 </a>
             </section>
 
 
             <!-- SECCIÓN 4: PODCAST -->
             <section class="section-box">
-                <h2 class="section-title">Nuestro Podcast</h2>
+                <h2 class="section-title">{{enl_section_podcast}}</h2>
                 <a href="https://www.youtube.com/@MultitecPodscast" class="link-item secondary" target="_blank"
                     rel="noopener">
-                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-youtube"></use></svg></i> MultitecUA Podcast
+                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-youtube"></use></svg></i> {{enl_link_podcast}}
                 </a>
             </section>
         </div>
 
         <!-- SECCIÓN 5: REDES SOCIALES -->
         <section class="section-box">
-            <h2 class="section-title">Redes Sociales</h2>
+            <h2 class="section-title">{{enl_section_social}}</h2>
             <div class="grid-container">
                 <a href="https://www.instagram.com/multitecua/" class="link-item" target="_blank" rel="noopener">
-                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-instagram"></use></svg></i> Instagram
+                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-instagram"></use></svg></i> {{enl_link_instagram}}
                 </a>
 
                 <a href="https://twitter.com/MultiTecUA" class="link-item" target="_blank" rel="noopener">
-                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-twitter"></use></svg></i> Twitter
+                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-twitter"></use></svg></i> {{enl_link_twitter}}
                 </a>
 
                 <a href="https://www.linkedin.com/company/multitecua/" class="link-item" target="_blank" rel="noopener">
-                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-linkedin"></use></svg></i> LinkedIn
+                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-linkedin"></use></svg></i> {{enl_link_linkedin}}
                 </a>
 
                 <a href="https://www.youtube.com/channel/UComtzTLqL-jHvRhiQVrzPJg" class="link-item" target="_blank"
                     rel="noopener">
-                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-youtube"></use></svg></i> YouTube
+                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-youtube"></use></svg></i> {{enl_link_youtube}}
                 </a>
 
                 <a href="mailto:contacto@multitecua.com" class="link-item">
-                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-envelope"></use></svg></i> Email
+                    <i class="fa" aria-hidden="true"><svg class="ic-fa"><use href="#ic-envelope"></use></svg></i> {{enl_link_email}}
                 </a>
             </div>
         </section>

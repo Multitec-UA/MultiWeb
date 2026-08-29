@@ -19,11 +19,19 @@
        Ubuntu at font-weight:700 — was therefore drawn in the browser's SYNTHETIC
        bold, an algorithmic smear of the regular face, for years. The real 700 is
        here now; it is a designed weight and it is what the CSS has always asked
-       for. Poppins keeps 400 only, which is all it was ever given and all it draws.
+       for.
+     - Poppins now ships 400 AND 700, for exactly the same reason and fixed on the
+       same day. `.faq-question { font-weight: bold }` and every <strong> inside a
+       `.faq-answer` ask Poppins for 700; only 400 was ever delivered, so all seven
+       FAQ questions and all eleven bold benefit labels were synthetic too. 13,248 B
+       for the pair. A request for 500 (.menu-btn, .link-button) still resolves to the
+       400 face and is NOT synthesised — the browser picks the nearest real weight
+       below 600 — so those are unchanged.
      - Lora and Raleway are variable files, so one woff2 covers all their weights.
 
-   Twelve files; a Spanish visitor downloads four of them (Ubuntu 400 + 700, Poppins,
-   Lora latin = 110 KB) — the extra one is the bold the browser used to fake.
+   Fourteen files; a Spanish visitor downloads five of them (Ubuntu 400 + 700,
+   Poppins 400 + 700, Lora latin = 118 KB) — the two extras are the bolds the
+   browser used to fake.
    --------------------------------------------------------------------------- */
 /* Ubuntu 400 normal, latin */
 @font-face {
@@ -77,6 +85,24 @@
     font-weight: 400;
     font-display: swap;
     src: url(../fonts/poppins-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Poppins 700 bold, latin */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/poppins-700-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Poppins 700 bold, latin-ext */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/poppins-700-latin-ext.woff2) format('woff2');
     unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* Lora 400 italic, latin */
@@ -957,6 +983,60 @@ h1.title {
 .m:after {
     content: 'MENU';
 }
+
+/* ---------------------------------------------------------------------------
+   The language switch. Spanish first, English one tap away.
+
+   It is a plain <a> to the other language's copy of the page the visitor is on
+   (/ <-> /en/), so: it works with JavaScript off, it survives being shared —
+   the URL carries the language — and a crawler can follow it. There is no
+   cookie and no Accept-Language negotiation on purpose: an unqualified visit to
+   multitecua.com is Spanish, always, and the switch is right here for the
+   exceptions.
+
+   A globe and not a flag. A flag names a country; the English half of this site
+   exists for the Erasmus student who could be from anywhere, and half of them
+   would not recognise a Union Jack as "the language I read". The two-letter code
+   beside it is the unambiguous part.
+
+   Everything here is padding and colour: no min-height, no display change, so
+   the anchor sits on the same line box as the six links beside it and the
+   navigation row is exactly as tall as it was.
+   --------------------------------------------------------------------------- */
+.menu-link.lang-link {
+    margin-left: 4px;
+    margin-right: 0;
+    padding: 4px 9px;
+    border: 1px solid rgba(26, 26, 26, 0.35);
+    border-radius: 3px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.menu-link.lang-link:hover,
+.menu-link.lang-link:focus {
+    border-color: var(--main-color);
+}
+
+.menu-link.lang-link .ic-fa {
+    /* 0.95em keeps the globe optically level with the two capitals beside it;
+       the -0.15em is half the difference between that and the cap height, the
+       same correction .ic-fa makes for the card icons. */
+    width: 0.95em;
+    height: 0.95em;
+    vertical-align: -0.15em;
+    margin-right: 4px;
+}
+
+/* In the phone panel it is a full-width row like every other entry, so it gets
+   the panel's own 44px floor and needs nothing but the icon spacing. */
+.menu-item ul li a .ic-fa {
+    width: 0.95em;
+    height: 0.95em;
+    vertical-align: -0.15em;
+    margin-right: 6px;
+}
+
 
 .c:after {
     content: 'CLOSE';

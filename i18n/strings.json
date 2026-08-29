@@ -1,0 +1,732 @@
+{
+  "vars": {
+    "members": "100",
+    "fee": "12 €"
+  },
+  "same_in_both": [
+    "event_1_title",
+    "event_2_title",
+    "event_3_title",
+    "press_1",
+    "press_2",
+    "press_3",
+    "press_4",
+    "press_5",
+    "press_6",
+    "press_7",
+    "press_8",
+    "contact_email_label",
+    "enl_link_podcast",
+    "enl_link_instagram",
+    "enl_link_twitter",
+    "enl_link_linkedin",
+    "enl_link_youtube",
+    "enl_link_email"
+  ],
+  "strings": {
+    "index_meta_description": {
+      "es": "Bienvenido a MultitecUA. Somos una asociación de la Universidad de Alicante dedicada a fomentar la ciencia, la tecnología y la innovación.",
+      "en": "MultitecUA is a student association at the University of Alicante for anyone who is curious about science, technology and building things."
+    },
+    "index_title": {
+      "es": "MultitecUA | Asociación de ciencia y tecnología",
+      "en": "MultitecUA | Science and technology association"
+    },
+    "index_og_title": {
+      "es": "MultitecUA | Asociación de ciencia y tecnología · Alicante",
+      "en": "MultitecUA | Science and technology association · Alicante"
+    },
+    "index_og_description": {
+      "es": "MultitecUA es una asociación dedicada a fomentar la ciencia, la tecnología y la innovación.",
+      "en": "MultitecUA is a student association for science, technology and innovation at the University of Alicante."
+    },
+    "og_image_alt": {
+      "es": "Miembros de MultitecUA con el logotipo de la asociación",
+      "en": "Members of MultitecUA with the association's wordmark"
+    },
+    "index_twitter_title": {
+      "es": "MultitecUA | Asociación de la Universidad de Alicante",
+      "en": "MultitecUA | A University of Alicante association"
+    },
+    "index_twitter_description": {
+      "es": "MultitecUA es una asociación de la Universidad de Alicante dedicada a fomentar la tecnología y la innovación entre estudiantes mediante la gamificación.",
+      "en": "MultitecUA is a University of Alicante association that gets students into technology and innovation by turning it into something they play at."
+    },
+    "twitter_label_reading": {
+      "es": "Tiempo de lectura",
+      "en": "Reading time"
+    },
+    "twitter_data_reading": {
+      "es": "5 minutos",
+      "en": "5 minutes"
+    },
+    "alt_logo": {
+      "es": "Logo de la asociación MultitecUA de la Universidad de Alicante",
+      "en": "MultitecUA association wordmark, University of Alicante"
+    },
+    "alt_menu_toggle": {
+      "es": "Abrir el menú",
+      "en": "Open the menu"
+    },
+    "nav_home": {
+      "es": "Inicio",
+      "en": "Home"
+    },
+    "nav_about": {
+      "es": "Sobre Nosotros",
+      "en": "About us"
+    },
+    "nav_events": {
+      "es": "Eventos",
+      "en": "Events"
+    },
+    "nav_media": {
+      "es": "Medios",
+      "en": "Press"
+    },
+    "nav_faq": {
+      "es": "Preguntas",
+      "en": "FAQ"
+    },
+    "nav_contact": {
+      "es": "Contacto",
+      "en": "Contact"
+    },
+    "nav_join_caps": {
+      "es": "INSCRÍBETE",
+      "en": "JOIN US"
+    },
+    "nav_join": {
+      "es": "Inscríbete",
+      "en": "Join us"
+    },
+    "hero_title": {
+      "es": "Somos la asociación MultitecUA",
+      "en": "We are MultitecUA"
+    },
+    "hero_subtitle": {
+      "es": "Universidad de Alicante",
+      "en": "University of Alicante"
+    },
+    "hero_cta": {
+      "es": "¡ME APUNTO!",
+      "en": "COUNT ME IN!"
+    },
+    "about_title": {
+      "es": "Asociación de la UA",
+      "en": "A University of Alicante association"
+    },
+    "about_p1": {
+      "es": "Multitec es una asociación multidisciplinar sin ánimo de lucro formada por cualquier entusiasta de la ciencia o la tecnología. El objetivo de formar una comunidad donde poder compartir conocimientos, difundir información y aprender nuevas cosas juntos.",
+      "en": "Multitec is a non-profit, multidisciplinary association open to anyone who is into science or technology. The point of it is a community where we share what we know, pass information around and learn new things together."
+    },
+    "about_p2": {
+      "es": "Somos más que una comunidad. Multitec es una familia que nace del espíritu y del objetivo común de ir más allá en lo tecnológico y personal. Multitec pretende ser un lugar de encuentro, un puente entre lo laboral y lo académico, y ser referentes en nuevas metodologías de aprendizaje.",
+      "en": "We are more than a community. Multitec is a family, built on a shared urge to go further both technically and personally. We want to be a meeting point, a bridge between working life and academic life, and a reference for new ways of learning."
+    },
+    "about_members": {
+      "es": "Actualmente, contamos con más de <b>{members}</b> miembros.",
+      "en": "There are more than <b>{members}</b> of us right now."
+    },
+    "about_quote": {
+      "es": "\"No hay que tener miedo a hacerlo mal, sino miedo a no hacer nada.\"",
+      "en": "\"Don't be afraid of doing it badly. Be afraid of doing nothing at all.\""
+    },
+    "purpose_title": {
+      "es": "Descubre Multitec",
+      "en": "What Multitec is for"
+    },
+    "purpose_1_title": {
+      "es": "Divulgación",
+      "en": "Sharing what we know"
+    },
+    "purpose_1_body": {
+      "es": "Compartimos información de diferentes ámbitos y aprendemos en comunidad sobre nuevas tecnologías, nuevas ciencias y nuevas experiencias. Entérate de eventos, ofertas laborales y noticias interesantes con nosotros.",
+      "en": "We pass around what we find, across every field, and learn about new technology, new science and new experiences together. Events, job openings and news worth reading reach you through us."
+    },
+    "purpose_2_title": {
+      "es": "Eventos",
+      "en": "Events"
+    },
+    "purpose_2_body": {
+      "es": "Participamos en eventos presenciales y online con diferentes enfoques para poder desarrollarnos, aprender nuevas habilidades y descubrir nuestro lado más inquieto. ¡También nos encanta organizarlos junto a nuestros colaboradores!",
+      "en": "We take part in events on campus and online — all kinds — to grow, pick up new skills and find out how restless we really are. We love putting them on with our partners, too."
+    },
+    "purpose_3_title": {
+      "es": "Proyectos",
+      "en": "Projects"
+    },
+    "purpose_3_body": {
+      "es": "Nos encanta quedar entre nosotros para proponer nuevos proyectos y aprender en el proceso. Si tienes una idea o una motivación, ¡ponla sobre la mesa para poder hacerla todos juntos y desarrollar nuestras habilidades en comunidad!",
+      "en": "We meet up to put new projects on the table and learn on the way. If you have an idea, or just the itch to build something, bring it — we will build it together and get better at it as a group."
+    },
+    "join_title": {
+      "es": "Forma parte de Multitec",
+      "en": "Become part of Multitec"
+    },
+    "join_body": {
+      "es": "Para formar parte de esta familia, haz clic en el botón de abajo y rellena el cuestionario. Inscribirse no es gratuito, existe un cuota de <b class=\"red_text\">{fee} anuales</b> destinada al mantenimiento y desarrollo de la asociación. En la sección de <a href=\"#faq\"><b class=\"red_text\">preguntas</b></a> puedes consultar los beneficios de ser miembro.",
+      "en": "To join this family, press the button below and fill in the form. Membership is not free: there is a <b class=\"red_text\">{fee} a year</b> fee that keeps the association running and growing. The <a href=\"#faq\"><b class=\"red_text\">questions</b></a> section lists what being a member gets you."
+    },
+    "join_cta": {
+      "es": "MÁS INFORMACIÓN E INSCRIPCIÓN",
+      "en": "MORE INFORMATION AND SIGN-UP"
+    },
+    "aria_instagram": {
+      "es": "MultitecUA en Instagram",
+      "en": "MultitecUA on Instagram"
+    },
+    "aria_twitter": {
+      "es": "MultitecUA en Twitter",
+      "en": "MultitecUA on Twitter"
+    },
+    "aria_linkedin": {
+      "es": "MultitecUA en LinkedIn",
+      "en": "MultitecUA on LinkedIn"
+    },
+    "aria_twitch": {
+      "es": "MultitecUA en Twitch",
+      "en": "MultitecUA on Twitch"
+    },
+    "aria_youtube": {
+      "es": "MultitecUA en YouTube",
+      "en": "MultitecUA on YouTube"
+    },
+    "events_title": {
+      "es": "Eventos de la asociación",
+      "en": "The events we run"
+    },
+    "alt_event_cienciathon": {
+      "es": "Evento Cienciathon de MultitecUA y Parque Científico de la Universidad de Alicante",
+      "en": "Cienciathon, run by MultitecUA and the University of Alicante Science Park"
+    },
+    "alt_event_devcon": {
+      "es": "Evento UAGames Devcon de MultitecUA y Escuela Politécnica Superior de la UA",
+      "en": "UAGames DevCon, run by MultitecUA and the UA School of Engineering"
+    },
+    "alt_event_gamejam": {
+      "es": "Evento Gamejam Alicante de MultitecUA",
+      "en": "Gamejam Alicante, run by MultitecUA"
+    },
+    "event_1_title": {
+      "es": "Cienciathon",
+      "en": "Cienciathon"
+    },
+    "event_1_body": {
+      "es": "Combina la ciencia y la tecnología en esta hackathon de tres días junto al Parque Científico de la Universidad de Alicante donde se desarrollan ideas innovadoras para resolver problemas actuales.",
+      "en": "Science meets technology in a three-day hackathon we run with the University of Alicante Science Park, where teams build ideas that answer real problems."
+    },
+    "event_2_title": {
+      "es": "UAGames DevCon",
+      "en": "UAGames DevCon"
+    },
+    "event_2_body": {
+      "es": "Los estudiantes de Ingeniería Multimedia de Escuela Politécnica Superior de la UA muestran a la luz sus proyectos que han desarrollado durante el curso.",
+      "en": "Multimedia Engineering students from the UA School of Engineering show the projects they have spent the year building."
+    },
+    "event_3_title": {
+      "es": "Gamejam Alicante",
+      "en": "Gamejam Alicante"
+    },
+    "event_3_body": {
+      "es": "El evento insignia de desarrollo de videojuegos en Alicante. Varios grupos desarrollan un videojuego en un tiempo de 48h en base a un tema determinado que los participantes no conocen hasta el comienzo del evento.",
+      "en": "Alicante's flagship game development event. Teams build a whole video game in 48 hours around a theme nobody hears until the clock starts."
+    },
+    "press_title": {
+      "es": "Multitec en las noticias",
+      "en": "Multitec in the press"
+    },
+    "alt_news_1": {
+      "es": "Noticia de UAParc sobre Gamejam Alicante",
+      "en": "UAParc article about Gamejam Alicante"
+    },
+    "alt_news_2": {
+      "es": "Noticia de Alicante Plaza sobre MultitecUA",
+      "en": "Alicante Plaza article about MultitecUA"
+    },
+    "alt_news_3": {
+      "es": "Noticia de El Mundo sobre MultitecUA",
+      "en": "El Mundo article about MultitecUA"
+    },
+    "alt_news_4": {
+      "es": "Noticia de Alicante Plaza sobre la Cianciathon de MultitecUA",
+      "en": "Alicante Plaza article about MultitecUA's Cienciathon"
+    },
+    "alt_news_5": {
+      "es": "Noticia de MURCIA.COM sobre MultitecUA",
+      "en": "MURCIA.COM article about MultitecUA"
+    },
+    "alt_news_6": {
+      "es": "Noticia de Torreviejaip sobre MultitecUA",
+      "en": "Torreviejaip article about MultitecUA"
+    },
+    "alt_news_7": {
+      "es": "Noticia de diario Información sobre MultitecUA",
+      "en": "Información article about MultitecUA"
+    },
+    "press_1": {
+      "es": "Amantes de los videojuegos se dan cita en el Parque Científico de la UA para participar en la XI Gamejam Alicante",
+      "en": "Amantes de los videojuegos se dan cita en el Parque Científico de la UA para participar en la XI Gamejam Alicante"
+    },
+    "press_2": {
+      "es": "El Parque Científico de la UA acoge la XI edición de Game Jam Alicante",
+      "en": "El Parque Científico de la UA acoge la XI edición de Game Jam Alicante"
+    },
+    "press_3": {
+      "es": "MultitecUA: una asociación de estudiantes enfocada a emprender con proyectos tecnológicos",
+      "en": "MultitecUA: una asociación de estudiantes enfocada a emprender con proyectos tecnológicos"
+    },
+    "press_4": {
+      "es": "Distrito Digital celebrará su primer gran congreso a finales de octubre",
+      "en": "Distrito Digital celebrará su primer gran congreso a finales de octubre"
+    },
+    "press_5": {
+      "es": "Soluciones en el ámbito 'one health' nacen de la cuarta edición del Cienciathon del PCA",
+      "en": "Soluciones en el ámbito 'one health' nacen de la cuarta edición del Cienciathon del PCA"
+    },
+    "press_6": {
+      "es": "SIET, una App para las alergias alimenticias, gana el H4G 2019",
+      "en": "SIET, una App para las alergias alimenticias, gana el H4G 2019"
+    },
+    "press_7": {
+      "es": "La tecnología del futuro aterriza en Torrevieja",
+      "en": "La tecnología del futuro aterriza en Torrevieja"
+    },
+    "press_8": {
+      "es": "Distrito Digital congrega al talento tecnológico de Alicante en Tech Communities Day",
+      "en": "Distrito Digital congrega al talento tecnológico de Alicante en Tech Communities Day"
+    },
+    "faq_title": {
+      "es": "Preguntas y respuestas",
+      "en": "Questions and answers"
+    },
+    "faq_q1": {
+      "es": "¿Cuáles son los beneficios de unirse?",
+      "en": "What do I get out of joining?"
+    },
+    "faq_b1_label": {
+      "es": "Regalo de bienvenida:",
+      "en": "Welcome pack:"
+    },
+    "faq_b1": {
+      "es": "Recibirás un paquete de bienvenida que incluye una camiseta, bolígrafo y pulsera de MT.",
+      "en": "A T-shirt, a pen and an MT wristband, waiting for you when you arrive."
+    },
+    "faq_b2_label": {
+      "es": "Acceso a grupos internos:",
+      "en": "The internal groups:"
+    },
+    "faq_b2": {
+      "es": "Únete a nuestros grupos en WhatsApp, Telegram y Discord para estar siempre conectado.",
+      "en": "Our WhatsApp, Telegram and Discord groups, so you always know what is happening."
+    },
+    "faq_b3_label": {
+      "es": "Participación en asambleas:",
+      "en": "A say in the assemblies:"
+    },
+    "faq_b3": {
+      "es": "Tendrás voz y voto en las asambleas, pudiendo influir en las decisiones importantes.",
+      "en": "You speak and you vote at the general assemblies, where the decisions that matter get made."
+    },
+    "faq_b4_label": {
+      "es": "Acceso a la Multicasa:",
+      "en": "The Multicasa:"
+    },
+    "faq_b4": {
+      "es": "Un espacio exclusivo para los miembros, equipado con:",
+      "en": "A space that is only for members, with:"
+    },
+    "faq_b4_item1": {
+      "es": "Mesas de estudio y coworking para socios e invitados.",
+      "en": "Desks for studying and coworking, for members and their guests."
+    },
+    "faq_b4_item2": {
+      "es": "Áreas para eventos y socialización.",
+      "en": "Room for events and for hanging around."
+    },
+    "faq_b4_item3": {
+      "es": "Impresoras 3D (Resina y filamento).",
+      "en": "3D printers, resin and filament."
+    },
+    "faq_b4_item4": {
+      "es": "Proyector para ordenador y videojuegos (Wii con catálogo completo).",
+      "en": "A projector for laptops and games — including a Wii with the full catalogue."
+    },
+    "faq_b4_item5": {
+      "es": "Arduinos y material de electrónica.",
+      "en": "Arduinos and electronics kit."
+    },
+    "faq_b4_item6": {
+      "es": "Ordenadores retirados para montar tu propio servidor linux.",
+      "en": "Retired computers to turn into your own Linux server."
+    },
+    "faq_b4_item7": {
+      "es": "Nevera, microondas y cafetera.",
+      "en": "A fridge, a microwave and a coffee machine."
+    },
+    "faq_b5_label": {
+      "es": "Servidor compartido de Minecraft:",
+      "en": "The shared Minecraft server:"
+    },
+    "faq_b5": {
+      "es": "Disfruta de acceso al servidor de Minecraft junto a tus amigos.",
+      "en": "Play on the association's Minecraft server with your friends."
+    },
+    "faq_b7_label": {
+      "es": "Reserva de salas en la EPS:",
+      "en": "Rooms at the EPS:"
+    },
+    "faq_b7": {
+      "es": "Posibilidad de reservar salas de trabajo y eventos en la Escuela Politécnica Superior.",
+      "en": "You can book work and event rooms at the School of Engineering."
+    },
+    "faq_b8_label": {
+      "es": "Alojamiento web:",
+      "en": "Web hosting:"
+    },
+    "faq_b8": {
+      "es": "Hospedaje de sitios web y APIs bajo el dominio multitecua.com.",
+      "en": "Sites and APIs hosted under the multitecua.com domain."
+    },
+    "faq_b9_label": {
+      "es": "Participación en elecciones:",
+      "en": "The elections:"
+    },
+    "faq_b9": {
+      "es": "Derecho a voto y a presentar candidatura en las elecciones de la junta directiva.",
+      "en": "You vote in the board elections, and you can stand in them."
+    },
+    "faq_b10_label": {
+      "es": "Recursos y talleres gratuitos:",
+      "en": "Free resources and workshops:"
+    },
+    "faq_b10": {
+      "es": "Acceso sin coste a todos los recursos y talleres organizados por la asociación.",
+      "en": "Everything the association organises is free once you are in."
+    },
+    "faq_b11_label": {
+      "es": "Material y eventos exclusivos:",
+      "en": "Members-only kit and events:"
+    },
+    "faq_b11": {
+      "es": "Disfruta de material, eventos y mucho más, diseñados específicamente para nuestros miembros.",
+      "en": "Gear, events and more, put together for members and nobody else."
+    },
+    "faq_q2": {
+      "es": "¿Quienes pueden formar parte de Multitec?",
+      "en": "Who can be part of Multitec?"
+    },
+    "faq_a2": {
+      "es": "<b>Cualquier estudiante o egresado de la Universidad de Alicante</b> interesado en la innovación, aprender más allá de las clases y pasarlo bien puede unirse a Multitec. No importa el grado o la facultad al que pertenezcas, puedes unirte siempre que quieras. Las personas que no pertenezcan a la UA pueden formar parte siempre y cuando sean premiados en alguno de nuestros eventos.",
+      "en": "<b>Any student or graduate of the University of Alicante</b> who is interested in innovation, in learning past the syllabus and in having a good time. Your degree and your faculty make no difference, and you can join at any point. People from outside the UA can join if they have won a prize at one of our events."
+    },
+    "faq_q3": {
+      "es": "¿Cuándo puedo inscribirme?",
+      "en": "When can I sign up?"
+    },
+    "faq_a3": {
+      "es": "¡En cualquier momento!. Estamos activos durante todo el año y haciendo cosas en todo momento, por lo cual puedes inscribirte a mitad de curso si así lo deseas sin miedo a que llegues tarde.",
+      "en": "Whenever you like. We run all year round, so joining halfway through the term is normal and you have not missed anything."
+    },
+    "faq_q4": {
+      "es": "¿Cómo puedo unirme?",
+      "en": "How do I join?"
+    },
+    "faq_a4": {
+      "es": "Para unirte a Multitec, simplemente debes ir a la sección de <a style=\"text-decoration: underline; color: #fff\" href=\"inscripcion.html\">inscripción</a> y pagar la cuota anual de <b>{fee}</b>.",
+      "en": "Go to the <a style=\"text-decoration: underline; color: #fff\" href=\"inscripcion.html\">sign-up page</a> and pay the <b>{fee}</b> yearly fee. That is all there is to it."
+    },
+    "faq_q5": {
+      "es": "¿Hay algún requisito para unirse?",
+      "en": "Are there any requirements?"
+    },
+    "faq_a5": {
+      "es": "No hay requisitos específicos para unirse a Multitec, más allá de estar interesado en la tecnología, la innovación y estar dispuesto a colaborar y aprender en equipo.",
+      "en": "None beyond an interest in technology and innovation, and a willingness to work and learn alongside other people."
+    },
+    "faq_q6": {
+      "es": "¿Cómo puedo participar en los proyectos de Multitec?",
+      "en": "How do I get involved in Multitec's projects?"
+    },
+    "faq_a6": {
+      "es": "En Multitec existen proyectos internos que, para participar en ellos, debes antes formar parte de la asociación y después eres libre de decidir en qué participar. Por otro lado, organizamos eventos abiertos al público donde todo el mundo puede participar como la Cienciathon o la Gamejam Alicante.",
+      "en": "The internal projects are for members: join first, then pick whichever ones you like. We also run events that are open to everybody, such as Cienciathon and Gamejam Alicante."
+    },
+    "faq_q7": {
+      "es": "¿Puedo inscribirme a Multitec si soy de intercambio?",
+      "en": "Can I join if I am an exchange student?"
+    },
+    "faq_a7": {
+      "es": "¡Por supuesto! MultitecUA es una asociación abierta a estudiantes de todas partes del mundo que estén cursando estudios en la Universidad de Alicante. Te animamos a unirte y participar en nuestras actividades, ¡será una experiencia enriquecedora!",
+      "en": "Of course. MultitecUA is open to students from anywhere in the world who are studying at the University of Alicante. Come and join in — you will get a lot out of it, and so will we."
+    },
+    "contact_title": {
+      "es": "Contacta con nosotros",
+      "en": "Get in touch"
+    },
+    "contact_location_label": {
+      "es": "Ubicación",
+      "en": "Where we are"
+    },
+    "contact_location": {
+      "es": "Colegio Mayor de la Universidad de Alicante",
+      "en": "Colegio Mayor, University of Alicante"
+    },
+    "contact_social_label": {
+      "es": "Redes Sociales",
+      "en": "Social media"
+    },
+    "contact_social": {
+      "es": "Envíanos un mensaje directo",
+      "en": "Send us a direct message"
+    },
+    "contact_email_label": {
+      "es": "Email",
+      "en": "Email"
+    },
+    "contact_telegram": {
+      "es": "También puedes unirte a nuestro grupo de <a class=\"telegram\" href=\"https://t.me/MultitecUA\">Telegram</a>",
+      "en": "You can also join our <a class=\"telegram\" href=\"https://t.me/MultitecUA\">Telegram</a> group"
+    },
+    "footer_partners": {
+      "es": "Colaboran con nosotros:",
+      "en": "Our partners:"
+    },
+    "alt_logo_pca": {
+      "es": "Logo del Parque Científico de la Universidad de Alicante",
+      "en": "University of Alicante Science Park logo"
+    },
+    "alt_logo_ua": {
+      "es": "Logo de la Universidad de Alicante",
+      "en": "University of Alicante logo"
+    },
+    "alt_logo_eps": {
+      "es": "Logo de la Escuela Politécnica Superior de la Universidad de Alicante",
+      "en": "University of Alicante School of Engineering logo"
+    },
+    "footer_copy": {
+      "es": "Creado con &hearts; por Multitec.",
+      "en": "Made with &hearts; by Multitec."
+    },
+    "insc_meta_description": {
+      "es": "Inscríbete en MultitecUA. Únete a la asociación de ciencia y tecnología de la Universidad de Alicante.",
+      "en": "Join MultitecUA, the science and technology association at the University of Alicante."
+    },
+    "insc_title": {
+      "es": "MultitecUA | Inscripción",
+      "en": "MultitecUA | Membership"
+    },
+    "insc_og_title": {
+      "es": "MultitecUA | Inscripción",
+      "en": "MultitecUA | Membership"
+    },
+    "insc_og_description": {
+      "es": "Únete a MultitecUA por solo {fee} anuales y disfruta de todas las ventajas.",
+      "en": "Join MultitecUA for {fee} a year and get everything that comes with it."
+    },
+    "insc_h1": {
+      "es": "Inscripción y Membresía",
+      "en": "Sign-up and membership"
+    },
+    "insc_subtitle": {
+      "es": "Únete a la comunidad tecnológica más activa de la UA",
+      "en": "Join the busiest technology community at the UA"
+    },
+    "insc_price": {
+      "es": "{fee} / año",
+      "en": "{fee} / year"
+    },
+    "insc_price_note": {
+      "es": "Cuota anual para el mantenimiento y desarrollo de la asociación.",
+      "en": "A yearly fee that keeps the association running and growing."
+    },
+    "insc_cancel_note": {
+      "es": "Puedes cancelar tu suscripción en cualquier momento.",
+      "en": "You can cancel your subscription whenever you want."
+    },
+    "insc_cta_subscribe": {
+      "es": "SUSCRIBIRSE",
+      "en": "SUBSCRIBE"
+    },
+    "insc_cta_manage": {
+      "es": "GESTIONAR SUSCRIPCIÓN",
+      "en": "MANAGE SUBSCRIPTION"
+    },
+    "insc_approval_title": {
+      "es": "Aprobación de la junta directiva",
+      "en": "Board approval"
+    },
+    "insc_approval_1": {
+      "es": "Para terminar de formalizar la inscripción y tu membresía debes esperar a que la junta directiva apruebe tu solicitud.",
+      "en": "To finish signing up, the board has to approve your application."
+    },
+    "insc_approval_2": {
+      "es": "Como es un proceso manual, puede tardar hasta 48 horas, ten paciencia.",
+      "en": "It is done by hand, so it can take up to 48 hours. Bear with us."
+    },
+    "insc_approval_3": {
+      "es": "* Si no se aprueba, se devuelve el dinero automáticamente.",
+      "en": "* If it is not approved, you are refunded automatically."
+    },
+    "insc_benefits_title": {
+      "es": "Ventajas de ser socio",
+      "en": "What membership gets you"
+    },
+    "insc_benefit_1": {
+      "es": "Camiseta de Miembro (A recoger en la Multicasa)",
+      "en": "A member's T-shirt, to pick up at the Multicasa"
+    },
+    "insc_benefit_2": {
+      "es": "Cuenta corporativa @multitecua.com (1TB de Google Drive)",
+      "en": "An @multitecua.com account, with 1 TB of Google Drive"
+    },
+    "insc_benefit_3": {
+      "es": "Cuenta compartida de ChatGPT y herramientas IA",
+      "en": "A shared ChatGPT account and other AI tools"
+    },
+    "insc_benefit_4": {
+      "es": "Acceso a la Multicasa (Coworking, Impresión 3D, Electrónica, Juegos)",
+      "en": "Access to the Multicasa: coworking, 3D printing, electronics, games"
+    },
+    "insc_benefit_5": {
+      "es": "Acceso a proyectos internos",
+      "en": "Access to the internal projects"
+    },
+    "insc_benefit_6": {
+      "es": "Acceso a grupos de WhatsApp y networking",
+      "en": "The WhatsApp groups, and the people in them"
+    },
+    "insc_benefit_7": {
+      "es": "Voz y voto en asambleas y elecciones",
+      "en": "A voice and a vote at assemblies and elections"
+    },
+    "insc_benefit_8": {
+      "es": "Opción a la reserva de espacios de la EPS",
+      "en": "The option to book rooms at the EPS"
+    },
+    "insc_benefit_9": {
+      "es": "Acceso a cualquier recurso de la asociación",
+      "en": "Access to any of the association's resources"
+    },
+    "insc_benefit_10": {
+      "es": "Eventos y formaciones exclusivas",
+      "en": "Members-only events and training"
+    },
+    "enl_meta_description": {
+      "es": "Enlaces oficiales de MultitecUA, asociación de estudiantes de la Universidad de Alicante dedicada a fomentar la tecnología y la innovación.",
+      "en": "The official links of MultitecUA, a student association at the University of Alicante for technology and innovation."
+    },
+    "enl_title": {
+      "es": "MultitecUA | Enlaces Oficiales",
+      "en": "MultitecUA | Official links"
+    },
+    "enl_og_title": {
+      "es": "MultitecUA | Enlaces oficiales",
+      "en": "MultitecUA | Official links"
+    },
+    "enl_og_description": {
+      "es": "Enlaces oficiales de MultitecUA, asociación de estudiantes de la Universidad de Alicante dedicada a fomentar la tecnología y la innovación.",
+      "en": "The official links of MultitecUA, a student association at the University of Alicante for technology and innovation."
+    },
+    "enl_twitter_title": {
+      "es": "MultitecUA | Enlaces oficiales",
+      "en": "MultitecUA | Official links"
+    },
+    "enl_twitter_description": {
+      "es": "Enlaces oficiales de MultitecUA, asociación de estudiantes de la Universidad de Alicante.",
+      "en": "The official links of MultitecUA, a student association at the University of Alicante."
+    },
+    "enl_h1": {
+      "es": "MultitecUA — Enlaces oficiales",
+      "en": "MultitecUA — Official links"
+    },
+    "alt_logo_short": {
+      "es": "Logo MultitecUA",
+      "en": "MultitecUA wordmark"
+    },
+    "enl_description": {
+      "es": "Asociación de estudiantes de la Universidad de Alicante dedicada a fomentar la tecnología\n            y la innovación",
+      "en": "A student association at the University of Alicante, for technology and innovation"
+    },
+    "enl_cta_join": {
+      "es": "INSCRÍBETE EN MULTITECUA",
+      "en": "JOIN MULTITECUA"
+    },
+    "enl_section_site": {
+      "es": "Sitio Oficial",
+      "en": "Official site"
+    },
+    "enl_link_site": {
+      "es": "Página Web Oficial",
+      "en": "Official website"
+    },
+    "enl_section_podcast": {
+      "es": "Nuestro Podcast",
+      "en": "Our podcast"
+    },
+    "enl_link_podcast": {
+      "es": "MultitecUA Podcast",
+      "en": "MultitecUA Podcast"
+    },
+    "enl_section_social": {
+      "es": "Redes Sociales",
+      "en": "Social media"
+    },
+    "enl_link_instagram": {
+      "es": "Instagram",
+      "en": "Instagram"
+    },
+    "enl_link_twitter": {
+      "es": "Twitter",
+      "en": "Twitter"
+    },
+    "enl_link_linkedin": {
+      "es": "LinkedIn",
+      "en": "LinkedIn"
+    },
+    "enl_link_youtube": {
+      "es": "YouTube",
+      "en": "YouTube"
+    },
+    "enl_link_email": {
+      "es": "Email",
+      "en": "Email"
+    },
+    "e404_title": {
+      "es": "Página no encontrada (404) | MultitecUA",
+      "en": "Page not found (404) | MultitecUA"
+    },
+    "e404_meta_description": {
+      "es": "La página que buscas no existe. Vuelve al inicio de MultitecUA, la asociación de ciencia y tecnología de la Universidad de Alicante.",
+      "en": "The page you asked for is not here. Go back to MultitecUA, the science and technology association at the University of Alicante."
+    },
+    "e404_home_aria": {
+      "es": "Inicio de MultitecUA",
+      "en": "MultitecUA home"
+    },
+    "alt_logo_404": {
+      "es": "Logo de la asociación MultitecUA",
+      "en": "MultitecUA association wordmark"
+    },
+    "e404_hexagons": {
+      "es": "Hexágonos decorativos",
+      "en": "Decorative hexagons"
+    },
+    "e404_h1": {
+      "es": "Página no encontrada",
+      "en": "Page not found"
+    },
+    "e404_body": {
+      "es": "Que tengamos <i>multi</i> en el nombre no significa que existan muchas páginas...",
+      "en": "Having <i>multi</i> in the name does not mean there are that many pages..."
+    },
+    "e404_back": {
+      "es": "Volver al inicio",
+      "en": "Back to the homepage"
+    },
+    "e404_join": {
+      "es": "Inscríbete",
+      "en": "Join us"
+    }
+  }
+}
