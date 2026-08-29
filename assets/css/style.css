@@ -46,7 +46,7 @@ h3 {
 p {
     font-family: var(--second-font);
     font-size: 16px;
-    color: #818181;
+    color: #767676;
 }
 
 a {
@@ -112,10 +112,12 @@ ul {
 
 .association-logo {
     width: 25rem;
+    height: auto;
 }
 
 .menu-logo {
     width: 180px;
+    height: auto;
     filter: brightness(90%);
 }
 
@@ -419,11 +421,14 @@ ul {
     display: inline-block;
 }
 
-.social-icons ul a li {
+/* The markup is now <ul><li><a><span>, the way HTML requires — it used to be
+   <ul><a><li><span>, with <a> as a direct child of <ul>, which is invalid. The <li> keeps
+   every box property it always had, so the pill is pixel-identical; the <a> is made a
+   block so it fills that pill and inherits its colour instead of Bootstrap's link blue. */
+.social-icons ul li {
     display: inline-block;
     list-style-type: none;
     border: 2px solid var(--main-color);
-    margin-right: 10px;
     background-color: var(--main-color);
     color: #fff;
     font-size: 18px;
@@ -432,7 +437,12 @@ ul {
     border-radius: 5rem;
 }
 
-.social-icons-form ul a li {
+.social-icons ul li a {
+    display: block;
+    color: inherit;
+}
+
+.social-icons-form ul li {
     display: inline-block;
     list-style-type: none;
     color: var(--main-color);
@@ -442,15 +452,16 @@ ul {
     margin-top: 30px;
 }
 
+.social-icons-form ul li a {
+    display: block;
+    color: inherit;
+}
+
 .social-icons {
     margin-top: 30px;
 }
 
-.social-icons ul a li:last-child {
-    margin-right: 0;
-}
-
-.social-icons ul a:hover li {
+.social-icons ul li:hover {
     color: var(--main-color);
     background-color: #fff;
 }
@@ -636,7 +647,6 @@ ul {
 }
 
 .vira-quote {
-    background-image: url(../images/3.jpg);
     /*padding: 120px 0;*/
     color: #fff;
     font-style: italic;
@@ -657,7 +667,6 @@ ul {
 }
 
 .watch {
-    background-image: url(../images/7.jpg);
     font-size: 32px;
     color: #fff;
     padding: 150px 0;
