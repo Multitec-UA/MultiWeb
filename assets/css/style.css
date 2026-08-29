@@ -1,7 +1,193 @@
-@import 'https://fonts.googleapis.com/css?family=Lora:400,400i,700|Raleway:300,600,700,900';
-@import 'https://fonts.googleapis.com/css?family=Ubuntu:wght@400;700&display=swap';
-@import 'https://fonts.googleapis.com/css?family=Poppins:wght@100;300;400;500&display=swap';
 @import 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css';
+
+/* ---------------------------------------------------------------------------
+   Webfonts, self-hosted (audit item 2.8).
+
+   They used to arrive as three @import rules against fonts.googleapis.com, which
+   meant: the browser had to download and parse this stylesheet before it even
+   learned the font requests existed, every visitor's IP went to Google on every
+   page view, and first paint waited on two extra DNS+TLS hops.
+
+   These files are the exact faces those three @imports were delivering, byte for
+   byte, taken from fonts.gstatic.com and kept to the latin and latin-ext subsets
+   (this site is Spanish and English; the cyrillic, greek, vietnamese and
+   devanagari subsets were downloaded by nobody). The @font-face set is
+   deliberately NOT "corrected":
+
+     - Ubuntu ships weight 400 only, and Poppins weight 400 only, because the two
+       @imports asked for `Ubuntu:wght@400;700` and `Poppins:wght@100;300;400;500`
+       -- v2 syntax sent to the v1 css? endpoint, which ignores it and returns
+       regular. So every uppercase Ubuntu heading on this site has been rendered
+       in synthetic bold for years. Shipping the real Ubuntu 700 would change the
+       look of every heading on every page: that is a decision for Sergio, not a
+       side effect of self-hosting.
+     - Lora and Raleway are variable files, so one woff2 covers all their weights.
+
+   Ten files, 262 KB on disk; a Spanish visitor downloads three of them (Ubuntu,
+   Poppins, Lora latin = 80 KB), the same three Google was serving.
+   --------------------------------------------------------------------------- */
+/* Ubuntu 400 normal, latin */
+@font-face {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/ubuntu-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Ubuntu 400 normal, latin-ext */
+@font-face {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/ubuntu-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Poppins 400 normal, latin */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/poppins-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Poppins 400 normal, latin-ext */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/poppins-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Lora 400 italic, latin */
+@font-face {
+    font-family: 'Lora';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/lora-italic-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Lora 400 italic, latin-ext */
+@font-face {
+    font-family: 'Lora';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/lora-italic-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Lora 400 normal, latin */
+@font-face {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/lora-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Lora 400 normal, latin-ext */
+@font-face {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/lora-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Lora 700 normal, latin */
+@font-face {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/lora-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Lora 700 normal, latin-ext */
+@font-face {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/lora-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Raleway 300 normal, latin */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(../fonts/raleway-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Raleway 300 normal, latin-ext */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(../fonts/raleway-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Raleway 600 normal, latin */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(../fonts/raleway-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Raleway 600 normal, latin-ext */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(../fonts/raleway-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Raleway 700 normal, latin */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/raleway-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Raleway 700 normal, latin-ext */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/raleway-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Raleway 900 normal, latin */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url(../fonts/raleway-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Raleway 900 normal, latin-ext */
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url(../fonts/raleway-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
 
 /*Global Settings*/
 
@@ -83,6 +269,7 @@ ul {
 
 .section-title{
     font-size: 32px;
+    line-height: 1.42857143;
     font-family: var(--main-font);
     text-transform: uppercase;
     font-weight: 700;
@@ -98,6 +285,26 @@ ul {
     margin-top: 10px;
     letter-spacing: 2px;
     font-weight: normal;
+}
+
+/* The hero subtitle is a <p>, not an <h2>: it is a line of prose under the h1,
+   not a section of the document (audit item 2.6). These four declarations are
+   what the <h2> was getting from the heading rules above, restated, so the swap
+   moves nothing -- without them `.header p` would give it 32px/1.43 and 40px of
+   padding-bottom and push the ¡ME APUNTO! button 15px down. */
+.header .text-title {
+    font-size: 32px;
+    line-height: 1.1;
+    margin-bottom: 35px;
+    padding-bottom: 0;
+}
+
+/* Same idea for the two headings that gain a level: an <h1> on inscripcion.html
+   is the page title and must still be drawn at the 32px section-title size, and
+   the contact heading becomes an <h2> whose <p> line-height is restated so the
+   section below it does not move up by 10px. */
+h1.title {
+    font-size: 32px;
 }
 
 .title:after {
@@ -306,9 +513,18 @@ ul {
     color: var(--main-color);
     font-weight: 700;
     letter-spacing: 3px;
-    padding: 15px 80px;
+    /* 80px of horizontal padding is 160px of chrome around the label. On the
+       payment page that made GESTIONAR SUSCRIPCIÓN 419px wide inside a 390px
+       viewport and the whole page scrolled sideways by 14px. clamp() keeps the
+       desktop value exactly (8vw is over 80px from 1000px up) and lets the phone
+       have 24-31px. Audit item 2.2. */
+    padding: 15px clamp(24px, 8vw, 80px);
     margin-bottom: 30px;
     background-color: transparent;
+    /* Bootstrap's .btn already reserves `border: 1px solid transparent`, so
+       colouring it in costs zero layout: the ghost variant simply stops reading
+       as a paragraph of red text. Audit item 2.3. */
+    border-color: var(--main-color);
     transition: all 0.3s ease-in-out;
 }
 
@@ -457,6 +673,21 @@ ul {
     color: inherit;
 }
 
+/* 36 x 32px is below every touch-target floor there is, and this is the row a
+   thumb reaches for. Raised to 44 x 44 on the phone only: at 36px per icon the
+   desktop row is a deliberate piece of the design and does not move. Audit
+   item 2.5. */
+@media only screen and (max-width: 995px) {
+    .social-icons-form ul li {
+        width: 44px;
+    }
+
+    .social-icons-form ul li a {
+        min-height: 44px;
+        line-height: 44px;
+    }
+}
+
 .social-icons {
     margin-top: 30px;
 }
@@ -469,8 +700,36 @@ ul {
 
 /*Navigation*/
 
+/* The mobile menu. Below 995px .menu-links is display:none and, until now, that
+   was the whole story: a phone got the logo and nothing else -- no navigation
+   and no INSCRÍBETE, on the page students arrive at from Instagram. The panel
+   and the toggle were styled here and driven by script.js for years; only the
+   markup was missing. Audit item 2.1. Nothing in this block applies above
+   995px. */
+
 #menu-item {
-    transition: all 0.3s ease-in-out;
+    /* Absolutely positioned under the bar rather than in flow: opening the menu
+       must not push the hero down, and it means the open/shut animation is
+       transform + opacity only. Nothing here animates a layout property -- the
+       original `transition: all` over margin-top did, and it also slid the links
+       up over the navigation bar instead of behind it. */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transform: translateY(-8px);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s;
+}
+
+/* Above the breakpoint the panel is not merely hidden, it does not exist: with a
+   box on the page (even at opacity 0) it is a composited layer the desktop never
+   needs, and the desktop is exactly what this change is not allowed to touch. */
+@media only screen and (min-width: 996px) {
+    #menu-item {
+        display: none;
+    }
 }
 
 .menu-item {
@@ -485,24 +744,55 @@ ul {
     margin-bottom: 0;
 }
 
-.menu-item ul a li {
-    padding: 15px 0;
+/* <ul><li><a> and not the template's <ul><a><li>, which is invalid HTML and
+   which tests/verify.sh check 4 rejects. */
+.menu-item ul li {
     list-style-type: none;
+}
+
+.menu-item ul li a {
+    display: block;
+    padding: 15px 0;
+    min-height: 44px;
     color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.menu-item ul a:hover li {
+.menu-item ul li a:hover,
+.menu-item ul li a:focus {
     color: var(--main-color);
     text-decoration: none;
 }
 
+/* The join button keeps its colour in the panel: it is the reason the menu is
+   being restored at all. */
+.menu-item ul li a.menu-item-cta,
+.menu-item ul li a.menu-item-cta:hover,
+.menu-item ul li a.menu-item-cta:focus {
+    background-color: var(--main-color);
+    color: #fff;
+    border-bottom: none;
+}
+
+.menu-item ul li a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+}
+
+/* Collapsed with max-height rather than the old margin-top: -377px, which was a
+   magic number equal to the height of a panel that never existed and which slid
+   the links up *over* the navigation bar instead of clipping them. visibility
+   also takes the links out of the tab order while the panel is shut. */
+/* visibility, not just opacity: a transparent panel would still be in the tab
+   order, and a keyboard user would fall into an invisible menu. */
 .hide-menu {
-    margin-top: -377px;
+    visibility: hidden;
 }
 
 .show-menu {
-    margin-top: 0;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
 }
 
 .dark-bar {
@@ -523,17 +813,77 @@ ul {
     color: #fff;
 }
 
+/* The toggle. It is hidden above 995px, where .menu-links is the navigation;
+   the two are never on screen together. 44x44 because it is the single most
+   important target on a phone. */
+.menu-toggle-wrap {
+    display: none;
+}
+
+@media only screen and (max-width: 995px) {
+    .menu-toggle-wrap {
+        display: block;
+    }
+}
+
 .menu {
+    /* A real <button>: it is a control, it opens and closes something on this
+       page, and Space has to work as well as Enter without any script saying so. */
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 44px;
+    min-height: 44px;
+    line-height: 44px;
+    font: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    /* .navigation-bar a is white and this bar is white (.menu-container). */
+    color: #1a1a1a;
+}
+
+.menu:hover,
+.menu:focus {
+    color: var(--main-color);
+    text-decoration: none;
+}
+
+.menu:focus-visible {
+    outline: 2px solid var(--main-color);
+    outline-offset: 4px;
 }
 
 .menu:after {
     position: absolute;
     left: -65px;
-    top: 10px;
-    color: #fff;
+    top: 0;
+    line-height: 44px;
+    color: #1a1a1a;
     font-size: 16px;
+    font-family: var(--main-font);
+    letter-spacing: 1px;
+}
+
+.menu:hover:after,
+.menu:focus:after {
+    color: var(--main-color);
+}
+
+/* The bars and the cross are one inline SVG and the class on the button picks
+   which one is drawn. The template's ion-navicon would have been the obvious
+   choice, but inscripcion.html loads the Ionicons stylesheet without ever drawing
+   an icon from it: putting one glyph in its header pulled 110 KB of icon font
+   onto the payment page, on the phone, to draw three lines. This costs nothing
+   and it survives code.ionicframework.com going away. */
+.menu .menu-icon-x,
+.menu.c .menu-icon-bars {
+    display: none;
+}
+
+.menu.c .menu-icon-x {
+    display: inline;
 }
 
 .menu-container {
@@ -635,6 +985,48 @@ ul {
     background-image: url(../images/multitec-inscripcion.webp);
     background-position-x: 85%;
     height: 100%;
+}
+
+/* ---------------------------------------------------------------------------
+   #inscription is a split panel: a photograph on the left, text on the right.
+   The photo column has no content of its own, so something has to give it a
+   height, and that something used to be script.js:
+
+       var h = $('.expert').height();
+       $('.expert .col-sm-6 div').height(h);
+
+   read once at DOM-ready. Below 768px the paragraph beside it is 8 lines in
+   Poppins and 7 in the fallback face, at 32px a line, so the panel came out
+   729px if the webfont had not arrived yet and 761px if it had -- a layout that
+   depended on network timing, and the reason a Stage 1 with no visual change in
+   it still moved a 32px band on a phone.
+
+   Flex says the same thing at the layout level: side by side, the two columns
+   are the same height by construction, with no measurement and nothing to race.
+   Stacked, there is no second column to match, so the photo is a band sized in
+   CSS. Audit item 2.0 / 1.12.
+   --------------------------------------------------------------------------- */
+@media only screen and (min-width: 768px) {
+    #inscription .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+
+    #inscription .bg-img {
+        height: auto;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    /* 90vh is 760px on the 390x844 phone this was measured on -- one pixel off
+       the 761px the JavaScript produced when it won its own race, and the same
+       number on every load. */
+    #inscription .bg-img {
+        height: 90vh;
+        min-height: 320px;
+        max-height: 760px;
+    }
 }
 
 .expert .bg-img:after {
@@ -762,6 +1154,13 @@ ul {
 
 .faq-question:hover {
     font-size: 21px;
+}
+
+/* The questions are role="button" tabindex="0" now (audit item 2.4), so they
+   have to show where the keyboard is. Only ever visible to a keyboard user. */
+.faq-question:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -6px;
 }
 
 

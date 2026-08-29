@@ -98,6 +98,20 @@ body {
     box-shadow: var(--shadow-md);
 }
 
+/* Announced by a screen reader, drawn nowhere. The <h1> this page needs is the
+   logo, and the logo is an image. */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 .section-title {
     margin-top: 0;
     margin-bottom: var(--spacing-sm);
@@ -122,6 +136,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Every one of the eight links on this page measured 36-40px tall at 390px and
+       over 44px at 1100 -- the page whose entire job is being tapped with a thumb
+       from Instagram was the one whose targets shrank on a phone. Audit item 2.5. */
+    min-height: 44px;
     padding: var(--spacing-md);
     background-color: var(--white);
     border-radius: var(--border-radius);

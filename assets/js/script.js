@@ -51,24 +51,41 @@ $(document).ready(function() {
         items: 1,
     });
 
-    // height
-
-    var h = $('.expert').height();
-    $('.expert .col-sm-6 div').height(function(index, height) {
-        return h;
-    });
+    // The #inscription photo panel used to be sized here, from
+    // $('.expert').height() read at this instant. That made the layout depend on
+    // whether the webfont had arrived yet (729px vs 761px below 768px), so the
+    // page rendered differently on a fast connection than on a slow one. It is
+    // CSS now -- flex side by side, a viewport-sized band stacked -- see the
+    // #inscription block in style.css. Nothing replaces it here on purpose.
 
     // Menu bar
-    $('.menu').click(function() {
-        $(this).toggleClass('m c');
-        $('.menu span').toggleClass('ion-navicon ion-android-close');
-        $('#menu-item').toggleClass('show-menu hide-menu');
+    var $toggle = $('.menu');
+    var $panel = $('#menu-item');
+
+    function setMenu(open) {
+        $toggle.toggleClass('c', open).toggleClass('m', !open);
+        $toggle.attr('aria-expanded', open ? 'true' : 'false');
+        $toggle.attr('aria-label', open ? 'Cerrar el menú' : 'Abrir el menú');
+        $panel.toggleClass('show-menu', open).toggleClass('hide-menu', !open);
+    }
+
+    $toggle.click(function(e) {
+        e.preventDefault();
+        setMenu(!$panel.hasClass('show-menu'));
     });
 
-    $('#menu-item a').click(function() {
-        $('.menu').toggleClass('c m');
-        $('.menu span').toggleClass('ion-navicon ion-android-close');
-        $('#menu-item').toggleClass('show-menu hide-menu');
+    // Any choice inside the panel closes it -- every link in there is either an
+    // in-page anchor or another page, so leaving it open is never right.
+    $panel.find('a').click(function() {
+        setMenu(false);
+    });
+
+    // Escape closes it, and focus goes back to the control that opened it.
+    $(document).keydown(function(e) {
+        if (e.key === 'Escape' && $panel.hasClass('show-menu')) {
+            setMenu(false);
+            $toggle.focus();
+        }
     });
 });
 
@@ -101,19 +118,32 @@ $(document).ready(function() {
 
 });
 
-//FAQ
+// FAQ
+//
+// The questions are <p role="button" tabindex="0" aria-expanded>. They were plain
+// <p> with a click listener, which meant a keyboard or switch user could not open
+// a single one of them -- including "¿Cómo puedo unirme?", the answer most likely
+// to decide whether somebody pays the 12 euros. Audit item 2.4.
 const faq = document.getElementsByClassName("faq-question");
-let i;
 
-for (i = 0; i < faq.length; i++) {
+function toggleFaq(question) {
+    const body = question.nextElementSibling;
+    const open = body.style.display !== "block";
+    question.classList.toggle("faq-active", open);
+    body.style.display = open ? "block" : "none";
+    question.setAttribute("aria-expanded", open ? "true" : "false");
+}
+
+for (let i = 0; i < faq.length; i++) {
     faq[i].addEventListener("click", function () {
-        this.classList.toggle("faq-active");
-
-        const body = this.nextElementSibling;
-        if (body.style.display === "block") {
-            body.style.display = "none";
-        } else {
-            body.style.display = "block";
+        toggleFaq(this);
+    });
+    faq[i].addEventListener("keydown", function (e) {
+        // Enter and Space are what a native <button> answers to, and role="button"
+        // promises exactly that.
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+            e.preventDefault();
+            toggleFaq(this);
         }
     });
 }

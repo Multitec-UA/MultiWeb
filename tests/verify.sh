@@ -273,28 +273,51 @@ grep -rq 'jquery-3\.1\.1\.js' src/ \
   || pass "jQuery is served minified"
 
 # ---------------------------------------------------------------------------
-head1 "9. Fonts are requested once, from one place"
-# WHY: four Google Fonts / Ionicons @import rules sit at the top of style.css, so the browser
-# must download and parse style.css before it even learns those four requests exist — three
-# hops in front of first paint. Moving them to <link> is audit item 1.12 and it is DEFERRED,
-# not forgotten: it is measurably visible below 767px, because script.js sets the height of
-# the inscription photo panel from `$('.expert').height()` read at DOM-ready, and discovering
-# the fonts one hop earlier changes what that measurement returns (729px -> 761px, proved by
-# isolation on 2026-08-29). Do 1.12 together with making that height sync deterministic.
+head1 "9. The webfonts are ours, and they are the same faces"
+# WHY: three @import rules against fonts.googleapis.com sat at the top of style.css, so the
+# browser had to download and parse this stylesheet before it even learned those requests
+# existed — two extra DNS+TLS hops in front of first paint, and every visitor's IP going to
+# Google on every page view. They are @font-face rules over self-hosted woff2 now (item 2.8).
 #
-# What this check defends meanwhile: the fonts must be requested from exactly one place. A
-# half-done move that leaves both the @import and the <link> would download every family twice.
-imp=$(grep -c '^@import' assets/css/style.css)
-lnk=$(grep -lc 'fonts.googleapis.com' "${HTML_PAGES[@]}" 2>/dev/null | wc -l)
-if [ "$imp" -gt 0 ] && [ "$lnk" -gt 0 ]; then
-  fail "fonts are loaded BOTH by @import in style.css and by <link> in $lnk page(s) — every family downloads twice"
-elif [ "$imp" -eq 0 ] && [ "$lnk" -eq 0 ]; then
-  fail "no page loads the webfonts at all"
-elif [ "$imp" -gt 0 ]; then
-  pass "fonts load via @import in style.css ($imp rules) — item 1.12 deferred, see comment"
+# This check is what stops the move being half-done: a page that loads BOTH would download
+# every family twice, and a page that loads NEITHER renders in Times New Roman.
+# Comments in these files name the Google hosts on purpose (they explain what moved), so
+# match the ways a file can actually *request* one: an @import, a <link href>, or a src: url().
+goog_hits() {
+  grep -nE "@import[^;]*['\"(]https?://fonts\.(googleapis|gstatic)\.com|(href|src)=\"[^\"]*fonts\.(googleapis|gstatic)\.com|url\(['\"]?https?://fonts\.(googleapis|gstatic)\.com" \
+    "${HTML_PAGES[@]}" assets/css/*.css 2>/dev/null
+}
+goog=$(goog_hits | wc -l)
+[ "$goog" -eq 0 ] && pass "no page or stylesheet requests fonts from Google" \
+                  || { goog_hits; fail "$goog reference(s) still request a Google-hosted font"; }
+
+missingface=0
+for fam in Ubuntu Poppins Lora Raleway; do
+  grep -q "font-family: '$fam';" assets/css/style.css || { echo "  no @font-face for $fam"; missingface=$((missingface+1)); }
+done
+[ "$missingface" -eq 0 ] && pass "all four families are declared as @font-face" \
+                         || fail "$missingface family/families lost their @font-face"
+
+# WHY: the whole point of self-hosting is that the bytes are ours and bounded. Ten files,
+# latin + latin-ext only: the cyrillic, greek, vietnamese and devanagari subsets Google was
+# offering were downloaded by nobody on a Spanish site. A budget so a "just add a weight"
+# never quietly triples the image.
+nfonts=$(find assets/fonts -name '*.woff2' 2>/dev/null | wc -l)
+fontbytes=$(find assets/fonts -name '*.woff2' -printf '%s\n' 2>/dev/null | awk '{t+=$1} END {print t+0}')
+if [ "$nfonts" -gt 0 ] && [ "$fontbytes" -le 300000 ]; then
+  pass "$nfonts self-hosted woff2, $fontbytes B on disk (budget 300000)"
 else
-  pass "fonts load via <link> in $lnk page(s)"
+  fail "self-hosted fonts: $nfonts file(s), $fontbytes B (budget 300000)"
 fi
+
+# WHY: a src: url() that 404s is a font that silently falls back to Times. Group 1 resolves
+# every url(../...) in our stylesheets, but only if the rules are actually reachable from
+# there, so count them here too.
+faces=$(grep -c '^@font-face' assets/css/style.css)
+srcs=$(grep -c 'url(\.\./fonts/' assets/css/style.css)
+[ "$faces" -gt 0 ] && [ "$faces" -eq "$srcs" ] \
+  && pass "$faces @font-face rules, $srcs local src: url() — none points off-site" \
+  || fail "@font-face rules ($faces) and local font src ($srcs) do not match"
 
 # ---------------------------------------------------------------------------
 head1 "10. Body text meets WCAG AA on white"
@@ -305,8 +328,168 @@ grep -qE '^\s*color:\s*#818181' assets/css/style.css \
   || pass "body text is not #818181"
 
 # ---------------------------------------------------------------------------
+head1 "11. A phone has navigation"
+# WHY: below 995px .menu-links is display:none, and for years nothing replaced it — a phone
+# got the logo and nothing else. No way to reach any section of an 11,000px page, and no
+# INSCRÍBETE, on the page students arrive at from Instagram. style.css styled the panel and
+# script.js drove it; only the markup was ever missing. Audit item 2.1.
+for page in src/index.html src/inscripcion.html; do
+  flat=$(tr '\n' ' ' < "$page")
+  ok=1
+  case "$flat" in *'id="menu-item"'*) ;; *) echo "  $page: no #menu-item panel"; ok=0 ;; esac
+  case "$flat" in *'id="menu-toggle"'*) ;; *) echo "  $page: no #menu-toggle control"; ok=0 ;; esac
+  case "$flat" in *'aria-controls="menu-item"'*) ;; *) echo "  $page: toggle does not point at the panel"; ok=0 ;; esac
+  case "$flat" in *'aria-expanded="false"'*) ;; *) echo "  $page: toggle has no aria-expanded"; ok=0 ;; esac
+  # An inline SVG and not the template's ion-navicon: inscripcion.html loads the Ionicons
+  # stylesheet without drawing a single glyph from it, so one hamburger there would have
+  # pulled 110 KB of icon font onto the payment page, on a phone.
+  case "$flat" in *'class="menu-icon"'*) ;; *) echo "  $page: no hamburger glyph"; ok=0 ;; esac
+  case "$flat" in *'ion-navicon'*) echo "  $page: the toggle needs an icon font again"; ok=0 ;; esac
+  # the panel must carry the join CTA — restoring the navigation without it misses the point
+  case "$flat" in *'menu-item-cta'*) ;; *) echo "  $page: the panel has no INSCRÍBETE"; ok=0 ;; esac
+  n=$(printf '%s' "$flat" | grep -oE '<div id="menu-item".*</ul>' | grep -o '<li>' | wc -l)
+  [ "${n:-0}" -ge 7 ] || { echo "  $page: panel has ${n:-0} items, expected 7"; ok=0; }
+  [ "$ok" -eq 1 ] && pass "$page has a working mobile menu (panel, toggle, 7 items, CTA)" \
+                  || fail "$page is missing part of the mobile menu"
+  # WHY: script.js binds the toggle to `.menu`, and the desktop nav container used to carry
+  # that class too. With a panel in the page, an idle click anywhere in the desktop navigation
+  # would have slid it open — a regression above 995px caused by a fix below it.
+  case "$flat" in
+    *'flex-row menu text-right'*) fail "$page: the desktop nav still carries the .menu class" ;;
+    *) pass "$page: only the toggle is .menu, so the desktop nav cannot open the panel" ;;
+  esac
+done
+
+# WHY: the toggle sits in its own .col-xs-8. If it were merely invisible rather than
+# display:none above 995px it would still take grid columns and wrap the desktop navigation
+# onto a second line.
+grep -qE '^\.menu-toggle-wrap \{' assets/css/style.css && \
+  awk '/^\.menu-toggle-wrap \{/{f=1} f{print} f&&/\}/{exit}' assets/css/style.css | grep -q 'display: *none' \
+  && pass "the toggle is display:none by default (desktop keeps one nav row)" \
+  || fail "the mobile toggle is not display:none above the breakpoint"
+grep -q 'max-width: 995px' assets/css/style.css \
+  && pass "the menu breakpoint is still the site's own 995px" \
+  || fail "no 995px breakpoint in style.css"
+
+# WHY: aria-expanded that never changes is worse than none — it tells a screen reader the
+# menu is shut while it is open.
+grep -q "attr('aria-expanded'" assets/js/script.js \
+  && pass "script.js keeps aria-expanded in sync with the panel" \
+  || fail "script.js never updates aria-expanded"
+
+# ---------------------------------------------------------------------------
+head1 "12. The FAQ can be opened without a mouse"
+# WHY: the seven questions were <p> with a click listener — not focusable, no role, no
+# aria-expanded, no key handler. A keyboard or switch user could not open any of them,
+# including "¿Cómo puedo unirme?", the answer most likely to decide whether somebody pays
+# the 12 euros. Audit item 2.4.
+qs=$(grep -c 'class="faq-question"' src/index.html)
+btn=$(grep -c 'class="faq-question" role="button" tabindex="0" aria-expanded="false"' src/index.html)
+[ "$qs" -gt 0 ] && [ "$qs" -eq "$btn" ] \
+  && pass "all $qs FAQ questions are role=button, tabindex=0, aria-expanded" \
+  || fail "$btn of $qs FAQ questions are keyboard-reachable"
+# every aria-controls must point at an id that exists, or the answer is announced by nobody
+danglers=0
+for id in $(grep -oE 'aria-controls="faq-answer-[0-9]+"' src/index.html | sed -E 's/.*"(.*)"/\1/'); do
+  grep -q "id=\"$id\"" src/index.html || { echo "  aria-controls=$id points at nothing"; danglers=$((danglers+1)); }
+done
+[ "$danglers" -eq 0 ] && pass "every FAQ aria-controls resolves to an answer" \
+                      || fail "$danglers dangling aria-controls"
+grep -q 'keydown' assets/js/script.js && grep -q '"Enter"' assets/js/script.js \
+  && pass "script.js answers Enter and Space like a real button" \
+  || fail "script.js has no Enter/Space handler for the FAQ"
+
+# ---------------------------------------------------------------------------
+head1 "13. The targets a thumb has to hit"
+# WHY: 25 of 39 tap targets on the homepage and 8 of 8 on the Instagram bio page were under
+# 44px at 390px — and the same targets were fine at 1100px, so the page shrank them exactly
+# where a finger, not a cursor, was going to be used. Audit item 2.5. These are the ones the
+# CSS is responsible for; the sizes are asserted here rather than in a browser because a
+# rendered measurement needs Chrome and this file must run offline.
+tap_rule() { # <file> <selector-regex> <description>
+  awk -v s="$2" '$0 ~ s"[ ,{]" {f=1} f{print} f&&/\}/{f=0}' "$1" | grep -q 'min-height: *44px\|line-height: *44px\|width: *44px' \
+    && pass "$3" || fail "$3 — no 44px floor found"
+}
+tap_rule assets/css/enlaces.css '^\.link-item' "enlaces: .link-item has a 44px floor"
+tap_rule assets/css/style.css   '^\.menu'      "the mobile menu toggle is at least 44px"
+tap_rule assets/css/style.css   '\.menu-item ul li a' "menu panel entries are at least 44px"
+awk '/max-width: 995px/{f=1} f&&/\.social-icons-form ul li a/{g=1} g{print} g&&/\}/{exit}' assets/css/style.css \
+  | grep -q '44px' && pass "social icons are 44px on a phone (36px desktop row untouched)" \
+                   || fail "social icons have no 44px floor below 995px"
+
+# ---------------------------------------------------------------------------
+head1 "14. The heading outline is navigable"
+# WHY: a screen reader navigates by heading. The hero subtitle was an <h2> that is not a
+# section, the FAQ title was an <h3> among <h2> sections, the contact title was a <p> styled
+# to look like a heading, inscripcion.html had no <h1> at all and jumped <h2> to <h4>, and
+# enlaces.html started at <h3>. Audit item 2.6. Every tag swap here is paired with a pinned
+# font-size/line-height in the CSS, so the outline changed and the page did not.
+for page in "${HTML_PAGES[@]}"; do
+  levels=$(tr '\n' ' ' < "$page" | grep -oE '<h[1-6][ >]' | grep -oE '[1-6]')
+  h1s=$(printf '%s\n' "$levels" | grep -c '^1$' || true)
+  prev=0; skips=0
+  for l in $levels; do
+    [ "$prev" -ne 0 ] && [ $((l - prev)) -gt 1 ] && { echo "  $page: h$prev followed by h$l"; skips=$((skips+1)); }
+    prev=$l
+  done
+  if [ "$h1s" -eq 1 ] && [ "$skips" -eq 0 ]; then
+    pass "$(printf '%-22s outline: %s' "$(basename "$page")" "$(printf '%s' "$levels" | tr '\n' ' ')")"
+  else
+    fail "$(basename "$page"): $h1s <h1> (want 1), $skips skipped level(s)"
+  fi
+done
+
+# ---------------------------------------------------------------------------
+head1 "15. No layout is decided by JavaScript at DOM-ready"
+# WHY: this is the defect that ambushed Stage 1. script.js sized the #inscription photo panel
+# from $('.expert').height() read at DOM-ready, so below 768px the panel came out 729px if the
+# webfont had not landed yet and 761px if it had — the page rendered differently on a fast
+# connection than on a slow one, and every future speed-up silently moved a 32px band.
+# Flex does the same job at the layout level with nothing to race. Audit item 2.0.
+# The comment left in script.js quotes the code it replaced, so read the code only.
+CODE=$(sed -E 's://.*::' assets/js/script.js)
+printf '%s' "$CODE" | grep -q "\$('.expert').height()" \
+  && fail "script.js still measures .expert at DOM-ready — the font-timing race is back" \
+  || pass "no DOM-ready height measurement drives the layout"
+# .height() with an argument is a write; $(window).height() with none is a read, and fine.
+printf '%s' "$CODE" | grep -qE "\.height\([^)]" \
+  && fail "script.js writes an element height from JavaScript" \
+  || pass "script.js writes no element heights at all"
+awk '/#inscription \.row/{f=1} f{print} f&&/\}/{exit}' assets/css/style.css | grep -q 'display: *flex' \
+  && pass "#inscription matches its two columns with flex instead" \
+  || fail "#inscription has no CSS that makes its columns equal"
+
+# ---------------------------------------------------------------------------
+head1 "16. Nothing pushes the page sideways"
+# WHY: .vira-btn carried 80px of horizontal padding at every width, which made GESTIONAR
+# SUSCRIPCIÓN 419px wide inside a 390px viewport and scrolled the payment page sideways by
+# 14px. clamp() keeps the desktop value exactly. Audit items 2.2 and 2.3.
+awk '/^\.vira-btn \{/{f=1} f{print} f&&/\}/{exit}' assets/css/style.css > /tmp/verify-btn.$$
+grep -q 'padding: 15px clamp(' /tmp/verify-btn.$$ \
+  && pass ".vira-btn padding is clamped (80px on desktop, ~24-31px on a phone)" \
+  || fail ".vira-btn still has fixed horizontal padding"
+grep -q '80px' /tmp/verify-btn.$$ \
+  && pass ".vira-btn keeps its 80px desktop padding" || fail ".vira-btn lost its desktop padding"
+grep -q 'border-color' /tmp/verify-btn.$$ \
+  && pass ".vira-btn has a visible border (the ghost variant reads as a button)" \
+  || fail ".vira-btn has no border — the ghost variant reads as plain text"
+rm -f /tmp/verify-btn.$$
+
+# ---------------------------------------------------------------------------
+head1 "17. 404.html says what it is"
+# WHY: it shipped with no lang attribute, an empty <title>, an empty description and no
+# favicon — a page a search engine and a screen reader both had to guess at. Audit item 2.7.
+ok=1
+grep -q '<html lang=' src/404.html || { echo "  no lang attribute"; ok=0; }
+grep -qE '<title>.+</title>' src/404.html || { echo "  empty <title>"; ok=0; }
+grep -qE '<meta name="description" content=".+">' src/404.html || { echo "  empty description"; ok=0; }
+grep -q 'rel="shortcut icon"' src/404.html || { echo "  no favicon"; ok=0; }
+[ "$ok" -eq 1 ] && pass "404.html has lang, title, description and favicon" \
+                || fail "404.html is still missing page metadata"
+
+# ---------------------------------------------------------------------------
 if [ -n "${BASE_URL:-}" ]; then
-head1 "11. Live headers from a running preview ($BASE_URL)"
+head1 "18. Live headers from a running preview ($BASE_URL)"
 # WHY: a directive in nginx.conf is a claim; the response header is the fact. gzip in
 # particular is easy to configure into a location that never matches.
 ASSET_V=$(grep -oE 'assets/v[0-9]+/' src/index.html | head -1 | sed -E 's#assets/(v[0-9]+)/#\1#')
@@ -324,12 +507,12 @@ code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE_URL/assets/css/style.css")
 [ "$code" = "200" ] && pass "unversioned asset URLs still resolve (200)" \
                     || fail "unversioned asset URL returned $code — old links would break"
 else
-  head1 "11. Live headers — SKIPPED (set BASE_URL to a running preview to include)"
+  head1 "18. Live headers — SKIPPED (set BASE_URL to a running preview to include)"
 fi
 
 # ---------------------------------------------------------------------------
 if [ -n "${DETECT:-}" ]; then
-head1 "12. Design detector"
+head1 "19. Design detector"
 # WHY: exit 3 means the detector never ran. On 2026-08-29 impeccable exited 0 when its own
 # browser failed to start and an agent recorded that as a pass. 3 is an UNCHECKED page, and
 # it must never be read as a clean one. 0 and 2 are both accepted here: 2 is the site's
@@ -346,7 +529,7 @@ case "$rc" in
   *) fail "detector exit $rc — the page was NOT checked" ;;
 esac
 else
-  head1 "12. Design detector — SKIPPED (set DETECT=/path/to/detect.sh to include)"
+  head1 "19. Design detector — SKIPPED (set DETECT=/path/to/detect.sh to include)"
 fi
 
 # ---------------------------------------------------------------------------
