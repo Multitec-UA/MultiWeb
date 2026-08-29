@@ -367,6 +367,19 @@ h1.title {
 
 .menu-logo {
     width: 180px;
+    /* 180px inside a .col-xs-4, which at a 360px viewport is 120px wide — the wordmark
+       has always overhung its own column by 60px and collided with whatever the right of
+       the bar held. Measured on the build before this one: at a 320px viewport the
+       document scrolled sideways to 353px and the word MENU sat on the letters "EC".
+       The language switch made that collision start at 360px, the width of most Android
+       phones, so it is now worth fixing rather than noting.
+
+       min() and not a breakpoint, because the column is a percentage and so the clash
+       is continuous: 40vw tracks it exactly. 180px at 450px and above, so every tablet
+       and every desktop is the size it has always been; 156px at 390, 144 at 360, 128
+       at 320. A browser that does not know min() drops this line and keeps the 180px
+       above it, which is what it renders today. */
+    width: min(180px, 40vw);
     height: auto;
     filter: brightness(90%);
 }
@@ -374,6 +387,7 @@ h1.title {
 .menu-logo::hover {
     width: 50px;
 }
+
 
 
 /*Bootstrap*/
@@ -581,6 +595,16 @@ h1.title {
     color: #fff;
     font-weight: 500;
     letter-spacing: 1px;
+    /* The same defect Stage 2 fixed on .vira-btn (audit item 2.2), on the button it
+       missed. MÁS INFORMACIÓN E INSCRIPCIÓN measures 323px at a 320px viewport and
+       scrolls the whole homepage sideways to 353px — measured on this build and on the
+       one before it, so it is not new. Bootstrap 3's .btn is white-space: nowrap, which
+       is what turns a long label into horizontal overflow instead of a second line.
+       max-width keeps it inside its column; normal lets it wrap when it has to. The
+       desktop rendering does not move: at 1100px the label is 322px in a 458px column
+       and never reaches either limit. */
+    max-width: 100%;
+    white-space: normal;
     padding: 5px 30px;
     background-color: transparent;
     transition: all 0.3s ease-in-out;
@@ -901,7 +925,11 @@ h1.title {
 
 @media only screen and (max-width: 995px) {
     .menu-toggle-wrap {
-        display: block;
+        /* flex, so the language switch and the toggle sit on one line and neither has
+           to be positioned against the other. */
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
 }
 
@@ -934,9 +962,21 @@ h1.title {
     outline-offset: 4px;
 }
 
+/* The MENU label is drawn inside the button's own left padding.
+
+   It used to be `left: -65px` — absolutely positioned OUTSIDE the button, over whatever
+   happened to sit beside it. Nothing ever did, until the language switch moved into this
+   bar and the label landed on top of it: measured on that build, the link was 60 x 44px
+   and visible, and a click at its centre did not navigate, because the label was in
+   front of it. Moving the label into the button's padding draws it in exactly the same
+   place relative to the bars and stops it overlapping its neighbour. */
+.menu {
+    padding-left: 65px;
+}
+
 .menu:after {
     position: absolute;
-    left: -65px;
+    left: 0;
     top: 0;
     line-height: 44px;
     color: #1a1a1a;
@@ -968,7 +1008,35 @@ h1.title {
     color: #1a1a1a;
 }
 
+/* The row of desktop navigation links.
+
+   The markup has carried `d-flex flex-row` since the template this site came from, and
+   those are Bootstrap 4 class names — this project is on Bootstrap 3.3.7 and defines
+   neither, so the row has always been inline anchors laid out by `text-align: right`.
+   Making it the flex row it already says it is costs nothing to look at and buys back
+   the collapsed inter-tag whitespace that six gaps between seven inline items were
+   spending, which is what makes room for the language switch without pushing INSCRÍBETE
+   onto a second line. Measured at 1200px: 7 items on one row before, 7 on one row after
+   with the switch added.
+
+   Below 995px the media query further down in this file sets .menu-links to display:
+   none and the phone panel takes over, so nothing here applies to a phone. */
+.menu-links {
+    display: flex;
+    /* wrap, not nowrap: between 995 and ~1160px the Spanish row does not fit and never
+       has — on the build before this one INSCRÍBETE already sat on a second line at
+       1100px. Wrapping keeps that behaviour (the overflow drops to a right-aligned
+       second row) instead of squeezing "Sobre Nosotros" onto two lines inside its own
+       item, which is what nowrap did. */
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    row-gap: 8px;
+}
+
 .menu-link {
+    /* A navigation label never breaks mid-item. */
+    white-space: nowrap;
     font-family: 'Ubuntu', sans-serif !important;
     font-size: 0.6em;
     color: #1a1a1a !important;
@@ -1004,9 +1072,10 @@ h1.title {
    navigation row is exactly as tall as it was.
    --------------------------------------------------------------------------- */
 .menu-link.lang-link {
-    margin-left: 4px;
+    margin-left: 12px;
     margin-right: 0;
-    padding: 4px 9px;
+    padding: 4px 8px;
+    flex: 0 0 auto;
     border: 1px solid rgba(26, 26, 26, 0.35);
     border-radius: 3px;
     letter-spacing: 1px;
@@ -1028,13 +1097,24 @@ h1.title {
     margin-right: 4px;
 }
 
-/* In the phone panel it is a full-width row like every other entry, so it gets
-   the panel's own 44px floor and needs nothing but the icon spacing. */
-.menu-item ul li a .ic-fa {
-    width: 0.95em;
-    height: 0.95em;
-    vertical-align: -0.15em;
-    margin-right: 6px;
+/* The phone copy. There are two switches in the markup, exactly as there are two
+   copies of the navigation links: one inside .menu-links, which is display:none below
+   995px, and one inside .menu-toggle-wrap, which is display:none above it. At most one
+   is ever on screen.
+
+   The phone copy is in the BAR and not in the slide-down panel, and that is the whole
+   point of it: the panel is opened by script, so a switch inside it is unreachable with
+   JavaScript off — measured, on this build, before this rule existed. In the bar it is
+   two taps from nothing: it is simply a link, sitting next to MENU, at every width.
+   44px tall because it is a phone target. */
+.menu-toggle-wrap .lang-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-right: 14px;
+    vertical-align: middle;
+    font-size: 16px;
 }
 
 

@@ -931,7 +931,19 @@ rm -rf "$STAGE" /tmp/verify-detect.$$
 # deliberate — the red left rule on the board-approval notice, and two full-bleed page
 # sections the rule reads as unpadded cards. Lower this number when you clear one; never
 # raise it without saying in the commit which finding you accepted and why.
-DETECT_CEILING=${DETECT_CEILING:-10}
+#
+# 10 -> 13 on 2026-08-29 when the site became bilingual, and the three are named:
+#   src/en/inscripcion.html  [side-tab] border-left: 5px
+#   src/en/inscripcion.html  [cramped-padding] <section> "inscripcion-header"
+#   src/en/inscripcion.html  [cramped-padding] <section> "section"
+# They are the SAME three already accepted on src/inscripcion.html, reported a second
+# time because that page now exists in two languages and both are rendered from the same
+# template and the same stylesheet. No new kind of finding appeared: the seven vendored
+# ones did not multiply, because the CSS files are shared. If a fifth page is ever added
+# in both languages this number moves by whatever that page scores, twice — and the right
+# fix for all six of these is still to fix the two <section> paddings once, in the
+# template, which clears three findings on each side at the same time.
+DETECT_CEILING=${DETECT_CEILING:-13}
 case "$rc" in
   0) pass "detector exit 0 — clean" ;;
   2) if [ "${n:-999}" -le "$DETECT_CEILING" ]; then
