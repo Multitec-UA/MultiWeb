@@ -690,6 +690,24 @@ h1.title {
     vertical-align: -0.12em;
 }
 
+/* The Font Awesome card icons. Their source viewBoxes are not square — 0 0 640 512 for
+   the gears, 0 0 448 512 for the calendar — and `width: auto` on an <svg> with no
+   intrinsic size resolves to the CSS default 300px, not to the aspect ratio: the first
+   build of this drew a 300 x 27px box and pushed every glyph out of its 120px circle,
+   invisibly. So each <symbol> carries a viewBox padded out to a square centred on the
+   original, exactly the way an icon font sits a glyph in a square em box, and these are
+   square too. */
+.ic-fa {
+    /* 1.08em / -0.21em is measured, not guessed: at 0.9em the gem's ink came out 27x23px
+       inside the 100px disc where the icon font drew it 33x27, and raising the box without
+       lowering the baseline offset by half the growth would have floated it upwards.
+       Measured after: within a pixel of the glyph it replaces, same centre. */
+    width: 1.08em;
+    height: 1.08em;
+    fill: currentColor;
+    vertical-align: -0.21em;
+}
+
 .social-icons-form ul li {
     display: inline-block;
     list-style-type: none;

@@ -510,15 +510,19 @@ grep -q 'rel="shortcut icon"' src/404.html || { echo "  no favicon"; ok=0; }
 
 # ---------------------------------------------------------------------------
 head1 "18. No third party sits in front of first paint"
-# WHY: assets/css/style.css opened with
-#   @import 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css';
-# for years — a 2015 CDN path, render-blocking, loaded by the three pages that load
-# style.css, and measured at 9,216 B of CSS plus 110,963 B of ionicons.ttf on index.html to
-# draw five social marks. An @import is the worst possible place for it: the browser cannot
-# even discover the request until it has fetched and parsed the stylesheet. The marks are an
-# inline SVG sprite now, and nothing in this repo may point at that host again.
+# WHY: this site used to load its icons from three different third-party hosts.
+# assets/css/style.css opened with an @import of the Ionicons 2.0.1 stylesheet from a 2015
+# CDN — render-blocking on all three pages that load style.css, 9,216 B of CSS plus
+# 110,963 B of icon font on index.html to draw five social marks, and an @import is the
+# worst possible place for it because the browser cannot even discover the request until it
+# has fetched and parsed the stylesheet. index.html also loaded a Font Awesome Kit script
+# minted in 2016 (84,372 B behind it, plus a stats beacon fired at a third-party CDN on
+# every visit). enlaces.html and inscripcion.html each pulled Font Awesome 6 from a public
+# CDN — 212,733 B and 120,268 B measured. Every one of them is an inline SVG sprite now:
+# no icon on this site is fetched from anywhere but this repo, and none of these hosts may
+# come back.
 tp=0
-for host in code.ionicframework.com fonts.googleapis.com fonts.gstatic.com maps.googleapis.com; do
+for host in code.ionicframework.com fonts.googleapis.com fonts.gstatic.com maps.googleapis.com use.fontawesome.com cdn.fontawesome.com cdnjs.cloudflare.com; do
   hits=$(grep -rn "$host" src assets --include='*.html' --include='*.css' --include='*.js' 2>/dev/null | grep -v '^\s*/\*' | grep -vE '^\S+:[0-9]+:\s*(\*|//|#)' || true)
   if [ -n "$hits" ]; then printf '%s\n' "$hits" | sed 's/^/    /'; tp=$((tp+1)); fi
 done
@@ -529,15 +533,31 @@ done
 # social marks, three places each on index.html, and every one of them must resolve to a
 # <symbol> that exists in the same document — a <use href="#ic-x"> pointing at nothing
 # renders as absolutely nothing, silently, and looks exactly like a page with no icons.
-grep -q 'class="ion-social' src/*.html && fail "an ion-social icon-font glyph is back" || pass "no icon-font glyph left in any page"
-badref=0
-for id in $(grep -oE 'href="#ic-[a-z0-9-]+"' src/index.html | sed 's/href="#//; s/"//' | sort -u); do
-  grep -q "<symbol id=\"$id\"" src/index.html || { echo "    <use href=\"#$id\"> has no <symbol>"; badref=1; }
+grep -qE 'class="(ion-social|fa fa-[a-z]|fa-solid|fa-brands|fa-regular)' src/*.html \
+  && fail "an icon-font glyph class is back" || pass "no icon-font glyph class left in any page"
+# Every <use href="#x"> must resolve to a <symbol id="x"> in the SAME document. A <use>
+# pointing at nothing renders as absolutely nothing, silently, and looks exactly like a
+# page whose icons were never there — which is how the first build of the Font Awesome
+# swap shipped six invisible glyphs past every other check in this file.
+badref=0; totaluse=0
+for page in "${HTML_PAGES[@]}"; do
+  for id in $(grep -oE 'href="#ic-[a-z0-9-]+"' "$page" | sed 's/href="#//; s/"//' | sort -u); do
+    grep -q "<symbol id=\"$id\"" "$page" || { echo "    $page: <use href=\"#$id\"> has no <symbol>"; badref=1; }
+  done
+  totaluse=$((totaluse + $(grep -cE '<use href="#ic-' "$page" || true)))
 done
-nuse=$(grep -cE '<use href="#ic-' src/index.html || true)
-[ "$badref" -eq 0 ] && [ "$nuse" -ge 15 ] \
-  && pass "$nuse inline SVG social marks, every one resolving to a <symbol> in the page" \
-  || fail "the inline SVG social sprite is broken ($nuse <use>, badref=$badref)"
+[ "$badref" -eq 0 ] && [ "$totaluse" -ge 32 ] \
+  && pass "$totaluse inline SVG icons, every one resolving to a <symbol> in its own page" \
+  || fail "the inline SVG sprites are broken ($totaluse <use>, badref=$badref)"
+# And every <symbol> must carry a SQUARE viewBox. Font Awesome's are 0 0 640 512 and
+# 0 0 448 512; dropped into a square CSS box they either squash or, with width:auto,
+# blow out to the CSS default 300px and push the glyph clean out of its container.
+sq=0; nsq=0
+for vb in $(grep -ohE '<symbol id="ic-[a-z0-9-]+" viewBox="[^"]+"' src/*.html | sed -E 's/.*viewBox="([^"]+)"/\1/' | tr ' ' ':'); do
+  w=$(echo "$vb" | cut -d: -f3); h=$(echo "$vb" | cut -d: -f4)
+  if [ "$w" = "$h" ]; then sq=$((sq+1)); else echo "    non-square symbol viewBox: $vb"; nsq=$((nsq+1)); fi
+done
+[ "$nsq" -eq 0 ] && pass "$sq icon symbols, all with a square viewBox" || fail "$nsq icon symbol(s) have a non-square viewBox"
 
 # WHY: the chat widget injected https://chat.lixsa.ai/lixsa-chat.umd.cjs at parse time —
 # 265,065 B measured, a quarter of the homepage, racing the association's own images for a
