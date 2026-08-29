@@ -783,13 +783,16 @@ h1.title {
    magic number equal to the height of a panel that never existed and which slid
    the links up *over* the navigation bar instead of clipping them. visibility
    also takes the links out of the tab order while the panel is shut. */
-/* visibility, not just opacity: a transparent panel would still be in the tab
+/* Both selectors carry the id, because the rule that sets the shut state above
+   does too: `.show-menu { opacity: 1 }` alone loses to `#menu-item { opacity: 0 }`
+   and the panel toggles its class, animates nothing, and stays invisible.
+   visibility and not just opacity: a transparent panel would still be in the tab
    order, and a keyboard user would fall into an invisible menu. */
-.hide-menu {
+#menu-item.hide-menu {
     visibility: hidden;
 }
 
-.show-menu {
+#menu-item.show-menu {
     transform: none;
     opacity: 1;
     visibility: visible;
