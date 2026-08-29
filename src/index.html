@@ -505,7 +505,46 @@
                             <p>También puedes unirte a nuestro grupo de <a class="telegram" href="https://t.me/MultitecUA">Telegram</a></p>
                         </div>
 
-                        <iframe class="maps" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12509.692053929966!2d-0.509647!3d38.3854672!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6237f905204eff%3A0xc5aef6bd02c91fc8!2sMultitecUA!5e0!3m2!1ses!2ses!4v1679493824847!5m2!1ses!2ses" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <!-- This used to be a Google Maps <iframe>. It was replaced on 2026-08-29 and
+                             should not come back: tests/verify.sh group 25 fails if it does, and the reason
+                             is written there. In short — a third-party frame renders only for visitors whose
+                             browser lets Google run one, and it told Google about every visitor who did,
+                             before they had chosen to ask it anything. This panel is served from our own
+                             container, renders for everyone, and reaches Google Maps only when somebody taps
+                             the button. -->
+                        <div class="col-sm-12">
+                            <div class="find-us">
+                                <div class="find-us-plate" aria-hidden="true">
+                                    <svg viewBox="0 0 320 200" role="presentation" focusable="false">
+                                        <rect class="fu-bg" x="0" y="0" width="320" height="200" rx="14"/>
+                                        <path class="fu-road" d="M-10 58 H330"/>
+                                        <path class="fu-road" d="M-10 150 H330"/>
+                                        <path class="fu-road" d="M74 -10 V210"/>
+                                        <path class="fu-road" d="M232 -10 V210"/>
+                                        <path class="fu-road fu-road-main" d="M-10 104 H330"/>
+                                        <rect class="fu-block" x="18" y="16" width="42" height="28" rx="4"/>
+                                        <rect class="fu-block" x="90" y="10" width="56" height="34" rx="4"/>
+                                        <rect class="fu-block" x="246" y="16" width="56" height="28" rx="4"/>
+                                        <rect class="fu-block" x="18" y="164" width="42" height="26" rx="4"/>
+                                        <rect class="fu-block" x="246" y="160" width="56" height="30" rx="4"/>
+                                        <rect class="fu-green" x="90" y="118" width="128" height="70" rx="8"/>
+                                        <g class="fu-pin">
+                                            <path d="M160 46c-13.8 0-25 11.2-25 25 0 18.8 25 45 25 45s25-26.2 25-45c0-13.8-11.2-25-25-25z"/>
+                                            <circle class="fu-pin-dot" cx="160" cy="70" r="9"/>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="find-us-body">
+                                    <p class="find-us-eyebrow">Ven a vernos</p>
+                                    <p class="find-us-place">Campus de San Vicente del Raspeig</p>
+                                    <address class="find-us-address">Universidad de Alicante, Alicante</address>
+                                    <a class="btn find-us-btn" href="https://www.google.com/maps/search/?api=1&amp;query=38.3854672%2C-0.509647" target="_blank" rel="noopener noreferrer">
+                                        <svg class="ic-fa" aria-hidden="true" focusable="false"><use href="#ic-map"></use></svg>Cómo llegar
+                                    </a>
+                                    <p class="find-us-note">Se abre en Google Maps, en una pestaña nueva.</p>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <div class="social-icons">
                                 <ul>

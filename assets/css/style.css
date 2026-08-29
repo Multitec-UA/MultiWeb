@@ -1442,10 +1442,180 @@ h1.title {
     margin-top: 0;
 }
 
-.maps{
+/* -----------------------------------------------------------------------------
+   FIND US — what replaced the Google Maps iframe on 2026-08-29.
+
+   The iframe was not broken: rendered in a clean headless Chromium at 390px it drew
+   the map and the marker perfectly. It failed on a real phone because that browser
+   blocked a third-party frame, which is what tracking protection, privacy browsers and
+   content blockers all do, and it is the same grey broken-content box in every one of
+   them. That is the argument for removing it: a contact section that renders only for
+   visitors who let Google run a frame is not a contact section, and every visitor who
+   did let it was disclosed to Google before they had asked for anything. Three CDNs
+   came out of this site today for exactly that reason; this was the fourth.
+
+   Everything below is served from our own container and needs no network at all. The
+   plate is inline SVG, deliberately an abstraction and not a copy of a map: it carries
+   no street names and claims nothing it cannot back up. The address is the claim, and
+   the button is the map — one tap, the visitor's own choice, and Google hears about it
+   only then.
+
+   It matches .contact .vira-card above it — same #f8f8f8, same radius — so the section
+   reads as four panels, not as three panels and a gap where something used to be.
+   ----------------------------------------------------------------------------- */
+.find-us {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+    background-color: #f8f8f8;
     border-radius: 20px;
-    width: 600px; 
-    height: 450px;
+    padding: 30px;
+    margin-bottom: 45px;
+    text-align: left;
+}
+
+.find-us-plate {
+    flex: 1 1 260px;
+    /* The plate keeps the 4:3 the iframe had, so the band is the same shape in the
+       page it has always been. */
+    max-width: 380px;
+}
+
+.find-us-plate svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.fu-bg {
+    fill: #ecebe9;
+}
+
+.fu-road {
+    stroke: #fdfdfc;
+    stroke-width: 9;
+    fill: none;
+}
+
+.fu-road-main {
+    stroke-width: 14;
+}
+
+.fu-block {
+    fill: #dedbd7;
+}
+
+.fu-green {
+    fill: #dfe7dc;
+}
+
+.fu-pin {
+    fill: var(--main-color);
+}
+
+.fu-pin-dot {
+    fill: #fff;
+}
+
+.find-us-body {
+    flex: 1 1 260px;
+}
+
+.find-us-eyebrow {
+    font-family: var(--main-font);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    /* #8a8a8a on #f8f8f8 is 3.5:1 and this is 13px text. #6f6f6f is 5.1:1. */
+    color: #6f6f6f;
+    margin-bottom: 10px;
+}
+
+.find-us-place {
+    font-family: var(--main-font);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.35;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.find-us-address {
+    font-family: var(--second-font);
+    font-size: 16px;
+    line-height: 1.6;
+    /* <address> is italic in every UA stylesheet and this is not a signature block. */
+    font-style: normal;
+    color: #4a4a4a;
+    margin-bottom: 22px;
+}
+
+.find-us-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 26px;
+    font-family: var(--second-font);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #fff;
+    background-color: var(--main-color);
+    border-radius: 4px;
+    max-width: 100%;
+    white-space: normal;
+    transition: all 0.3s ease-in-out;
+}
+
+.find-us-btn .ic-fa {
+    width: 1.05em;
+    height: 1.05em;
+    margin-right: 10px;
+    flex: 0 0 auto;
+}
+
+.find-us-btn:hover,
+.find-us-btn:focus {
+    color: var(--main-color);
+    background-color: #fff;
+    box-shadow: inset 0 0 0 1px var(--main-color);
+}
+
+.find-us-note {
+    font-family: var(--second-font);
+    font-size: 13px;
+    line-height: 1.6;
+    /* Saying where the button goes before it is tapped. The old iframe went there
+       without asking. */
+    color: #6f6f6f;
+    margin: 12px 0 0;
+}
+
+@media only screen and (max-width: 767px) {
+    .find-us {
+        padding: 24px;
+        gap: 22px;
+        text-align: center;
+    }
+
+    .find-us-plate {
+        /* Centred and capped, so it is a plate and not a stretched banner on a phone. */
+        margin: 0 auto;
+        max-width: 300px;
+        flex-basis: 100%;
+    }
+
+    .find-us-body {
+        flex-basis: 100%;
+    }
+
+    .find-us-address {
+        margin-bottom: 18px;
+    }
 }
 
 .footer {

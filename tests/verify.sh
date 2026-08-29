@@ -958,6 +958,70 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+head1 "25. No third-party frames in the page"
+# WHY: the contact section carried a Google Maps <iframe> until 2026-08-29, and it was
+# removed for a reason that will not be obvious to whoever finds this file next.
+#
+# The iframe was NOT broken. Rendered in a clean headless Chromium at 390px wide it drew
+# the map and the MultitecUA marker perfectly, and the embed URL still answers 200. It
+# failed on Sergio's phone, as a grey broken-content box, because that browser blocked a
+# third-party frame — which is what tracking protection, privacy-focused browsers,
+# content blockers and Chrome's own tightening of third-party embedding all do. He was
+# the first person to tell us; he will not be the last, and that share only grows.
+#
+# So the map worked only for visitors who let Google run a frame on the association's
+# contact section, and every one of those visitors was disclosed to Google on page load,
+# before they had chosen to ask it anything. Three third-party origins came out of this
+# site the same day for that exact reason — Google Fonts, the Ionicons CDN and two Font
+# Awesome CDNs. Leaving one Google frame standing would have been inconsistent, and it
+# was the one piece that visibly failed.
+#
+# What replaced it is in the .find-us block of assets/css/style.css: an inline-SVG plate,
+# the address, and a link to Google Maps that reaches Google only when somebody taps it.
+# A link a visitor chooses to follow is not the same thing as a frame that phones home.
+#
+# If you are here because you want the map back: the thing to add is a self-hosted image
+# or our own tiles, not a frame. Deleting this check is a decision, so make it in the
+# same commit as whatever you add, where a reviewer can see both.
+# Comments are stripped before grepping, because the block that replaced the iframe
+# explains what it replaced and names the tag — a check that cannot tell markup from
+# prose about markup fails on its own documentation, which is how checks get deleted.
+frames=$(python3 - <<'PYFRAME' 2>&1
+import glob, re, sys
+bad = re.compile(r'<iframe|google\.com/maps/embed|maps\.google\.[a-z]+/maps\?', re.I)
+hits = []
+for f in sorted(glob.glob('src/**/*.html', recursive=True)
+                + glob.glob('i18n/templates/*.html')):
+    src = re.sub(r'<!--.*?-->', '', open(f, encoding='utf-8').read(), flags=re.S)
+    for i, line in enumerate(src.split('\n'), 1):
+        if bad.search(line):
+            hits.append('%s:%d: %s' % (f, i, line.strip()[:110]))
+print('\n'.join(hits), end='')
+PYFRAME
+)
+if [ -z "$frames" ]; then
+  pass "no <iframe> and no Google Maps embed in src/ or i18n/templates/"
+else
+  fail "a third-party frame is back"
+  printf '%s\n' "$frames" | sed 's/^/    /' | head -5
+fi
+
+# The replacement has to actually be there — a check that only forbids the old thing
+# passes just as happily on a contact section with a hole in it.
+if grep -q 'class="find-us"' src/index.html && grep -q 'class="find-us"' src/en/index.html; then
+  pass "the find-us panel is present in both languages"
+else
+  fail "the find-us panel is missing from at least one language"
+fi
+
+# And it must reach Google Maps only as a link the visitor taps.
+if grep -q 'find-us-btn' src/index.html && grep -q 'rel="noopener noreferrer"' src/index.html; then
+  pass "directions are a tapped link, opened with rel=noopener noreferrer"
+else
+  fail "the directions link is missing or unsafe"
+fi
+
+# ---------------------------------------------------------------------------
 printf '\n'
 if [ "$FAILED" -eq 0 ]; then printf '\033[32mverify.sh: all checks passed\033[0m\n'; else printf '\033[31mverify.sh: FAILURES above\033[0m\n'; fi
 exit "$FAILED"

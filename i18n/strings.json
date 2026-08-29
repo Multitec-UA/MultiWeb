@@ -488,6 +488,26 @@
       "es": "También puedes unirte a nuestro grupo de <a class=\"telegram\" href=\"https://t.me/MultitecUA\">Telegram</a>",
       "en": "You can also join our <a class=\"telegram\" href=\"https://t.me/MultitecUA\">Telegram</a> group"
     },
+    "find_us_eyebrow": {
+      "es": "Ven a vernos",
+      "en": "Come and see us"
+    },
+    "find_us_place": {
+      "es": "Campus de San Vicente del Raspeig",
+      "en": "San Vicente del Raspeig campus"
+    },
+    "find_us_address": {
+      "es": "Universidad de Alicante, Alicante",
+      "en": "University of Alicante, Alicante"
+    },
+    "find_us_cta": {
+      "es": "Cómo llegar",
+      "en": "How to get there"
+    },
+    "find_us_note": {
+      "es": "Se abre en Google Maps, en una pestaña nueva.",
+      "en": "Opens Google Maps in a new tab."
+    },
     "footer_partners": {
       "es": "Colaboran con nosotros:",
       "en": "Our partners:"
