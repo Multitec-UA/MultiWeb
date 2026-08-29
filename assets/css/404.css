@@ -1,7 +1,8 @@
 /* The same self-hosted faces style.css uses (audit item 2.8). 404.html is the one
-   page that does not load style.css, so the two families it actually draws with are
-   repeated here; the woff2 URLs are identical, so a visitor who has seen any other
-   page already has them cached. */
+   page that does not load style.css — it is 2.5 KB of HTML and pulling in Bootstrap,
+   Owl and the whole site stylesheet to draw one message would cost 30x what it draws —
+   so the two families it actually uses are repeated here. The woff2 URLs are identical,
+   so a visitor who has seen any other page already has them cached. */
 /* Ubuntu 400 normal, latin */
 @font-face {
     font-family: 'Ubuntu';
@@ -18,6 +19,24 @@
     font-weight: 400;
     font-display: swap;
     src: url(../fonts/ubuntu-latin-ext.woff2) format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Ubuntu 700 bold, latin */
+@font-face {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/ubuntu-700-latin.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Ubuntu 700 bold, latin-ext */
+@font-face {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/ubuntu-700-latin-ext.woff2) format('woff2');
     unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* Poppins 400 normal, latin */
@@ -39,111 +58,240 @@
     unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/*Global Settings*/
+/* ---------------------------------------------------------------------------
+   Audit item 4.3.
+
+   What was here: `svg { position:absolute; top:50%; left:50%; margin-left:-400px }`
+   and `.message-box { position:absolute; width:380px; margin-left:50px }` — a layout
+   pinned to the centre of one particular viewport, with a `@media (max-width:800px)`
+   block that set `svg { display:none }` and then went on to restyle the thing it had
+   just hidden. On a 390px phone that left a white screen with two lines of text on it,
+   which is a poor apology for a dead link.
+
+   Now it is a header, a flow-centred message and a footer: no absolute positioning
+   anywhere, so there is no width at which it can come apart. The hexagons are kept —
+   they are the only piece of illustration the site owns — but they scale and they stay
+   visible on a phone. The greys are #BCBFBE, which is the brandbook grey; they were
+   #c5c5c4, a hex that appears nowhere else in this association's design.
+   --------------------------------------------------------------------------- */
 
 :root {
-    /*Colours*/
     --main-color: #a30006;
-    /*Fonts*/
+    --brand-grey: #BCBFBE;
     --main-font: 'Ubuntu', sans-serif;
     --second-font: 'Poppins', sans-serif;
 }
-body {
-    background-color: white;
-}
-svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -250px;
-    margin-left: -400px;
-}
-.message-box {
-    height: 200px;
-    width: 380px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -100px;
-    margin-left: 50px;
-    color: #424242;
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: 300;
-}
-.message-box h1 {
-    font-size: 100px;
-    line-height: 46px;
-    margin-bottom: 40px;
+
+* {
+    box-sizing: border-box;
 }
 
-.buttons-con .action-link-wrap {
-    margin-top: 40px;
+html,
+body {
+    margin: 0;
+    padding: 0;
 }
-.buttons-con .action-link-wrap a {
+
+body {
+    background-color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     font-family: var(--second-font);
-    color: #fff;
+}
+
+/* The site header, reduced to what this page needs: the white bar and the wordmark,
+   at the same 180px and the same brightness(90%) style.css gives .menu-logo, so the
+   two pages' logos are the same object. */
+.mt-header {
+    padding: 24px 20px;
+    text-align: center;
+}
+
+.mt-logo {
+    width: 180px;
+    height: auto;
+    filter: brightness(90%);
+}
+
+.mt-main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+}
+
+.hexagons {
+    width: 300px;
+    max-width: 55vw;
+    height: auto;
+    flex: 0 0 auto;
+}
+
+.message-box {
+    flex: 0 1 420px;
+    color: #424242;
+    text-align: center;
+}
+
+.message-box .code {
+    font-family: var(--main-font);
+    font-weight: 700;
+    font-size: 96px;
+    line-height: 1;
+    color: var(--main-color);
+    margin: 0;
+}
+
+.message-box .title {
+    font-family: var(--main-font);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.2;
+    color: #424242;
+    /* The section signature: the 40 x 5px red rule under a heading, the same one
+       .title:after draws on every heading of the homepage. */
+    position: relative;
+    margin: 18px 0 42px;
+    padding-bottom: 22px;
+}
+
+.message-box .title:after {
+    content: '';
+    position: absolute;
+    left: calc(50% - 20px);
+    bottom: 0;
+    height: 5px;
+    width: 40px;
+    background-color: var(--main-color);
+}
+
+.message-box p {
+    font-family: var(--second-font);
+    /* #767676 is 4.54:1 on white — the contrast fix Stage 1 made sitewide, applied
+       here too. This page was #424242 for its prose, which passes anyway, but the
+       colour should be the site's one body grey. */
+    color: #767676;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 36px;
+}
+
+/* 44px tall, because this is the only thing on the page a thumb can press. */
+.link-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 30px;
+    font-family: var(--second-font);
     font-weight: 500;
     letter-spacing: 1px;
-    padding: 5px 30px;
-    background-color: transparent;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--main-color);
-    margin-top: 20px;
-    text-decoration: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-.buttons-con .action-link-wrap a:hover {
     color: #fff;
-    background-color: #fff;
-    border-color: var(--main-color);
+    background-color: var(--main-color);
+    border: 1px solid var(--main-color);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.link-button:hover,
+.link-button:focus {
     color: var(--main-color);
-    border: 1px solid #a30006;
+    background-color: #fff;
 }
 
-p{
-    font-family: var(--second-font);
+.link-button.ghost {
+    color: var(--main-color);
+    background-color: #fff;
 }
-  
-#Polygon-1 , #Polygon-2 , #Polygon-3 , #Polygon-4 , #Polygon-4, #Polygon-5 {
-    animation: float 2s infinite ease-in-out alternate;
+
+.link-button.ghost:hover,
+.link-button.ghost:focus {
+    color: #fff;
+    background-color: var(--main-color);
 }
-#Polygon-2 {
-    animation-delay: .4s; 
+
+.link-button:focus-visible {
+    outline: 2px solid var(--main-color);
+    outline-offset: 3px;
 }
-#Polygon-3 {
-    animation-delay: .8s; 
+
+.mt-footer {
+    padding: 24px 20px;
+    text-align: center;
 }
-#Polygon-4 {
-    animation-delay: .12s; 
+
+.mt-footer p {
+    margin: 0;
+    color: #767676;
+    font-size: 13px;
 }
+
+/* The hexagons drift. Kept from the original — it is the one bit of motion the site
+   has — but silenced for anyone who has asked their OS for less of it. */
+#Polygon-1,
+#Polygon-2,
+#Polygon-3,
+#Polygon-4,
 #Polygon-5 {
-    animation-delay: .16s; 
+    animation: float 2s infinite ease-in-out alternate;
+    transform-origin: center;
 }
-  
+
+#Polygon-2 { animation-delay: .4s; }
+#Polygon-3 { animation-delay: .8s; }
+#Polygon-4 { animation-delay: .12s; }
+#Polygon-5 { animation-delay: .16s; }
+
 @keyframes float {
-      100% {
-      transform: translateY(20px);
+    100% {
+        transform: translateY(20px);
     }
 }
 
-@media (max-width: 800px) {
-    svg {
-      display: none;
-      top: 50%;
-      left: 50%;
-      margin-top: -250px;
-      margin-left: -190px;
-      width: 380px;
-      height: 500px;
+@media (prefers-reduced-motion: reduce) {
+    #Polygon-1,
+    #Polygon-2,
+    #Polygon-3,
+    #Polygon-4,
+    #Polygon-5 {
+        animation: none;
     }
-    
+}
+
+/* Below the point where the two columns stop fitting side by side they stack, and the
+   illustration shrinks so the message is still the first thing on the screen. It is
+   NOT hidden — that is what the old stylesheet did, and it is why this page was blank
+   on a phone. */
+@media (max-width: 800px) {
+    .hexagons {
+        width: 170px;
+        max-width: 45vw;
+        order: 2;
+    }
+
     .message-box {
-      top: 50%;
-      left: 50%;
-      margin-top: -100px;
-      margin-left: -190px;
-      text-align: center;
-      font-size: 15px;
+        order: 1;
+        flex: 1 1 100%;
+    }
+
+    .message-box .code {
+        font-size: 72px;
+    }
+
+    .message-box .title {
+        font-size: 22px;
     }
 }

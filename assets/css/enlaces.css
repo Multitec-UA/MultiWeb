@@ -19,7 +19,12 @@
 
 body {
     background-color: var(--bg-color);
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    /* Was 'Helvetica Neue', Arial — the whole rest of the site is Poppins for UI text
+       and Lora for prose, and this page already downloads Poppins because it loads
+       style.css. So the Instagram-bio page was the one page rendering in a system face
+       for no reason, and it is also the detector's one overused-font finding in code we
+       own. Same stack style.css uses. */
+    font-family: 'Poppins', sans-serif;
     color: var(--text-color);
     padding: 0;
     margin: 0;

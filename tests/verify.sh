@@ -298,17 +298,38 @@ done
 [ "$missingface" -eq 0 ] && pass "all four families are declared as @font-face" \
                          || fail "$missingface family/families lost their @font-face"
 
-# WHY: the whole point of self-hosting is that the bytes are ours and bounded. Ten files,
-# latin + latin-ext only: the cyrillic, greek, vietnamese and devanagari subsets Google was
+# WHY: the whole point of self-hosting is that the bytes are ours and bounded. latin +
+# latin-ext only: the cyrillic, greek, vietnamese and devanagari subsets Google was
 # offering were downloaded by nobody on a Spanish site. A budget so a "just add a weight"
 # never quietly triples the image.
+#
+# The budget was 300000 for ten files and it did its job: adding Ubuntu 700 on 2026-08-29
+# tripped it. Raised to 345000 for twelve, deliberately — that weight is not an extra, it
+# is the weight `h1..h6 { font-weight: 700 }` has been asking for since this site was
+# written and the browser had been faking with a synthetic smear of the regular face.
 nfonts=$(find assets/fonts -name '*.woff2' 2>/dev/null | wc -l)
 fontbytes=$(find assets/fonts -name '*.woff2' -printf '%s\n' 2>/dev/null | awk '{t+=$1} END {print t+0}')
-if [ "$nfonts" -gt 0 ] && [ "$fontbytes" -le 300000 ]; then
-  pass "$nfonts self-hosted woff2, $fontbytes B on disk (budget 300000)"
+if [ "$nfonts" -gt 0 ] && [ "$fontbytes" -le 345000 ]; then
+  pass "$nfonts self-hosted woff2, $fontbytes B on disk (budget 345000)"
 else
-  fail "self-hosted fonts: $nfonts file(s), $fontbytes B (budget 300000)"
+  fail "self-hosted fonts: $nfonts file(s), $fontbytes B (budget 345000)"
 fi
+
+# WHY: every heading on this site is Ubuntu at font-weight 700, and until 2026-08-29 no
+# 700 face was ever delivered — the @imports asked fonts.googleapis.com for
+# `Ubuntu:wght@400;700`, which is v2 syntax against the v1 css? endpoint, so it silently
+# returned regular and the browser synthesised the bold. Both weights must be here.
+for wght in 400:ubuntu-latin 700:ubuntu-700-latin; do
+  f="assets/fonts/${wght#*:}.woff2"
+  [ -s "$f" ] || fail "Ubuntu ${wght%%:*} is missing: $f"
+done
+grep -q "font-weight: 700;" assets/css/style.css \
+  && grep -q "ubuntu-700-latin.woff2" assets/css/style.css \
+  && pass "Ubuntu ships a real 700, not a synthetic one" \
+  || fail "style.css declares no Ubuntu 700 @font-face"
+grep -q "ubuntu-700-latin.woff2" assets/css/404.css \
+  && pass "404.css carries the same Ubuntu 700" \
+  || fail "404.css draws headings at 700 with no 700 face"
 
 # WHY: a src: url() that 404s is a font that silently falls back to Times. Group 1 resolves
 # every url(../...) in our stylesheets, but only if the rules are actually reachable from
@@ -488,8 +509,163 @@ grep -q 'rel="shortcut icon"' src/404.html || { echo "  no favicon"; ok=0; }
                 || fail "404.html is still missing page metadata"
 
 # ---------------------------------------------------------------------------
+head1 "18. No third party sits in front of first paint"
+# WHY: assets/css/style.css opened with
+#   @import 'https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css';
+# for years — a 2015 CDN path, render-blocking, loaded by the three pages that load
+# style.css, and measured at 9,216 B of CSS plus 110,963 B of ionicons.ttf on index.html to
+# draw five social marks. An @import is the worst possible place for it: the browser cannot
+# even discover the request until it has fetched and parsed the stylesheet. The marks are an
+# inline SVG sprite now, and nothing in this repo may point at that host again.
+tp=0
+for host in code.ionicframework.com fonts.googleapis.com fonts.gstatic.com maps.googleapis.com; do
+  hits=$(grep -rn "$host" src assets --include='*.html' --include='*.css' --include='*.js' 2>/dev/null | grep -v '^\s*/\*' | grep -vE '^\S+:[0-9]+:\s*(\*|//|#)' || true)
+  if [ -n "$hits" ]; then printf '%s\n' "$hits" | sed 's/^/    /'; tp=$((tp+1)); fi
+done
+[ "$tp" -eq 0 ] && pass "no CDN font or icon host is referenced from any page or stylesheet" \
+                || fail "$tp third-party font/icon host(s) are back in the critical path"
+
+# WHY: the ionicons removal only holds if the glyphs it drew were actually replaced. Five
+# social marks, three places each on index.html, and every one of them must resolve to a
+# <symbol> that exists in the same document — a <use href="#ic-x"> pointing at nothing
+# renders as absolutely nothing, silently, and looks exactly like a page with no icons.
+grep -q 'class="ion-social' src/*.html && fail "an ion-social icon-font glyph is back" || pass "no icon-font glyph left in any page"
+badref=0
+for id in $(grep -oE 'href="#ic-[a-z0-9-]+"' src/index.html | sed 's/href="#//; s/"//' | sort -u); do
+  grep -q "<symbol id=\"$id\"" src/index.html || { echo "    <use href=\"#$id\"> has no <symbol>"; badref=1; }
+done
+nuse=$(grep -cE '<use href="#ic-' src/index.html || true)
+[ "$badref" -eq 0 ] && [ "$nuse" -ge 15 ] \
+  && pass "$nuse inline SVG social marks, every one resolving to a <symbol> in the page" \
+  || fail "the inline SVG social sprite is broken ($nuse <use>, badref=$badref)"
+
+# WHY: the chat widget injected https://chat.lixsa.ai/lixsa-chat.umd.cjs at parse time —
+# 265,065 B measured, a quarter of the homepage, racing the association's own images for a
+# bubble most visitors never press. It is live and answering, so it stays; it just may not
+# be in the critical path. The guard is that lixsa.js must never contain a bare top-level
+# injection again: the src has to be set inside a function that an event or an idle
+# callback calls.
+if grep -q 'lixsa-chat.umd.cjs' assets/js/lixsa.js; then
+  grep -q 'requestIdleCallback' assets/js/lixsa.js && grep -q "addEventListener" assets/js/lixsa.js \
+    && pass "the chat widget loads on interaction or on idle, not at parse time" \
+    || fail "lixsa.js injects the widget without deferring it"
+else
+  pass "no chat widget is loaded at all"
+fi
+
+# ---------------------------------------------------------------------------
+head1 "19. sitemap.xml and robots.txt describe the site that exists"
+# WHY: the sitemap listed exactly one URL — the homepage — with a lastmod of 2023-03-22,
+# and left out inscripcion.html, the canonical, indexable page that carries the whole
+# conversion flow. robots.txt Disallowed /inscripciones/curso-programacion, a path that has
+# never existed. Both are files nothing reads back, so both rotted quietly.
+locs=$(grep -oE '<loc>[^<]+</loc>' src/sitemap.xml | sed 's#</\?loc>##g')
+smfail=0
+# every <loc> must correspond to a file that exists and is not noindex
+for loc in $locs; do
+  page="${loc#https://multitecua.com/}"
+  [ -z "$page" ] && page="index.html"
+  if [ ! -e "src/$page" ]; then echo "    sitemap lists $loc but src/$page does not exist"; smfail=1; fi
+  if grep -qE '<meta name="robots" content="[^"]*noindex' "src/$page" 2>/dev/null; then
+    echo "    sitemap lists $loc but $page is noindex"; smfail=1
+  fi
+done
+# and every indexable page must be in the sitemap
+for page in "${HTML_PAGES[@]}"; do
+  base="$(basename "$page")"
+  grep -qE '<meta name="robots" content="[^"]*noindex' "$page" && continue
+  url="https://multitecua.com/$base"
+  [ "$base" = "index.html" ] && url="https://multitecua.com/"
+  printf '%s\n' "$locs" | grep -qx "$url" || { echo "    $base is indexable but is not in sitemap.xml"; smfail=1; }
+done
+[ "$smfail" -eq 0 ] && pass "sitemap.xml lists every indexable page and nothing that does not exist" \
+                    || fail "sitemap.xml and src/ disagree"
+grep -qE '^Sitemap: https://multitecua.com/sitemap.xml' src/robots.txt \
+  && pass "robots.txt points at the sitemap" || fail "robots.txt lost its Sitemap line"
+rbfail=0
+while read -r line; do
+  case "$line" in
+    Disallow:*)
+      path="$(printf '%s' "$line" | sed 's/^Disallow:[[:space:]]*//; s#/$##; s#^/##')"
+      [ -z "$path" ] && continue
+      # a Disallowed path must be a page in src/ or a location nginx actually defines
+      [ -e "src/$path.html" ] || grep -q "location = /$path" nginx/default.conf \
+        || { echo "    robots.txt Disallows /$path, which is not a page and not an nginx location"; rbfail=1; }
+      ;;
+  esac
+done < src/robots.txt
+[ "$rbfail" -eq 0 ] && pass "every Disallow names something that exists" || fail "robots.txt disallows a path that does not exist"
+
+# ---------------------------------------------------------------------------
+head1 "20. The structured data parses, and says true things"
+# WHY: the JSON-LD block on index.html claimed sameAs https://www.youtube.com/@multitecua7745,
+# which answers 404 — a dead handle inside the block Google reads to decide what this
+# organisation is — and gave contactPoint.telephone as "601143845" with no country code.
+# Nothing had ever parsed the block, either: a trailing comma would have made Google discard
+# the whole thing without a word.
+ld=$(python3 - <<'PY' 2>&1
+import json, re, sys
+s = open("src/index.html", encoding="utf-8").read()
+blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', s, re.S)
+if not blocks:
+    print("NO-JSONLD"); sys.exit()
+for b in blocks:
+    try:
+        d = json.loads(b)
+    except Exception as e:
+        print("PARSE-ERROR", e); sys.exit()
+    for u in d.get("sameAs", []):
+        if "@multitecua7745" in u:
+            print("DEAD-YOUTUBE-HANDLE"); sys.exit()
+    for c in d.get("contactPoint", []):
+        t = c.get("telephone", "")
+        if t and not t.startswith("+"):
+            print("PHONE-NO-COUNTRY-CODE", t); sys.exit()
+print("OK", len(blocks))
+PY
+)
+case "$ld" in
+  OK*) pass "JSON-LD parses, has no dead handle and an E.164 phone ($ld block(s))" ;;
+  *)   fail "JSON-LD: $ld" ;;
+esac
+
+# ---------------------------------------------------------------------------
+head1 "21. Outbound links"
+# WHY: two links on this site were dead and had been for a long time. enlaces.html's primary
+# call to action — the one button every visitor arriving from the Instagram bio is meant to
+# press — went to https://forms.gle/NsEx9PLxG9cKZWiV8, which answers 401 to the public. And
+# the JSON-LD carried a YouTube handle that 404s. Neither would ever have surfaced from
+# inside the repo.
+#
+# The offline half runs always: the two known-dead URLs may not come back. The network half
+# runs only if a control URL resolves, and it is loud about being skipped — a check that
+# quietly skips is a check that lies.
+deadfail=0
+for dead in 'forms.gle/NsEx9PLxG9cKZWiV8' 'youtube.com/@multitecua7745'; do
+  if grep -rqF "$dead" src assets 2>/dev/null; then echo "    known-dead URL is back: $dead"; deadfail=1; fi
+done
+[ "$deadfail" -eq 0 ] && pass "neither known-dead URL is referenced anywhere" || fail "a known-dead URL is back in the tree"
+
+if curl -sS -o /dev/null --max-time 12 https://www.ua.es/ 2>/dev/null; then
+  UA_STR='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+  bad=0; n=0
+  for u in $(grep -rhoE 'https://[^"'"'"' >]+' src/*.html | sed 's/[",)]*$//' \
+             | grep -vE 'schema\.org|w3\.org|multitecua\.com|sitemaps\.org' | sort -u); do
+    n=$((n+1))
+    code=$(curl -sS -o /dev/null -w '%{http_code}' -L --max-time 25 -A "$UA_STR" "$u" 2>/dev/null || echo 000)
+    case "$code" in
+      4*|5*|000) echo "    $code $u"; bad=$((bad+1)) ;;
+    esac
+  done
+  [ "$bad" -eq 0 ] && pass "$n outbound links, none returning 4xx/5xx" \
+                   || fail "$bad of $n outbound links are broken"
+else
+  printf '  \033[33mSKIP\033[0m the network check — https://www.ua.es/ is unreachable from here\n'
+fi
+
+# ---------------------------------------------------------------------------
 if [ -n "${BASE_URL:-}" ]; then
-head1 "18. Live headers from a running preview ($BASE_URL)"
+head1 "22. Live headers from a running preview ($BASE_URL)"
 # WHY: a directive in nginx.conf is a claim; the response header is the fact. gzip in
 # particular is easy to configure into a location that never matches.
 ASSET_V=$(grep -oE 'assets/v[0-9]+/' src/index.html | head -1 | sed -E 's#assets/(v[0-9]+)/#\1#')
@@ -507,12 +683,12 @@ code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE_URL/assets/css/style.css")
 [ "$code" = "200" ] && pass "unversioned asset URLs still resolve (200)" \
                     || fail "unversioned asset URL returned $code — old links would break"
 else
-  head1 "18. Live headers — SKIPPED (set BASE_URL to a running preview to include)"
+  head1 "22. Live headers — SKIPPED (set BASE_URL to a running preview to include)"
 fi
 
 # ---------------------------------------------------------------------------
 if [ -n "${DETECT:-}" ]; then
-head1 "19. Design detector"
+head1 "23. Design detector"
 # WHY: exit 3 means the detector never ran. On 2026-08-29 impeccable exited 0 when its own
 # browser failed to start and an agent recorded that as a pass. 3 is an UNCHECKED page, and
 # it must never be read as a clean one. 0 and 2 are both accepted here: 2 is the site's
@@ -523,13 +699,24 @@ bash "$DETECT" "$STAGE" > /tmp/verify-detect.$$ 2>&1
 rc=$?
 n=$(grep -oE '^[0-9]+ anti-patterns found' /tmp/verify-detect.$$ | head -1 | cut -d' ' -f1)
 rm -rf "$STAGE" /tmp/verify-detect.$$
+# The ceiling is what stops "tracked findings" from becoming a place to hide new ones.
+# 2026-08-29, after Stages 1-4: 10. Seven are inside vendored library CSS we do not own
+# (bootstrap.min.css 5, owl.carousel.css 2); three are on inscripcion.html and are
+# deliberate — the red left rule on the board-approval notice, and two full-bleed page
+# sections the rule reads as unpadded cards. Lower this number when you clear one; never
+# raise it without saying in the commit which finding you accepted and why.
+DETECT_CEILING=${DETECT_CEILING:-10}
 case "$rc" in
   0) pass "detector exit 0 — clean" ;;
-  2) pass "detector exit 2 — ${n:-?} findings (tracked; see docs/research audit)" ;;
+  2) if [ "${n:-999}" -le "$DETECT_CEILING" ]; then
+       pass "detector exit 2 — ${n:-?} findings (ceiling $DETECT_CEILING; all in vendored CSS or tracked)"
+     else
+       fail "detector exit 2 — ${n:-?} findings, above the ceiling of $DETECT_CEILING"
+     fi ;;
   *) fail "detector exit $rc — the page was NOT checked" ;;
 esac
 else
-  head1 "19. Design detector — SKIPPED (set DETECT=/path/to/detect.sh to include)"
+  head1 "23. Design detector — SKIPPED (set DETECT=/path/to/detect.sh to include)"
 fi
 
 # ---------------------------------------------------------------------------
