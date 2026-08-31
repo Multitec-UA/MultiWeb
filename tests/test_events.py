@@ -131,7 +131,7 @@ def main() -> int:
     # each has a way of going quietly wrong, so each gets a check.
     approx = [e for e in rows if events.precision(e["start"]) == "month"]
     tentative = [e for e in rows if e.get("tentative")]
-    logos = [e for e in rows if e.get("image_kind") == "logo"]
+    logos = [e for e in rows if e.get("image_kind") in ("logo", "illustration")]
     print("     (%d month-precision, %d tentative, %d drawn with a logo)"
           % (len(approx), len(tentative), len(logos)))
 
@@ -151,15 +151,29 @@ def main() -> int:
     # A LOGO stands in for a picture that does not exist. Using a photograph of a previous
     # edition instead would claim something that has not happened, which is the specific
     # thing Sergio asked this to avoid.
+    # The rule is NOT "only future events may use a stand-in" — that was the first cut of
+    # this check and it was wrong. Plenty of past events were never photographed, and a
+    # drawing or the organiser's mark is the honest answer for those too. What must hold is
+    # that the card SAYS SO: the alt text of a stand-in has to admit it is standing in,
+    # because that is the sentence a screen-reader user gets instead of the picture.
+    STANDS_IN = ("mientras no hay", "usado mientras", "standing in", "que organiza",
+                 "para la", "standing")
     for e in logos:
-        check(e["image"].startswith("events/logo-"),
-              "%s draws a logo and its file is named like one" % e["id"], e["image"])
-        check(bool(e.get("tentative")) or e["start"] >= "2026-09",
-              "%s only falls back to a logo because it is still to come" % e["id"])
+        ok_es = any(k in e["image_alt"]["es"] for k in STANDS_IN)
+        ok_en = any(k in e["image_alt"]["en"] for k in STANDS_IN)
+        check(ok_es and ok_en,
+              "%s says in its alt text that the image stands in for a picture" % e["id"],
+              e["image_alt"]["es"])
+        if e["image_kind"] == "illustration":
+            check(e["image"].endswith(".svg"),
+                  "%s is a drawing, so it is vector" % e["id"], e["image"])
+        else:
+            check(e["image"].startswith("events/logo-"),
+                  "%s draws a mark and its file is named like one" % e["id"], e["image"])
     if logos:
         out = events.render("es", lambda k, l: strings[k][l], events=logos)
-        check(out.count("ev-img-logo") == len(logos),
-              "every logo card is marked so the CSS contains it instead of cropping it")
+        check(out.count("ev-img-logo") + out.count("ev-img-illustration") == len(logos),
+              "every stand-in card is marked so the CSS contains it instead of cropping it")
         sheet = (ROOT / "assets" / "css" / "style.css").read_text(encoding="utf-8")
         check("ev-img-logo" in sheet and "object-fit: contain" in sheet,
               "the stylesheet contains logos rather than cropping them")
@@ -214,7 +228,10 @@ def main() -> int:
     if version:
         rendered = events.render("es", lambda k, l: strings[k][l],
                                  asset_prefix="../assets/%s" % version[0], events=rows)
-        srcs = re.findall(r'src="\.\./assets/v\d+/images/([^"]+)"', rendered)
+        # only the card pictures — the footer emblem is an <img> with the same src shape
+        # and counting it doubled the total, which is how this check started lying
+        srcs = re.findall(r'class="ev-img ev-img-[a-z]+" src="\.\./assets/v\d+/images/([^"]+)"',
+                          rendered)
         check(len(srcs) == len(rows), "every card renders an image", "%d of %d" % (len(srcs), len(rows)))
         missing = [s for s in srcs if not (ROOT / "assets" / "images" / s).exists()]
         check(not missing, "every rendered image exists on disk", ", ".join(missing))

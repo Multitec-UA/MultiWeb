@@ -1982,7 +1982,8 @@ h1.title {
    ground rather than on a fake white studio, and gets a little breathing room — which
    between them read as a mark, not as a picture of the event. The card keeps its exact
    height either way, which is what stops the row going ragged. */
-.ev-media img.ev-img-logo {
+.ev-media img.ev-img-logo,
+.ev-media img.ev-img-illustration {
     object-fit: contain;
     box-sizing: border-box;
     padding: 26px 40px;
@@ -2083,7 +2084,7 @@ h1.title {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
-    padding: 18px 20px 20px;
+    padding: 18px 20px 16px;
     text-align: left;
 }
 
@@ -2161,21 +2162,63 @@ h1.title {
     vertical-align: middle;
 }
 
-/* The countdown line. Pushed to the bottom of the card so it lands on the same baseline
-   on all eight of them regardless of how the summary wrapped. */
+/* ---- the card's foot: state on the left, family mark on the right ------------
+   Sergio, 2026-08-31: a recurring event has to be identifiable as part of its family at a
+   glance — "aunque sea en chiquitín, en translúcido… a lo mejor en la propia tarjeta
+   abajo, no encima de la foto porque ya tiene demasiada sobrecarga". So the mark gets its
+   own strip rather than another badge on an already busy photograph.
+
+   The strip is DARK, and that is not decoration either: the institutions' marks that go in
+   it — the UA, the EPS, the Parque Científico — exist as white-on-transparent files, which
+   is what the association already uses in the partners band further down this page. A dark
+   strip means those files are used as their owners published them instead of being
+   recoloured, which is not a liberty to take with somebody else's logo. */
+
+.ev-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: auto;               /* pins the strip to the bottom of every card */
+    padding: 11px 20px;
+    background: #1d1d21;
+    min-height: 46px;
+}
+
+.ev-emblem {
+    flex: none;
+    height: 22px;
+    width: auto;
+    /* Quiet, as he asked — present enough to be recognised, not loud enough to compete
+       with the title. It comes up to full strength when the card is hovered or focused. */
+    opacity: .62;
+    transition: opacity .25s ease;
+}
+
+/* An illustration is drawn edge to edge on purpose — it IS the picture, not a mark
+   floating in a panel — so it gets no padding and fills the window. */
+.ev-media img.ev-img-illustration {
+    padding: 0;
+}
+
+.ev-card:hover .ev-emblem,
+.ev-card:focus-within .ev-emblem {
+    opacity: 1;
+}
+
+/* The countdown, now on the dark strip. #A30006 is 2.2:1 there, so the accent in this one
+   place is Rojo 1 — the brandbook's own dark-scheme primary, 5.4:1 on #1d1d21. */
 .ev-state {
     /* auto, not a fixed gap: it is what puts the countdown on the SAME baseline on all
        eight cards no matter how the summary above it wrapped. Without it the line sits
        wherever the paragraph left it and the row of cards reads as eight different
        cards, which is the one thing this whole section is built not to be. */
-    margin: auto 0 0;
-    padding-top: 16px;
-    border-top: 1px solid #ececee;
+    margin: 0;
     font-family: var(--main-font);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: .6px;
-    color: #5a5a5a;
+    color: #bcbfbe;                 /* Gris, 9.3:1 on #1d1d21 */
 }
 
 /* ---- the two states ---------------------------------------------------------
@@ -2194,7 +2237,8 @@ h1.title {
 
 /* A logo has no colour to lose in a way that reads as "archived" -- grey-scaling a mark
    just makes it look broken. The muted card and the CELEBRADO pill already say it. */
-.ev-card.is-past img.ev-img-logo {
+.ev-card.is-past img.ev-img-logo,
+.ev-card.is-past img.ev-img-illustration {
     filter: none;
     opacity: .55;
 }
@@ -2245,8 +2289,9 @@ h1.title {
     box-shadow: 0 26px 60px rgba(0, 0, 0, .58), 0 0 0 2px var(--ev-accent);
 }
 
-.ev-card.is-next .ev-state {
-    color: var(--main-color);
+.ev-card.is-next .ev-state,
+.ev-card.is-running .ev-state {
+    color: var(--ev-accent);        /* Rojo 1, 5.4:1 on the strip */
 }
 
 .ev-card.is-running .ev-inner {

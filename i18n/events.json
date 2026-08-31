@@ -1,31 +1,24 @@
 {
   "_comment": [
     "The association's calendar, and the only file edited to change it. ONE row per event,",
-    "both languages side by side, exactly like i18n/strings.json.",
+    "both languages side by side. Every field has a hard length range enforced by",
+    "i18n/events.py, so `python3 i18n/build.py` fails rather than rendering a card taller",
+    "than the one beside it.",
     "",
-    "This file is a BOX. Every text field has a hard length range and i18n/events.py refuses",
-    "to load the file if one is out of range, so `python3 i18n/build.py` fails rather than",
-    "rendering a card taller than the one beside it. Every card is the same card; that is the",
-    "whole point of the wheel.",
+    "series    decides the emblem in the card's footer -- see SERIES_EMBLEM in events.py.",
+    "role      organiza | colabora | asiste. What MULTITEC did here, and the one thing this",
+    "          section must never get wrong.",
+    "audience  publico | socios. A members' event has no sign-up link and never will.",
+    "start     YYYY | YYYY-MM | YYYY-MM-DD | YYYY-MM-DDTHH:MM. Which form you use IS the",
+    "          statement of how well the date is known. 00:00 means the time is unrecorded.",
+    "tentative true = our best information, not a promise. Prints `aprox.` and replaces the",
+    "          countdown with 'fecha por confirmar'.",
+    "image_kind photo (cropped) | poster (letterboxed) | logo (contained, for a mark or a",
+    "          drawn illustration when no picture of this edition exists).",
     "",
-    "Three fields carry judgement rather than fact, and they are the ones to get right:",
-    "  role      organiza | colabora | asiste  -- what MULTITEC did here. Claiming to have",
-    "            run somebody else's event is the one thing this section must not do. The",
-    "            EPS runs UAGames DevCon; GDG Alicante runs its own meetups and we",
-    "            co-organise them; ONKLUB's hackathon we merely entered.",
-    "  audience  publico | socios -- a members' event has no sign-up link and never will.",
-    "  link      null is fine, and normal. Do not invent a URL to fill the field.",
-    "",
-    "The time after T may be 00:00, which means the start time is not recorded anywhere.",
-    "The card then prints the date without a time instead of inventing one.",
-    "",
-    "Source of truth for the research behind every row:",
+    "Research and one citation per fact:",
     "  quantumpc-management-agent/docs/research/eventos-multitec/EVENTS.md",
-    "Procedure for adding one: .claude/skills/multitec-events/SKILL.md",
-    "",
-    "Only events that are CONFIRMED and complete live here. The research dataset holds 64;",
-    "these are the nine that had a date to the day, a description and a real photograph on",
-    "2026-08-31. The rest arrive as their gaps are closed."
+    "Procedure: .claude/skills/multitec-events/SKILL.md"
   ],
   "categories": [
     "hackathon",
@@ -37,13 +30,161 @@
   ],
   "events": [
     {
-      "id": "cienciathon-2020",
-      "category": "hackathon",
-      "role": "colabora",
+      "id": "gamejam-2010",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
       "audience": "publico",
-      "start": "2020-10-23T00:00",
-      "end": "2020-10-25T00:00",
+      "start": "2010",
+      "end": null,
+      "tentative": false,
+      "image": "events/gamejam-2010.webp",
+      "image_kind": "photo",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "I Game Jam UA",
+        "en": "I Game Jam UA"
+      },
+      "summary": {
+        "es": "La primera. Nació en la Universidad de Alicante y de ella salen las fotografías más antiguas que guarda la asociación.",
+        "en": "The first one. It began at the University of Alicante, and it is where the oldest photographs the association keeps come from."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Participantes de la primera Game Jam de la Universidad de Alicante, en 2010",
+        "en": "Participants at the first University of Alicante Game Jam, back in 2010"
+      }
+    },
+    {
+      "id": "gamejam-2015",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2015",
+      "end": null,
+      "tentative": false,
+      "image": "events/gamejam-2015.webp",
+      "image_kind": "photo",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "Play&Care GJUA",
+        "en": "Play&Care GJUA"
+      },
+      "summary": {
+        "es": "La edición solidaria, hecha junto a Juegaterapia y al Ayuntamiento de Alicante: videojuegos con una causa detrás.",
+        "en": "The charity edition, run with Juegaterapia and Alicante city council: making video games with a cause behind them."
+      },
+      "location": {
+        "es": "Alicante",
+        "en": "Alicante"
+      },
+      "image_alt": {
+        "es": "Foto de familia de los desarrolladores de la Game Jam Play&Care de 2015",
+        "en": "Group photograph of the developers at the 2015 Play&Care Game Jam"
+      }
+    },
+    {
+      "id": "gamejam-2025",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2025-01-24",
+      "end": "2025-01-26",
+      "tentative": false,
+      "image": "events/gamejam-2025.webp",
+      "image_kind": "photo",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "XII Gamejam Alicante",
+        "en": "XII Gamejam Alicante"
+      },
+      "summary": {
+        "es": "Más de ochenta personas y trece videojuegos terminados en un fin de semana, todos sobre el mismo tema: «Hazme reír».",
+        "en": "Over eighty people and thirteen finished video games in a single weekend, every one of them on the theme \"Make me laugh\"."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Participante con camiseta de MultitecUA durante la Gamejam Alicante de 2025",
+        "en": "A participant in a MultitecUA shirt during the 2025 Gamejam Alicante"
+      }
+    },
+    {
+      "id": "gamejam-2026",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2026-01-30T17:00",
+      "end": "2026-02-01T14:00",
+      "tentative": false,
+      "image": "events/gamejam-2026.webp",
+      "image_kind": "poster",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "XIII Gamejam Alicante",
+        "en": "XIII Gamejam Alicante"
+      },
+      "summary": {
+        "es": "Cuarenta y ocho horas para crear un videojuego entero sobre un tema secreto. Setenta plazas y cinco euros por cabeza.",
+        "en": "Forty-eight hours to build an entire video game around one secret theme. Seventy places, at five euros a head each."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Cartel ilustrado de la Gamejam Alicante 2026 con las fechas y el lugar del evento",
+        "en": "Illustrated poster for Gamejam Alicante 2026 showing the event's dates and venue"
+      }
+    },
+    {
+      "id": "gamejam-2027",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2027-01",
+      "end": null,
+      "tentative": true,
+      "image": "events/logo-gamejam.webp",
+      "image_kind": "logo",
+      "link": "https://gamejam.multitecua.com/",
+      "title": {
+        "es": "XIV Gamejam Alicante",
+        "en": "XIV Gamejam Alicante"
+      },
+      "summary": {
+        "es": "La siguiente Gamejam, dentro de la semana mundial de la Global Game Jam. Fin de semana y sede todavía por confirmar.",
+        "en": "The next Gamejam, inside the worldwide Global Game Jam week. The weekend and the venue are still to be confirmed."
+      },
+      "location": {
+        "es": "Alicante",
+        "en": "Alicante"
+      },
+      "image_alt": {
+        "es": "Escudo de la Game Jam Alicante, usado mientras no hay cartel de esta edición",
+        "en": "The Game Jam Alicante shield, standing in until this edition has a poster"
+      }
+    },
+    {
+      "id": "cienciathon-2020",
+      "series": "cienciathon",
+      "category": "hackathon",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2020-10-23",
+      "end": "2020-10-25",
+      "tentative": false,
       "image": "events/cienciathon-2020.webp",
+      "image_kind": "photo",
       "link": "https://cienciathon.org/",
       "title": {
         "es": "II Cienciathon",
@@ -63,166 +204,103 @@
       }
     },
     {
-      "id": "gdg-io-extended-2024",
-      "category": "charla",
-      "role": "colabora",
-      "audience": "publico",
-      "start": "2024-07-11T00:00",
-      "end": null,
-      "image": "events/gdg-io-extended-2024.webp",
-      "link": null,
-      "title": {
-        "es": "Google I/O Extended",
-        "en": "Google I/O Extended"
-      },
-      "summary": {
-        "es": "La extensión alicantina del Google I/O: las novedades del año contadas de cerca, con foco en Vertex AI Agent Builder.",
-        "en": "Alicante's own Google I/O Extended: the year's announcements up close, with a focus on Vertex AI Agent Builder."
-      },
-      "location": {
-        "es": "Interacso, Alicante",
-        "en": "Interacso, Alicante"
-      },
-      "image_alt": {
-        "es": "Asistentes sentados en círculo durante la charla del Google I/O Extended en Alicante",
-        "en": "Attendees sitting in a circle during the Google I/O Extended talk in Alicante"
-      }
-    },
-    {
-      "id": "fempa-2024",
-      "category": "jornada",
-      "role": "organiza",
-      "audience": "socios",
-      "start": "2024-09-10T00:00",
-      "end": null,
-      "image": "events/fempa-2024.webp",
-      "link": null,
-      "title": {
-        "es": "Visita a FEMPA",
-        "en": "Visit to FEMPA"
-      },
-      "summary": {
-        "es": "Una mañana dentro de los talleres de FEMPA viendo de cerca la maquinaria y los oficios que casi nunca se ven desde clase.",
-        "en": "A morning inside the FEMPA workshops, up close with the machinery and the trades a lecture hall never shows you."
-      },
-      "location": {
-        "es": "FEMPA, Alicante",
-        "en": "FEMPA, Alicante"
-      },
-      "image_alt": {
-        "es": "Socios de MultitecUA atendiendo a una explicación junto a una máquina en los talleres de FEMPA",
-        "en": "MultitecUA members listening to an explanation beside a machine in the FEMPA workshops"
-      }
-    },
-    {
-      "id": "gamejam-2025",
-      "category": "jam",
-      "role": "organiza",
-      "audience": "publico",
-      "start": "2025-01-24T00:00",
-      "end": "2025-01-26T00:00",
-      "image": "events/gamejam-2025.webp",
-      "link": "https://gamejam.multitecua.com/",
-      "title": {
-        "es": "XII Gamejam Alicante",
-        "en": "XII Gamejam Alicante"
-      },
-      "summary": {
-        "es": "Más de ochenta personas y trece videojuegos terminados en un fin de semana, todos sobre el mismo tema: «Hazme reír».",
-        "en": "Over eighty people and thirteen finished video games in a single weekend, every one of them on the theme \"Make me laugh\"."
-      },
-      "location": {
-        "es": "Parque Científico de Alicante",
-        "en": "Alicante Science Park"
-      },
-      "image_alt": {
-        "es": "Participante con camiseta de MultitecUA durante la Gamejam Alicante de 2025",
-        "en": "A participant in a MultitecUA shirt during the 2025 Gamejam Alicante"
-      }
-    },
-    {
-      "id": "quiero-ser-ingeniera-2025",
-      "category": "jornada",
-      "role": "colabora",
-      "audience": "publico",
-      "start": "2025-04-12T00:00",
-      "end": null,
-      "image": "events/quiero-ser-ingeniera-2025.webp",
-      "link": null,
-      "title": {
-        "es": "Quiero Ser Ingeniera",
-        "en": "I Want To Be An Engineer"
-      },
-      "summary": {
-        "es": "Jornada de la EPS para acercar las ingenierías a chicas preuniversitarias. Multitec puso uno de los talleres del día.",
-        "en": "An EPS open day that brings engineering closer to pre-university girls. Multitec ran one of the workshops that day."
-      },
-      "location": {
-        "es": "Escuela Politécnica Superior, UA",
-        "en": "Polytechnic School, UA"
-      },
-      "image_alt": {
-        "es": "Cartel ilustrado de la jornada Quiero Ser Ingeniera de 2025 en la Universidad de Alicante",
-        "en": "Illustrated poster for the 2025 I Want To Be An Engineer day at the University of Alicante"
-      }
-    },
-    {
-      "id": "gdg-cloud-run-2025",
-      "category": "charla",
-      "role": "colabora",
-      "audience": "publico",
-      "start": "2025-06-12T00:00",
-      "end": null,
-      "image": "events/gdg-cloud-run-2025.webp",
-      "link": null,
-      "title": {
-        "es": "Serverless con Cloud Run",
-        "en": "Serverless with Cloud Run"
-      },
-      "summary": {
-        "es": "Qué es serverless de verdad, cómo se despliega en Cloud Run y en qué casos sale a cuenta, contado con ejemplos reales.",
-        "en": "What serverless actually means, how deploying on Cloud Run works, and when it pays off — told with real examples."
-      },
-      "location": null,
-      "image_alt": {
-        "es": "Sala llena de asistentes durante la charla sobre Cloud Run del GDG Alicante",
-        "en": "A room full of attendees during the GDG Alicante talk about Cloud Run"
-      }
-    },
-    {
-      "id": "nasa-space-apps-2025",
+      "id": "cienciathon-2021",
+      "series": "cienciathon",
       "category": "hackathon",
       "role": "organiza",
       "audience": "publico",
-      "start": "2025-10-03T17:30",
-      "end": "2025-10-05T00:00",
-      "image": "events/nasa-space-apps-2025.webp",
-      "link": "https://www.spaceappschallenge.org/",
+      "start": "2021",
+      "end": null,
+      "tentative": false,
+      "image": "events/cienciathon-2021.webp",
+      "image_kind": "photo",
+      "link": "https://cienciathon.org/",
       "title": {
-        "es": "NASA Space Apps",
-        "en": "NASA Space Apps"
+        "es": "III Cienciathon",
+        "en": "III Cienciathon"
       },
       "summary": {
-        "es": "Sede alicantina del mayor hackathon del mundo: cuarenta y ocho horas resolviendo retos de la NASA con sus datos abiertos.",
-        "en": "Alicante's site of the world's largest hackathon: forty-eight hours solving NASA's challenges with NASA's open data."
+        "es": "Tercera edición del maratón de ciencia y tecnología, la primera que volvió a llenar el Parque Científico tras la pandemia.",
+        "en": "The third science and technology marathon, and the first to fill the Science Park again after the pandemic years."
       },
       "location": {
         "es": "Parque Científico de Alicante",
         "en": "Alicante Science Park"
       },
       "image_alt": {
-        "es": "Presentación del NASA Space Apps 2025 en San Vicente del Raspeig ante el público asistente",
-        "en": "Opening presentation of NASA Space Apps 2025 in San Vicente del Raspeig before the audience"
+        "es": "Equipos trabajando en sus retos durante el III Cienciathon en el Parque Científico",
+        "en": "Teams working on their challenges during the III Cienciathon at the Science Park"
+      }
+    },
+    {
+      "id": "cienciathon-2023",
+      "series": "cienciathon",
+      "category": "hackathon",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2023-10",
+      "end": null,
+      "tentative": false,
+      "image": "events/cienciathon-2023.webp",
+      "image_kind": "photo",
+      "link": "https://cienciathon.org/",
+      "title": {
+        "es": "V Cienciathon",
+        "en": "V Cienciathon"
+      },
+      "summary": {
+        "es": "Unos sesenta estudiantes y cuarenta y ocho horas para responder a un reto propuesto por la Asociación contra el Cáncer.",
+        "en": "Around sixty students and forty-eight hours to answer a brief set by the Spanish Association Against Cancer, the AECC."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Grupos de participantes del V Cienciathon reunidos en el Parque Científico de Alicante",
+        "en": "Teams of V Cienciathon participants gathered at the Alicante Science Park"
+      }
+    },
+    {
+      "id": "cienciathon-2024",
+      "series": "cienciathon",
+      "category": "hackathon",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2024",
+      "end": null,
+      "tentative": false,
+      "image": "events/cienciathon-2024.webp",
+      "image_kind": "photo",
+      "link": "https://cienciathon.org/",
+      "title": {
+        "es": "VI Cienciathon",
+        "en": "VI Cienciathon"
+      },
+      "summary": {
+        "es": "Sexta edición del maratón, con su reto de empresa, su jurado y un fin de semana entero de trabajo en el Parque Científico.",
+        "en": "The sixth marathon, with its company brief, its panel of judges and a full weekend of work at the Alicante Science Park."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Equipo ganador del VI Cienciathon recogiendo el premio con el cheque de la edición",
+        "en": "The winning team of the VI Cienciathon collecting their prize with the edition's cheque"
       }
     },
     {
       "id": "cienciathon-2025",
+      "series": "cienciathon",
       "category": "hackathon",
-      "role": "colabora",
+      "role": "organiza",
       "audience": "publico",
-      "start": "2025-10-24T00:00",
-      "end": "2025-10-26T00:00",
+      "start": "2025-10-24",
+      "end": "2025-10-26",
+      "tentative": false,
       "image": "events/cienciathon-2025.webp",
+      "image_kind": "photo",
       "link": "https://cienciathon.org/",
       "title": {
         "es": "VII Cienciathon",
@@ -242,86 +320,10 @@
       }
     },
     {
-      "id": "multifiesta-2025",
-      "category": "social",
-      "role": "organiza",
-      "audience": "socios",
-      "start": "2025-11-28T00:00",
-      "end": null,
-      "image": "events/multifiesta-2025.webp",
-      "link": null,
-      "title": {
-        "es": "Multifiesta",
-        "en": "Multifiesta"
-      },
-      "summary": {
-        "es": "La fiesta de la asociación: la noche en la que los socios de todos los cursos se juntan sin excusa de proyecto ninguna.",
-        "en": "The association's own party: the one night members from every year get together with no project as an excuse for it."
-      },
-      "location": null,
-      "image_alt": {
-        "es": "Sala llena de socios de MultitecUA durante la Multifiesta de noviembre de 2025",
-        "en": "A room full of MultitecUA members during the Multifiesta in November 2025"
-      }
-    },
-    {
-      "id": "gamejam-2026",
-      "category": "jam",
-      "role": "organiza",
-      "audience": "publico",
-      "start": "2026-01-30T17:00",
-      "end": "2026-02-01T14:00",
-      "image": "events/gamejam-2026.webp",
-      "link": "https://gamejam-alicante.eventbrite.es/",
-      "title": {
-        "es": "XIII Gamejam Alicante",
-        "en": "XIII Gamejam Alicante"
-      },
-      "summary": {
-        "es": "Cuarenta y ocho horas para crear un videojuego entero sobre un tema secreto. Hasta setenta plazas y cinco euros por cabeza.",
-        "en": "Forty-eight hours to build an entire video game around a secret theme. Up to seventy places, at five euros a head."
-      },
-      "location": {
-        "es": "Parque Científico de Alicante",
-        "en": "Alicante Science Park"
-      },
-      "image_alt": {
-        "es": "Cartel ilustrado de la Gamejam Alicante 2026 con las fechas y el lugar del evento",
-        "en": "Illustrated poster for Gamejam Alicante 2026 showing the event's dates and venue"
-      }
-    },
-    {
-      "id": "bienvenida-ua-2026",
-      "category": "jornada",
-      "role": "colabora",
-      "audience": "publico",
-      "start": "2026-09",
-      "end": null,
-      "tentative": true,
-      "image": "events/logo-multitec.webp",
-      "image_kind": "logo",
-      "link": null,
-      "title": {
-        "es": "Bienvenida UA",
-        "en": "UA welcome day"
-      },
-      "summary": {
-        "es": "La charla de bienvenida del curso en la Universidad de Alicante, donde la asociación se presenta a quien acaba de llegar.",
-        "en": "The University of Alicante's welcome talk, where the association introduces itself to everyone who has just arrived."
-      },
-      "location": {
-        "es": "Universidad de Alicante",
-        "en": "University of Alicante"
-      },
-      "image_alt": {
-        "es": "Logotipo de MultitecUA, usado mientras no hay cartel de esta edición",
-        "en": "The MultitecUA wordmark, standing in until this edition has a poster"
-      }
-    },
-    {
       "id": "cienciathon-2026",
+      "series": "cienciathon",
       "category": "hackathon",
-      "role": "colabora",
+      "role": "organiza",
       "audience": "publico",
       "start": "2026-10",
       "end": null,
@@ -347,35 +349,234 @@
       }
     },
     {
-      "id": "gdg-devfest-2026",
+      "id": "bienvenida-ua-2026",
+      "series": "bienvenida",
       "category": "jornada",
       "role": "colabora",
       "audience": "publico",
-      "start": "2026-10-15",
+      "start": "2026-09-16",
+      "end": "2026-09-17",
+      "tentative": false,
+      "image": "events/logo-ua.webp",
+      "image_kind": "logo",
+      "link": "https://web.ua.es/es/bienvenida-a-la-ua/",
+      "title": {
+        "es": "Bienvenida UA",
+        "en": "UA welcome days"
+      },
+      "summary": {
+        "es": "Las jornadas de bienvenida de la Universidad de Alicante, donde la asociación se presenta a quien acaba de llegar.",
+        "en": "The University of Alicante's welcome days, where the association introduces itself to everyone who has just arrived."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Logotipo de la Universidad de Alicante, usado mientras no hay cartel de estas jornadas",
+        "en": "The University of Alicante wordmark, standing in until these days have a poster"
+      }
+    },
+    {
+      "id": "quiero-ser-ingeniera-2025",
+      "series": "quiero-ser-ingeniera",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-04-12",
       "end": null,
       "tentative": false,
-      "image": "events/logo-gdg.webp",
+      "image": "events/quiero-ser-ingeniera-2025.webp",
+      "image_kind": "poster",
+      "link": null,
+      "title": {
+        "es": "Quiero Ser Ingeniera",
+        "en": "I Want To Be An Engineer"
+      },
+      "summary": {
+        "es": "Jornada de la EPS que acerca las ingenierías a chicas preuniversitarias. Multitec puso uno de los talleres del día.",
+        "en": "An EPS open day that brings engineering closer to pre-university girls. Multitec ran one of the workshops that day."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Cartel ilustrado de la jornada Quiero Ser Ingeniera de 2025 en la Universidad de Alicante",
+        "en": "Illustrated poster for the 2025 I Want To Be An Engineer day at the University of Alicante"
+      }
+    },
+    {
+      "id": "uagames-devcon-2022",
+      "series": "uagames-devcon",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2022",
+      "end": null,
+      "tentative": false,
+      "image": "events/uagames-devcon-2022.webp",
+      "image_kind": "photo",
+      "link": null,
+      "title": {
+        "es": "UAGames DevCon",
+        "en": "UAGames DevCon"
+      },
+      "summary": {
+        "es": "El alumnado de Ingeniería Multimedia enseña por primera vez en público los videojuegos que ha hecho durante el curso.",
+        "en": "Multimedia Engineering students show the video games they have built over the year to a public audience for the first time."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Participante mostrando su videojuego en un portátil durante la UAGames DevCon de 2022",
+        "en": "A participant showing their video game on a laptop during the 2022 UAGames DevCon"
+      }
+    },
+    {
+      "id": "uagames-devcon-2026",
+      "series": "uagames-devcon",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-03-30",
+      "end": "2026-03-31",
+      "tentative": false,
+      "image": "events/logo-eps.webp",
       "image_kind": "logo",
       "link": null,
       "title": {
-        "es": "DevFest Alicante",
-        "en": "DevFest Alicante"
+        "es": "UAGames DevCon",
+        "en": "UAGames DevCon"
       },
       "summary": {
-        "es": "La jornada grande del año del GDG Alicante: un programa entero de ponencias, comunidad y cena con los expertos invitados.",
-        "en": "GDG Alicante's biggest day of the year: a full programme of talks, community, and dinner with the invited experts."
+        "es": "Dos días de presentaciones de los proyectos de cuarto de Ingeniería Multimedia, con charlas de profesionales del sector.",
+        "en": "Two days of final-year Multimedia Engineering project presentations, with talks from people working in the industry."
       },
       "location": {
-        "es": "Alicante",
-        "en": "Alicante"
+        "es": "Atrio de la EPS1, UA",
+        "en": "EPS1 atrium, UA"
       },
       "image_alt": {
-        "es": "Logotipo del GDG Alicante, usado mientras no hay cartel de esta edición",
-        "en": "The GDG Alicante logo, standing in until this edition has a poster"
+        "es": "Logotipo de la Escuela Politécnica Superior, usado mientras no hay foto de esta edición",
+        "en": "The Polytechnic School wordmark, standing in until this edition has a photograph"
+      }
+    },
+    {
+      "id": "fempa-2024",
+      "series": "fempa",
+      "category": "jornada",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2024-09-10",
+      "end": null,
+      "tentative": false,
+      "image": "events/fempa-2024.webp",
+      "image_kind": "photo",
+      "link": null,
+      "title": {
+        "es": "Visita a FEMPA",
+        "en": "Visit to FEMPA"
+      },
+      "summary": {
+        "es": "Una mañana dentro de los talleres de FEMPA viendo de cerca la maquinaria y los oficios que casi nunca se ven desde clase.",
+        "en": "A morning inside the FEMPA workshops, up close with the machinery and the trades a lecture hall never shows you."
+      },
+      "location": {
+        "es": "FEMPA, Alicante",
+        "en": "FEMPA, Alicante"
+      },
+      "image_alt": {
+        "es": "Socios de MultitecUA atendiendo a una explicación junto a una máquina en los talleres de FEMPA",
+        "en": "MultitecUA members listening to an explanation beside a machine in the FEMPA workshops"
+      }
+    },
+    {
+      "id": "multifiesta-2025",
+      "series": "multifiesta",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2025-11-28",
+      "end": null,
+      "tentative": false,
+      "image": "events/multifiesta-2025.webp",
+      "image_kind": "photo",
+      "link": null,
+      "title": {
+        "es": "Multifiesta",
+        "en": "Multifiesta"
+      },
+      "summary": {
+        "es": "La fiesta de la asociación: la noche en la que los socios de todos los cursos se juntan sin excusa de proyecto ninguna.",
+        "en": "The association's own party: the one night members from every year get together with no project as an excuse for it."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Sala llena de socios de MultitecUA durante la Multifiesta de noviembre de 2025",
+        "en": "A room full of MultitecUA members during the Multifiesta in November 2025"
+      }
+    },
+    {
+      "id": "multi-acampada-2025",
+      "series": "multi-acampada",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2025-05-02",
+      "end": "2025-05-04",
+      "tentative": false,
+      "image": "events/multi-acampada.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Multi Acampada",
+        "en": "Multi Acampada"
+      },
+      "summary": {
+        "es": "Un fin de semana de acampada de los socios, sin pantallas, sin proyecto y sin cobertura durante buena parte del tiempo.",
+        "en": "A weekend of camping for the members: no screens, no project, and no phone signal for a good part of it either."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de una tienda de campaña y una hoguera, en colores planos, para la Multi Acampada",
+        "en": "A flat-colour illustration of a tent and a campfire, standing in for the Multi Acampada"
+      }
+    },
+    {
+      "id": "nasa-space-apps-2025",
+      "series": "nasa-space-apps",
+      "category": "hackathon",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2025-10-03T17:30",
+      "end": "2025-10-05T00:00",
+      "tentative": false,
+      "image": "events/nasa-space-apps-2025.webp",
+      "image_kind": "photo",
+      "link": "https://www.spaceappschallenge.org/",
+      "title": {
+        "es": "NASA Space Apps",
+        "en": "NASA Space Apps"
+      },
+      "summary": {
+        "es": "Sede alicantina del mayor hackathon del mundo: cuarenta y ocho horas resolviendo retos de la NASA con sus datos abiertos.",
+        "en": "Alicante's site of the world's largest hackathon: forty-eight hours solving NASA's challenges with NASA's open data."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Presentación del NASA Space Apps 2025 en San Vicente del Raspeig ante el público asistente",
+        "en": "Opening presentation of NASA Space Apps 2025 in San Vicente del Raspeig before the audience"
       }
     },
     {
       "id": "nasa-space-apps-2026",
+      "series": "nasa-space-apps",
       "category": "hackathon",
       "role": "organiza",
       "audience": "publico",
@@ -390,7 +591,7 @@
         "en": "NASA Space Apps"
       },
       "summary": {
-        "es": "Tercera sede alicantina seguida del mayor hackathon del mundo. Las fechas son las mundiales; la sede local está en preparación.",
+        "es": "Tercera sede alicantina seguida del mayor hackathon del mundo. Las fechas son las mundiales; la sede local se prepara.",
         "en": "Alicante's third consecutive site of the world's largest hackathon. The dates are the global ones; the local site is being prepared."
       },
       "location": {
@@ -403,31 +604,529 @@
       }
     },
     {
-      "id": "gamejam-2027",
-      "category": "jam",
-      "role": "organiza",
+      "id": "gdg-2024-07-11",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
       "audience": "publico",
-      "start": "2027-01",
+      "start": "2024-07-11T16:00",
       "end": null,
-      "tentative": true,
-      "image": "events/logo-gamejam.webp",
-      "image_kind": "logo",
-      "link": "https://gamejam.multitecua.com/",
+      "tentative": false,
+      "image": "events/gdg-io-extended-2024.webp",
+      "image_kind": "photo",
+      "link": "https://gdg.community.dev/e/mwtv24/",
       "title": {
-        "es": "XIV Gamejam Alicante",
-        "en": "XIV Gamejam Alicante"
+        "es": "Google I/O Extended",
+        "en": "Google I/O Extended"
       },
       "summary": {
-        "es": "La siguiente Gamejam, dentro de la semana mundial de la Global Game Jam. Fin de semana y sede todavía por confirmar.",
-        "en": "The next Gamejam, inside the worldwide Global Game Jam week. The weekend and the venue are still to be confirmed."
+        "es": "Las novedades del Google I/O contadas de cerca, con un taller práctico de Vertex AI Agent Builder para construir agentes.",
+        "en": "The Google I/O announcements up close, plus a hands-on Vertex AI Agent Builder workshop for building your own agents."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Asistentes sentados en círculo durante la charla del Google I/O Extended en Alicante",
+        "en": "Attendees sitting in a circle during the Google I/O Extended talk in Alicante"
+      }
+    },
+    {
+      "id": "gdg-2024-07-25",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2024-07-25T16:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2024-07-25.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mgxvq6/",
+      "title": {
+        "es": "Grupo de estudio Cloud",
+        "en": "Cloud study group"
+      },
+      "summary": {
+        "es": "Sesión informativa del programa de apoyo para sacarse las certificaciones de Google Cloud, y arranque del grupo de estudio.",
+        "en": "Information session on the support programme for Google Cloud certifications, and the kick-off of the study group itself."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel del grupo de estudio de certificaciones de Google Cloud del GDG Alicante",
+        "en": "Poster for the GDG Alicante Google Cloud certification study group"
+      }
+    },
+    {
+      "id": "gdg-2025-03-14",
+      "series": "gdg-alicante",
+      "category": "taller",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-03-14T17:30",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-03-14.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mwdk6w/",
+      "title": {
+        "es": "Tarde de Flutter",
+        "en": "A Flutter afternoon"
+      },
+      "summary": {
+        "es": "Una tarde entera dedicada a Flutter y Dart: qué resuelven hoy, cómo se empieza y hasta dónde llegan en producción.",
+        "en": "A whole afternoon given to Flutter and Dart: what they solve today, how to start, and how far they go in production."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel del encuentro de Flutter y Dart del GDG Alicante de marzo de 2025",
+        "en": "Poster for the GDG Alicante Flutter and Dart meetup of March 2025"
+      }
+    },
+    {
+      "id": "gdg-2025-04-09",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-04-09T16:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-04-09.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mzm7kt/",
+      "title": {
+        "es": "Cloud Next 25 Keynote",
+        "en": "Cloud Next 25 keynote"
+      },
+      "summary": {
+        "es": "Visionado comentado en directo de la keynote del Google Cloud Next 2025, con las novedades explicadas sobre la marcha.",
+        "en": "A live commentary session on the Google Cloud Next 2025 keynote, with the announcements explained as they landed."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel del visionado comentado de la keynote del Google Cloud Next 2025",
+        "en": "Poster for the live commentary session on the Google Cloud Next 2025 keynote"
+      }
+    },
+    {
+      "id": "gdg-2025-04-18",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-04-18T15:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-04-18.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mvbj3k/",
+      "title": {
+        "es": "Associate Cloud Eng.",
+        "en": "Associate Cloud Eng."
+      },
+      "summary": {
+        "es": "Sesión informativa sobre la certificación Associate Cloud Engineer y el grupo de estudio que la prepara en comunidad.",
+        "en": "An information session on the Associate Cloud Engineer certification and the study group that prepares for it together."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel de la sesión informativa de la certificación Associate Cloud Engineer",
+        "en": "Poster for the Associate Cloud Engineer certification information session"
+      }
+    },
+    {
+      "id": "gdg-2025-05-09",
+      "series": "gdg-alicante",
+      "category": "taller",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-05-09T15:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-05-09.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mwbvq7/",
+      "title": {
+        "es": "Grupo de estudio · 1",
+        "en": "Study group · session 1"
+      },
+      "summary": {
+        "es": "Primera sesión del grupo de estudio: infraestructura global de Google Cloud, identidades y gestión de permisos con IAM.",
+        "en": "First session of the study group: Google Cloud's global infrastructure, identities, and managing permissions with IAM."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel de la primera sesión del grupo de estudio de Associate Cloud Engineer",
+        "en": "Poster for the first Associate Cloud Engineer study group session"
+      }
+    },
+    {
+      "id": "gdg-2025-05-20",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-05-20T16:30",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-05-20.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/m6t4m5/",
+      "title": {
+        "es": "Google I/O Keynote",
+        "en": "Google I/O keynote party"
+      },
+      "summary": {
+        "es": "Fiesta de visionado de la keynote del Google I/O, en español y en compañía de otra gente a la que le interesa lo mismo.",
+        "en": "A viewing party for the Google I/O keynote, in Spanish and in the company of people who care about the same things."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel de la fiesta de visionado de la keynote del Google I/O en Alicante",
+        "en": "Poster for the Google I/O keynote viewing party in Alicante"
+      }
+    },
+    {
+      "id": "gdg-2025-05-23",
+      "series": "gdg-alicante",
+      "category": "taller",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-05-23T14:30",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-05-23.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/myvqrc/",
+      "title": {
+        "es": "Grupo de estudio · 2",
+        "en": "Study group · session 2"
+      },
+      "summary": {
+        "es": "Segunda sesión del grupo de estudio, siguiendo con los fundamentos de Google Cloud y la gestión de identidades y permisos.",
+        "en": "Second session of the study group, carrying on with Google Cloud fundamentals and managing identities and permissions."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel de la segunda sesión del grupo de estudio de Associate Cloud Engineer",
+        "en": "Poster for the second Associate Cloud Engineer study group session"
+      }
+    },
+    {
+      "id": "gdg-2025-06-12",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-06-12T16:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-cloud-run-2025.webp",
+      "image_kind": "photo",
+      "link": "https://gdg.community.dev/e/mw5xga/",
+      "title": {
+        "es": "Serverless y Cloud Run",
+        "en": "Serverless and Cloud Run"
+      },
+      "summary": {
+        "es": "Qué es serverless de verdad, cómo se despliega en Cloud Run y en qué casos sale a cuenta, contado con ejemplos reales.",
+        "en": "What serverless actually means, how deploying on Cloud Run works, and when it pays off — told with real examples."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Sala llena de asistentes durante la charla sobre Cloud Run del GDG Alicante",
+        "en": "A room full of attendees during the GDG Alicante talk about Cloud Run"
+      }
+    },
+    {
+      "id": "gdg-2025-07-07",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-07-07T14:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-07-07.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mv7qu4/",
+      "title": {
+        "es": "Google Cloud App Hub",
+        "en": "Google Cloud App Hub"
+      },
+      "summary": {
+        "es": "Google cambia el eje de la gestión en la nube: de administrar recursos sueltos a administrar aplicaciones completas.",
+        "en": "Google shifts the axis of cloud management: from administering loose resources to administering whole applications."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel de la charla sobre Google Cloud Hub y App Hub del GDG Alicante",
+        "en": "Poster for the GDG Alicante talk on Google Cloud Hub and App Hub"
+      }
+    },
+    {
+      "id": "gdg-2025-09-18",
+      "series": "gdg-alicante",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-09-18T14:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-09-18.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/m9hrc6/",
+      "title": {
+        "es": "DevFest Alicante",
+        "en": "DevFest Alicante"
+      },
+      "summary": {
+        "es": "La jornada grande del año: charlas y talleres sobre inteligencia artificial, bases de datos, web y accesibilidad.",
+        "en": "The biggest day of the year: talks and workshops on artificial intelligence, databases, the web and accessibility."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel del DevFest Alicante de 2025 organizado por el GDG Alicante",
+        "en": "Poster for the 2025 DevFest Alicante, organised by GDG Alicante"
+      }
+    },
+    {
+      "id": "gdg-2025-11-17",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-11-17T16:30",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-11-17.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/m5n4dm/",
+      "title": {
+        "es": "Verano pagado por Google",
+        "en": "A summer paid by Google"
+      },
+      "summary": {
+        "es": "Cómo entrar en el Google Summer of Code y pasarse un verano programando software libre con una beca de Google detrás.",
+        "en": "How to get into Google Summer of Code and spend a summer writing open source software with a Google stipend behind you."
       },
       "location": {
-        "es": "Alicante",
-        "en": "Alicante"
+        "es": "Salón de actos, EPS I · UA",
+        "en": "EPS I assembly hall, UA"
       },
       "image_alt": {
-        "es": "Escudo de la Game Jam Alicante, usado mientras no hay cartel de esta edición",
-        "en": "The Game Jam Alicante shield, standing in until this edition has a poster"
+        "es": "Cartel de la charla sobre el Google Summer of Code en el salón de actos de la EPS",
+        "en": "Poster for the Google Summer of Code talk in the EPS assembly hall"
+      }
+    },
+    {
+      "id": "gdg-2025-11-18",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-11-18T11:15",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-11-18.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mv6xet/",
+      "title": {
+        "es": "Verano pagado · Alcoi",
+        "en": "Paid summer · Alcoi"
+      },
+      "summary": {
+        "es": "La misma charla sobre el Google Summer of Code, repetida en Alcoi al día siguiente y emitida también en directo.",
+        "en": "The same Google Summer of Code talk, repeated in Alcoi the following day and streamed live from there as well."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel de la charla sobre el Google Summer of Code en su edición de Alcoi",
+        "en": "Poster for the Alcoi edition of the Google Summer of Code talk"
+      }
+    },
+    {
+      "id": "gdg-2025-12-04",
+      "series": "gdg-alicante",
+      "category": "taller",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-12-04T17:30",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2025-12-04.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/my6ze3/",
+      "title": {
+        "es": "Tarde de Flutter II",
+        "en": "Flutter afternoon II"
+      },
+      "summary": {
+        "es": "Segunda tarde de Flutter y Dart del año, con más gente que la primera y con casos ya llevados a producción de verdad.",
+        "en": "The year's second Flutter and Dart afternoon, with a bigger room and with cases that had actually reached production."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel del segundo encuentro de Flutter y Dart del GDG Alicante, en diciembre",
+        "en": "Poster for the second GDG Alicante Flutter and Dart meetup, in December"
+      }
+    },
+    {
+      "id": "gdg-2026-03-04",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-03-04T17:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2026-03-04.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mpx7m3/",
+      "title": {
+        "es": "Agentes con Antigravity",
+        "en": "Agents with Antigravity"
+      },
+      "summary": {
+        "es": "Construir un agente es fácil; lo difícil es que sea escalable, seguro y sostenible. De eso trata esta charla entera.",
+        "en": "Building an agent is easy; making one that is scalable, secure and maintainable is not. That is what this talk is about."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel de la charla sobre agentes y Antigravity del GDG Alicante",
+        "en": "Poster for the GDG Alicante talk on agents and Antigravity"
+      }
+    },
+    {
+      "id": "gdg-2026-04-10",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-04-10T16:30",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2026-04-10.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/m4rdvs/",
+      "title": {
+        "es": "SDUI generativa",
+        "en": "Generative SDUI"
+      },
+      "summary": {
+        "es": "Interfaces que no son estáticas: se construyen en tiempo real según lo que necesita cada usuario, con Flutter y Gemini.",
+        "en": "Interfaces that are not static: they are built in real time around what each user needs, using Flutter and Gemini."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel de la charla sobre interfaces generativas con Flutter, Serverpod y Gemini",
+        "en": "Poster for the talk on generative interfaces with Flutter, Serverpod and Gemini"
+      }
+    },
+    {
+      "id": "gdg-2026-04-15",
+      "series": "gdg-alicante",
+      "category": "taller",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-04-15T15:30",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2026-04-15.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mzjv45/",
+      "title": {
+        "es": "Modernizar .NET",
+        "en": "Modernising .NET"
+      },
+      "summary": {
+        "es": "Taller técnico para coger una aplicación .NET heredada y modernizarla con Gemini echando una mano en el camino.",
+        "en": "A technical workshop that takes a legacy .NET application and modernises it, with Gemini helping along the way."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel del taller de modernización de aplicaciones .NET con Gemini",
+        "en": "Poster for the workshop on modernising .NET applications with Gemini"
+      }
+    },
+    {
+      "id": "gdg-2026-05-11",
+      "series": "gdg-alicante",
+      "category": "taller",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-05-11T16:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2026-05-11.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mrk25m/",
+      "title": {
+        "es": "Firebase AI vs. Genkit",
+        "en": "Firebase AI vs. Genkit"
+      },
+      "summary": {
+        "es": "Taller práctico con Sasha Denisov comparando Firebase AI Logic y Genkit: qué hace cada uno y cuándo elegir cuál.",
+        "en": "A hands-on workshop with Sasha Denisov comparing Firebase AI Logic and Genkit: what each does and when to pick which."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel del taller que compara Firebase AI Logic y Genkit, con Sasha Denisov",
+        "en": "Poster for the workshop comparing Firebase AI Logic and Genkit, with Sasha Denisov"
+      }
+    },
+    {
+      "id": "gdg-2026-07-24",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-07-24T16:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2026-07-24.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/my6sg9/",
+      "title": {
+        "es": "IA en tu propia máquina",
+        "en": "AI on your own machine"
+      },
+      "summary": {
+        "es": "Modelos que corren enteros en tu hardware: qué se gana en privacidad y en coste, y qué se pierde por el camino.",
+        "en": "Models that run entirely on your own hardware: what you gain in privacy and cost, and what you give up along the way."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Cartel de la charla sobre modelos de lenguaje ejecutados en hardware propio",
+        "en": "Poster for the talk on running language models on your own hardware"
+      }
+    },
+    {
+      "id": "gdg-2026-10-15",
+      "series": "gdg-alicante",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-10-15T14:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/gdg-2026-10-15.webp",
+      "image_kind": "poster",
+      "link": "https://gdg.community.dev/e/mgx3fg/",
+      "title": {
+        "es": "DevFest Alicante",
+        "en": "DevFest Alicante"
+      },
+      "summary": {
+        "es": "Cinco charlas de cuarenta minutos sobre nube, ciberseguridad, IA y código abierto. Entrada gratuita y aforo limitado.",
+        "en": "Five forty-minute talks on cloud, cybersecurity, AI and open source. Free admission, and a limited number of seats."
+      },
+      "location": {
+        "es": "Aulario 2, UA · San Vicente",
+        "en": "Aulario 2, UA · San Vicente"
+      },
+      "image_alt": {
+        "es": "Cartel del DevFest Alicante de 2026, con la fecha y el lugar del evento",
+        "en": "Poster for the 2026 DevFest Alicante, showing the event's date and venue"
       }
     }
   ]

@@ -201,43 +201,40 @@ budget_check assets/images/pca.webp        12000
 budget_check assets/images/mtua-logo.webp  30000
 budget_check assets/images/multitec-logo.webp 10000
 
-# The nine event photographs, added 2026-08-31. Sources are the association's own Drive;
-# each is re-encoded to 800x500 WebP q78 -- 2.6x the 300x176 the card actually draws, which
-# covers a 2x screen. The first cut of these was 1200x750 and cost 603 KB for pixels nobody
-# renders; at 800 they are 317 KB and the homepage total stays inside its budget.
-budget_check assets/images/events/cienciathon-2020.webp          39000
-budget_check assets/images/events/gdg-io-extended-2024.webp       60000
-budget_check assets/images/events/fempa-2024.webp                 44000
-budget_check assets/images/events/gamejam-2025.webp               33000
-budget_check assets/images/events/quiero-ser-ingeniera-2025.webp  16000
-budget_check assets/images/events/gdg-cloud-run-2025.webp         57000
-budget_check assets/images/events/nasa-space-apps-2025.webp       32000
-budget_check assets/images/events/multifiesta-2025.webp           54000
-budget_check assets/images/events/gamejam-2026.webp               38000
-budget_check assets/images/events/cienciathon-2025.webp           43000
-# Logos, used on future events whose poster does not exist yet. They keep their alpha and
-# the card's CSS supplies the ground, so these are marks and not fake photographs.
-budget_check assets/images/events/logo-gamejam.webp 22000
-budget_check assets/images/events/logo-gdg.webp 24000
-budget_check assets/images/events/logo-multitec.webp 16000
-budget_check assets/images/events/logo-cienciathon.webp 12000
-budget_check assets/images/events/logo-nasa-space-apps.webp 24000
 
 # WHY: total page weight is the number a visitor actually feels. 3.68 MB was the homepage
-# before Stage 1. This is the sum on disk of every image the homepage references.
-total=0
+# before Stage 1.
+#
+# Split in two on 2026-08-31, and the reason matters. The homepage now carries a real event
+# archive: every event the association has ever run, each with its own picture, inside a
+# horizontally scrolled strip where every image is loading="lazy" and about three are
+# visible at a time. A single sum-on-disk stopped measuring anything a visitor feels — it
+# would fail on the fortieth event while the actual first-paint cost had not moved.
+#
+# So: everything a visitor loads on arrival keeps the original strict budget, and the
+# gallery gets its own, with a per-file ceiling so that no single image can be careless.
+CHROME=0
+GALLERY=0
+BIGGEST=0
 for f in $(grep -oE 'assets/(v[0-9]+/)?images/([A-Za-z0-9_-]+/)?[A-Za-z0-9_.-]+' src/index.html assets/css/style.css \
            | sed -E 's#^[^:]*:##; s#assets/v[0-9]+/#assets/#' | sort -u); do
-  [ -e "$f" ] && total=$((total + $(stat -c%s "$f")))
+  [ -e "$f" ] || continue
+  sz=$(stat -c%s "$f")
+  case "$f" in
+    assets/images/events/*|assets/images/emblems/*)
+      GALLERY=$((GALLERY + sz))
+      [ "$sz" -gt "$BIGGEST" ] && BIGGEST=$sz ;;
+    *) CHROME=$((CHROME + sz)) ;;
+  esac
 done
-# Raised from 900,000 to 1,050,000 on 2026-08-31, deliberately and with a reason, which is
-# what the note above budget_check asks for. The homepage gained a real events calendar:
-# fifteen event images where there used to be three decorative ones. They are all
-# loading="lazy" inside a horizontally scrolled strip that shows about three at a time, so
-# a visitor downloads a fraction of this sum — but the sum on disk is still the honest
-# ceiling, and it should not grow again without another deliberate decision.
-if [ "$total" -le 1050000 ]; then pass "homepage imagery totals $total B on disk (budget 1050000)"
-else fail "homepage imagery totals $total B on disk, over the 1050000 budget"; fi
+if [ "$CHROME" -le 700000 ]; then pass "page chrome and press imagery: $CHROME B (budget 700000)"
+else fail "page chrome and press imagery: $CHROME B, over the 700000 budget"; fi
+# 60 KB per picture at 800x500 WebP is generous for a card drawn at 300x176; anything over
+# it is an export that was not resized, which is the mistake this catches.
+if [ "$BIGGEST" -le 60000 ]; then pass "largest single event image: $BIGGEST B (ceiling 60000)"
+else fail "largest single event image: $BIGGEST B, over the 60000 ceiling — resize it"; fi
+if [ "$GALLERY" -le 3000000 ]; then pass "event gallery (all lazy): $GALLERY B (budget 3000000)"
+else fail "event gallery: $GALLERY B, over the 3000000 budget"; fi
 
 # ---------------------------------------------------------------------------
 head1 "6. nginx serves compressed, cacheable bytes"

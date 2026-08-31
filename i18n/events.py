@@ -75,9 +75,45 @@ AUDIENCES = ("publico", "socios")
 # year's card claims something that did not happen. So:
 #   photo   a real photograph OF THIS EDITION      -> cropped to fill the card window
 #   poster  this edition's own poster              -> letterboxed, never cropped
-#   logo    the event's mark, when there is neither -> contained, on the section ground,
-#           and visibly not a photograph
-IMAGE_KINDS = ("photo", "poster", "logo")
+#   logo    the event's or its organiser's mark, when there is neither -> contained, on
+#           the section ground, and visibly not a photograph
+#   illustration  a drawing made for the card, for an event nobody photographed. Sergio,
+#           2026-08-31, about the camping weekend: "a lo mejor no encuentras una foto, coge
+#           y crea una imagen SVG de un pequeño campamento, así con colores planos".
+#           Contained like a logo, and an SVG so it costs 1.3 KB instead of 30.
+IMAGE_KINDS = ("photo", "poster", "logo", "illustration")
+
+# Every event belongs to a SERIES, and every series has a mark. Sergio, 2026-08-31: a
+# recurring event has to be identifiable as part of its family at a glance -- "aunque sea
+# en chiquitín, en translúcido… a lo mejor en la propia tarjeta abajo, no encima de la foto
+# porque ya tiene demasiada sobrecarga". So the mark lives in a slim dark strip at the foot
+# of the card, beside the countdown, and never over the photograph.
+#
+# The map is here rather than per-event on purpose: every Game Jam card gets the same mark
+# without anybody having to remember, and a series cannot end up with two different ones.
+# The files are white-on-transparent, which is why the strip is dark -- these are the
+# institutions' own light variants, not recoloured versions of their marks.
+SERIES_EMBLEM = {
+    "gamejam-alicante":     "gamejam.webp",
+    "cienciathon":          "pca.webp",
+    "nasa-space-apps":      "nasa-space-apps.webp",
+    "gdg-alicante":         "gdg.webp",
+    "uagames-devcon":       "eps.webp",
+    "quiero-ser-ingeniera": "eps.webp",
+    "mes-cultural":         "eps.webp",
+    "bienvenida":           "ua.webp",
+    "multifiesta":          "multitec.webp",
+    "multi-acampada":       "multitec.webp",
+    "fempa":                "multitec.webp",
+    "cursos-multitec":      "multitec.webp",
+    "lan-party":            "multitec.webp",
+    "hackathons-externos":  "multitec.webp",
+    "jornadas":             "multitec.webp",
+    "ferias":               "multitec.webp",
+    "opensourcejam":        "multitec.webp",
+    "gymkana-tecnologica":  "multitec.webp",
+    "doeactua":             "ua.webp",
+}
 
 ID_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
@@ -94,17 +130,17 @@ ID_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 # it prints an `aprox.` next to the date and replaces the day countdown with "fecha por
 # confirmar", because counting down to a day nobody has committed to is a lie with a number
 # attached.
-WHEN_RE = re.compile(r"^\d{4}-\d{2}(-\d{2}(T\d{2}:\d{2})?)?$")
+WHEN_RE = re.compile(r"^\d{4}(-\d{2}(-\d{2}(T\d{2}:\d{2})?)?)?$")
 
 def precision(when: str) -> str:
     """`month`, `day` or `exact`, from the shape of the string itself."""
-    return {7: "month", 10: "day", 16: "exact"}[len(when)]
+    return {4: "year", 7: "month", 10: "day", 16: "exact"}[len(when)]
 
 
 def sort_key(ev) -> str:
     """A month sorts as if it were its first day, so the wheel stays chronological."""
     w = ev["start"]
-    return w if len(w) >= 10 else w + "-01"
+    return w + "-01" * ((10 - len(w)) // 3) if len(w) < 10 else w
 
 # The image every card draws is cropped to a fixed 16:10 window by CSS, so the source
 # only has to be at least this big and at least this shape. A portrait poster would be
@@ -137,12 +173,32 @@ def _fail(event_id, message):
 
 
 def _parse(when):
-    for fmt in ("%Y-%m-%dT%H:%M", "%Y-%m-%d", "%Y-%m"):
+    for fmt in ("%Y-%m-%dT%H:%M", "%Y-%m-%d", "%Y-%m", "%Y"):
         try:
             return _dt.datetime.strptime(when, fmt)
         except ValueError:
             continue
     raise ValueError("not a date this understands: %r" % when)
+
+
+def _svg_size(path: pathlib.Path):
+    """Width and height off an SVG root element.
+
+    SVG is allowed for ILLUSTRATIONS — Sergio, 2026-08-31, on an event with no photograph
+    and no poster: "coge y crea una imagen SVG de un pequeño campamento, así con colores
+    planos". A drawing that stands in for a missing photograph should not pretend to be a
+    photograph, and vector is the honest and much cheaper way to say so: the camping
+    illustration is 1.3 KB against ~30 KB for the same thing rasterised.
+    """
+    head = path.read_text(encoding="utf-8")[:600]
+    w = re.search(r'\bwidth="(\d+)', head)
+    h = re.search(r'\bheight="(\d+)', head)
+    if w and h:
+        return int(w.group(1)), int(h.group(1))
+    vb = re.search(r'viewBox="[\d.]+ [\d.]+ ([\d.]+) ([\d.]+)"', head)
+    if vb:
+        return round(float(vb.group(1))), round(float(vb.group(2)))
+    return None
 
 
 def _image_size(path: pathlib.Path):
@@ -152,6 +208,8 @@ def _image_size(path: pathlib.Path):
     None for anything it does not recognise rather than guessing, and the caller treats
     that as "cannot check", not as "fine".
     """
+    if path.suffix.lower() == ".svg":
+        return _svg_size(path)
     data = path.read_bytes()[:40]
     if len(data) < 30 or data[:4] != b"RIFF" or data[8:12] != b"WEBP":
         return None
@@ -207,6 +265,10 @@ def load(table_path: pathlib.Path = TABLE):
             _fail(eid, "end is before start")
         if not isinstance(ev.get("tentative", False), bool):
             _fail(eid, "tentative must be true or false")
+        if ev.get("series") not in SERIES_EMBLEM:
+            _fail(eid, "series %r has no emblem. Add it to SERIES_EMBLEM in i18n/events.py "
+                       "-- a card without its family mark is the thing the strip exists for"
+                  % ev.get("series"))
         if ev.get("image_kind", "photo") not in IMAGE_KINDS:
             _fail(eid, "image_kind %r is not one of %s"
                   % (ev.get("image_kind"), ", ".join(IMAGE_KINDS)))
@@ -243,9 +305,9 @@ def load(table_path: pathlib.Path = TABLE):
             _fail(eid, "image %s does not exist in assets/images/" % image)
         size = _image_size(path)
         if size is None:
-            _fail(eid, "image %s is not a WebP this can measure — convert it" % image)
+            _fail(eid, "image %s is not a WebP or an SVG this can measure" % image)
         w, h = size
-        if ev.get("image_kind") == "logo":
+        if ev.get("image_kind") in ("logo", "illustration"):
             # A logo is contained, not cropped, so the 16:10 rule that protects
             # photographs from being cut to a letterbox of somebody's chin does not
             # apply — but it still has to be big enough not to be fuzzy.
@@ -298,6 +360,9 @@ def when_label(ev, lang):
     a = _parse(ev["start"])
     b = _parse(ev["end"]) if ev.get("end") else a
 
+    if precision(ev["start"]) == "year":
+        return "%d" % a.year if a.year == b.year else "%d %s %d" % (a.year, dash, b.year)
+
     if precision(ev["start"]) == "month":
         if (a.year, a.month) == (b.year, b.month):
             return "%s %d" % (ml[a.month - 1], a.year)
@@ -319,7 +384,7 @@ def _e(text):
     return html.escape(text, quote=True)
 
 
-def render(lang, strings, asset_prefix="../assets/v7", events=None):
+def render(lang, strings, asset_prefix="../assets/v8", events=None):
     """The <li> list for the events wheel, in one language.
 
     `strings` is the resolved i18n table (build.py hands over a lookup so the labels the
@@ -341,6 +406,7 @@ def render(lang, strings, asset_prefix="../assets/v7", events=None):
         # "· 00:00" on a 2020 event nobody wrote a start time for would be inventing a
         # fact to fill a slot, so the span is simply left out and the row still lines up.
         kind = ev.get("image_kind", "photo")
+        emblem = SERIES_EMBLEM[ev["series"]]
         tentative = bool(ev.get("tentative"))
         clock = ev["start"][11:] if precision(ev["start"]) == "exact" else ""
         time_span = "" if clock in ("", "00:00") else '<span class="ev-time">%s</span>' % _e(clock)
@@ -372,7 +438,11 @@ def render(lang, strings, asset_prefix="../assets/v7", events=None):
             '                                        <h3 class="ev-title">%s</h3>\n'
             '                                        <p class="ev-summary">%s</p>\n'
             '                                        <p class="ev-where">%s</p>\n'
+            '                                    </div>\n'
+            '                                    <div class="ev-foot">\n'
             '                                        <p class="ev-state" hidden></p>\n'
+            '                                        <img class="ev-emblem" src="%s/images/emblems/%s"'
+            ' alt="" width="120" height="24" loading="lazy" decoding="async" aria-hidden="true">\n'
             '                                    </div>\n'
             '                                </article>\n'
             '                            </li>'
@@ -387,6 +457,7 @@ def render(lang, strings, asset_prefix="../assets/v7", events=None):
                 heading,
                 _e(ev["summary"][lang]),
                 _e(where),
+                asset_prefix, _e(emblem),
             )
         )
     return "\n".join(out)
