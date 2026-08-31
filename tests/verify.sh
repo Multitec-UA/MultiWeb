@@ -20,6 +20,14 @@
 # gmap.js 404 in production for years.
 set -uo pipefail
 
+# pipefail makes one shape in this file a liar: `printf '%s' "$page" | grep -q PAT`.
+# grep -q exits at the FIRST match, printf then takes SIGPIPE, and the pipeline reports
+# 141 even though the pattern was found. It behaved for years because the pages were
+# small enough that printf finished writing before grep quit; at 265 KB it started
+# failing, and what it printed was "/ did not answer in Spanish — something is
+# negotiating on Accept-Language", about a page that was perfectly Spanish. A here-string
+# has no pipe and no signal, so the status is grep's alone. Group 0 keeps it that way.
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
@@ -36,6 +44,29 @@ head1() { printf '\n== %s\n' "$1"; }
 HTML_PAGES=(src/index.html src/inscripcion.html src/enlaces.html src/404.html
             src/en/index.html src/en/inscripcion.html src/en/enlaces.html src/en/404.html)
 ES_PAGES=(src/index.html src/inscripcion.html src/enlaces.html src/404.html)
+
+# ---------------------------------------------------------------------------
+head1 "0. This script cannot report a false failure through a broken pipe"
+# Done in Python because a shell one-liner that greps for this shape CONTAINS the shape,
+# and reports itself. Here the needle is assembled from two halves at run time, so the
+# line that looks for it is not a line that matches it. Comments are skipped: this file
+# explains the trap in prose near the top, and prose is not a pipeline.
+offenders=$(python3 - "${BASH_SOURCE[0]}" <<'PYPIPE'
+import re, sys
+needle = re.compile(r"printf '%" + r"s' \"\$[A-Za-z_][A-Za-z0-9_]*\" \| grep -q")
+for n, line in enumerate(open(sys.argv[1], encoding="utf-8"), 1):
+    if line.lstrip().startswith("#"):
+        continue
+    if needle.search(line):
+        print("%d:%s" % (n, line.rstrip()))
+PYPIPE
+)
+if [ -n "$offenders" ]; then
+  fail "a check pipes a captured page into grep -q; under pipefail SIGPIPE reads as a failure"
+  printf '       %s\n' "$offenders"
+else
+  pass "no check pipes a captured page into grep -q — here-strings only"
+fi
 
 # ---------------------------------------------------------------------------
 head1 "1. Every local asset a page references actually exists"
@@ -136,7 +167,7 @@ done
 sizedmissingauto=0
 for cls in association-logo menu-logo; do
   block=$(awk -v c=".$cls" '$0 ~ "^"c" *\\{" {f=1} f {print} f && /\}/ {f=0}' assets/css/style.css)
-  printf '%s' "$block" | grep -q 'height: *auto' \
+  grep -q 'height: *auto' <<<"$block" \
     || { echo "  .$cls sizes an <img> but never says height: auto"; sizedmissingauto=$((sizedmissingauto+1)); }
 done
 [ "$sizedmissingauto" -eq 0 ] && pass "CSS rules that size an <img> also set height: auto" \
@@ -537,11 +568,11 @@ head1 "15. No layout is decided by JavaScript at DOM-ready"
 # Flex does the same job at the layout level with nothing to race. Audit item 2.0.
 # The comment left in script.js quotes the code it replaced, so read the code only.
 CODE=$(sed -E 's://.*::' assets/js/script.js)
-printf '%s' "$CODE" | grep -q "\$('.expert').height()" \
+grep -q "\$('.expert').height()" <<<"$CODE" \
   && fail "script.js still measures .expert at DOM-ready — the font-timing race is back" \
   || pass "no DOM-ready height measurement drives the layout"
 # .height() with an argument is a write; $(window).height() with none is a read, and fine.
-printf '%s' "$CODE" | grep -qE "\.height\([^)]" \
+grep -qE "\.height\([^)]" <<<"$CODE" \
   && fail "script.js writes an element height from JavaScript" \
   || pass "script.js writes no element heights at all"
 awk '/#inscription \.row/{f=1} f{print} f&&/\}/{exit}' assets/css/style.css | grep -q 'display: *flex' \
@@ -812,14 +843,14 @@ head1 "22. Live headers from a running preview ($BASE_URL)"
 # particular is easy to configure into a location that never matches.
 ASSET_V=$(grep -oE 'assets/v[0-9]+/' src/index.html | head -1 | sed -E 's#assets/(v[0-9]+)/#\1#')
 css_hdr=$(curl -sSI -H 'Accept-Encoding: gzip' "$BASE_URL/assets/${ASSET_V}/css/style.css")
-printf '%s' "$css_hdr" | grep -qi '^content-encoding: gzip' \
+grep -qi '^content-encoding: gzip' <<<"$css_hdr" \
   && pass "css is served gzipped" || fail "css is NOT gzipped"
-printf '%s' "$css_hdr" | grep -qi 'max-age=31536000, immutable' \
+grep -qi 'max-age=31536000, immutable' <<<"$css_hdr" \
   && pass "versioned css carries the immutable cache header" || fail "versioned css has no immutable cache header"
 html_hdr=$(curl -sSI -H 'Accept-Encoding: gzip' "$BASE_URL/")
-printf '%s' "$html_hdr" | grep -qi '^content-encoding: gzip' \
+grep -qi '^content-encoding: gzip' <<<"$html_hdr" \
   && pass "html is served gzipped" || fail "html is NOT gzipped"
-printf '%s' "$html_hdr" | grep -qi 'cache-control: no-cache' \
+grep -qi 'cache-control: no-cache' <<<"$html_hdr" \
   && pass "html carries no-cache" || fail "html has no no-cache header"
 code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE_URL/assets/css/style.css")
 [ "$code" = "200" ] && pass "unversioned asset URLs still resolve (200)" \
@@ -831,11 +862,11 @@ code=$(curl -sS -o /dev/null -w '%{http_code}' "$BASE_URL/assets/css/style.css")
 # Accept-Language and insists on getting Spanish back. It is the one check that would
 # catch somebody "helpfully" adding content negotiation later.
 es_html=$(curl -sS -H 'Accept-Language: en-GB,en;q=0.9' "$BASE_URL/")
-printf '%s' "$es_html" | grep -q '<html lang="es-ES">' \
+grep -q '<html lang="es-ES">' <<<"$es_html" \
   && pass "/ is Spanish even when the browser asks for English" \
   || fail "/ did not answer in Spanish — something is negotiating on Accept-Language"
 en_html=$(curl -sS -H 'Accept-Language: es-ES,es;q=0.9' "$BASE_URL/en/")
-printf '%s' "$en_html" | grep -q '<html lang="en">' \
+grep -q '<html lang="en">' <<<"$en_html" \
   && pass "/en/ is English even when the browser asks for Spanish" \
   || fail "/en/ did not answer in English"
 for pair in "/en:301" "/en/:200" "/en/inscripcion.html:200" "/en/enlaces:200" "/enlaces:200"; do
@@ -847,11 +878,11 @@ done
 # answers with the SPANISH 404 — the one place on this site the language could flip
 # under a visitor without them touching anything.
 en404=$(curl -sS "$BASE_URL/en/no-such-page")
-printf '%s' "$en404" | grep -q 'Page not found' \
+grep -q 'Page not found' <<<"$en404" \
   && pass "a dead URL under /en/ gets the English 404" \
   || fail "a dead URL under /en/ does not get the English 404"
 es404=$(curl -sS "$BASE_URL/no-such-page")
-printf '%s' "$es404" | grep -q 'Página no encontrada' \
+grep -q 'Página no encontrada' <<<"$es404" \
   && pass "a dead URL at the root gets the Spanish 404" \
   || fail "a dead URL at the root does not get the Spanish 404"
 else

@@ -113,6 +113,10 @@ SERIES_EMBLEM = {
     "opensourcejam":        "multitec.webp",
     "gymkana-tecnologica":  "multitec.webp",
     "doeactua":             "ua.webp",
+    "hackea-tu-destino":    "multitec.webp",
+    "escape-room":          "multitec.webp",
+    "torneos":              "multitec.webp",
+    "charlas":              "multitec.webp",
 }
 
 ID_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")

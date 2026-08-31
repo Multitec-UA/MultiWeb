@@ -195,8 +195,8 @@
         "en": "The Science Park's second marathon, run almost entirely online because of the pandemic, with 1,000 € in prize money."
       },
       "location": {
-        "es": "Edificio Nuevos Institutos, PCA",
-        "en": "Nuevos Institutos, Science Park"
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
       },
       "image_alt": {
         "es": "Mesa de ponentes del II Cienciathon con los roll-ups de MultitecUA y del Parque Científico",
@@ -209,7 +209,7 @@
       "category": "hackathon",
       "role": "organiza",
       "audience": "publico",
-      "start": "2021",
+      "start": "2021-11-05",
       "end": null,
       "tentative": false,
       "image": "events/cienciathon-2021.webp",
@@ -238,7 +238,7 @@
       "category": "hackathon",
       "role": "organiza",
       "audience": "publico",
-      "start": "2023-10",
+      "start": "2023-10-22",
       "end": null,
       "tentative": false,
       "image": "events/cienciathon-2023.webp",
@@ -267,12 +267,12 @@
       "category": "hackathon",
       "role": "organiza",
       "audience": "publico",
-      "start": "2024",
-      "end": null,
+      "start": "2024-10-25",
+      "end": "2024-10-27",
       "tentative": false,
       "image": "events/cienciathon-2024.webp",
       "image_kind": "photo",
-      "link": "https://cienciathon.org/",
+      "link": "https://www.cienciathon.org",
       "title": {
         "es": "VI Cienciathon",
         "en": "VI Cienciathon"
@@ -410,9 +410,9 @@
       "id": "uagames-devcon-2022",
       "series": "uagames-devcon",
       "category": "jornada",
-      "role": "colabora",
+      "role": "organiza",
       "audience": "publico",
-      "start": "2022",
+      "start": "2022-03-29",
       "end": null,
       "tentative": false,
       "image": "events/uagames-devcon-2022.webp",
@@ -470,7 +470,7 @@
       "category": "jornada",
       "role": "organiza",
       "audience": "socios",
-      "start": "2024-09-10",
+      "start": "2024-09-10T10:00",
       "end": null,
       "tentative": false,
       "image": "events/fempa-2024.webp",
@@ -485,8 +485,8 @@
         "en": "A morning inside the FEMPA workshops, up close with the machinery and the trades a lecture hall never shows you."
       },
       "location": {
-        "es": "FEMPA, Alicante",
-        "en": "FEMPA, Alicante"
+        "es": "FEMPA, Agua Amarga, Alicante",
+        "en": "FEMPA, Agua Amarga, Alicante"
       },
       "image_alt": {
         "es": "Socios de MultitecUA atendiendo a una explicación junto a una máquina en los talleres de FEMPA",
@@ -1287,8 +1287,8 @@
       "image_kind": "illustration",
       "link": "https://gamejam.multitecua.com/editions.html",
       "title": {
-        "es": "XI Gamejam Alicante",
-        "en": "XI Gamejam Alicante"
+        "es": "XI Game Jam Alicante",
+        "en": "XI Game Jam Alicante"
       },
       "summary": {
         "es": "La undécima edición y el regreso de la jam al Parque Científico, con trece videojuegos terminados y su propio cartel.",
@@ -1338,12 +1338,12 @@
       "category": "hackathon",
       "role": "organiza",
       "audience": "publico",
-      "start": "2019",
-      "end": null,
+      "start": "2019-11-29",
+      "end": "2019-12-01",
       "tentative": false,
       "image": "events/ill-hackathon-b.svg",
       "image_kind": "illustration",
-      "link": "https://cienciathon.org/",
+      "link": "https://pca.ua.es/es/landing/cienciathon-2019.html",
       "title": {
         "es": "I Cienciathon",
         "en": "I Cienciathon"
@@ -1367,7 +1367,7 @@
       "category": "hackathon",
       "role": "organiza",
       "audience": "publico",
-      "start": "2022",
+      "start": "2022-10",
       "end": null,
       "tentative": false,
       "image": "events/ill-hackathon-c.svg",
@@ -1394,10 +1394,10 @@
       "id": "uagames-devcon-2023",
       "series": "uagames-devcon",
       "category": "jornada",
-      "role": "colabora",
+      "role": "organiza",
       "audience": "publico",
-      "start": "2023",
-      "end": null,
+      "start": "2023-04-03",
+      "end": "2023-04-04",
       "tentative": false,
       "image": "events/ill-jornada-a.svg",
       "image_kind": "illustration",
@@ -1483,7 +1483,7 @@
       "category": "social",
       "role": "organiza",
       "audience": "socios",
-      "start": "2021",
+      "start": "2021-10-15",
       "end": null,
       "tentative": false,
       "image": "events/ill-social-a.svg",
@@ -1509,7 +1509,7 @@
       "category": "social",
       "role": "organiza",
       "audience": "socios",
-      "start": "2023-10",
+      "start": "2023-11-06",
       "end": null,
       "tentative": false,
       "image": "events/ill-social-b.svg",
@@ -1616,7 +1616,7 @@
       "category": "social",
       "role": "organiza",
       "audience": "socios",
-      "start": "2019",
+      "start": "2019-11",
       "end": null,
       "tentative": false,
       "image": "events/ill-social-a.svg",
@@ -1790,21 +1790,24 @@
       "category": "hackathon",
       "role": "asiste",
       "audience": "publico",
-      "start": "2019",
-      "end": null,
+      "start": "2019-03-21",
+      "end": "2019-03-23",
       "tentative": false,
       "image": "events/ill-hackathon-a.svg",
       "image_kind": "illustration",
       "link": null,
       "title": {
-        "es": "HackForGood Alicante",
-        "en": "HackForGood Alicante"
+        "es": "HackForGood Murcia",
+        "en": "HackForGood Murcia"
       },
       "summary": {
         "es": "Hackathon solidario HackForGood, en su sede de Alicante, al que la asociación se presentó con un equipo propio.",
         "en": "The HackForGood charity hackathon at its Alicante site, which the association entered with a full team of its own."
       },
-      "location": null,
+      "location": {
+        "es": "UCAM, Murcia",
+        "en": "UCAM, Murcia"
+      },
       "image_alt": {
         "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
@@ -1816,7 +1819,7 @@
       "category": "hackathon",
       "role": "asiste",
       "audience": "publico",
-      "start": "2024-10",
+      "start": "2024-10-19",
       "end": null,
       "tentative": true,
       "image": "events/ill-hackathon-b.svg",
@@ -1961,8 +1964,8 @@
         "en": "The Torrevieja technology fair, where the association had a space of its own back in 2019. The day is not recorded anywhere."
       },
       "location": {
-        "es": "Torrevieja",
-        "en": "Torrevieja"
+        "es": "Torrevieja, Alicante",
+        "en": "Torrevieja, Alicante"
       },
       "image_alt": {
         "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
@@ -1973,7 +1976,7 @@
       "id": "torrejuana-2019",
       "series": "jornadas",
       "category": "jornada",
-      "role": "colabora",
+      "role": "asiste",
       "audience": "publico",
       "start": "2019",
       "end": null,
@@ -1982,49 +1985,49 @@
       "image_kind": "illustration",
       "link": null,
       "title": {
-        "es": "Actividad en TorreJuana",
-        "en": "An event at TorreJuana"
+        "es": "AlicanTec en Torre Juana",
+        "en": "AlicanTec at Torre Juana"
       },
       "summary": {
-        "es": "Actividad de la asociación en TorreJuana OST. Han vuelto después varias veces, por ejemplo a grabar el podcast en 2025.",
-        "en": "An association activity at TorreJuana OST. They have been back since — to record the podcast in 2025, for one."
+        "es": "Encuentro del ecosistema tecnológico alicantino en Torre Juana, al que la asociación acudió como comunidad invitada.",
+        "en": "A gathering of Alicante's technology ecosystem at Torre Juana, which the association attended as an invited community."
       },
       "location": {
-        "es": "TorreJuana OST, Alicante",
-        "en": "TorreJuana OST, Alicante"
+        "es": "Torre Juana OST, Alicante",
+        "en": "Torre Juana OST, Alicante"
       },
       "image_alt": {
-        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
-        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+        "es": "Ilustración de Miembros de Multitec en el encuentro AlicanTec en Torre Juana OST, mientras no hay foto",
+        "en": "An illustration standing in for Multitec members at the AlicanTec gathering at Torre Juana OST"
       }
     },
     {
-      "id": "hackea-tu-destino-torrevieja",
-      "series": "jornadas",
+      "id": "hackea-tu-destino-2019",
+      "series": "hackea-tu-destino",
       "category": "jornada",
-      "role": "colabora",
+      "role": "asiste",
       "audience": "publico",
-      "start": "2019",
-      "end": null,
+      "start": "2019-11-23",
+      "end": "2019-11-24",
       "tentative": true,
       "image": "events/ill-jornada-a.svg",
       "image_kind": "illustration",
       "link": null,
       "title": {
-        "es": "Hackea tu destino",
-        "en": "Hack your future"
+        "es": "III Hackea tu Destino",
+        "en": "III Hack Your Destination"
       },
       "summary": {
-        "es": "Actividad «Hackea tu destino» en Torrevieja. De ella sólo queda la carpeta de fotos, sin fecha, sin programa y sin sitio.",
-        "en": "The \"Hack your future\" activity in Torrevieja. All that remains of it is a photo folder, with no date or programme."
+        "es": "Tercera edición del hackathon de turismo de Torrevieja: treinta y dos horas para resolver retos de destinos inteligentes.",
+        "en": "Third edition of the Torrevieja tourism hackathon: thirty-two hours to solve smart destination challenges as a team."
       },
       "location": {
-        "es": "Torrevieja",
-        "en": "Torrevieja"
+        "es": "Sede Universitaria, Torrevieja",
+        "en": "University Centre, Torrevieja"
       },
       "image_alt": {
-        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
-        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+        "es": "Ilustración de Equipos trabajando en la tercera edición del hackathon Hackea tu Destino, mientras no hay foto",
+        "en": "An illustration standing in for Teams at work during the third Hack Your Destination hackathon"
       }
     },
     {
@@ -2033,7 +2036,7 @@
       "category": "social",
       "role": "organiza",
       "audience": "publico",
-      "start": "2019",
+      "start": "2019-09-24",
       "end": null,
       "tentative": true,
       "image": "events/ill-social-b.svg",
@@ -2047,7 +2050,10 @@
         "es": "El escape room lo montó la asociación, dentro de una jornada de emprendimiento más grande organizada por otros.",
         "en": "The escape room itself was built by the association, inside a larger entrepreneurship day run by somebody else."
       },
-      "location": null,
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
       "image_alt": {
         "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
@@ -2100,8 +2106,8 @@
         "en": "A gymkhana of technology challenges and Arduinos. A later message from a member casts doubt on whether it happened."
       },
       "location": {
-        "es": "Escuela Politécnica Superior, UA",
-        "en": "Polytechnic School, UA"
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
       },
       "image_alt": {
         "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
@@ -2109,12 +2115,12 @@
       }
     },
     {
-      "id": "cursos-multitec-intro-programacion",
+      "id": "curso-intro-programacion-2023",
       "series": "cursos-multitec",
       "category": "taller",
       "role": "organiza",
-      "audience": "socios",
-      "start": "2024",
+      "audience": "publico",
+      "start": "2023-09",
       "end": null,
       "tentative": true,
       "image": "events/ill-taller-a.svg",
@@ -2122,13 +2128,16 @@
       "link": null,
       "title": {
         "es": "Introducción a programar",
-        "en": "Intro to programming"
+        "en": "Introduction to Coding"
       },
       "summary": {
         "es": "Curso de introducción a la programación que la asociación imparte a sus propios socios. No consta ni el año ni el aula.",
         "en": "An introduction to programming that the association teaches its own members. Neither the year nor the room is recorded."
       },
-      "location": null,
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
       "image_alt": {
         "es": "Ilustración de colores planos que representa un taller, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for a workshop, until this event has a photograph"
@@ -2140,7 +2149,7 @@
       "category": "jornada",
       "role": "colabora",
       "audience": "publico",
-      "start": "2024",
+      "start": "2024-09",
       "end": null,
       "tentative": false,
       "image": "events/ill-jornada-b.svg",
@@ -2271,6 +2280,1137 @@
       "image_alt": {
         "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
+      }
+    },
+    {
+      "id": "hackforgood-2017",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2017",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "HackForGood Alicante",
+        "en": "HackForGood Alicante"
+      },
+      "summary": {
+        "es": "Hackathon solidario de ámbito nacional en el que la asociación compitió con equipo propio en la sede de Alicante.",
+        "en": "A nationwide hackathon for social causes, entered by the association with a team of its own at the Alicante venue."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de un hackathon solidario con equipos trabajando por la noche, mientras no hay foto",
+        "en": "An illustration standing in for charity hackathon with teams working through the night"
+      }
+    },
+    {
+      "id": "hackea-tu-destino-2017",
+      "series": "hackea-tu-destino",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2017-11-25",
+      "end": "2017-11-26",
+      "tentative": false,
+      "image": "events/ill-hackathon-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "I Hackea tu Destino",
+        "en": "I Hack Your Destination"
+      },
+      "summary": {
+        "es": "Primera edición del hackathon de innovación y turismo de Torrevieja, con treinta y dos horas seguidas de trabajo.",
+        "en": "First edition of the Torrevieja innovation and tourism hackathon, a solid thirty-two hours of work in one room."
+      },
+      "location": {
+        "es": "Sede Universitaria, Torrevieja",
+        "en": "University Centre, Torrevieja"
+      },
+      "image_alt": {
+        "es": "Ilustración de primer hackathon de turismo celebrado en Torrevieja, mientras no hay foto",
+        "en": "An illustration standing in for first tourism hackathon held in Torrevieja"
+      }
+    },
+    {
+      "id": "nasa-space-apps-2018",
+      "series": "nasa-space-apps",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2018-10-19",
+      "end": "2018-10-21",
+      "tentative": false,
+      "image": "events/ill-hackathon-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Space Apps Alicante",
+        "en": "Space Apps Alicante"
+      },
+      "summary": {
+        "es": "Hackathon mundial de la NASA. Ochenta y dos personas en diecisiete equipos en una de las tres sedes españolas.",
+        "en": "NASA's worldwide hackathon. Eighty-two people across seventeen teams, at one of only three Spanish host venues."
+      },
+      "location": {
+        "es": "everis Alicante",
+        "en": "everis Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de hackathon Space Apps de la NASA en la sede de Alicante, mientras no hay foto",
+        "en": "An illustration standing in for NASA's Space Apps hackathon at the Alicante venue"
+      }
+    },
+    {
+      "id": "hackea-tu-destino-2018",
+      "series": "hackea-tu-destino",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2018-11-24",
+      "end": "2018-11-25",
+      "tentative": false,
+      "image": "events/ill-hackathon-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "II Hackea tu Destino",
+        "en": "II Hack Your Destination"
+      },
+      "summary": {
+        "es": "Segunda edición del hackathon de turismo. La asociación llevó equipo y llegó con las ideas preparadas de casa.",
+        "en": "Second edition of the tourism hackathon. The association brought a team and arrived with its ideas already worked out."
+      },
+      "location": {
+        "es": "Sede Universitaria, Torrevieja",
+        "en": "University Centre, Torrevieja"
+      },
+      "image_alt": {
+        "es": "Ilustración de la segunda edición del hackathon de turismo de Torrevieja, mientras no hay foto",
+        "en": "An illustration standing in for second edition of the Torrevieja tourism hackathon"
+      }
+    },
+    {
+      "id": "gymkana-tecnologica-2019",
+      "series": "gymkana-tecnologica",
+      "category": "jornada",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2019-02-15",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "I Gymkana Tecnológica",
+        "en": "I Technology Gymkhana"
+      },
+      "summary": {
+        "es": "Piano de limones, Simón dice, descubre el sensor, escape room y torres de Babel: una prueba por cada grado de la Escuela.",
+        "en": "A lemon piano, Simon says, guess the sensor, an escape room and towers of Babel: one challenge for each degree at the school."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de una gymkana tecnológica con pruebas de Arduino y acertijos, mientras no hay foto",
+        "en": "An illustration standing in for technology gymkhana with Arduino challenges and puzzles"
+      }
+    },
+    {
+      "id": "gymkana-torrevieja-2019",
+      "series": "gymkana-tecnologica",
+      "category": "jornada",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2019-03",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "II Gymkana Tecnológica",
+        "en": "II Technology Gymkhana"
+      },
+      "summary": {
+        "es": "La gymkana sale del campus y viaja a Torrevieja con las mismas pruebas de Arduino, escape room y retos por ingenierías.",
+        "en": "The gymkhana leaves campus for Torrevieja with the same Arduino challenges, escape room and puzzles set by engineering field."
+      },
+      "location": {
+        "es": "Torrevieja, Alicante",
+        "en": "Torrevieja, Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de la gymkana tecnológica llevada fuera del campus, a Torrevieja, mientras no hay foto",
+        "en": "An illustration standing in for technology gymkhana taken off campus, to Torrevieja"
+      }
+    },
+    {
+      "id": "jornadas-ies-gaia-2019",
+      "series": "gymkana-tecnologica",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019-03-15",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Jornadas del IES Gaia",
+        "en": "IES Gaia Open Days"
+      },
+      "summary": {
+        "es": "Jornada de puertas abiertas en un instituto: la asociación llevó su escape room y la tercera gymkana tecnológica.",
+        "en": "An open day at a secondary school: the association brought along its escape room and the third technology gymkhana."
+      },
+      "location": {
+        "es": "IES Gaia, San Vicente",
+        "en": "IES Gaia, San Vicente"
+      },
+      "image_alt": {
+        "es": "Ilustración de una jornada de puertas abiertas en un instituto con talleres, mientras no hay foto",
+        "en": "An illustration standing in for school open day with hands-on technology workshops"
+      }
+    },
+    {
+      "id": "quiero-ser-ingeniera-2019",
+      "series": "quiero-ser-ingeniera",
+      "category": "taller",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019-04-03",
+      "end": "2019-04-04",
+      "tentative": false,
+      "image": "events/ill-taller-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Quiero Ser Ingeniera",
+        "en": "I Want to Be an Engineer"
+      },
+      "summary": {
+        "es": "Dos días de talleres para acercar las ingenierías a las alumnas de secundaria, con monitores de la asociación.",
+        "en": "Two days of workshops bringing engineering closer to girls in secondary school, run with the association's own volunteers."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de un taller para acercar las ingenierías a alumnas de secundaria, mientras no hay foto",
+        "en": "An illustration standing in for workshop bringing engineering closer to schoolgirls"
+      }
+    },
+    {
+      "id": "hash-code-2019",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Google Hash Code",
+        "en": "Google Hash Code"
+      },
+      "summary": {
+        "es": "Competición mundial de programación de Google, con sede local en Torre Juana y equipo propio de la asociación.",
+        "en": "Google's worldwide programming contest, with a local venue at Torre Juana and a team of the association's own."
+      },
+      "location": {
+        "es": "Torre Juana OST, Alicante",
+        "en": "Torre Juana OST, Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de una competición de programación por equipos contrarreloj, mientras no hay foto",
+        "en": "An illustration standing in for timed team programming contest"
+      }
+    },
+    {
+      "id": "nasa-space-apps-2019-alicante",
+      "series": "nasa-space-apps",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Space Apps Alicante",
+        "en": "Space Apps Alicante"
+      },
+      "summary": {
+        "es": "Edición alicantina del hackathon de la NASA, repartida entre las sedes de everis y de Torre Juana OST, en la ciudad.",
+        "en": "The Alicante edition of NASA's hackathon, split between the everis offices and the Torre Juana OST venue in the city."
+      },
+      "location": {
+        "es": "everis y Torre Juana, Alicante",
+        "en": "everis and Torre Juana"
+      },
+      "image_alt": {
+        "es": "Ilustración de hackathon Space Apps repartido entre dos sedes de Alicante, mientras no hay foto",
+        "en": "An illustration standing in for Space Apps hackathon split across two Alicante venues"
+      }
+    },
+    {
+      "id": "nasa-space-apps-2019-valencia",
+      "series": "nasa-space-apps",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Space Apps Valencia",
+        "en": "Space Apps Valencia"
+      },
+      "summary": {
+        "es": "La asociación se desplazó también a la sede valenciana del hackathon de la NASA, en el centro de innovación Las Naves.",
+        "en": "The association travelled to the Valencia venue of NASA's hackathon as well, at the Las Naves innovation centre."
+      },
+      "location": {
+        "es": "Las Naves, Valencia",
+        "en": "Las Naves, Valencia"
+      },
+      "image_alt": {
+        "es": "Ilustración de un equipo desplazado a Valencia para el hackathon de la NASA, mientras no hay foto",
+        "en": "An illustration standing in for team travelling to Valencia for NASA's hackathon"
+      }
+    },
+    {
+      "id": "gamejam-2019",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jam-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Game Jam Alicante",
+        "en": "Alicante Game Jam"
+      },
+      "summary": {
+        "es": "Edición de 2019 de la jam de videojuegos, precedida por los cursos de Unity que imparte la asociación para preparar a los equipos.",
+        "en": "The 2019 edition of the video game jam, preceded by the Unity classes the association teaches to get the teams ready for it."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de una jam de videojuegos con equipos programando y dibujando, mientras no hay foto",
+        "en": "An illustration standing in for game jam with teams coding and drawing side by side"
+      }
+    },
+    {
+      "id": "tech-communities-day-2019",
+      "series": "jornadas",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019-10-25",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": "https://distritodigitalcv.com/calendario/alctechcommsday/",
+      "title": {
+        "es": "Tech Communities Day",
+        "en": "Tech Communities Day"
+      },
+      "summary": {
+        "es": "Primer encuentro de las comunidades técnicas de Alicante: más de doscientos cincuenta profesionales y Multitec entre ellas.",
+        "en": "The first gathering of Alicante's technical communities: more than two hundred and fifty professionals, Multitec among them."
+      },
+      "location": {
+        "es": "Distrito Digital, Alicante",
+        "en": "Distrito Digital, Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de primer encuentro de comunidades técnicas de la provincia, mientras no hay foto",
+        "en": "An illustration standing in for first gathering of the province's tech communities"
+      }
+    },
+    {
+      "id": "bitup-2019",
+      "series": "hackathons-externos",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019-10-26",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "BitUp Alicante",
+        "en": "BitUp Alicante"
+      },
+      "summary": {
+        "es": "Congreso de ciberseguridad organizado por estudiantes y dirigido a estudiantes, con ponentes profesionales del sector.",
+        "en": "A cybersecurity conference organised by students for students, with working professionals from the field as speakers."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de un congreso de ciberseguridad con charlas y demostraciones, mientras no hay foto",
+        "en": "An illustration standing in for cybersecurity conference with talks and demonstrations"
+      }
+    },
+    {
+      "id": "hackachain-2019",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019-11-07",
+      "end": "2019-11-09",
+      "tentative": false,
+      "image": "events/ill-hackathon-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "HackaCHAIN",
+        "en": "HackaCHAIN"
+      },
+      "summary": {
+        "es": "Primer hackathon nacional de blockchain para la industria: treinta y seis horas, cinco retos y más de cien participantes.",
+        "en": "The first national blockchain hackathon for industry: thirty-six hours, five challenges and more than a hundred participants."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de un hackathon de blockchain con equipos resolviendo retos, mientras no hay foto",
+        "en": "An illustration standing in for blockchain hackathon with teams working on challenges"
+      }
+    },
+    {
+      "id": "devfest-alicante-2019",
+      "series": "gdg-alicante",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019-11-16",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-c.svg",
+      "image_kind": "illustration",
+      "link": "https://devfestalicante.com/",
+      "title": {
+        "es": "DevFest Alicante",
+        "en": "DevFest Alicante"
+      },
+      "summary": {
+        "es": "El congreso anual del Google Developer Group de Alicante, con la asociación colaborando en la organización y en las charlas.",
+        "en": "The annual conference of Google Developer Group Alicante, with the association helping to organise it and filling the talks."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de congreso anual de desarrolladores DevFest en Alicante, mientras no hay foto",
+        "en": "An illustration standing in for annual DevFest developer conference in Alicante"
+      }
+    },
+    {
+      "id": "concurso-cartel-cienciathon-2019",
+      "series": "cienciathon",
+      "category": "taller",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2019-10-21",
+      "end": "2019-10-27",
+      "tentative": false,
+      "image": "events/ill-taller-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Concurso de cartel",
+        "en": "Poster Competition"
+      },
+      "summary": {
+        "es": "Certamen abierto para elegir el cartel del primer Cienciathon, con cien euros de premio y jurado mixto con el Parque.",
+        "en": "An open competition to choose the poster for the first Cienciathon, with a hundred euro prize and a joint jury with the Park."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de un concurso de diseño de cartel para un evento científico, mientras no hay foto",
+        "en": "An illustration standing in for poster design competition for a science event"
+      }
+    },
+    {
+      "id": "cibtc-2019",
+      "series": "jornadas",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019-11-29",
+      "end": "2019-11-30",
+      "tentative": false,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": "https://cibtc.es/alicante/",
+      "title": {
+        "es": "Congreso de Blockchain",
+        "en": "Blockchain Congress"
+      },
+      "summary": {
+        "es": "CIBTC Alicante, congreso internacional de blockchain en el MACA, con la asociación entre las entidades colaboradoras.",
+        "en": "CIBTC Alicante, an international blockchain congress at the MACA museum, with the association among the collaborating bodies."
+      },
+      "location": {
+        "es": "MACA, Alicante",
+        "en": "MACA museum, Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de un congreso internacional de blockchain en un museo, mientras no hay foto",
+        "en": "An illustration standing in for international blockchain congress held in a museum"
+      }
+    },
+    {
+      "id": "escape-room-multitec",
+      "series": "escape-room",
+      "category": "taller",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-taller-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Escape Room Multitec",
+        "en": "Multitec Escape Room"
+      },
+      "summary": {
+        "es": "La sala de escape itinerante de la asociación: binario, hexadecimal, códigos QR, llaves y una cuenta atrás que no perdona.",
+        "en": "The association's travelling escape room: binary, hexadecimal, QR codes, keys and a countdown that gives nothing away."
+      },
+      "location": {
+        "es": "Diversas localidades",
+        "en": "Various venues"
+      },
+      "image_alt": {
+        "es": "Ilustración de una sala de escape con acertijos, llaves y una cuenta atrás, mientras no hay foto",
+        "en": "An illustration standing in for escape room with puzzles, keys and a countdown clock"
+      }
+    },
+    {
+      "id": "hash-code-2020",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2020-02-20",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Google Hash Code",
+        "en": "Google Hash Code"
+      },
+      "summary": {
+        "es": "Ronda clasificatoria mundial de Hash Code desde la sede de Torre Juana, con un equipo de la asociación compitiendo.",
+        "en": "The worldwide qualification round of Hash Code from the Torre Juana venue, with a team from the association taking part."
+      },
+      "location": {
+        "es": "Torre Juana OST, Alicante",
+        "en": "Torre Juana OST, Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de una ronda clasificatoria de programación competitiva, mientras no hay foto",
+        "en": "An illustration standing in for competitive programming qualification round"
+      }
+    },
+    {
+      "id": "tabarca-emprende-2020",
+      "series": "jornadas",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2020-02-28",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Tabarca Emprende",
+        "en": "Tabarca Emprende"
+      },
+      "summary": {
+        "es": "Jornada de emprendimiento en la isla de Tabarca, organizada por el Centro de Empleo de la Universidad y el ayuntamiento.",
+        "en": "An entrepreneurship day on the island of Tabarca, run by the University's employment centre and the town council."
+      },
+      "location": {
+        "es": "Isla de Tabarca, Alicante",
+        "en": "Tabarca Island, Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de una jornada de emprendimiento celebrada en una isla, mientras no hay foto",
+        "en": "An illustration standing in for entrepreneurship day held on an island"
+      }
+    },
+    {
+      "id": "entrevistas-rectorado-2020",
+      "series": "jornadas",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2020",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-charla-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Entrevistas al Rectorado",
+        "en": "Rectorate Interviews"
+      },
+      "summary": {
+        "es": "Ronda de entrevistas a las candidaturas al Rectorado de la Universidad, retransmitida en línea con la asociación detrás.",
+        "en": "A round of interviews with the candidates for the University's Rectorate, streamed online with the association behind it."
+      },
+      "location": {
+        "es": "Retransmisión en línea",
+        "en": "Online broadcast"
+      },
+      "image_alt": {
+        "es": "Ilustración de una ronda de entrevistas retransmitida en línea, mientras no hay foto",
+        "en": "An illustration standing in for round of interviews broadcast online"
+      }
+    },
+    {
+      "id": "hackovid-2020",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2020",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Hackovid",
+        "en": "Hackovid"
+      },
+      "summary": {
+        "es": "Hackathon en línea convocado durante la pandemia, con la asociación aportando veinte horas de tutorización técnica.",
+        "en": "An online hackathon convened during the pandemic, with the association putting in twenty hours of technical mentoring."
+      },
+      "location": {
+        "es": "Retransmisión en línea",
+        "en": "Online event"
+      },
+      "image_alt": {
+        "es": "Ilustración de un hackathon celebrado en línea durante la pandemia, mientras no hay foto",
+        "en": "An illustration standing in for hackathon held online during the pandemic"
+      }
+    },
+    {
+      "id": "ideathon-torrevieja",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2020",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Ideathon Torrevieja",
+        "en": "Torrevieja Ideathon"
+      },
+      "summary": {
+        "es": "Concurso de ideas de Torrevieja, en formato mixto, con la asociación colaborando y mentorizando a los equipos que competían.",
+        "en": "Torrevieja's ideas contest in hybrid format, with the association helping to run it and mentoring the competing teams."
+      },
+      "location": {
+        "es": "Torrevieja, en línea",
+        "en": "Torrevieja, online"
+      },
+      "image_alt": {
+        "es": "Ilustración de un concurso de ideas en formato mixto presencial y en línea, mientras no hay foto",
+        "en": "An illustration standing in for ideas contest running both in person and online"
+      }
+    },
+    {
+      "id": "app-senderismo",
+      "series": "jornadas",
+      "category": "taller",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2020",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-taller-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "App de senderismo",
+        "en": "Hiking App Project"
+      },
+      "summary": {
+        "es": "Proyecto de aplicación de senderismo de la Universidad, en el que la asociación colaboró durante tres cursos seguidos.",
+        "en": "The University's hiking app project, which the association collaborated on across three consecutive academic years."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de un proyecto de aplicación móvil de rutas de senderismo, mientras no hay foto",
+        "en": "An illustration standing in for mobile app project for hiking routes"
+      }
+    },
+    {
+      "id": "datathon-upv-2021",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2021-06",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Datathon UPV",
+        "en": "UPV Datathon"
+      },
+      "summary": {
+        "es": "Datathon de la Universitat Politècnica de València. La asociación organizó parte de la dinámica y mentorizó equipos.",
+        "en": "The Universitat Politècnica de València datathon. The association ran part of the format and mentored the teams."
+      },
+      "location": {
+        "es": "En línea, Valencia",
+        "en": "Online, Valencia"
+      },
+      "image_alt": {
+        "es": "Ilustración de un datathon con equipos analizando datos en línea, mientras no hay foto",
+        "en": "An illustration standing in for datathon with teams analysing data online"
+      }
+    },
+    {
+      "id": "torneo-ajedrez-2021",
+      "series": "torneos",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2021",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Torneo de ajedrez",
+        "en": "Chess Tournament"
+      },
+      "summary": {
+        "es": "Torneo de ajedrez en línea entre socios, organizado para mantener la asociación unida durante el curso telemático.",
+        "en": "An online chess tournament among members, run to keep the association together through the year of remote teaching."
+      },
+      "location": {
+        "es": "En línea",
+        "en": "Online"
+      },
+      "image_alt": {
+        "es": "Ilustración de un torneo de ajedrez jugado en línea entre socios, mientras no hay foto",
+        "en": "An illustration standing in for chess tournament played online between members"
+      }
+    },
+    {
+      "id": "torneo-padel-2022",
+      "series": "torneos",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2022",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "I Torneo de pádel",
+        "en": "I Padel Tournament"
+      },
+      "summary": {
+        "es": "Primer torneo de pádel de la asociación en las pistas del campus, con cuadro por parejas y una tarde entera de partidos.",
+        "en": "The association's first padel tournament on the campus courts, played in pairs across a full afternoon of matches."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de un torneo de pádel por parejas en las pistas del campus, mientras no hay foto",
+        "en": "An illustration standing in for doubles padel tournament on the campus courts"
+      }
+    },
+    {
+      "id": "doeactua-2022",
+      "series": "doeactua",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2022-09",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "DOEACTUA",
+        "en": "DOEACTUA"
+      },
+      "summary": {
+        "es": "Jornada de orientación y empleo de la Universidad, en la que la asociación montó su escape room como actividad.",
+        "en": "The University's careers and employment day, at which the association set up its escape room as one of the activities."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de una jornada de orientación y empleo universitaria, mientras no hay foto",
+        "en": "An illustration standing in for university careers and employment day"
+      }
+    },
+    {
+      "id": "quiero-ser-ingeniera-2022",
+      "series": "quiero-ser-ingeniera",
+      "category": "taller",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2022",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-taller-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Quiero Ser Ingeniera",
+        "en": "I Want to Be an Engineer"
+      },
+      "summary": {
+        "es": "Edición de 2022 del programa para acercar las ingenierías a las alumnas de secundaria, con talleres de la asociación.",
+        "en": "The 2022 edition of the programme bringing engineering closer to schoolgirls, with workshops run by the association."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de talleres para acercar las ingenierías a alumnas de secundaria, mientras no hay foto",
+        "en": "An illustration standing in for workshops bringing engineering closer to schoolgirls"
+      }
+    },
+    {
+      "id": "charla-mainframe-2022",
+      "series": "charlas",
+      "category": "charla",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2022",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-charla-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Charla sobre Mainframe",
+        "en": "Talk on Mainframes"
+      },
+      "summary": {
+        "es": "Charla abierta sobre desarrollo en entornos mainframe, dentro del ciclo de charlas técnicas que programa la asociación.",
+        "en": "An open talk on development in mainframe environments, part of the technical talks series the association programmes."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de una charla técnica sobre desarrollo en entornos mainframe, mientras no hay foto",
+        "en": "An illustration standing in for technical talk about mainframe development"
+      }
+    },
+    {
+      "id": "datathon-upv-2022",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2022-03",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Datathon UPV",
+        "en": "UPV Datathon"
+      },
+      "summary": {
+        "es": "Segunda colaboración con el datathon de la Politècnica de València, otra vez con mentorización de los equipos.",
+        "en": "A second collaboration with the Politècnica de València datathon, once again mentoring the teams that took part in it."
+      },
+      "location": {
+        "es": "En línea, Valencia",
+        "en": "Online, Valencia"
+      },
+      "image_alt": {
+        "es": "Ilustración de la segunda edición del datathon con equipos analizando datos, mientras no hay foto",
+        "en": "An illustration standing in for second datathon edition with teams analysing data"
+      }
+    },
+    {
+      "id": "bienvenida-2023",
+      "series": "bienvenida",
+      "category": "social",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2023-09-27",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Bienvenida · MultiPato",
+        "en": "Welcome Fair · MultiPato"
+      },
+      "summary": {
+        "es": "Un juego de la oca gigante en la feria de bienvenida: retos, preguntas y casillas con los nombres del propio campus.",
+        "en": "A giant board game at the welcome fair: challenges, questions and squares named after the corners of the campus itself."
+      },
+      "location": {
+        "es": "Frente a la Biblioteca, UA",
+        "en": "By the Library, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de un juego de la oca gigante en una feria de bienvenida, mientras no hay foto",
+        "en": "An illustration standing in for giant board game at a university welcome fair"
+      }
+    },
+    {
+      "id": "charla-flutter-2023",
+      "series": "charlas",
+      "category": "charla",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2023",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-charla-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Charla de Flutter",
+        "en": "Flutter Academy Talk"
+      },
+      "summary": {
+        "es": "«Construye tu futuro laboral con Flutter», una charla del ciclo técnico que organiza la asociación en la Universidad.",
+        "en": "“Build your career with Flutter”, one session of the technical talks series the association runs at the University."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de una charla técnica sobre desarrollo móvil con Flutter, mientras no hay foto",
+        "en": "An illustration standing in for technical talk about mobile development with Flutter"
+      }
+    },
+    {
+      "id": "doeactua-2023",
+      "series": "doeactua",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2023",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "DOEACTUA",
+        "en": "DOEACTUA"
+      },
+      "summary": {
+        "es": "Nueva edición de la jornada de orientación y empleo de la Universidad, con la asociación entre las entidades colaboradoras.",
+        "en": "Another edition of the University's careers and employment day, with the association among the collaborating bodies."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de la jornada de orientación y empleo de la Universidad, mientras no hay foto",
+        "en": "An illustration standing in for University's careers and employment day"
+      }
+    },
+    {
+      "id": "quiero-ser-ingeniera-2023",
+      "series": "quiero-ser-ingeniera",
+      "category": "taller",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2023",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-taller-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Quiero Ser Ingeniera",
+        "en": "I Want to Be an Engineer"
+      },
+      "summary": {
+        "es": "Edición de 2023 del programa para acercar las ingenierías a las alumnas de secundaria, otra vez con la asociación.",
+        "en": "The 2023 edition of the programme bringing engineering closer to schoolgirls, again with the association taking part."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de un taller de ingeniería dirigido a alumnas de secundaria, mientras no hay foto",
+        "en": "An illustration standing in for engineering workshop aimed at secondary schoolgirls"
+      }
+    },
+    {
+      "id": "gamejam-verano-2023",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2023",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jam-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Summer Game Jam",
+        "en": "Summer Game Jam"
+      },
+      "summary": {
+        "es": "Edición de verano de la jam de videojuegos, con su propia inscripción, además de la undécima edición de febrero.",
+        "en": "A summer edition of the game jam with its own sign-up form, on top of the eleventh edition held back in February."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Ilustración de una jam de videojuegos celebrada durante el verano, mientras no hay foto",
+        "en": "An illustration standing in for video game jam held over the summer"
+      }
+    },
+    {
+      "id": "curso-intro-programacion-2024",
+      "series": "cursos-multitec",
+      "category": "taller",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2024-02",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-taller-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Introducción a programar",
+        "en": "Introduction to Coding"
+      },
+      "summary": {
+        "es": "Segunda tanda del curso de introducción a la programación, con el formulario de inscripción reabierto para el curso nuevo.",
+        "en": "A second run of the introduction to programming course, with the sign-up form reopened for the new academic year."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Ilustración de un curso de introducción a la programación con ordenadores, mientras no hay foto",
+        "en": "An illustration standing in for introduction to programming course with computers"
+      }
+    },
+    {
+      "id": "curso-impresion-3d-2024",
+      "series": "cursos-multitec",
+      "category": "taller",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2024-09",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-taller-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Curso de impresión 3D",
+        "en": "Resin 3D Printing Course"
+      },
+      "summary": {
+        "es": "Curso práctico de impresión en resina para socios, estrenando la impresora que la asociación compró ese mismo verano.",
+        "en": "A hands-on resin printing course for members, breaking in the printer the association had bought that same summer."
+      },
+      "location": {
+        "es": "Sede de Multitec, Colegio Mayor",
+        "en": "Multitec's room, Colegio Mayor"
+      },
+      "image_alt": {
+        "es": "Ilustración de un curso práctico de impresión 3D en resina, mientras no hay foto",
+        "en": "An illustration standing in for hands-on resin 3D printing course"
       }
     }
   ]
