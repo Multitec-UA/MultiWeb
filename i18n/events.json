@@ -638,8 +638,8 @@
       "start": "2024-07-25T16:00",
       "end": null,
       "tentative": false,
-      "image": "events/gdg-2024-07-25.webp",
-      "image_kind": "poster",
+      "image": "events/ill-taller-b.svg",
+      "image_kind": "illustration",
       "link": "https://gdg.community.dev/e/mgxvq6/",
       "title": {
         "es": "Grupo de estudio Cloud",
@@ -651,8 +651,8 @@
       },
       "location": null,
       "image_alt": {
-        "es": "Cartel del grupo de estudio de certificaciones de Google Cloud del GDG Alicante",
-        "en": "Poster for the GDG Alicante Google Cloud certification study group"
+        "es": "Ilustración de colores planos que representa una taller, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a workshop, until this event has a photograph"
       }
     },
     {
@@ -690,8 +690,8 @@
       "start": "2025-04-09T16:00",
       "end": null,
       "tentative": false,
-      "image": "events/gdg-2025-04-09.webp",
-      "image_kind": "poster",
+      "image": "events/ill-charla-a.svg",
+      "image_kind": "illustration",
       "link": "https://gdg.community.dev/e/mzm7kt/",
       "title": {
         "es": "Cloud Next 25 Keynote",
@@ -703,8 +703,8 @@
       },
       "location": null,
       "image_alt": {
-        "es": "Cartel del visionado comentado de la keynote del Google Cloud Next 2025",
-        "en": "Poster for the live commentary session on the Google Cloud Next 2025 keynote"
+        "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
       }
     },
     {
@@ -716,8 +716,8 @@
       "start": "2025-04-18T15:00",
       "end": null,
       "tentative": false,
-      "image": "events/gdg-2025-04-18.webp",
-      "image_kind": "poster",
+      "image": "events/ill-charla-b.svg",
+      "image_kind": "illustration",
       "link": "https://gdg.community.dev/e/mvbj3k/",
       "title": {
         "es": "Associate Cloud Eng.",
@@ -729,8 +729,8 @@
       },
       "location": null,
       "image_alt": {
-        "es": "Cartel de la sesión informativa de la certificación Associate Cloud Engineer",
-        "en": "Poster for the Associate Cloud Engineer certification information session"
+        "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
       }
     },
     {
@@ -768,8 +768,8 @@
       "start": "2025-05-20T16:30",
       "end": null,
       "tentative": false,
-      "image": "events/gdg-2025-05-20.webp",
-      "image_kind": "poster",
+      "image": "events/ill-charla-b.svg",
+      "image_kind": "illustration",
       "link": "https://gdg.community.dev/e/m6t4m5/",
       "title": {
         "es": "Google I/O Keynote",
@@ -781,8 +781,8 @@
       },
       "location": null,
       "image_alt": {
-        "es": "Cartel de la fiesta de visionado de la keynote del Google I/O en Alicante",
-        "en": "Poster for the Google I/O keynote viewing party in Alicante"
+        "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
       }
     },
     {
@@ -979,8 +979,8 @@
       "start": "2026-03-04T17:00",
       "end": null,
       "tentative": false,
-      "image": "events/gdg-2026-03-04.webp",
-      "image_kind": "poster",
+      "image": "events/ill-charla-c.svg",
+      "image_kind": "illustration",
       "link": "https://gdg.community.dev/e/mpx7m3/",
       "title": {
         "es": "Agentes con Antigravity",
@@ -992,8 +992,8 @@
       },
       "location": null,
       "image_alt": {
-        "es": "Cartel de la charla sobre agentes y Antigravity del GDG Alicante",
-        "en": "Poster for the GDG Alicante talk on agents and Antigravity"
+        "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
       }
     },
     {
@@ -1127,6 +1127,1150 @@
       "image_alt": {
         "es": "Cartel del DevFest Alicante de 2026, con la fecha y el lugar del evento",
         "en": "Poster for the 2026 DevFest Alicante, showing the event's date and venue"
+      }
+    },
+    {
+      "id": "gamejam-2013",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2013-09",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jam-b.svg",
+      "image_kind": "illustration",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "GameJamUA septiembre",
+        "en": "GameJamUA September"
+      },
+      "summary": {
+        "es": "De esta edición se conserva el juego entero que salió de ella, «Sand of the Colossus», con su audio y sus documentos de diseño.",
+        "en": "What survives of this edition is the entire game that came out of it, \"Sand of the Colossus\", with its audio and its design documents."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una game jam, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a game jam, until this event has a photograph"
+      }
+    },
+    {
+      "id": "gamejam-2014-jun",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2014-06",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jam-c.svg",
+      "image_kind": "illustration",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "IV Game Jam · junio",
+        "en": "IV Game Jam · June"
+      },
+      "summary": {
+        "es": "La edición solidaria de junio. Cuarenta y ocho horas de desarrollo con una causa detrás y un cartel que aún se guarda.",
+        "en": "June's charity edition. Forty-eight hours of development with a cause behind it, and a poster the association still keeps."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una game jam, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a game jam, until this event has a photograph"
+      }
+    },
+    {
+      "id": "gamejam-2014-sep",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2014-09",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jam-c.svg",
+      "image_kind": "illustration",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "V Game Jam · BitsAndGlue",
+        "en": "V Game Jam · BitsAndGlue"
+      },
+      "summary": {
+        "es": "La quinta edición, bajo el nombre BitsAndGlue. Se conservan los assets de los juegos que se hicieron ese fin de semana.",
+        "en": "The fifth edition, running under the name BitsAndGlue. The assets of the games made that weekend are what remain of it today."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una game jam, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a game jam, until this event has a photograph"
+      }
+    },
+    {
+      "id": "gamejam-2016",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2016",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jam-b.svg",
+      "image_kind": "illustration",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "Global Game Jam 2016",
+        "en": "Global Game Jam 2016"
+      },
+      "summary": {
+        "es": "La edición de 2016, ya como sede oficial de la Global Game Jam, con sus bases, su planning y sus diversificadores.",
+        "en": "The 2016 edition, by then an official Global Game Jam site, with its own rules, its planning and its list of diversifiers."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una game jam, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a game jam, until this event has a photograph"
+      }
+    },
+    {
+      "id": "gamejam-2017",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2017-09",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jam-b.svg",
+      "image_kind": "illustration",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "VIII Game Jam",
+        "en": "VIII Game Jam"
+      },
+      "summary": {
+        "es": "Octava edición, en septiembre. Una de las últimas que la asociación celebró antes de mover la jam al calendario de enero.",
+        "en": "The eighth edition, in September, and one of the last before the association moved the jam into the January calendar for good."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una game jam, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a game jam, until this event has a photograph"
+      }
+    },
+    {
+      "id": "gamejam-2023",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2023",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jam-a.svg",
+      "image_kind": "illustration",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "XI Gamejam Alicante",
+        "en": "XI Gamejam Alicante"
+      },
+      "summary": {
+        "es": "La undécima edición y el regreso de la jam al Parque Científico, con trece videojuegos terminados y su propio cartel.",
+        "en": "The eleventh edition and the jam's return to the Science Park, with thirteen finished video games and a poster of its own."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una game jam, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a game jam, until this event has a photograph"
+      }
+    },
+    {
+      "id": "gamejam-2024",
+      "series": "gamejam-alicante",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2024",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jam-a.svg",
+      "image_kind": "illustration",
+      "link": "https://gamejam.multitecua.com/editions.html",
+      "title": {
+        "es": "Game Jam Alicante 2024",
+        "en": "Game Jam Alicante 2024"
+      },
+      "summary": {
+        "es": "La edición de 2024. La carpeta de la asociación la dejó sin número de edición, así que ni siquiera nosotros lo tenemos claro.",
+        "en": "The 2024 edition. The association's own folder left it without an edition number, so not even we are sure which one it was."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una game jam, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a game jam, until this event has a photograph"
+      }
+    },
+    {
+      "id": "cienciathon-2019",
+      "series": "cienciathon",
+      "category": "hackathon",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-b.svg",
+      "image_kind": "illustration",
+      "link": "https://cienciathon.org/",
+      "title": {
+        "es": "I Cienciathon",
+        "en": "I Cienciathon"
+      },
+      "summary": {
+        "es": "La primera edición, el otoño en que nació el maratón de ciencia y tecnología junto al Parque Científico de Alicante.",
+        "en": "The very first edition: the autumn when the science and technology marathon was born, alongside the Alicante Science Park."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
+      }
+    },
+    {
+      "id": "cienciathon-2022",
+      "series": "cienciathon",
+      "category": "hackathon",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2022",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-c.svg",
+      "image_kind": "illustration",
+      "link": "https://cienciathon.org/",
+      "title": {
+        "es": "IV Cienciathon",
+        "en": "IV Cienciathon"
+      },
+      "summary": {
+        "es": "Cuarta edición, organizada entre septiembre y octubre. Es, con la primera, la peor documentada de toda la serie.",
+        "en": "The fourth edition, put together across September and October. With the very first, the least documented of the whole series."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
+      }
+    },
+    {
+      "id": "uagames-devcon-2023",
+      "series": "uagames-devcon",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2023",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "UAGames DevCon 2023",
+        "en": "UAGames DevCon 2023"
+      },
+      "summary": {
+        "es": "El alumnado de Ingeniería Multimedia enseña en público los videojuegos que ha desarrollado durante el curso. Edición de 2023.",
+        "en": "Multimedia Engineering students show the video games they have developed over the whole year to a public audience. The 2023 edition."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "uagames-devcon-2024",
+      "series": "uagames-devcon",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2024-03",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "UAGames DevCon 2024",
+        "en": "UAGames DevCon 2024"
+      },
+      "summary": {
+        "es": "El alumnado de Ingeniería Multimedia enseña en público los videojuegos que ha desarrollado durante el curso. Se celebró a finales de marzo.",
+        "en": "Multimedia Engineering students show the video games they have developed over the whole year to a public audience. It ran at the end of March."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "uagames-devcon-2025",
+      "series": "uagames-devcon",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-05-27",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "UAGames DevCon 2025",
+        "en": "UAGames DevCon 2025"
+      },
+      "summary": {
+        "es": "El alumnado de Ingeniería Multimedia enseña en público los videojuegos que ha desarrollado durante el curso. Multitec puso material y ponentes.",
+        "en": "Multimedia Engineering students show the video games they have developed over the whole year to a public audience. Multitec supplied kit and speakers."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "multifiesta-2021",
+      "series": "multifiesta",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2021",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Multifiesta 2021",
+        "en": "Multifiesta 2021"
+      },
+      "summary": {
+        "es": "La fiesta de la asociación, que en varias ediciones hace también de asamblea general de socios. La edición de 2021.",
+        "en": "The association's own party, which in several of its editions doubles as the general assembly of the members. The 2021 edition."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
+      "id": "multifiesta-2023",
+      "series": "multifiesta",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2023-10",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Multifiesta 2023",
+        "en": "Multifiesta 2023"
+      },
+      "summary": {
+        "es": "La fiesta de la asociación, que en varias ediciones hace también de asamblea general de socios. Se celebró en octubre.",
+        "en": "The association's own party, which in several of its editions doubles as the general assembly of the members. It was held in October."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
+      "id": "multifiesta-2024",
+      "series": "multifiesta",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2024-10",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Multifiesta 2024",
+        "en": "Multifiesta 2024"
+      },
+      "summary": {
+        "es": "La fiesta de la asociación, que en varias ediciones hace también de asamblea general de socios. Esta se anunció junto con la asamblea.",
+        "en": "The association's own party, which in several of its editions doubles as the general assembly of the members. Announced with the assembly."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
+      "id": "multifiesta-2025-03",
+      "series": "multifiesta",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2025-03",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-social-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Multifiesta extraoficial",
+        "en": "Unofficial Multifiesta"
+      },
+      "summary": {
+        "es": "La segunda fiesta del curso, montada de manera informal por los propios socios y sin pasar por la junta directiva.",
+        "en": "The year's second party, put together informally by the members themselves without ever going through the board at all."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
+      "id": "mes-cultural-2024",
+      "series": "mes-cultural",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2024-02",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Mes Cultural de la EPS",
+        "en": "EPS Cultural Month"
+      },
+      "summary": {
+        "es": "Cada febrero la Escuela Politécnica dedica un mes a actividades culturales y pide propuestas a las asociaciones.",
+        "en": "Every February the Polytechnic School gives a whole month to cultural activities and asks the associations for proposals."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "semana-cultural-2019",
+      "series": "mes-cultural",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2019",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Semana Cultural 2019",
+        "en": "Cultural Week 2019"
+      },
+      "summary": {
+        "es": "La semana cultural de la asociación, con sus comidas y sus actividades. Se conservan hasta los tickets de la comida.",
+        "en": "The association's own cultural week, with its meals and its activities. Even the food tickets have been kept since."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
+      "id": "torneo-jojos-2026",
+      "series": "mes-cultural",
+      "category": "social",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2026-02-13T17:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-a.svg",
+      "image_kind": "illustration",
+      "link": "https://forms.gle/QdXWeEzVGa8zfVjKA",
+      "title": {
+        "es": "Torneo JoJo's HFTF",
+        "en": "JoJo's HFTF tournament"
+      },
+      "summary": {
+        "es": "Torneo abierto del juego de lucha JoJo's, gratuito y sin importar el nivel, con premios para los tres primeros.",
+        "en": "An open tournament of the JoJo's fighting game, free and whatever your level, with prizes for the top three players."
+      },
+      "location": {
+        "es": "Salón de grados, EPS I",
+        "en": "Salón de grados, EPS I"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
+      "id": "open-mic-2026",
+      "series": "mes-cultural",
+      "category": "social",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-02-26T18:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Open Mic",
+        "en": "Open Mic"
+      },
+      "summary": {
+        "es": "Doce artistas universitarios sobre el escenario para celebrar el talento que hay dentro de la propia universidad.",
+        "en": "Twelve university artists up on the stage, celebrating the talent that already exists inside the university itself."
+      },
+      "location": {
+        "es": "Salón de actos, EPS I",
+        "en": "EPS I assembly hall"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
+      "id": "taller-fotografia-2026",
+      "series": "mes-cultural",
+      "category": "taller",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2026-02-27T18:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-taller-c.svg",
+      "image_kind": "illustration",
+      "link": "https://docs.google.com/forms/d/e/1FAIpQLSeN40G62zz0DS_Q6aA_eIlIOTsUPjOIo8KuBE1UYDXEWH8fbA/viewform",
+      "title": {
+        "es": "Taller de fotografía",
+        "en": "Photography workshop"
+      },
+      "summary": {
+        "es": "Cómo sacarle partido al móvil y a la cámara: ajustes, encuadre y luz. Con concurso y una cámara Kodak M35 de premio.",
+        "en": "Getting the most out of a phone and a camera: settings, framing and light. With a competition and a Kodak M35 as prize."
+      },
+      "location": {
+        "es": "Salón de Grados 1, EPS",
+        "en": "Salón de Grados 1, EPS"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un taller, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a workshop, until this event has a photograph"
+      }
+    },
+    {
+      "id": "taller-fanzine-2026",
+      "series": "mes-cultural",
+      "category": "taller",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2026-02",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-taller-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Taller de fanzine",
+        "en": "Fanzine workshop"
+      },
+      "summary": {
+        "es": "Taller de fanzine dentro de la programación del Mes Cultural: recortar, pegar, fotocopiar y llevarte el tuyo a casa.",
+        "en": "A fanzine workshop inside the Cultural Month programme: cut, paste, photocopy, and take your own one home with you."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un taller, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a workshop, until this event has a photograph"
+      }
+    },
+    {
+      "id": "exposicion-videojuegos-2026",
+      "series": "mes-cultural",
+      "category": "jornada",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2026-02",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Exposición de videojuegos",
+        "en": "Student games showcase"
+      },
+      "summary": {
+        "es": "Exposición abierta de videojuegos hechos por estudiantes. Se propuso para el Mes Cultural y no consta que llegara a hacerse.",
+        "en": "An open showcase of games made by students. It was proposed for the Cultural Month and there is no record that it happened."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "hackforgood-2019",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-hackathon-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "HackForGood Alicante",
+        "en": "HackForGood Alicante"
+      },
+      "summary": {
+        "es": "Hackathon solidario HackForGood, en su sede de Alicante, al que la asociación se presentó con un equipo propio.",
+        "en": "The HackForGood charity hackathon at its Alicante site, which the association entered with a full team of its own."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
+      }
+    },
+    {
+      "id": "hackathon-onklub-2024",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2024-10",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-hackathon-b.svg",
+      "image_kind": "illustration",
+      "link": "https://onklub.es/hackathon-ciberseguridad-alicante/",
+      "title": {
+        "es": "Hackathon de ciberseguridad",
+        "en": "Cybersecurity hackathon"
+      },
+      "summary": {
+        "es": "Hackathon de ciberseguridad de ONKLUB con el INCIBE, en Alicante, con un equipo de la asociación entre los participantes.",
+        "en": "ONKLUB's cybersecurity hackathon with INCIBE, in Alicante, with a team from the association among the participants."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
+      }
+    },
+    {
+      "id": "hackathon-conecta2-2025",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2025-04",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-hackathon-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Hackathon Conecta2",
+        "en": "Conecta2 hackathon"
+      },
+      "summary": {
+        "es": "Hackathon Conecta2 de Proactiva, con participación de socios de la asociación en abril de 2025. No consta el día exacto.",
+        "en": "Proactiva's Conecta2 hackathon, with members of the association taking part in April 2025. The exact day is not recorded."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
+      }
+    },
+    {
+      "id": "hackingfortrust-santander",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2023",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-hackathon-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "HackingForTrust",
+        "en": "HackingForTrust"
+      },
+      "summary": {
+        "es": "Hackathon HackingForTrust del Banco Santander. La asociación guarda su carpeta, pero no la fecha exacta ni el sitio.",
+        "en": "Banco Santander's HackingForTrust hackathon. The association keeps its folder, but neither the exact date nor the venue."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
+      }
+    },
+    {
+      "id": "opensourcejam-2023",
+      "series": "opensourcejam",
+      "category": "jam",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2023",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jam-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "OpenSourceJam · 4ª ed.",
+        "en": "OpenSourceJam · 4th ed."
+      },
+      "summary": {
+        "es": "Cuarta edición de la OpenSourceJam, la jam de software libre, con participación de la asociación. Del mes no queda constancia.",
+        "en": "The fourth OpenSourceJam, the free-software jam, with the association taking part in it. No record of the month survives."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una game jam, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a game jam, until this event has a photograph"
+      }
+    },
+    {
+      "id": "jornada-catedra-telefonica-2019",
+      "series": "jornadas",
+      "category": "jornada",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-jornada-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Jornada Cátedras Telefónica",
+        "en": "Telefónica Chairs day"
+      },
+      "summary": {
+        "es": "Jornada de la Red de Cátedras Telefónica, a la que la asociación acudió en 2019. No consta el día ni el sitio.",
+        "en": "A day of the Telefónica Chairs Network, which the association attended in 2019. Neither the day nor the venue is recorded."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "torrevieja-feria-2019",
+      "series": "ferias",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Feria Tecnológica",
+        "en": "Technology fair"
+      },
+      "summary": {
+        "es": "Feria tecnológica de Torrevieja, en la que la asociación estuvo con su propio espacio en 2019. Del día no hay constancia.",
+        "en": "The Torrevieja technology fair, where the association had a space of its own back in 2019. The day is not recorded anywhere."
+      },
+      "location": {
+        "es": "Torrevieja",
+        "en": "Torrevieja"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "torrejuana-2019",
+      "series": "jornadas",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-jornada-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Actividad en TorreJuana",
+        "en": "An event at TorreJuana"
+      },
+      "summary": {
+        "es": "Actividad de la asociación en TorreJuana OST. Han vuelto después varias veces, por ejemplo a grabar el podcast en 2025.",
+        "en": "An association activity at TorreJuana OST. They have been back since — to record the podcast in 2025, for one."
+      },
+      "location": {
+        "es": "TorreJuana OST, Alicante",
+        "en": "TorreJuana OST, Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "hackea-tu-destino-torrevieja",
+      "series": "jornadas",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Hackea tu destino",
+        "en": "Hack your future"
+      },
+      "summary": {
+        "es": "Actividad «Hackea tu destino» en Torrevieja. De ella sólo queda la carpeta de fotos, sin fecha, sin programa y sin sitio.",
+        "en": "The \"Hack your future\" activity in Torrevieja. All that remains of it is a photo folder, with no date or programme."
+      },
+      "location": {
+        "es": "Torrevieja",
+        "en": "Torrevieja"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "escape-emprendedor",
+      "series": "jornadas",
+      "category": "social",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2019",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-social-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Escape Emprendedor",
+        "en": "Escape Emprendedor"
+      },
+      "summary": {
+        "es": "Escape room con temática de emprendimiento. Sólo consta su carpeta de fotos, así que la fecha es una estimación.",
+        "en": "An escape room on an entrepreneurship theme. Only its photo folder survives, so the year here is an estimate and no more."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
+      "id": "mediterranean-fi",
+      "series": "jornadas",
+      "category": "jornada",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2025",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "MediterraneanFI",
+        "en": "MediterraneanFI"
+      },
+      "summary": {
+        "es": "Actividad relacionada con MediterraneanFI. De momento sólo consta la carpeta en el Drive, sin fecha, sin sitio y sin programa.",
+        "en": "An activity connected to MediterraneanFI. For now all there is is a folder in the Drive: no date, no venue, no programme."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "gymkana-tecnologica-2022",
+      "series": "gymkana-tecnologica",
+      "category": "social",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2022",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-social-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Gymkana tecnológica",
+        "en": "Technology gymkhana"
+      },
+      "summary": {
+        "es": "Gymkana con pruebas tecnológicas y Arduinos. Un mensaje posterior de un socio pone en duda que llegara a celebrarse.",
+        "en": "A gymkhana of technology challenges and Arduinos. A later message from a member casts doubt on whether it happened."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
+      "id": "cursos-multitec-intro-programacion",
+      "series": "cursos-multitec",
+      "category": "taller",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2024",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-taller-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Introducción a programar",
+        "en": "Intro to programming"
+      },
+      "summary": {
+        "es": "Curso de introducción a la programación que la asociación imparte a sus propios socios. No consta ni el año ni el aula.",
+        "en": "An introduction to programming that the association teaches its own members. Neither the year nor the room is recorded."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un taller, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a workshop, until this event has a photograph"
+      }
+    },
+    {
+      "id": "anuncio-bienvenida-2024",
+      "series": "bienvenida",
+      "category": "jornada",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2024",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-jornada-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Bienvenida del curso",
+        "en": "Start-of-year welcome"
+      },
+      "summary": {
+        "es": "El acto con el que la asociación se presenta cada curso a los estudiantes que acaban de llegar a la universidad.",
+        "en": "The event where the association introduces itself each year to the students who have just arrived at the university."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "lan-party-2025",
+      "series": "lan-party",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2025",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-social-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "LAN Party",
+        "en": "LAN Party"
+      },
+      "summary": {
+        "es": "LAN party de la asociación, en preparación en septiembre de 2025. No hay ningún anuncio posterior con una fecha puesta.",
+        "en": "A LAN party for the members, in preparation in September 2025. There is no later announcement carrying an actual date."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
+      "id": "nasa-space-apps-2024",
+      "series": "nasa-space-apps",
+      "category": "hackathon",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2024",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-hackathon-b.svg",
+      "image_kind": "illustration",
+      "link": "https://www.spaceappschallenge.org/",
+      "title": {
+        "es": "NASA Space Apps 2024",
+        "en": "NASA Space Apps 2024"
+      },
+      "summary": {
+        "es": "Primera sede alicantina del hackathon mundial de la NASA, organizada junto a la asociación El Nexo. Sin fecha exacta.",
+        "en": "Alicante's first site of NASA's worldwide hackathon, organised together with the El Nexo association. No exact date yet."
+      },
+      "location": {
+        "es": "San Vicente del Raspeig",
+        "en": "San Vicente del Raspeig"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
+      }
+    },
+    {
+      "id": "quiero-ser-ingeniera-2026",
+      "series": "quiero-ser-ingeniera",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-04",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-jornada-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Quiero Ser Ingeniera",
+        "en": "I Want To Be An Engineer"
+      },
+      "summary": {
+        "es": "Edición de 2026 de la jornada de la EPS que acerca las ingenierías a las chicas preuniversitarias. Multitec puso taller.",
+        "en": "The 2026 edition of the EPS open day that brings engineering closer to pre-university girls. Multitec ran a workshop."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
+    },
+    {
+      "id": "gdg-gen-ai-2024-03-13",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2024-03-13",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-charla-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "GenAI en Google Cloud",
+        "en": "GenAI on Google Cloud"
+      },
+      "summary": {
+        "es": "La primera sesión del GDG en Alicante: IA generativa en Google Cloud y Gemini para desarrolladores, con taller práctico.",
+        "en": "The GDG's first session in Alicante: generative AI on Google Cloud and Gemini for developers, with a hands-on workshop."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
       }
     }
   ]
