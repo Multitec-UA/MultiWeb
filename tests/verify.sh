@@ -201,10 +201,24 @@ budget_check assets/images/pca.webp        12000
 budget_check assets/images/mtua-logo.webp  30000
 budget_check assets/images/multitec-logo.webp 10000
 
+# The nine event photographs, added 2026-08-31. Sources are the association's own Drive;
+# each is re-encoded to 800x500 WebP q78 -- 2.6x the 300x176 the card actually draws, which
+# covers a 2x screen. The first cut of these was 1200x750 and cost 603 KB for pixels nobody
+# renders; at 800 they are 317 KB and the homepage total stays inside its budget.
+budget_check assets/images/events/cienciathon-2020.webp          39000
+budget_check assets/images/events/gdg-io-extended-2024.webp       60000
+budget_check assets/images/events/fempa-2024.webp                 44000
+budget_check assets/images/events/gamejam-2025.webp               33000
+budget_check assets/images/events/quiero-ser-ingeniera-2025.webp  16000
+budget_check assets/images/events/gdg-cloud-run-2025.webp         57000
+budget_check assets/images/events/nasa-space-apps-2025.webp       32000
+budget_check assets/images/events/multifiesta-2025.webp           54000
+budget_check assets/images/events/gamejam-2026.webp               38000
+
 # WHY: total page weight is the number a visitor actually feels. 3.68 MB was the homepage
 # before Stage 1. This is the sum on disk of every image the homepage references.
 total=0
-for f in $(grep -oE 'assets/(v[0-9]+/)?images/[A-Za-z0-9_.-]+' src/index.html assets/css/style.css \
+for f in $(grep -oE 'assets/(v[0-9]+/)?images/([A-Za-z0-9_-]+/)?[A-Za-z0-9_.-]+' src/index.html assets/css/style.css \
            | sed -E 's#^[^:]*:##; s#assets/v[0-9]+/#assets/#' | sort -u); do
   [ -e "$f" ] && total=$((total + $(stat -c%s "$f")))
 done

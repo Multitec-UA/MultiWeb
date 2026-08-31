@@ -54,6 +54,20 @@ BOUNDS = {
     "location":  (6, 34),
     "image_alt": (30, 110),
 }
+# `location` is the one field allowed to be absent. Several real events -- a members'
+# party, a co-hosted meetup -- have no venue recorded anywhere, and the choice was between
+# inventing one and leaving the line out. The card does not go ragged: the same line
+# always renders, carrying the audience when there is no venue to carry.
+OPTIONAL = {"location"}
+
+# What the association actually did here. Sergio, 2026-08-31: the card has to say whether
+# "es una colaboración, es una organización o si simplemente hemos asistido", because
+# claiming to have run somebody else's event is the one thing this section must not do.
+ROLES = ("organiza", "colabora", "asiste")
+
+# Who could come. `socios` exists because a members' event has no registration link and
+# never will -- that is not a hole in the data, it is a different kind of event.
+AUDIENCES = ("publico", "socios")
 
 ID_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 WHEN_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$")
@@ -142,8 +156,15 @@ def load(table_path: pathlib.Path = TABLE):
         if ev.get("end") and _parse(ev["end"]) < _parse(ev["start"]):
             _fail(eid, "end is before start")
 
+        if ev.get("role") not in ROLES:
+            _fail(eid, "role %r is not one of %s" % (ev.get("role"), ", ".join(ROLES)))
+        if ev.get("audience") not in AUDIENCES:
+            _fail(eid, "audience %r is not one of %s" % (ev.get("audience"), ", ".join(AUDIENCES)))
+
         for field, (lo, hi) in BOUNDS.items():
             row = ev.get(field)
+            if row is None and field in OPTIONAL:
+                continue
             if not isinstance(row, dict):
                 _fail(eid, "%s must be an object with an es and an en" % field)
             for lang in LANGUAGES:
@@ -158,8 +179,10 @@ def load(table_path: pathlib.Path = TABLE):
                           % (field, lang, n, lo, hi))
 
         image = ev.get("image")
-        if not isinstance(image, str) or "/" in image:
-            _fail(eid, "image must be a bare filename inside assets/images/")
+        if (not isinstance(image, str) or image.startswith("/") or ".." in image
+                or image.count("/") > 1):
+            _fail(eid, "image must be a filename inside assets/images/, at most one "
+                       "folder deep (e.g. events/gamejam-2026.webp)")
         path = IMAGES / image
         if not path.exists():
             _fail(eid, "image %s does not exist in assets/images/" % image)
@@ -191,7 +214,9 @@ def strings_used(table_path: pathlib.Path = TABLE):
     check honest instead of loosening it.
     """
     raw = json.loads(table_path.read_text(encoding="utf-8"))
-    return {"events_cat_" + c for c in raw["categories"]}
+    return ({"events_cat_" + c for c in raw["categories"]}
+            | {"events_role_" + r for r in ROLES}
+            | {"events_aud_" + a for a in AUDIENCES})
 
 
 def when_label(ev, lang):
@@ -219,7 +244,7 @@ def _e(text):
     return html.escape(text, quote=True)
 
 
-def render(lang, strings, asset_prefix="../assets/v6", events=None):
+def render(lang, strings, asset_prefix="../assets/v7", events=None):
     """The <li> list for the events wheel, in one language.
 
     `strings` is the resolved i18n table (build.py hands over a lookup so the labels the
@@ -232,6 +257,16 @@ def render(lang, strings, asset_prefix="../assets/v6", events=None):
     for index, ev in enumerate(events):
         w, h = ev["_image_size"]
         title = _e(ev["title"][lang])
+        role = strings("events_role_" + ev["role"], lang)
+        audience = strings("events_aud_" + ev["audience"], lang)
+        # The venue and the audience share one line, so the line is never empty and every
+        # card keeps the same number of rows whether or not the venue is known.
+        where = ev["location"][lang] + " · " + audience if ev.get("location") else audience
+        # 00:00 is the convention for "the time is not recorded anywhere". Printing
+        # "· 00:00" on a 2020 event nobody wrote a start time for would be inventing a
+        # fact to fill a slot, so the span is simply left out and the row still lines up.
+        clock = ev["start"][11:]
+        time_span = "" if clock == "00:00" else '<span class="ev-time">%s</span>' % _e(clock)
         link = ev.get("link")
         category = strings("events_cat_" + ev["category"], lang)
 
@@ -248,10 +283,11 @@ def render(lang, strings, asset_prefix="../assets/v6", events=None):
             '                                        <img src="%s/images/%s" alt="%s"'
             ' width="%d" height="%d" loading="lazy" decoding="async">\n'
             '                                        <p class="ev-cat">%s</p>\n'
+            '                                        <p class="ev-role ev-role-%s">%s</p>\n'
             '                                    </div>\n'
             '                                    <div class="ev-body">\n'
             '                                        <p class="ev-when">'
-            '<time datetime="%s">%s</time><span class="ev-time">%s</span></p>\n'
+            '<time datetime="%s">%s</time>%s</p>\n'
             '                                        <h3 class="ev-title">%s</h3>\n'
             '                                        <p class="ev-summary">%s</p>\n'
             '                                        <p class="ev-where">%s</p>\n'
@@ -264,11 +300,11 @@ def render(lang, strings, asset_prefix="../assets/v6", events=None):
                 _e(ev["start"]),
                 (' data-end="%s"' % _e(ev["end"])) if ev.get("end") else "",
                 asset_prefix, _e(ev["image"]), _e(ev["image_alt"][lang]), w, h,
-                _e(category),
-                _e(ev["start"]), _e(when_label(ev, lang)), _e(ev["start"][11:]),
+                _e(category), _e(ev["role"]), _e(role),
+                _e(ev["start"]), _e(when_label(ev, lang)), time_span,
                 heading,
                 _e(ev["summary"][lang]),
-                _e(ev["location"][lang]),
+                _e(where),
             )
         )
     return "\n".join(out)

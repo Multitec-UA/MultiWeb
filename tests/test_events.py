@@ -62,10 +62,19 @@ def main() -> int:
     # notices the day somebody widens BOUNDS instead of rewriting a sentence.
     if rows:
         for field, (lo, hi) in sorted(events.BOUNDS.items()):
-            lengths = [len(ev[field][lang]) for ev in rows for lang in events.LANGUAGES]
+            # `location` may be absent -- see OPTIONAL in events.py. Absent is not a
+            # length, so it is not measured; what IS measured is that the ones present
+            # still sit inside the box.
+            lengths = [len(ev[field][lang]) for ev in rows for lang in events.LANGUAGES
+                       if ev.get(field) is not None]
+            if not lengths:
+                check(field in events.OPTIONAL, "%s is absent everywhere" % field)
+                continue
             check(max(lengths) <= hi and min(lengths) >= lo,
-                  "%s: %d-%d characters used of the %d-%d allowed"
-                  % (field, min(lengths), max(lengths), lo, hi))
+                  "%s: %d-%d characters used of the %d-%d allowed%s"
+                  % (field, min(lengths), max(lengths), lo, hi,
+                     "" if field not in events.OPTIONAL
+                     else " (%d of %d events record one)" % (len(lengths) // 2, len(rows))))
         # the point of the whole exercise: the two summaries on any pair of cards are
         # close enough in length that the cards are the same height
         summaries = [len(ev["summary"][lang]) for ev in rows for lang in events.LANGUAGES]
@@ -89,6 +98,32 @@ def main() -> int:
         if key.startswith("events_cd_") and key != "events_cd_days":
             check("%d" not in row["es"] + row["en"],
                   "%s has no placeholder to substitute" % key)
+
+    # -- 4b. role and audience: closed vocabularies, and every value has a label ------
+    # These two carry judgement, not fact -- "we organised it" vs "we turned up" -- so a
+    # typo that silently falls back to a default would put a claim on the association's
+    # own homepage that is not true.
+    for field, vocab in (("role", events.ROLES), ("audience", events.AUDIENCES)):
+        used = {e[field] for e in rows}
+        check(used <= set(vocab), "every %s is in the vocabulary" % field,
+              ", ".join(sorted(used - set(vocab))))
+        prefix = "events_role_" if field == "role" else "events_aud_"
+        for value in vocab:
+            check(prefix + value in strings, "%s%s has a label in both languages" % (prefix, value))
+    check(any(e["role"] == "organiza" for e in rows),
+          "at least one card says the association organised it")
+    check(all(e["audience"] != "socios" or not e.get("link") for e in rows),
+          "no members-only event carries a public sign-up link",
+          ", ".join(e["id"] for e in rows if e["audience"] == "socios" and e.get("link")))
+
+    # -- 4c. an unknown start time is 00:00 and is NOT printed -------------------------
+    # The alternative was inventing a time to fill the slot on a 2020 event nobody wrote
+    # one down for. Check the renderer actually honours the convention.
+    midnight = [e for e in rows if e["start"].endswith("T00:00")]
+    if midnight:
+        out = events.render("es", lambda k, l: strings[k][l], events=midnight)
+        check('class="ev-time"' not in out,
+              "%d event(s) with an unrecorded start time print no visible clock" % len(midnight))
 
     # -- 5. every category has a label, and every label a category -------------------
     declared = set(raw["categories"])
@@ -148,18 +183,31 @@ def main() -> int:
               "i18n/build.py renders cards at the same asset version the template uses",
               "%s vs %s" % (build.ASSETS, version[0]))
 
-    # -- 9. the placeholder calendar is honest --------------------------------------
-    # Not a correctness rule, a truthfulness one: the sample data has to be visibly
-    # sample data until Sergio replaces it, and it has to still show both states.
+    # -- 9. the wheel has not been left to rot ---------------------------------------
+    # The first version of this check failed when nothing was upcoming. That was the wrong
+    # rule: "the association has no confirmed future event this week" is a true state of
+    # the world, not a defect, and a test that goes red for it trains people to ignore it.
+    #
+    # What IS a defect is a section nobody has touched in a year, quietly showing a wall of
+    # grey to every visitor. So: report the split, and fail only when the newest event has
+    # gone stale.
     if rows:
         today = dt.date.today()
-        past = [e for e in rows if dt.datetime.strptime(e["end"] or e["start"],
-                                                        "%Y-%m-%dT%H:%M").date() < today]
+        def endof(e):
+            return dt.datetime.strptime(e["end"] or e["start"], "%Y-%m-%dT%H:%M").date()
+        past = [e for e in rows if endof(e) < today]
         future = [e for e in rows if e not in past]
-        check(len(past) >= 1 and len(future) >= 1,
-              "the calendar has something in both states today (%d past, %d upcoming)"
-              % (len(past), len(future)),
-              "with everything in one state the grey-scale and the countdown are untested by eye")
+        newest = max(endof(e) for e in rows)
+        months = (today - newest).days / 30.4
+        print("     (%d past, %d upcoming; newest event %s, %.1f months ago)"
+              % (len(past), len(future), newest, max(0.0, months)))
+        check(months <= 12,
+              "the newest event on the wheel is less than a year old (%s)" % newest,
+              "everything on the page has already happened and the freshest of it is "
+              "%.1f months old — the section reads as a museum" % months)
+        if not future:
+            print("     NOTE no upcoming event is confirmed yet. The wheel opens on the most "
+                  "recent past one, which is correct behaviour but worth Sergio knowing.")
 
     print("\n%d checks, %d failed" % (len(CHECKS), len(FAILED)))
     return 1 if FAILED else 0

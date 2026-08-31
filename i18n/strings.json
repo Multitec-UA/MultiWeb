@@ -263,6 +263,26 @@
       "es": "Encuentro",
       "en": "Meetup"
     },
+    "events_role_organiza": {
+      "es": "Organizamos",
+      "en": "We organise it"
+    },
+    "events_role_colabora": {
+      "es": "Colaboramos",
+      "en": "We help run it"
+    },
+    "events_role_asiste": {
+      "es": "Asistimos",
+      "en": "We take part"
+    },
+    "events_aud_publico": {
+      "es": "Abierto a todos",
+      "en": "Open to everyone"
+    },
+    "events_aud_socios": {
+      "es": "Solo socios",
+      "en": "Members only"
+    },
     "press_title": {
       "es": "Multitec en las noticias",
       "en": "Multitec in the press"

@@ -2002,6 +2002,46 @@ h1.title {
     color: #fff;
 }
 
+/* ---- what the association actually did here ---------------------------------
+   Sergio, 2026-08-31: the card has to say whether "es una colaboración, es una
+   organización o si simplemente hemos asistido". Three weights, loudest first, because
+   that is also the honest order: the events we run are ours to shout about, the ones we
+   help with are somebody else's with our name on them, and the ones we merely attended
+   are not ours at all. Colour is never the only signal — each one carries its own word. */
+
+.ev-role {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    margin: 0;
+    font-family: var(--main-font);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 999px;
+    backdrop-filter: blur(2px);
+}
+
+.ev-role-organiza {
+    background: var(--main-color);
+    color: #fff;                        /* 8.2:1 */
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .35);
+}
+
+.ev-role-colabora {
+    background: rgba(255, 255, 255, .92);
+    color: var(--main-color);           /* 8.2:1 on the white pill */
+    box-shadow: inset 0 0 0 1px rgba(163, 0, 6, .35);
+}
+
+.ev-role-asiste {
+    background: rgba(23, 23, 26, .78);
+    color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28);
+}
+
 .ev-body {
     display: flex;
     flex-direction: column;
@@ -2062,8 +2102,15 @@ h1.title {
 .ev-where {
     font-family: var(--second-font);
     font-size: 13px;
-    color: #5a5a5a;
+    color: #5a5a5a;                     /* 6.9:1 */
     margin: 0;
+    /* Venue and audience share this line so that it is never empty: several real events
+       have no venue recorded anywhere, and a card with a missing row is a ragged card.
+       See OPTIONAL in i18n/events.py. Two lines are always reserved because the longest
+       pair -- "Parque Científico de Alicante · Abierto a todos" -- needs them, and a row
+       that is one line on some cards and two on others is the ragged fence again. */
+    line-height: 1.4;
+    min-height: 2.8em;
 }
 
 .ev-where:before {
@@ -2099,18 +2146,48 @@ h1.title {
    it is just not worth shouting. Hovering or tabbing to one brings the colour back,
    which is the cheapest possible way to say "there is a real photograph under this". */
 
-.ev-card.is-past .ev-inner {
+/* Grey-scale the PHOTOGRAPH, not the card. The first cut put the filter on .ev-inner and
+   it swallowed everything inside it -- including the red ORGANIZAMOS chip, which is the
+   one thing on a past card that still has to be readable, and which is the whole reason
+   the chip exists. A CSS filter cannot be undone by a child, so it has to be applied to
+   the element that should actually lose its colour and nowhere else. */
+.ev-card.is-past .ev-media img {
     filter: grayscale(1) contrast(.94);
-    opacity: .68;
+}
+
+/* What says "this already happened" on the rest of the card: a card that is no longer
+   white, a shallower shadow so it sits back, and the CELEBRADO pill. No opacity —
+   opacity on the parent would dim the chip again by another route. */
+.ev-card.is-past .ev-inner {
+    background: #ececed;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, .38);
+}
+
+.ev-card.is-past .ev-media img,
+.ev-card.is-past .ev-inner {
+    transition: filter .45s ease, background .45s ease, box-shadow .3s ease;
+}
+
+/* Hovering or tabbing to one brings the photograph back, which is the cheapest possible
+   way to say "there is a real picture of this under here". */
+.ev-card.is-past:hover .ev-media img,
+.ev-card.is-past:focus-within .ev-media img {
+    filter: grayscale(.05);
 }
 
 .ev-card.is-past:hover .ev-inner,
 .ev-card.is-past:focus-within .ev-inner {
-    filter: grayscale(.1);
-    opacity: 1;
+    background: #fff;
 }
 
 .ev-card.is-past .ev-when { color: #5a5a5a; }
+
+/* The CELEBRADO pill has to keep working on a grey card, so it is a neutral rather than
+   the red used by PRÓXIMO — two states, two colours, and neither of them relies on the
+   photograph's saturation to be legible. */
+.ev-card.is-past .ev-pill {
+    background: rgba(23, 23, 26, .86);
+}
 
 /* Next is louder by exactly three things: a hairline ring in the accent, a deeper
    shadow, and 4% of scale. Not a glow, not a colour flood — it has to read as "this one
