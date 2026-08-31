@@ -1976,6 +1976,43 @@ h1.title {
     object-fit: cover;
 }
 
+/* A logo is NOT a photograph and must not be dressed up as one. Sergio, 2026-08-31, about
+   an event whose poster does not exist yet: "usa, a lo mejor, solo el logotipo, no pongas
+   una foto que no es." So it is contained rather than cropped, sits on the section's own
+   ground rather than on a fake white studio, and gets a little breathing room — which
+   between them read as a mark, not as a picture of the event. The card keeps its exact
+   height either way, which is what stops the row going ragged. */
+.ev-media img.ev-img-logo {
+    object-fit: contain;
+    box-sizing: border-box;
+    padding: 26px 40px;
+    background: radial-gradient(80% 120% at 50% 40%, #24242a 0%, #17171a 100%);
+}
+
+/* A poster is the event's own artwork: never cropped either, but it fills the window
+   because it was designed to be looked at whole. */
+.ev-media img.ev-img-poster {
+    object-fit: contain;
+    box-sizing: border-box;
+    background: #17171a;
+}
+
+/* "aprox." next to a date that is our best information rather than a promise. Quiet on
+   purpose -- the date is the message, this is the caveat. */
+.ev-approx {
+    margin-left: 8px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: #ececee;
+    color: #5a5a5a;              /* 6.5:1 on #ececee */
+    font-family: var(--second-font);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: .3px;
+    text-transform: none;
+    vertical-align: 1px;
+}
+
 .ev-cat,
 .ev-pill {
     position: absolute;
@@ -2153,6 +2190,13 @@ h1.title {
    the element that should actually lose its colour and nowhere else. */
 .ev-card.is-past .ev-media img {
     filter: grayscale(1) contrast(.94);
+}
+
+/* A logo has no colour to lose in a way that reads as "archived" -- grey-scaling a mark
+   just makes it look broken. The muted card and the CELEBRADO pill already say it. */
+.ev-card.is-past img.ev-img-logo {
+    filter: none;
+    opacity: .55;
 }
 
 /* What says "this already happened" on the rest of the card: a card that is no longer

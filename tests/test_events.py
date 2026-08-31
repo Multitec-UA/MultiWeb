@@ -125,6 +125,45 @@ def main() -> int:
         check('class="ev-time"' not in out,
               "%d event(s) with an unrecorded start time print no visible clock" % len(midnight))
 
+    # -- 4d. approximate dates, and the logos that go with them ----------------------
+    # Sergio, 2026-08-31: a future event often has neither a fixed day nor a poster yet, so
+    # it may carry a month and the event's logo. Both of those are honesty features and
+    # each has a way of going quietly wrong, so each gets a check.
+    approx = [e for e in rows if events.precision(e["start"]) == "month"]
+    tentative = [e for e in rows if e.get("tentative")]
+    logos = [e for e in rows if e.get("image_kind") == "logo"]
+    print("     (%d month-precision, %d tentative, %d drawn with a logo)"
+          % (len(approx), len(tentative), len(logos)))
+
+    if approx:
+        out = events.render("es", lambda k, l: strings[k][l], events=approx)
+        # a month-precision date must print a month NAME, never a day number
+        check("OCTUBRE" in out or "ENERO" in out or "SEPTIEMBRE" in out or "NOVIEMBRE" in out,
+              "month-precision dates print the month spelled out")
+    if tentative:
+        out = events.render("es", lambda k, l: strings[k][l], events=tentative)
+        check(out.count('class="ev-approx"') == len(tentative),
+              "every tentative event prints the aprox. marker")
+        check(out.count('data-tentative="1"') == len(tentative),
+              "every tentative event tells the script not to count days to it")
+        check("events_cd_tbc" in strings or "Fecha por confirmar" == strings["events_cd_tbc"]["es"],
+              "there is a label for a date that is not confirmed yet")
+    # A LOGO stands in for a picture that does not exist. Using a photograph of a previous
+    # edition instead would claim something that has not happened, which is the specific
+    # thing Sergio asked this to avoid.
+    for e in logos:
+        check(e["image"].startswith("events/logo-"),
+              "%s draws a logo and its file is named like one" % e["id"], e["image"])
+        check(bool(e.get("tentative")) or e["start"] >= "2026-09",
+              "%s only falls back to a logo because it is still to come" % e["id"])
+    if logos:
+        out = events.render("es", lambda k, l: strings[k][l], events=logos)
+        check(out.count("ev-img-logo") == len(logos),
+              "every logo card is marked so the CSS contains it instead of cropping it")
+        sheet = (ROOT / "assets" / "css" / "style.css").read_text(encoding="utf-8")
+        check("ev-img-logo" in sheet and "object-fit: contain" in sheet,
+              "the stylesheet contains logos rather than cropping them")
+
     # -- 5. every category has a label, and every label a category -------------------
     declared = set(raw["categories"])
     labelled = {k[len("events_cat_"):] for k in strings if k.startswith("events_cat_")}
@@ -194,7 +233,9 @@ def main() -> int:
     if rows:
         today = dt.date.today()
         def endof(e):
-            return dt.datetime.strptime(e["end"] or e["start"], "%Y-%m-%dT%H:%M").date()
+            # events._parse understands all three date shapes; strptime with one hard
+            # format does not, and crashed the moment a month-precision event appeared.
+            return events._parse(e["end"] or e["start"]).date()
         past = [e for e in rows if endof(e) < today]
         future = [e for e in rows if e not in past]
         newest = max(endof(e) for e in rows)

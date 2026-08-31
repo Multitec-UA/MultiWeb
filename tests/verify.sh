@@ -215,6 +215,13 @@ budget_check assets/images/events/nasa-space-apps-2025.webp       32000
 budget_check assets/images/events/multifiesta-2025.webp           54000
 budget_check assets/images/events/gamejam-2026.webp               38000
 budget_check assets/images/events/cienciathon-2025.webp           43000
+# Logos, used on future events whose poster does not exist yet. They keep their alpha and
+# the card's CSS supplies the ground, so these are marks and not fake photographs.
+budget_check assets/images/events/logo-gamejam.webp 22000
+budget_check assets/images/events/logo-gdg.webp 24000
+budget_check assets/images/events/logo-multitec.webp 16000
+budget_check assets/images/events/logo-cienciathon.webp 12000
+budget_check assets/images/events/logo-nasa-space-apps.webp 24000
 
 # WHY: total page weight is the number a visitor actually feels. 3.68 MB was the homepage
 # before Stage 1. This is the sum on disk of every image the homepage references.
@@ -223,8 +230,14 @@ for f in $(grep -oE 'assets/(v[0-9]+/)?images/([A-Za-z0-9_-]+/)?[A-Za-z0-9_.-]+'
            | sed -E 's#^[^:]*:##; s#assets/v[0-9]+/#assets/#' | sort -u); do
   [ -e "$f" ] && total=$((total + $(stat -c%s "$f")))
 done
-if [ "$total" -le 900000 ]; then pass "homepage imagery totals $total B on disk (budget 900000)"
-else fail "homepage imagery totals $total B on disk, over the 900000 budget"; fi
+# Raised from 900,000 to 1,050,000 on 2026-08-31, deliberately and with a reason, which is
+# what the note above budget_check asks for. The homepage gained a real events calendar:
+# fifteen event images where there used to be three decorative ones. They are all
+# loading="lazy" inside a horizontally scrolled strip that shows about three at a time, so
+# a visitor downloads a fraction of this sum — but the sum on disk is still the honest
+# ceiling, and it should not grow again without another deliberate decision.
+if [ "$total" -le 1050000 ]; then pass "homepage imagery totals $total B on disk (budget 1050000)"
+else fail "homepage imagery totals $total B on disk, over the 1050000 budget"; fi
 
 # ---------------------------------------------------------------------------
 head1 "6. nginx serves compressed, cacheable bytes"

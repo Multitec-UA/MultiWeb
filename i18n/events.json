@@ -27,9 +27,14 @@
     "these are the nine that had a date to the day, a description and a real photograph on",
     "2026-08-31. The rest arrive as their gaps are closed."
   ],
-
-  "categories": ["hackathon", "jam", "taller", "charla", "jornada", "social"],
-
+  "categories": [
+    "hackathon",
+    "jam",
+    "taller",
+    "charla",
+    "jornada",
+    "social"
+  ],
   "events": [
     {
       "id": "cienciathon-2020",
@@ -40,12 +45,18 @@
       "end": "2020-10-25T00:00",
       "image": "events/cienciathon-2020.webp",
       "link": "https://cienciathon.org/",
-      "title": { "es": "II Cienciathon", "en": "II Cienciathon" },
+      "title": {
+        "es": "II Cienciathon",
+        "en": "II Cienciathon"
+      },
       "summary": {
         "es": "Segunda edición del maratón del Parque Científico, celebrada casi entera en línea por la pandemia, con 1.000 € en premios.",
         "en": "The Science Park's second marathon, run almost entirely online because of the pandemic, with 1,000 € in prize money."
       },
-      "location": { "es": "Edificio Nuevos Institutos, PCA", "en": "Nuevos Institutos, Science Park" },
+      "location": {
+        "es": "Edificio Nuevos Institutos, PCA",
+        "en": "Nuevos Institutos, Science Park"
+      },
       "image_alt": {
         "es": "Mesa de ponentes del II Cienciathon con los roll-ups de MultitecUA y del Parque Científico",
         "en": "Panel at the II Cienciathon with the MultitecUA and Science Park roll-up banners"
@@ -60,12 +71,18 @@
       "end": null,
       "image": "events/gdg-io-extended-2024.webp",
       "link": null,
-      "title": { "es": "Google I/O Extended", "en": "Google I/O Extended" },
+      "title": {
+        "es": "Google I/O Extended",
+        "en": "Google I/O Extended"
+      },
       "summary": {
         "es": "La extensión alicantina del Google I/O: las novedades del año contadas de cerca, con foco en Vertex AI Agent Builder.",
         "en": "Alicante's own Google I/O Extended: the year's announcements up close, with a focus on Vertex AI Agent Builder."
       },
-      "location": { "es": "Interacso, Alicante", "en": "Interacso, Alicante" },
+      "location": {
+        "es": "Interacso, Alicante",
+        "en": "Interacso, Alicante"
+      },
       "image_alt": {
         "es": "Asistentes sentados en círculo durante la charla del Google I/O Extended en Alicante",
         "en": "Attendees sitting in a circle during the Google I/O Extended talk in Alicante"
@@ -80,12 +97,18 @@
       "end": null,
       "image": "events/fempa-2024.webp",
       "link": null,
-      "title": { "es": "Visita a FEMPA", "en": "Visit to FEMPA" },
+      "title": {
+        "es": "Visita a FEMPA",
+        "en": "Visit to FEMPA"
+      },
       "summary": {
         "es": "Una mañana dentro de los talleres de FEMPA viendo de cerca la maquinaria y los oficios que casi nunca se ven desde clase.",
         "en": "A morning inside the FEMPA workshops, up close with the machinery and the trades a lecture hall never shows you."
       },
-      "location": { "es": "FEMPA, Alicante", "en": "FEMPA, Alicante" },
+      "location": {
+        "es": "FEMPA, Alicante",
+        "en": "FEMPA, Alicante"
+      },
       "image_alt": {
         "es": "Socios de MultitecUA atendiendo a una explicación junto a una máquina en los talleres de FEMPA",
         "en": "MultitecUA members listening to an explanation beside a machine in the FEMPA workshops"
@@ -100,12 +123,18 @@
       "end": "2025-01-26T00:00",
       "image": "events/gamejam-2025.webp",
       "link": "https://gamejam.multitecua.com/",
-      "title": { "es": "XII Gamejam Alicante", "en": "XII Gamejam Alicante" },
+      "title": {
+        "es": "XII Gamejam Alicante",
+        "en": "XII Gamejam Alicante"
+      },
       "summary": {
         "es": "Más de ochenta personas y trece videojuegos terminados en un fin de semana, todos sobre el mismo tema: «Hazme reír».",
         "en": "Over eighty people and thirteen finished video games in a single weekend, every one of them on the theme \"Make me laugh\"."
       },
-      "location": { "es": "Parque Científico de Alicante", "en": "Alicante Science Park" },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
       "image_alt": {
         "es": "Participante con camiseta de MultitecUA durante la Gamejam Alicante de 2025",
         "en": "A participant in a MultitecUA shirt during the 2025 Gamejam Alicante"
@@ -120,12 +149,18 @@
       "end": null,
       "image": "events/quiero-ser-ingeniera-2025.webp",
       "link": null,
-      "title": { "es": "Quiero Ser Ingeniera", "en": "I Want To Be An Engineer" },
+      "title": {
+        "es": "Quiero Ser Ingeniera",
+        "en": "I Want To Be An Engineer"
+      },
       "summary": {
         "es": "Jornada de la EPS para acercar las ingenierías a chicas preuniversitarias. Multitec puso uno de los talleres del día.",
         "en": "An EPS open day that brings engineering closer to pre-university girls. Multitec ran one of the workshops that day."
       },
-      "location": { "es": "Escuela Politécnica Superior, UA", "en": "Polytechnic School, UA" },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
       "image_alt": {
         "es": "Cartel ilustrado de la jornada Quiero Ser Ingeniera de 2025 en la Universidad de Alicante",
         "en": "Illustrated poster for the 2025 I Want To Be An Engineer day at the University of Alicante"
@@ -140,7 +175,10 @@
       "end": null,
       "image": "events/gdg-cloud-run-2025.webp",
       "link": null,
-      "title": { "es": "Serverless con Cloud Run", "en": "Serverless with Cloud Run" },
+      "title": {
+        "es": "Serverless con Cloud Run",
+        "en": "Serverless with Cloud Run"
+      },
       "summary": {
         "es": "Qué es serverless de verdad, cómo se despliega en Cloud Run y en qué casos sale a cuenta, contado con ejemplos reales.",
         "en": "What serverless actually means, how deploying on Cloud Run works, and when it pays off — told with real examples."
@@ -160,12 +198,18 @@
       "end": "2025-10-05T00:00",
       "image": "events/nasa-space-apps-2025.webp",
       "link": "https://www.spaceappschallenge.org/",
-      "title": { "es": "NASA Space Apps", "en": "NASA Space Apps" },
+      "title": {
+        "es": "NASA Space Apps",
+        "en": "NASA Space Apps"
+      },
       "summary": {
         "es": "Sede alicantina del mayor hackathon del mundo: cuarenta y ocho horas resolviendo retos de la NASA con sus datos abiertos.",
         "en": "Alicante's site of the world's largest hackathon: forty-eight hours solving NASA's challenges with NASA's open data."
       },
-      "location": { "es": "Parque Científico de Alicante", "en": "Alicante Science Park" },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
       "image_alt": {
         "es": "Presentación del NASA Space Apps 2025 en San Vicente del Raspeig ante el público asistente",
         "en": "Opening presentation of NASA Space Apps 2025 in San Vicente del Raspeig before the audience"
@@ -180,12 +224,18 @@
       "end": "2025-10-26T00:00",
       "image": "events/cienciathon-2025.webp",
       "link": "https://cienciathon.org/",
-      "title": { "es": "VII Cienciathon", "en": "VII Cienciathon" },
+      "title": {
+        "es": "VII Cienciathon",
+        "en": "VII Cienciathon"
+      },
       "summary": {
         "es": "Séptima edición del maratón del Parque Científico, con el reto «Guardianes del Mar» y hasta 1.200 € para los ganadores.",
         "en": "The Science Park's seventh marathon, built around the \"Sea Guardians\" brief, with up to 1,200 € for the winning teams."
       },
-      "location": { "es": "Sala Innospace, PCA", "en": "Innospace room, Science Park" },
+      "location": {
+        "es": "Sala Innospace, PCA",
+        "en": "Innospace room, Science Park"
+      },
       "image_alt": {
         "es": "Presentación de MultitecUA en el VII Cienciathon, con la pantalla mostrando «¿Qué es Multitec?»",
         "en": "MultitecUA presenting at the VII Cienciathon, the screen reading \"What is Multitec?\""
@@ -200,7 +250,10 @@
       "end": null,
       "image": "events/multifiesta-2025.webp",
       "link": null,
-      "title": { "es": "Multifiesta", "en": "Multifiesta" },
+      "title": {
+        "es": "Multifiesta",
+        "en": "Multifiesta"
+      },
       "summary": {
         "es": "La fiesta de la asociación: la noche en la que los socios de todos los cursos se juntan sin excusa de proyecto ninguna.",
         "en": "The association's own party: the one night members from every year get together with no project as an excuse for it."
@@ -220,15 +273,161 @@
       "end": "2026-02-01T14:00",
       "image": "events/gamejam-2026.webp",
       "link": "https://gamejam-alicante.eventbrite.es/",
-      "title": { "es": "XIII Gamejam Alicante", "en": "XIII Gamejam Alicante" },
+      "title": {
+        "es": "XIII Gamejam Alicante",
+        "en": "XIII Gamejam Alicante"
+      },
       "summary": {
         "es": "Cuarenta y ocho horas para crear un videojuego entero sobre un tema secreto. Hasta setenta plazas y cinco euros por cabeza.",
         "en": "Forty-eight hours to build an entire video game around a secret theme. Up to seventy places, at five euros a head."
       },
-      "location": { "es": "Parque Científico de Alicante", "en": "Alicante Science Park" },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
       "image_alt": {
         "es": "Cartel ilustrado de la Gamejam Alicante 2026 con las fechas y el lugar del evento",
         "en": "Illustrated poster for Gamejam Alicante 2026 showing the event's dates and venue"
+      }
+    },
+    {
+      "id": "bienvenida-ua-2026",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-09",
+      "end": null,
+      "tentative": true,
+      "image": "events/logo-multitec.webp",
+      "image_kind": "logo",
+      "link": null,
+      "title": {
+        "es": "Bienvenida UA",
+        "en": "UA welcome day"
+      },
+      "summary": {
+        "es": "La charla de bienvenida del curso en la Universidad de Alicante, donde la asociación se presenta a quien acaba de llegar.",
+        "en": "The University of Alicante's welcome talk, where the association introduces itself to everyone who has just arrived."
+      },
+      "location": {
+        "es": "Universidad de Alicante",
+        "en": "University of Alicante"
+      },
+      "image_alt": {
+        "es": "Logotipo de MultitecUA, usado mientras no hay cartel de esta edición",
+        "en": "The MultitecUA wordmark, standing in until this edition has a poster"
+      }
+    },
+    {
+      "id": "cienciathon-2026",
+      "category": "hackathon",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-10",
+      "end": null,
+      "tentative": true,
+      "image": "events/logo-cienciathon.webp",
+      "image_kind": "logo",
+      "link": "https://cienciathon.org/",
+      "title": {
+        "es": "VIII Cienciathon",
+        "en": "VIII Cienciathon"
+      },
+      "summary": {
+        "es": "Octava edición del maratón de ciencia y tecnología del Parque Científico. La fecha exacta y el reto aún no se han anunciado.",
+        "en": "The Science Park's eighth science and technology marathon. The exact dates and the challenge have not been announced yet."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Isotipo del Parque Científico, el logotipo que usa la web del Cienciathon, mientras no hay cartel",
+        "en": "The Science Park isotype, which cienciathon.org uses as its own logo, standing in for a poster"
+      }
+    },
+    {
+      "id": "gdg-devfest-2026",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-10-15",
+      "end": null,
+      "tentative": false,
+      "image": "events/logo-gdg.webp",
+      "image_kind": "logo",
+      "link": null,
+      "title": {
+        "es": "DevFest Alicante",
+        "en": "DevFest Alicante"
+      },
+      "summary": {
+        "es": "La jornada grande del año del GDG Alicante: un programa entero de ponencias, comunidad y cena con los expertos invitados.",
+        "en": "GDG Alicante's biggest day of the year: a full programme of talks, community, and dinner with the invited experts."
+      },
+      "location": {
+        "es": "Alicante",
+        "en": "Alicante"
+      },
+      "image_alt": {
+        "es": "Logotipo del GDG Alicante, usado mientras no hay cartel de esta edición",
+        "en": "The GDG Alicante logo, standing in until this edition has a poster"
+      }
+    },
+    {
+      "id": "nasa-space-apps-2026",
+      "category": "hackathon",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2026-11-14",
+      "end": "2026-11-15",
+      "tentative": true,
+      "image": "events/logo-nasa-space-apps.webp",
+      "image_kind": "logo",
+      "link": "https://www.spaceappschallenge.org/",
+      "title": {
+        "es": "NASA Space Apps",
+        "en": "NASA Space Apps"
+      },
+      "summary": {
+        "es": "Tercera sede alicantina seguida del mayor hackathon del mundo. Las fechas son las mundiales; la sede local está en preparación.",
+        "en": "Alicante's third consecutive site of the world's largest hackathon. The dates are the global ones; the local site is being prepared."
+      },
+      "location": {
+        "es": "San Vicente del Raspeig",
+        "en": "San Vicente del Raspeig"
+      },
+      "image_alt": {
+        "es": "Logotipo del NASA Space Apps Challenge, usado mientras no hay cartel local",
+        "en": "The NASA Space Apps Challenge logo, standing in until the local poster exists"
+      }
+    },
+    {
+      "id": "gamejam-2027",
+      "category": "jam",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2027-01",
+      "end": null,
+      "tentative": true,
+      "image": "events/logo-gamejam.webp",
+      "image_kind": "logo",
+      "link": "https://gamejam.multitecua.com/",
+      "title": {
+        "es": "XIV Gamejam Alicante",
+        "en": "XIV Gamejam Alicante"
+      },
+      "summary": {
+        "es": "La siguiente Gamejam, dentro de la semana mundial de la Global Game Jam. Fin de semana y sede todavía por confirmar.",
+        "en": "The next Gamejam, inside the worldwide Global Game Jam week. The weekend and the venue are still to be confirmed."
+      },
+      "location": {
+        "es": "Alicante",
+        "en": "Alicante"
+      },
+      "image_alt": {
+        "es": "Escudo de la Game Jam Alicante, usado mientras no hay cartel de esta edición",
+        "en": "The Game Jam Alicante shield, standing in until this edition has a poster"
       }
     }
   ]

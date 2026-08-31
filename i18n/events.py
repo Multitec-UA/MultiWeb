@@ -69,8 +69,42 @@ ROLES = ("organiza", "colabora", "asiste")
 # never will -- that is not a hole in the data, it is a different kind of event.
 AUDIENCES = ("publico", "socios")
 
+# How the picture should be drawn, which is not a style choice — it is about honesty.
+# Sergio, 2026-08-31, on an event whose poster does not exist yet: "usa, a lo mejor, solo
+# el logotipo, no pongas una foto que no es". A photograph of last year's edition on this
+# year's card claims something that did not happen. So:
+#   photo   a real photograph OF THIS EDITION      -> cropped to fill the card window
+#   poster  this edition's own poster              -> letterboxed, never cropped
+#   logo    the event's mark, when there is neither -> contained, on the section ground,
+#           and visibly not a photograph
+IMAGE_KINDS = ("photo", "poster", "logo")
+
 ID_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
-WHEN_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$")
+
+# Three shapes, and which one is used says how well the date is known. Sergio, 2026-08-31:
+# "para los futuros eventos, muchas veces no se confirma la fecha hasta que queda poco…
+# te puedes permitir poner un rango de fechas o poner un mes". So a future event is not
+# forced to invent a day it does not have.
+#
+#   2026-01-30T17:00   the day and the hour       -> "30 ENE 2026 · 17:00"
+#   2026-01-30         the day, no hour recorded  -> "30 ENE 2026"
+#   2026-10            only the month             -> "OCTUBRE 2026"
+#
+# `tentative: true` is orthogonal and means "this is our best information, not a promise" —
+# it prints an `aprox.` next to the date and replaces the day countdown with "fecha por
+# confirmar", because counting down to a day nobody has committed to is a lie with a number
+# attached.
+WHEN_RE = re.compile(r"^\d{4}-\d{2}(-\d{2}(T\d{2}:\d{2})?)?$")
+
+def precision(when: str) -> str:
+    """`month`, `day` or `exact`, from the shape of the string itself."""
+    return {7: "month", 10: "day", 16: "exact"}[len(when)]
+
+
+def sort_key(ev) -> str:
+    """A month sorts as if it were its first day, so the wheel stays chronological."""
+    w = ev["start"]
+    return w if len(w) >= 10 else w + "-01"
 
 # The image every card draws is cropped to a fixed 16:10 window by CSS, so the source
 # only has to be at least this big and at least this shape. A portrait poster would be
@@ -84,6 +118,14 @@ MONTHS = {
     "en": ["JAN", "FEB", "MAR", "APR", "MAY", "JUN",
            "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
 }
+# A month-precision date reads better spelled out: "OCTUBRE 2026" says "sometime in
+# October" in a way "OCT 2026" does not.
+MONTHS_LONG = {
+    "es": ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
+           "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"],
+    "en": ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+           "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"],
+}
 
 
 class EventError(ValueError):
@@ -95,7 +137,12 @@ def _fail(event_id, message):
 
 
 def _parse(when):
-    return _dt.datetime.strptime(when, "%Y-%m-%dT%H:%M")
+    for fmt in ("%Y-%m-%dT%H:%M", "%Y-%m-%d", "%Y-%m"):
+        try:
+            return _dt.datetime.strptime(when, fmt)
+        except ValueError:
+            continue
+    raise ValueError("not a date this understands: %r" % when)
 
 
 def _image_size(path: pathlib.Path):
@@ -151,10 +198,18 @@ def load(table_path: pathlib.Path = TABLE):
             if key == "end" and value is None:
                 continue
             if not isinstance(value, str) or not WHEN_RE.match(value):
-                _fail(eid, "%s must be YYYY-MM-DDTHH:MM local time (Europe/Madrid), got %r"
-                      % (key, value))
+                _fail(eid, "%s must be YYYY-MM, YYYY-MM-DD or YYYY-MM-DDTHH:MM local time "
+                           "(Europe/Madrid), got %r" % (key, value))
+        if ev.get("end") and precision(ev["end"]) != precision(ev["start"]):
+            _fail(eid, "start and end must be equally precise (%s vs %s)"
+                  % (precision(ev["start"]), precision(ev["end"])))
         if ev.get("end") and _parse(ev["end"]) < _parse(ev["start"]):
             _fail(eid, "end is before start")
+        if not isinstance(ev.get("tentative", False), bool):
+            _fail(eid, "tentative must be true or false")
+        if ev.get("image_kind", "photo") not in IMAGE_KINDS:
+            _fail(eid, "image_kind %r is not one of %s"
+                  % (ev.get("image_kind"), ", ".join(IMAGE_KINDS)))
 
         if ev.get("role") not in ROLES:
             _fail(eid, "role %r is not one of %s" % (ev.get("role"), ", ".join(ROLES)))
@@ -190,19 +245,27 @@ def load(table_path: pathlib.Path = TABLE):
         if size is None:
             _fail(eid, "image %s is not a WebP this can measure — convert it" % image)
         w, h = size
-        if w < MIN_IMAGE_WIDTH:
-            _fail(eid, "image %s is %dpx wide, the card needs at least %d"
-                  % (image, w, MIN_IMAGE_WIDTH))
-        if w / h < MIN_ASPECT:
-            _fail(eid, "image %s is %dx%d (%.2f:1); the card crops to 16:10, so anything "
-                       "under %.1f:1 loses most of the picture" % (image, w, h, w / h, MIN_ASPECT))
+        if ev.get("image_kind") == "logo":
+            # A logo is contained, not cropped, so the 16:10 rule that protects
+            # photographs from being cut to a letterbox of somebody's chin does not
+            # apply — but it still has to be big enough not to be fuzzy.
+            if w < 320:
+                _fail(eid, "logo %s is only %dpx wide; the card draws it at 300" % (image, w))
+        else:
+            if w < MIN_IMAGE_WIDTH:
+                _fail(eid, "image %s is %dpx wide, the card needs at least %d"
+                      % (image, w, MIN_IMAGE_WIDTH))
+            if w / h < MIN_ASPECT:
+                _fail(eid, "image %s is %dx%d (%.2f:1); the card crops to 16:10, so anything "
+                           "under %.1f:1 loses most of the picture"
+                      % (image, w, h, w / h, MIN_ASPECT))
         ev["_image_size"] = size
 
         link = ev.get("link")
         if link is not None and not str(link).startswith("https://"):
             _fail(eid, "link must be https:// or null, got %r" % link)
 
-    return sorted(events, key=lambda e: e["start"])
+    return sorted(events, key=sort_key)
 
 
 def strings_used(table_path: pathlib.Path = TABLE):
@@ -216,20 +279,32 @@ def strings_used(table_path: pathlib.Path = TABLE):
     raw = json.loads(table_path.read_text(encoding="utf-8"))
     return ({"events_cat_" + c for c in raw["categories"]}
             | {"events_role_" + r for r in ROLES}
-            | {"events_aud_" + a for a in AUDIENCES})
+            | {"events_aud_" + a for a in AUDIENCES}
+            | {"events_approx"})
 
 
 def when_label(ev, lang):
-    """The date as the card prints it: '14-16 NOV 2025', '22 MAY 2025', '30 DIC - 2 ENE'.
+    """The date as the card prints it.
 
-    Deliberately not locale-dependent: strftime would need a locale installed in the
-    build environment, and a missing es_ES.UTF-8 would silently produce English months
-    on a Spanish page.
+    '24-26 OCT 2025', '22 MAY 2025', '30 DIC - 2 ENE', and — for a future event whose day
+    nobody has fixed yet — 'OCTUBRE 2026' or 'ENE - FEB 2027'.
+
+    Deliberately not locale-dependent: strftime would need a locale installed in the build
+    environment, and a missing es_ES.UTF-8 would silently produce English months on a
+    Spanish page.
     """
-    m = MONTHS[lang]
+    m, ml = MONTHS[lang], MONTHS_LONG[lang]
+    dash = "\u2013"  # en dash, the correct mark for a range
     a = _parse(ev["start"])
     b = _parse(ev["end"]) if ev.get("end") else a
-    dash = "–"  # en dash, the correct mark for a range
+
+    if precision(ev["start"]) == "month":
+        if (a.year, a.month) == (b.year, b.month):
+            return "%s %d" % (ml[a.month - 1], a.year)
+        if a.year == b.year:
+            return "%s %s %s %d" % (m[a.month - 1], dash, m[b.month - 1], a.year)
+        return "%s %d %s %s %d" % (m[a.month - 1], a.year, dash, m[b.month - 1], b.year)
+
     if a.date() == b.date():
         return "%d %s %d" % (a.day, m[a.month - 1], a.year)
     if (a.year, a.month) == (b.year, b.month):
@@ -265,8 +340,14 @@ def render(lang, strings, asset_prefix="../assets/v7", events=None):
         # 00:00 is the convention for "the time is not recorded anywhere". Printing
         # "· 00:00" on a 2020 event nobody wrote a start time for would be inventing a
         # fact to fill a slot, so the span is simply left out and the row still lines up.
-        clock = ev["start"][11:]
-        time_span = "" if clock == "00:00" else '<span class="ev-time">%s</span>' % _e(clock)
+        kind = ev.get("image_kind", "photo")
+        tentative = bool(ev.get("tentative"))
+        clock = ev["start"][11:] if precision(ev["start"]) == "exact" else ""
+        time_span = "" if clock in ("", "00:00") else '<span class="ev-time">%s</span>' % _e(clock)
+        # `aprox.` sits next to the date rather than replacing it, so the card still says
+        # what we know while being honest that it is not fixed yet.
+        if tentative:
+            time_span += '<span class="ev-approx">%s</span>' % _e(strings("events_approx", lang))
         link = ev.get("link")
         category = strings("events_cat_" + ev["category"], lang)
 
@@ -277,11 +358,11 @@ def render(lang, strings, asset_prefix="../assets/v7", events=None):
 
         out.append(
             '                            <li class="ev-card" style="--i:%d"'
-            ' data-start="%s"%s>\n'
+            ' data-start="%s"%s%s>\n'
             '                                <article class="ev-inner">\n'
             '                                    <div class="ev-media">\n'
-            '                                        <img src="%s/images/%s" alt="%s"'
-            ' width="%d" height="%d" loading="lazy" decoding="async">\n'
+            '                                        <img class="ev-img ev-img-%s" src="%s/images/%s"'
+            ' alt="%s" width="%d" height="%d" loading="lazy" decoding="async">\n'
             '                                        <p class="ev-cat">%s</p>\n'
             '                                        <p class="ev-role ev-role-%s">%s</p>\n'
             '                                    </div>\n'
@@ -299,7 +380,8 @@ def render(lang, strings, asset_prefix="../assets/v7", events=None):
                 index,
                 _e(ev["start"]),
                 (' data-end="%s"' % _e(ev["end"])) if ev.get("end") else "",
-                asset_prefix, _e(ev["image"]), _e(ev["image_alt"][lang]), w, h,
+                ' data-tentative="1"' if tentative else "",
+                _e(kind), asset_prefix, _e(ev["image"]), _e(ev["image_alt"][lang]), w, h,
                 _e(category), _e(ev["role"]), _e(role),
                 _e(ev["start"]), _e(when_label(ev, lang)), time_span,
                 heading,

@@ -239,6 +239,14 @@
       "es": "Está pasando ahora",
       "en": "Happening right now"
     },
+    "events_approx": {
+      "es": "aprox.",
+      "en": "approx."
+    },
+    "events_cd_tbc": {
+      "es": "Fecha por confirmar",
+      "en": "Date to be confirmed"
+    },
     "events_cat_hackathon": {
       "es": "Hackathon",
       "en": "Hackathon"
