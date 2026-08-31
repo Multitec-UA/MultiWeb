@@ -2276,12 +2276,18 @@ h1.title {
     filter: grayscale(1) contrast(.94);
 }
 
-/* A logo has no colour to lose in a way that reads as "archived" -- grey-scaling a mark
-   just makes it look broken. The muted card and the CELEBRADO pill already say it. */
+/* Stand-ins go grey too, and the earlier exemption here was wrong. It reasoned that a
+   mark has no colour to lose in a way that reads as "archived" — but the rule it wrote
+   also caught the drawn illustrations, and a colour card sitting in a row of grey ones
+   does not read as a considered exception, it reads as a bug. Sergio, on seeing the
+   camping illustration in full colour between two grey cards: "las imágenes vectoriales
+   no se están poniendo en blanco y negro, corrígelo."
+   So a stand-in follows exactly the same rule as a photograph — a drawing IS this card's
+   picture — and only the opacity is lifted a little, because a mark carries less ink than
+   a photograph and goes muddy at the same value. */
 .ev-card.is-past img.ev-img-logo,
 .ev-card.is-past img.ev-img-illustration {
-    filter: none;
-    opacity: .55;
+    opacity: .72;
 }
 
 /* What says "this already happened" on the rest of the card: a card that is no longer

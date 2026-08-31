@@ -276,6 +276,17 @@ def main() -> int:
     check(re.search(r"\.ev-card \.ev-inner \{[^}]*rotateY", css, re.S) is not None,
           "the wheel's rotation lives one level in, on .ev-inner")
 
+    # (c3) A past event's picture goes grey WHATEVER kind of picture it is. The first
+    # version of the past-card styling exempted logos and illustrations from the filter,
+    # which left the camping drawing in full colour between two grey cards — and a colour
+    # card in a grey row reads as a bug, not as a considered exception. There must be no
+    # rule that switches the filter back off for a stand-in.
+    past_overrides = re.findall(r"\.ev-card\.is-past[^{]*\{([^}]*)\}", css)
+    check(not any(re.search(r"filter:\s*none", b) for b in past_overrides),
+          "nothing switches the grey-scale back off on a past card")
+    check(re.search(r"\.ev-card\.is-past \.ev-media img \{[^}]*grayscale\(1\)", css, re.S) is not None,
+          "a past card's picture is grey-scaled, whatever kind of picture it is")
+
     # (d) The arrows moved by a fixed distance and drifted out of alignment.
     check("cards[0].offsetWidth + 28" not in js,
           "the arrows no longer scroll by a hardcoded card-plus-gap distance")
