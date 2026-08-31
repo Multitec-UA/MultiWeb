@@ -189,17 +189,30 @@ for (let i = 0; i < faq.length; i++) {
         days: wheel.getAttribute('data-cd-days'),
         tomorrow: wheel.getAttribute('data-cd-tomorrow'),
         today: wheel.getAttribute('data-cd-today'),
-        running: wheel.getAttribute('data-cd-running')
+        running: wheel.getAttribute('data-cd-running'),
+        tbc: wheel.getAttribute('data-cd-tbc')
     };
 
     // "2026-11-13T17:00" is local time in Europe/Madrid, which is also the timezone of
     // essentially everyone reading this page. new Date(string) on a form with no zone
     // suffix is parsed as local time, which is exactly what is wanted -- but only in the
     // date-time form, so it is spelled out rather than trusted.
+    // Three shapes, because a future event often has only a month: 2026-10,
+    // 2026-10-15 and 2026-10-15T17:00 are all valid. A month resolves to its first day,
+    // which is only ever used for ordering and for the has-it-happened test.
     function at(value) {
-        var m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/.exec(value || '');
+        var m = /^(\d{4})-(\d{2})(?:-(\d{2}))?(?:T(\d{2}):(\d{2}))?$/.exec(value || '');
         if (!m) return null;
-        return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], 0, 0);
+        return new Date(+m[1], +m[2] - 1, +(m[3] || 1), +(m[4] || 0), +(m[5] || 0), 0, 0);
+    }
+
+    // The end of a month-precision event is the end of that month, not its first day —
+    // otherwise "OCTUBRE 2026" would go grey on the 2nd of October.
+    function endOf(card) {
+        var raw = card.getAttribute('data-end') || card.getAttribute('data-start') || '';
+        var d = at(raw);
+        if (d && raw.length === 7) return new Date(d.getFullYear(), d.getMonth() + 1, 0, 23, 59);
+        return d;
     }
 
     // Whole days between two calendar days, counted from midnight to midnight. Not
@@ -229,7 +242,7 @@ for (let i = 0; i < faq.length; i++) {
         cards.forEach(function (card) {
             var start = at(card.getAttribute('data-start'));
             if (!start) return;
-            var end = at(card.getAttribute('data-end')) || start;
+            var end = endOf(card) || start;
             var state = card.querySelector('.ev-state');
             var media = card.querySelector('.ev-media');
 
@@ -248,7 +261,10 @@ for (let i = 0; i < faq.length; i++) {
                     card.classList.add('is-running');
                     if (state) { state.textContent = L.running; state.hidden = false; }
                 } else if (state) {
-                    state.textContent = label(daysUntil(now, start));
+                    // Counting down to a day nobody has committed to is a lie with a
+                    // number attached. A tentative date says so instead.
+                    state.textContent = card.getAttribute('data-tentative')
+                        ? L.tbc : label(daysUntil(now, start));
                     state.hidden = false;
                 }
             }
