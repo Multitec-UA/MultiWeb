@@ -1,0 +1,169 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""The events calendar is in its box, and the box is the same box the build enforces.
+
+`i18n/events.py` already refuses to load a row that is out of range, so a bad event
+cannot be rendered at all — this file exists so that the failure is *readable* (one
+PASS/FAIL line per rule, the way tests/verify.sh counts them) and so that the handful of
+rules that are about the file as a whole, rather than about one row, get checked too:
+ordering, the countdown placeholder, whether the wheel's markup and its script still
+agree about the class names they pass between each other.
+
+Run it directly — no pytest, no dependencies, this repo has neither:
+
+    python3 tests/test_events.py
+"""
+from __future__ import annotations
+
+import datetime as dt
+import json
+import pathlib
+import re
+import sys
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "i18n"))
+
+import build   # noqa: E402  (i18n/build.py)
+import events  # noqa: E402  (i18n/events.py)
+
+FAILED = []
+CHECKS = []
+
+
+def check(ok, description, detail=""):
+    CHECKS.append(ok)
+    if ok:
+        print("PASS %s" % description)
+    else:
+        FAILED.append(description)
+        print("FAIL %s%s" % (description, ("\n     " + detail) if detail else ""))
+
+
+def main() -> int:
+    table = build.load()
+    strings = table["strings"]
+    raw = json.loads(events.TABLE.read_text(encoding="utf-8"))
+
+    # -- 1. the box ---------------------------------------------------------------
+    # events.load() raises on the first violation. Catching it here turns "the build
+    # exploded" into "this row, this field, this language, this count".
+    try:
+        rows = events.load()
+        check(True, "every event is inside the box (%d events, %s)"
+              % (len(rows), ", ".join("%s %d-%d" % (f, lo, hi)
+                                      for f, (lo, hi) in sorted(events.BOUNDS.items()))))
+    except events.EventError as exc:
+        check(False, "every event is inside the box", str(exc))
+        rows = []
+
+    # -- 2. the box is worth having ------------------------------------------------
+    # A range nothing is near is a range nobody is obeying. This is the check that
+    # notices the day somebody widens BOUNDS instead of rewriting a sentence.
+    if rows:
+        for field, (lo, hi) in sorted(events.BOUNDS.items()):
+            lengths = [len(ev[field][lang]) for ev in rows for lang in events.LANGUAGES]
+            check(max(lengths) <= hi and min(lengths) >= lo,
+                  "%s: %d-%d characters used of the %d-%d allowed"
+                  % (field, min(lengths), max(lengths), lo, hi))
+        # the point of the whole exercise: the two summaries on any pair of cards are
+        # close enough in length that the cards are the same height
+        summaries = [len(ev["summary"][lang]) for ev in rows for lang in events.LANGUAGES]
+        spread = max(summaries) - min(summaries)
+        check(spread <= events.BOUNDS["summary"][1] - events.BOUNDS["summary"][0],
+              "no two summaries differ by more than the box allows (%d characters apart)" % spread)
+
+    # -- 3. chronological, and that is decided in code ------------------------------
+    check([e["start"] for e in rows] == sorted(e["start"] for e in rows),
+          "load() returns the calendar oldest-first whatever order the file is in")
+
+    # -- 4. the countdown placeholder -----------------------------------------------
+    # %d and not {days}: i18n/build.py resolves {word} against the vars table and would
+    # raise on a placeholder that is not one. So the parity check test_i18n.py runs on
+    # {fields} does not see these, and this is its counterpart.
+    for key in ("events_cd_days",):
+        counts = {l: strings[key][l].count("%d") for l in build.LANGUAGES}
+        check(counts["es"] == counts["en"] == 1,
+              "%s carries exactly one %%d in both languages" % key, repr(counts))
+    for key, row in strings.items():
+        if key.startswith("events_cd_") and key != "events_cd_days":
+            check("%d" not in row["es"] + row["en"],
+                  "%s has no placeholder to substitute" % key)
+
+    # -- 5. every category has a label, and every label a category -------------------
+    declared = set(raw["categories"])
+    labelled = {k[len("events_cat_"):] for k in strings if k.startswith("events_cat_")}
+    check(declared == labelled, "every category has a label and every label a category",
+          "only in events.json: %s / only in strings.json: %s"
+          % (sorted(declared - labelled), sorted(labelled - declared)))
+    used = {e["category"] for e in rows}
+    check(used <= declared, "no event uses a category outside the vocabulary",
+          ", ".join(sorted(used - declared)))
+
+    # -- 6. the markup and the script agree -----------------------------------------
+    # The section passes seven labels and three class names across a boundary no compiler
+    # checks. Both halves have been edited independently at least once already.
+    tpl = (build.TEMPLATES / "index.html").read_text(encoding="utf-8")
+    js = (ROOT / "assets" / "js" / "script.js").read_text(encoding="utf-8")
+    css = (ROOT / "assets" / "css" / "style.css").read_text(encoding="utf-8")
+
+    declared_attrs = set(re.findall(r'data-(pill-\w+|cd-\w+)="\{\{', tpl))
+    wanted_attrs = set(re.findall(r"getAttribute\('data-(pill-\w+|cd-\w+)'\)", js))
+    check(declared_attrs == wanted_attrs,
+          "the script reads exactly the %d labels the markup carries" % len(wanted_attrs),
+          "markup only: %s / script only: %s"
+          % (sorted(declared_attrs - wanted_attrs), sorted(wanted_attrs - declared_attrs)))
+
+    for key in sorted({"events_" + a.replace("-", "_") for a in declared_attrs}):
+        check(key in strings, "%s is in the string table" % key)
+
+    for cls in ("is-past", "is-next", "is-running"):
+        check(("'" + cls + "'") in js or ('"' + cls + '"') in js,
+              "the script sets .%s" % cls)
+        check((".ev-card." + cls) in css, "the stylesheet styles .ev-card.%s" % cls)
+
+    # -- 7. the wheel degrades ------------------------------------------------------
+    # With scripting off --t and --a are never written, so their declared defaults are
+    # the whole no-JS experience. If they are not 0 the flat fallback is a heap.
+    block = re.search(r"\n\.ev-card \{(.*?)\n\}", css, re.S)
+    check(bool(block) and re.search(r"--t:\s*0\s*;", block.group(1))
+          and re.search(r"--a:\s*0\s*;", block.group(1)),
+          "with no JavaScript the wheel flattens (--t and --a default to 0)")
+    check("prefers-reduced-motion" in css and "perspective: none" in css,
+          "prefers-reduced-motion switches the perspective off, not merely down")
+
+    # -- 8. the images the cards draw are the ones on disk ---------------------------
+    # events.py already proved they exist; this proves the rendered <img> points at them
+    # through the versioned URL, which is what group 7 of verify.sh caches for a year.
+    version = sorted(set(re.findall(r"assets/(v\d+)/", tpl)))
+    check(len(version) == 1, "the template uses one asset version", ", ".join(version))
+    if version:
+        rendered = events.render("es", lambda k, l: strings[k][l],
+                                 asset_prefix="../assets/%s" % version[0], events=rows)
+        srcs = re.findall(r'src="\.\./assets/v\d+/images/([^"]+)"', rendered)
+        check(len(srcs) == len(rows), "every card renders an image", "%d of %d" % (len(srcs), len(rows)))
+        missing = [s for s in srcs if not (ROOT / "assets" / "images" / s).exists()]
+        check(not missing, "every rendered image exists on disk", ", ".join(missing))
+        check(("../assets/%s" % version[0]) == build.ASSETS,
+              "i18n/build.py renders cards at the same asset version the template uses",
+              "%s vs %s" % (build.ASSETS, version[0]))
+
+    # -- 9. the placeholder calendar is honest --------------------------------------
+    # Not a correctness rule, a truthfulness one: the sample data has to be visibly
+    # sample data until Sergio replaces it, and it has to still show both states.
+    if rows:
+        today = dt.date.today()
+        past = [e for e in rows if dt.datetime.strptime(e["end"] or e["start"],
+                                                        "%Y-%m-%dT%H:%M").date() < today]
+        future = [e for e in rows if e not in past]
+        check(len(past) >= 1 and len(future) >= 1,
+              "the calendar has something in both states today (%d past, %d upcoming)"
+              % (len(past), len(future)),
+              "with everything in one state the grey-scale and the countdown are untested by eye")
+
+    print("\n%d checks, %d failed" % (len(CHECKS), len(FAILED)))
+    return 1 if FAILED else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

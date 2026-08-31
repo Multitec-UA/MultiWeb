@@ -1805,3 +1805,420 @@ h1.title {
     }
 }
 
+
+
+/* ==========================================================================
+   The events wheel  (#events)
+   ==========================================================================
+   A horizontal strip of identical cards, oldest on the left, that leans into a
+   perspective as it scrolls so it reads as the rim of a big wheel turning past you
+   rather than a row of boxes sliding sideways.
+
+   Three facts about how it is built, because none of them are guessable from the CSS:
+
+   1. Every card is the SAME card. That is not done here — it is done in
+      i18n/events.json, where every field has a hard character range, and in
+      i18n/events.py, which refuses to build the site when one is out of range. CSS can
+      crop an image; it cannot make a 60-character summary fill the same box as a
+      140-character one.
+
+   2. The rotation is driven by ONE custom property per card, --t, which the script sets
+      to where that card sits relative to the middle of the strip: -1 hard left, 0 dead
+      centre, +1 hard right (and --a is its absolute value). Every transform below is a
+      function of those two numbers. With JavaScript off both stay 0, which is a flat,
+      perfectly usable row of cards — the wheel is the enhancement, not the mechanism.
+
+   3. Past / next / the countdown are added by the script too, for a reason that is not
+      laziness: src/*.html is generated and committed, and tests/verify.sh fails if
+      regenerating it would change a byte. A page with "24 days to go" baked into it
+      would be wrong the next morning and red in CI by lunchtime.
+
+   The ground is dark on purpose. Grey-scaling a past event only reads as "this already
+   happened" if there is colour to lose next to it, and #A30006 on a dark field is 2.2:1,
+   so the accent here is Rojo 1 (#FF3A41) — the brandbook's own dark-scheme primary, not
+   an invented hex. 5.05:1 on this ground. */
+
+.events {
+    --ev-accent: #ff3a41;   /* Rojo 1, brandbook p.20 — 5.05:1 on the ground below */
+    --ev-ground: #17171a;
+    --ev-card-w: 300px;
+    background: radial-gradient(115% 75% at 50% 0%, #2c2c30 0%, #1d1d21 55%, var(--ev-ground) 100%);
+    color: #fff;
+    /* The cards arc outwards in 3D. Without this the page itself scrolls sideways at
+       the far end of the wheel — audit item 2.2, and the reason group 16 exists. */
+    overflow: hidden;
+    padding-bottom: 60px;
+}
+
+.events .title {
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+/* The site's section rule is an absolutely positioned :after at a hard `top`, and three
+   media queries move that top to 100px, 95px and 120px at narrower widths. Every one of
+   those was tuned for a heading with 100px of space under it and nothing in between; this
+   heading has a standfirst under it, so at 390px the rule landed in the middle of the
+   sentence. Taking it out of the absolute flow makes it a block that sits under the
+   heading and pushes the paragraph down, at every width, with no offset to keep in step. */
+.events .title:after {
+    position: static;
+    display: block;
+    top: auto;
+    left: auto;
+    margin: 22px auto 0;
+    background-color: var(--ev-accent);
+}
+
+.events-intro {
+    color: #bcbfbe;          /* Gris, 9.66:1 on the ground */
+    font-family: var(--second-font);
+    font-size: 15px;
+    max-width: 46em;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* ---- the wheel and its rail ------------------------------------------------ */
+
+.ev-wheel {
+    position: relative;
+    margin-top: 30px;
+}
+
+.ev-scroller {
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* The whole illusion is here: one shared vanishing point, above the middle of the
+       strip, so the far cards fall away from the same place. perspective-origin at 44%
+       puts the eye slightly above the cards, which is what makes the arc read as a wheel
+       lying flat rather than a fan standing up. */
+    perspective: 1400px;
+    perspective-origin: 50% 44%;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 46px 0 40px;
+    /* A visible scrollbar under a 3D carousel reads as a bug. The strip is still
+       scrollable by wheel, drag, arrow key and the two buttons. */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.ev-scroller::-webkit-scrollbar { display: none; }
+
+.ev-scroller:focus-visible {
+    outline: 3px solid var(--ev-accent);
+    outline-offset: -3px;
+}
+
+.ev-track {
+    display: flex;
+    align-items: stretch;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    /* Half the rail minus half a card, so the first and the last event can both reach
+       the middle of the wheel. The percentage resolves against .ev-scroller, which is
+       what makes this correct at every width without measuring anything in JavaScript. */
+    padding: 0 max(16px, calc(50% - var(--ev-card-w) / 2));
+    transform-style: preserve-3d;
+}
+
+/* ---- one card -------------------------------------------------------------- */
+
+.ev-card {
+    --t: 0;        /* signed distance from the centre of the rail, -1 .. +1 */
+    --a: 0;        /* its absolute value, 0 at the centre, 1 at the edges    */
+    --boost: 1;    /* the next event nudges this up; see .is-next below      */
+    flex: 0 0 var(--ev-card-w);
+    scroll-snap-align: center;
+    transform-style: preserve-3d;
+    /* Read outwards: turn away from the viewer, sink backwards, drop along the rim, and
+       tilt with it. The rotate() is what stops it looking like a flat fan — a card on
+       the rim of a wheel is not upright. */
+    transform:
+        rotateY(calc(var(--t) * -32deg))
+        translateZ(calc(var(--a) * -140px))
+        translateY(calc(var(--a) * 26px))
+        rotate(calc(var(--t) * 3.4deg))
+        scale(var(--boost));
+    opacity: calc(1 - var(--a) * 0.45);
+    will-change: transform;
+}
+
+.ev-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 452px;      /* every card the same height even before the text agrees */
+    background: #fff;
+    color: #1a1a1a;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 44px rgba(0, 0, 0, .5), 0 2px 6px rgba(0, 0, 0, .35);
+    transition: filter .45s ease, box-shadow .3s ease, opacity .45s ease;
+}
+
+.ev-media {
+    position: relative;
+    flex: none;
+}
+
+/* Fixed height plus cover, not aspect-ratio: the source images are 4:3, 3:2 and 16:9 and
+   they all have to end up as the same window. i18n/events.py refuses anything narrower
+   than 1.2:1, which is the point where cropping to this window starts throwing the
+   subject away. */
+.ev-media img {
+    display: block;
+    width: 100%;
+    height: 176px;
+    object-fit: cover;
+}
+
+.ev-cat,
+.ev-pill {
+    position: absolute;
+    bottom: 12px;
+    margin: 0;
+    font-family: var(--main-font);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 999px;
+}
+
+.ev-cat {
+    left: 12px;
+    background: rgba(23, 23, 26, .86);
+    color: #fff;
+}
+
+.ev-pill {
+    right: 12px;
+    background: var(--main-color);   /* #A30006 on white text — 8.2:1 */
+    color: #fff;
+}
+
+.ev-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    padding: 18px 20px 20px;
+    text-align: left;
+}
+
+.ev-when {
+    font-family: var(--main-font);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    color: var(--main-color);
+    margin: 0 0 6px;
+}
+
+.ev-time {
+    color: #5a5a5a;             /* 6.9:1 on white */
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.ev-time:before {
+    content: " · ";
+    color: #9a9a9a;
+}
+
+.ev-title {
+    font-size: 19px;
+    line-height: 1.25;
+    margin: 0 0 8px;
+    /* Two lines exactly. The 28-character ceiling in events.json is what keeps a title
+       from needing a third, and this is the belt to that pair of braces. */
+    min-height: 2.5em;
+}
+
+.ev-title a {
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(163, 0, 6, .28);
+}
+
+.ev-title a:hover,
+.ev-title a:focus-visible {
+    color: var(--main-color);
+    border-bottom-color: var(--main-color);
+}
+
+.ev-summary {
+    font-family: var(--second-font);
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4a4a4a;
+    margin: 0 0 12px;
+}
+
+.ev-where {
+    font-family: var(--second-font);
+    font-size: 13px;
+    color: #5a5a5a;
+    margin: 0;
+}
+
+.ev-where:before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: #bcbfbe;
+    vertical-align: middle;
+}
+
+/* The countdown line. Pushed to the bottom of the card so it lands on the same baseline
+   on all eight of them regardless of how the summary wrapped. */
+.ev-state {
+    /* auto, not a fixed gap: it is what puts the countdown on the SAME baseline on all
+       eight cards no matter how the summary above it wrapped. Without it the line sits
+       wherever the paragraph left it and the row of cards reads as eight different
+       cards, which is the one thing this whole section is built not to be. */
+    margin: auto 0 0;
+    padding-top: 16px;
+    border-top: 1px solid #ececee;
+    font-family: var(--main-font);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    color: #5a5a5a;
+}
+
+/* ---- the two states ---------------------------------------------------------
+   Past is grey and quiet but still there — the association's history is worth showing,
+   it is just not worth shouting. Hovering or tabbing to one brings the colour back,
+   which is the cheapest possible way to say "there is a real photograph under this". */
+
+.ev-card.is-past .ev-inner {
+    filter: grayscale(1) contrast(.94);
+    opacity: .68;
+}
+
+.ev-card.is-past:hover .ev-inner,
+.ev-card.is-past:focus-within .ev-inner {
+    filter: grayscale(.1);
+    opacity: 1;
+}
+
+.ev-card.is-past .ev-when { color: #5a5a5a; }
+
+/* Next is louder by exactly three things: a hairline ring in the accent, a deeper
+   shadow, and 4% of scale. Not a glow, not a colour flood — it has to read as "this one
+   first" while still being obviously the same card as its neighbours. */
+.ev-card.is-next {
+    --boost: 1.04;
+    z-index: 2;
+}
+
+.ev-card.is-next .ev-inner {
+    box-shadow: 0 26px 60px rgba(0, 0, 0, .58), 0 0 0 2px var(--ev-accent);
+}
+
+.ev-card.is-next .ev-state {
+    color: var(--main-color);
+}
+
+.ev-card.is-running .ev-inner {
+    box-shadow: 0 26px 60px rgba(0, 0, 0, .58), 0 0 0 2px var(--ev-accent);
+}
+
+/* ---- the rail controls ------------------------------------------------------ */
+
+.ev-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 48px;             /* 48px: a thumb target, not a cursor target */
+    height: 48px;
+    min-height: 44px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 50%;
+    background: rgba(23, 23, 26, .72);
+    color: #fff;
+    padding: 0;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+}
+
+.ev-nav:hover,
+.ev-nav:focus-visible {
+    background: var(--main-color);
+    border-color: var(--ev-accent);
+}
+
+.ev-nav[disabled] {
+    opacity: .3;
+    cursor: default;
+}
+
+.ev-nav .ic-fa {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    vertical-align: middle;
+}
+
+.ev-prev { left: 14px; }
+.ev-prev .ic-fa { transform: rotate(180deg); }
+.ev-next { right: 14px; }
+
+.ev-hint {
+    text-align: center;
+    color: #bcbfbe;
+    font-family: var(--second-font);
+    font-size: 13px;
+    letter-spacing: .4px;
+    margin: 6px 0 0;
+}
+
+/* ---- narrow screens ---------------------------------------------------------
+   The wheel is shallower on a phone: at 300px wide the neighbours are barely on screen,
+   so a 32-degree turn just hides them. The arrows go too — a thumb already has the
+   better gesture. */
+
+@media only screen and (max-width: 767px) {
+    .events { --ev-card-w: 272px; }
+
+    .ev-card {
+        transform:
+            rotateY(calc(var(--t) * -22deg))
+            translateZ(calc(var(--a) * -90px))
+            translateY(calc(var(--a) * 16px))
+            rotate(calc(var(--t) * 2deg))
+            scale(var(--boost));
+    }
+
+    .ev-scroller { perspective: 1000px; padding: 34px 0 30px; }
+    .ev-nav { display: none; }
+    .ev-inner { min-height: 430px; }
+}
+
+/* ---- when motion is unwelcome ------------------------------------------------
+   Not a smaller wheel: no wheel. A rotating, receding, arcing strip is exactly the class
+   of movement this setting exists to switch off, and the flat row underneath is a
+   complete, ordered, perfectly readable calendar. */
+
+@media (prefers-reduced-motion: reduce) {
+    .ev-card {
+        transform: scale(var(--boost));
+        opacity: 1;
+    }
+
+    .ev-scroller {
+        perspective: none;
+        scroll-behavior: auto;
+    }
+
+    .ev-inner { transition: none; }
+}

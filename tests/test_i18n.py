@@ -28,6 +28,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "i18n"))
 
 import build  # noqa: E402  (i18n/build.py)
+import events  # noqa: E402  (i18n/events.py)
 
 FAILED = []
 CHECKS = []
@@ -87,7 +88,9 @@ def main() -> int:
     used = set()
     for text in templates.values():
         used |= set(build.KEY.findall(text))
-    prose_used = {k for k in used if not k.startswith("@")}
+    # The category labels are chosen from events.json at render time and named in no
+    # template, so events.py declares them rather than the check being loosened.
+    prose_used = {k for k in used if not k.startswith("@")} | events.strings_used()
     unknown_keys = sorted(prose_used - set(strings))
     check(not unknown_keys, "every {{key}} a template asks for exists in the table",
           ", ".join(unknown_keys[:8]))

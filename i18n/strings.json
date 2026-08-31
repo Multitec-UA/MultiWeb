@@ -4,9 +4,15 @@
     "fee": "12 €"
   },
   "same_in_both": [
-    "event_1_title",
-    "event_2_title",
-    "event_3_title",
+    "contact_email_label",
+    "enl_link_email",
+    "enl_link_instagram",
+    "enl_link_linkedin",
+    "enl_link_podcast",
+    "enl_link_twitter",
+    "enl_link_youtube",
+    "events_cat_hackathon",
+    "events_cat_jam",
     "press_1",
     "press_2",
     "press_3",
@@ -14,14 +20,7 @@
     "press_5",
     "press_6",
     "press_7",
-    "press_8",
-    "contact_email_label",
-    "enl_link_podcast",
-    "enl_link_instagram",
-    "enl_link_twitter",
-    "enl_link_linkedin",
-    "enl_link_youtube",
-    "enl_link_email"
+    "press_8"
   ],
   "strings": {
     "index_meta_description": {
@@ -196,41 +195,73 @@
       "es": "Eventos de la asociación",
       "en": "The events we run"
     },
-    "alt_event_cienciathon": {
-      "es": "Evento Cienciathon de MultitecUA y Parque Científico de la Universidad de Alicante",
-      "en": "Cienciathon, run by MultitecUA and the University of Alicante Science Park"
+    "events_intro": {
+      "es": "Lo que viene y lo que ya hicimos, en orden. Desliza la rueda para recorrer el calendario.",
+      "en": "What is coming and what we already did, in order. Drag the wheel to travel the calendar."
     },
-    "alt_event_devcon": {
-      "es": "Evento UAGames Devcon de MultitecUA y Escuela Politécnica Superior de la UA",
-      "en": "UAGames DevCon, run by MultitecUA and the UA School of Engineering"
+    "events_hint": {
+      "es": "Desliza para recorrer el calendario",
+      "en": "Drag to travel the calendar"
     },
-    "alt_event_gamejam": {
-      "es": "Evento Gamejam Alicante de MultitecUA",
-      "en": "Gamejam Alicante, run by MultitecUA"
+    "events_track_label": {
+      "es": "Calendario de eventos, del más antiguo al más próximo",
+      "en": "Event calendar, from the oldest to the nearest"
     },
-    "event_1_title": {
-      "es": "Cienciathon",
-      "en": "Cienciathon"
+    "events_prev": {
+      "es": "Evento anterior",
+      "en": "Previous event"
     },
-    "event_1_body": {
-      "es": "Combina la ciencia y la tecnología en esta hackathon de tres días junto al Parque Científico de la Universidad de Alicante donde se desarrollan ideas innovadoras para resolver problemas actuales.",
-      "en": "Science meets technology in a three-day hackathon we run with the University of Alicante Science Park, where teams build ideas that answer real problems."
+    "events_next": {
+      "es": "Evento siguiente",
+      "en": "Next event"
     },
-    "event_2_title": {
-      "es": "UAGames DevCon",
-      "en": "UAGames DevCon"
+    "events_pill_next": {
+      "es": "Próximo",
+      "en": "Next up"
     },
-    "event_2_body": {
-      "es": "Los estudiantes de Ingeniería Multimedia de Escuela Politécnica Superior de la UA muestran a la luz sus proyectos que han desarrollado durante el curso.",
-      "en": "Multimedia Engineering students from the UA School of Engineering show the projects they have spent the year building."
+    "events_pill_past": {
+      "es": "Celebrado",
+      "en": "Already held"
     },
-    "event_3_title": {
-      "es": "Gamejam Alicante",
-      "en": "Gamejam Alicante"
+    "events_cd_days": {
+      "es": "Faltan %d días",
+      "en": "%d days to go"
     },
-    "event_3_body": {
-      "es": "El evento insignia de desarrollo de videojuegos en Alicante. Varios grupos desarrollan un videojuego en un tiempo de 48h en base a un tema determinado que los participantes no conocen hasta el comienzo del evento.",
-      "en": "Alicante's flagship game development event. Teams build a whole video game in 48 hours around a theme nobody hears until the clock starts."
+    "events_cd_tomorrow": {
+      "es": "Es mañana",
+      "en": "It is tomorrow"
+    },
+    "events_cd_today": {
+      "es": "Es hoy",
+      "en": "It is today"
+    },
+    "events_cd_running": {
+      "es": "Está pasando ahora",
+      "en": "Happening right now"
+    },
+    "events_cat_hackathon": {
+      "es": "Hackathon",
+      "en": "Hackathon"
+    },
+    "events_cat_jam": {
+      "es": "Game jam",
+      "en": "Game jam"
+    },
+    "events_cat_taller": {
+      "es": "Taller",
+      "en": "Workshop"
+    },
+    "events_cat_charla": {
+      "es": "Charla",
+      "en": "Talk"
+    },
+    "events_cat_jornada": {
+      "es": "Jornada",
+      "en": "Open day"
+    },
+    "events_cat_social": {
+      "es": "Encuentro",
+      "en": "Meetup"
     },
     "press_title": {
       "es": "Multitec en las noticias",

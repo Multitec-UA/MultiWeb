@@ -1,0 +1,218 @@
+{
+  "_comment": [
+    "The association's calendar. ONE row per event, both languages side by side, exactly",
+    "like i18n/strings.json — same reason: a Spanish event that quietly loses its English",
+    "is the failure this shape exists to prevent.",
+    "",
+    "This file is a BOX, not a form. Every field has a hard length range and i18n/events.py",
+    "refuses to load the file if any of them is out of range, so `python3 i18n/build.py`",
+    "fails rather than rendering a card that is taller than the one beside it. The ranges",
+    "are what make every card identical, which is the whole point of the wheel.",
+    "",
+    "To add an event, read .claude/skills/multitec-events/SKILL.md in the management repo:",
+    "it is the procedure for turning a poster, a WhatsApp forward or an Instagram caption",
+    "into one of these rows. Then run:  python3 tests/test_events.py",
+    "",
+    "PLACEHOLDER DATA, 2026-08-31: the four past rows are real Multitec events with dates",
+    "reconstructed from the site and the press section; the four upcoming ones are",
+    "plausible inventions so the section can be looked at. Every one of them needs Sergio",
+    "to confirm or replace it before this reaches main."
+  ],
+
+  "categories": ["hackathon", "jam", "taller", "charla", "jornada", "social"],
+
+  "events": [
+    {
+      "id": "uagames-devcon-2025",
+      "category": "jornada",
+      "start": "2025-05-22T16:00",
+      "end": "2025-05-22T20:00",
+      "image": "uagames-devcon.webp",
+      "link": "https://www.instagram.com/multitecua/",
+      "title": {
+        "es": "UAGames DevCon 2025",
+        "en": "UAGames DevCon 2025"
+      },
+      "summary": {
+        "es": "Los estudiantes de Ingeniería Multimedia enseñan por primera vez en público los videojuegos que han desarrollado durante el curso.",
+        "en": "Multimedia Engineering students show the video games they built over the year to a public audience for the very first time."
+      },
+      "location": {
+        "es": "Escuela Politécnica Superior, UA",
+        "en": "Polytechnic School, UA"
+      },
+      "image_alt": {
+        "es": "Estudiantes presentando sus videojuegos en la UAGames DevCon de la Escuela Politécnica Superior",
+        "en": "Students presenting their video games at UAGames DevCon in the Polytechnic School"
+      }
+    },
+    {
+      "id": "gamejam-alicante-2025",
+      "category": "jam",
+      "start": "2025-11-14T17:00",
+      "end": "2025-11-16T14:00",
+      "image": "gamejam.webp",
+      "link": "https://www.instagram.com/multitecua/",
+      "title": {
+        "es": "XI Gamejam Alicante",
+        "en": "XI Gamejam Alicante"
+      },
+      "summary": {
+        "es": "Cuarenta y ocho horas para crear un videojuego entero sobre un tema secreto que nadie conoce hasta que arranca el cronómetro.",
+        "en": "Forty-eight hours to build a whole video game around a secret theme nobody gets to hear until the clock actually starts."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Participantes de la Gamejam Alicante desarrollando videojuegos durante la maratón de 48 horas",
+        "en": "Gamejam Alicante participants building video games during the forty-eight hour marathon"
+      }
+    },
+    {
+      "id": "cienciathon-2026",
+      "category": "hackathon",
+      "start": "2026-03-06T09:00",
+      "end": "2026-03-08T19:00",
+      "image": "cianciathon.webp",
+      "link": "https://cienciathon.org/",
+      "title": {
+        "es": "Cienciathon 2026",
+        "en": "Cienciathon 2026"
+      },
+      "summary": {
+        "es": "Tres días de ciencia y tecnología junto al Parque Científico para convertir un problema real en algo que de verdad funcione.",
+        "en": "Three days of science and technology with the Science Park, turning a real problem into something that genuinely works."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Equipos trabajando en sus proyectos durante la hackathon Cienciathon del Parque Científico de Alicante",
+        "en": "Teams working on their projects during the Cienciathon hackathon at Alicante Science Park"
+      }
+    },
+    {
+      "id": "taller-impresion-3d-2026",
+      "category": "taller",
+      "start": "2026-04-23T17:30",
+      "end": "2026-04-23T20:00",
+      "image": "news_4.webp",
+      "link": null,
+      "title": {
+        "es": "Taller de impresión 3D",
+        "en": "3D printing workshop"
+      },
+      "summary": {
+        "es": "De la idea a la pieza en una tarde: modelado básico, laminado y una primera impresión que cada asistente se lleva a casa.",
+        "en": "From idea to object in one afternoon: basic modelling, slicing, and a first print that every attendee takes home with them."
+      },
+      "location": {
+        "es": "Aula de la asociación, EPS",
+        "en": "Association room, EPS"
+      },
+      "image_alt": {
+        "es": "Impresora 3D en funcionamiento durante un taller de la asociación MultitecUA",
+        "en": "A 3D printer running during a MultitecUA association workshop"
+      }
+    },
+    {
+      "id": "jornada-bienvenida-2026",
+      "category": "jornada",
+      "start": "2026-09-24T18:00",
+      "end": "2026-09-24T21:00",
+      "image": "multitec-banner.webp",
+      "link": "https://multitecua.com/inscripcion.html",
+      "title": {
+        "es": "Jornada de bienvenida",
+        "en": "Welcome evening"
+      },
+      "summary": {
+        "es": "La tarde en la que contamos qué hacemos, quién lo hace y cómo apuntarse. Sin saber nada de nada también se viene.",
+        "en": "The evening where we explain what we do, who does it and how to join. Knowing nothing at all is a perfectly fine start."
+      },
+      "location": {
+        "es": "Salón de actos, EPS · UA",
+        "en": "Assembly hall, EPS · UA"
+      },
+      "image_alt": {
+        "es": "Miembros de MultitecUA reunidos en la jornada de bienvenida del curso",
+        "en": "MultitecUA members gathered at the association's welcome evening"
+      }
+    },
+    {
+      "id": "charla-ia-local-2026",
+      "category": "charla",
+      "start": "2026-10-15T18:30",
+      "end": "2026-10-15T20:00",
+      "image": "news_2.webp",
+      "link": null,
+      "title": {
+        "es": "IA en tu propia máquina",
+        "en": "AI on your own machine"
+      },
+      "summary": {
+        "es": "Qué modelos caben hoy en un portátil normal, qué se les puede pedir de verdad y dónde empieza a costar más de lo que da.",
+        "en": "Which models fit on an ordinary laptop today, what you can really ask of them, and where the cost starts to outrun the gain."
+      },
+      "location": {
+        "es": "Aula magna, EPS · UA",
+        "en": "Main lecture hall, EPS · UA"
+      },
+      "image_alt": {
+        "es": "Ponente durante una charla técnica organizada por MultitecUA en la Universidad de Alicante",
+        "en": "A speaker during a technical talk organised by MultitecUA at the University of Alicante"
+      }
+    },
+    {
+      "id": "gamejam-alicante-2026",
+      "category": "jam",
+      "start": "2026-11-13T17:00",
+      "end": "2026-11-15T14:00",
+      "image": "news_8.webp",
+      "link": "https://www.instagram.com/multitecua/",
+      "title": {
+        "es": "XII Gamejam Alicante",
+        "en": "XII Gamejam Alicante"
+      },
+      "summary": {
+        "es": "Vuelve el evento insignia: equipos de cualquier nivel, cuarenta y ocho horas y un videojuego terminado al final del domingo.",
+        "en": "The flagship event returns: teams of any level, forty-eight hours, and a finished video game by the end of the Sunday."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Sala llena de equipos participando en una edición anterior de la Gamejam Alicante",
+        "en": "A room full of teams taking part in an earlier edition of Gamejam Alicante"
+      }
+    },
+    {
+      "id": "cienciathon-2027",
+      "category": "hackathon",
+      "start": "2027-03-05T09:00",
+      "end": "2027-03-07T19:00",
+      "image": "pca.webp",
+      "link": "https://cienciathon.org/",
+      "title": {
+        "es": "Cienciathon 2027",
+        "en": "Cienciathon 2027"
+      },
+      "summary": {
+        "es": "La siguiente edición de la hackathon científica del Parque Científico. Fechas reservadas, convocatoria aún por abrir.",
+        "en": "The next edition of the Science Park's scientific hackathon. The dates are held; the call for teams is not open yet."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Edificio del Parque Científico de Alicante, sede de la hackathon Cienciathon",
+        "en": "The Alicante Science Park building, home of the Cienciathon hackathon"
+      }
+    }
+  ]
+}

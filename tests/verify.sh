@@ -913,6 +913,26 @@ for d in 'location /en/' 'error_page 404 /en/404.html' 'location = /en/enlaces' 
 done
 
 # ---------------------------------------------------------------------------
+head1 "26. The events calendar is in its box"
+# WHY: the events wheel only looks like a wheel while every card is the same card. That is
+# not a CSS problem -- a 60-character summary next to a 140-character one really is a
+# different box -- so the shape is enforced where the text is written: i18n/events.json has
+# a hard character range per field per language, i18n/events.py refuses to load a row
+# outside it, and i18n/build.py calls that loader. tests/test_events.py runs the same rules
+# as a readable list, plus the ones about the file as a whole: chronological order, the
+# %d countdown placeholder that build.py's {field} check cannot see, and whether the
+# markup and the script still agree on the labels and class names they pass between them.
+if python3 tests/test_events.py > /tmp/verify-events.$$ 2>&1; then
+  while IFS= read -r line; do
+    case "$line" in PASS\ *) pass "${line#PASS }" ;; esac
+  done < /tmp/verify-events.$$
+else
+  sed -n 's/^FAIL /  /p' /tmp/verify-events.$$
+  fail "tests/test_events.py reported a problem (run it directly for the detail)"
+fi
+rm -f /tmp/verify-events.$$
+
+# ---------------------------------------------------------------------------
 if [ -n "${DETECT:-}" ]; then
 head1 "23. Design detector"
 # WHY: exit 3 means the detector never ran. On 2026-08-29 impeccable exited 0 when its own

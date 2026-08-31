@@ -41,6 +41,8 @@ import pathlib
 import re
 import sys
 
+import events as events_table  # i18n/events.py — the calendar and the box it lives in
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 TABLE = ROOT / "i18n" / "strings.json"
 TEMPLATES = ROOT / "i18n" / "templates"
@@ -49,6 +51,9 @@ SRC = ROOT / "src"
 LANGUAGES = ("es", "en")
 DEFAULT = "es"
 SITE = "https://multitecua.com"
+# Kept in step with the /assets/vN/ segment in the templates by tests/verify.sh
+# group 7 and by test_events.py, so a version bump cannot leave the cards behind.
+ASSETS = "../assets/v6"
 
 # The endonym is deliberately NOT a translated string: a language is offered in its own
 # language, so an English reader on the Spanish page recognises the word without reading
@@ -122,6 +127,16 @@ def context(page: str, lang: str, table: dict) -> dict:
         "@home_href": PAGES["index.html"]["url"][lang],
         "@join_href": PAGES["inscripcion.html"]["url"][lang],
     }
+    # The events wheel. Only index.html asks for it, and loading the calendar is what
+    # validates it — see i18n/events.py — so an event that breaks the card shape fails
+    # the build here rather than shipping a ragged row.
+    if page == "index.html":
+        def string(key, in_lang):
+            row = table["strings"].get(key)
+            if row is None:
+                raise SystemExit("events: no such string: %s" % key)
+            return row.get(in_lang) or row[DEFAULT]
+        ctx["@events"] = events_table.render(lang, string, asset_prefix=ASSETS)
     if cfg["indexable"]:
         lines = ['    <link rel="alternate" hreflang="%s" href="%s%s">' % (l, SITE, cfg["url"][l])
                  for l in LANGUAGES]
