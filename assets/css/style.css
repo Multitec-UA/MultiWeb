@@ -1977,10 +1977,17 @@ h1.title {
         rotateY(calc(var(--t) * -32deg))
         translateZ(calc(var(--a) * -140px))
         translateY(calc(var(--a) * 26px))
-        rotate(calc(var(--t) * 3.4deg))
-        scale(var(--boost));
+        rotate(calc(var(--t) * 3.4deg));
+    /* The selected card's 8% is the independent `scale` property, NOT part of the
+       transform above. Inside the shorthand it could not be eased separately from the
+       wheel's rotation — and the rotation must follow the scroll frame by frame, while the
+       selection handover wants a short ease so the card grows into place instead of
+       popping. */
+    scale: var(--boost);
     opacity: calc(1 - var(--a) * 0.45);
-    will-change: transform;
+    transition: scale .24s cubic-bezier(.22, .61, .36, 1),
+                filter .45s ease, background .45s ease, box-shadow .3s ease;
+    will-change: transform, scale;
 }
 
 .ev-inner {
@@ -1993,7 +2000,6 @@ h1.title {
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 20px 44px rgba(0, 0, 0, .5), 0 2px 6px rgba(0, 0, 0, .35);
-    transition: filter .45s ease, box-shadow .3s ease, opacity .45s ease;
 }
 
 .ev-media {
@@ -2450,8 +2456,7 @@ h1.title {
             rotateY(calc(var(--t) * -22deg))
             translateZ(calc(var(--a) * -90px))
             translateY(calc(var(--a) * 16px))
-            rotate(calc(var(--t) * 2deg))
-            scale(var(--boost));
+            rotate(calc(var(--t) * 2deg));
     }
 
     .ev-scroller { perspective: 1000px; padding: 34px 0 30px; }
@@ -2466,8 +2471,9 @@ h1.title {
 
 @media (prefers-reduced-motion: reduce) {
     .ev-card .ev-inner {
-        transform: scale(var(--boost));
+        transform: none;
         opacity: 1;
+        transition: none;
     }
 
     .ev-scroller {

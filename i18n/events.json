@@ -2031,7 +2031,7 @@
       "id": "escape-emprendedor",
       "series": "jornadas",
       "category": "social",
-      "role": "colabora",
+      "role": "organiza",
       "audience": "publico",
       "start": "2019",
       "end": null,
@@ -2044,8 +2044,8 @@
         "en": "Escape Emprendedor"
       },
       "summary": {
-        "es": "Escape room con temática de emprendimiento. Sólo consta su carpeta de fotos, así que la fecha es una estimación.",
-        "en": "An escape room on an entrepreneurship theme. Only its photo folder survives, so the year here is an estimate and no more."
+        "es": "El escape room lo montó la asociación, dentro de una jornada de emprendimiento más grande organizada por otros.",
+        "en": "The escape room itself was built by the association, inside a larger entrepreneurship day run by somebody else."
       },
       "location": null,
       "image_alt": {
@@ -2138,8 +2138,8 @@
       "id": "anuncio-bienvenida-2024",
       "series": "bienvenida",
       "category": "jornada",
-      "role": "organiza",
-      "audience": "socios",
+      "role": "colabora",
+      "audience": "publico",
       "start": "2024",
       "end": null,
       "tentative": false,
@@ -2151,8 +2151,8 @@
         "en": "Start-of-year welcome"
       },
       "summary": {
-        "es": "El acto con el que la asociación se presenta cada curso a los estudiantes que acaban de llegar a la universidad.",
-        "en": "The event where the association introduces itself each year to the students who have just arrived at the university."
+        "es": "Las jornadas con las que la universidad recibe al curso, y en las que la asociación se presenta a quien acaba de llegar.",
+        "en": "The days on which the university welcomes the new year, and where the association introduces itself to the newcomers."
       },
       "location": {
         "es": "Universidad de Alicante",

@@ -293,6 +293,33 @@ def main() -> int:
     check("centreOf(target) - scroller.clientWidth / 2" in js,
           "the arrows scroll to a card's centre")
 
+    # (e) One owner for the selection, and the boost is easable on its own.
+    # The blink Sergio reported was step() moving .is-centred immediately while
+    # `scroll-behavior: smooth` meant the rail had not moved yet — so the next scroll frame
+    # turn() found the OLD card still nearest the middle and marked it back. Measured over
+    # CDP: the incoming card lost 39px of height at 83ms and regained it at 172ms. After the
+    # fix both curves are monotonic and the incoming card's minimum is its first frame.
+    step_body = re.search(r"function step\(direction\) \{(.*?)\n    \}", js, re.S)
+    check(bool(step_body), "step() can be found")
+    if step_body:
+        check("is-centred" not in step_body.group(1),
+              "step() only scrolls — it does not move the selection class",
+              "step() touching .is-centred is what caused the blink")
+    check(js.count("classList.add('is-centred')") == 1,
+          "exactly one place in the script adds .is-centred")
+    # the 8% must NOT live inside the transform shorthand: there it cannot be eased apart
+    # from the wheel's rotation, which has to track the scroll frame by frame
+    inner = re.search(r"\.ev-card \.ev-inner \{(.*?)\n\}", css, re.S)
+    check(bool(inner), "the .ev-inner rule can be found")
+    if inner:
+        body = inner.group(1)
+        check("scale(var(--boost))" not in body,
+              "the boost is not inside the transform shorthand")
+        check(re.search(r"\n\s*scale: var\(--boost\)", body) is not None,
+              "the boost is the independent `scale` property, so it can be eased alone")
+        check("transition: scale" in body,
+              "the boost is eased, so the handover grows instead of popping")
+
     # -- 7. the wheel degrades ------------------------------------------------------
     # With scripting off --t and --a are never written, so their declared defaults are
     # the whole no-JS experience. If they are not 0 the flat fallback is a heap.

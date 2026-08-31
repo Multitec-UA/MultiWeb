@@ -322,11 +322,11 @@ for (let i = 0; i < faq.length; i++) {
         // left nothing marked and the strip read as broken -- which is what the arrow
         // buttons were doing, because they scrolled by a fixed distance rather than to a
         // card. Nearest-to-centre wins, so there is no in-between state to be in.
-        if (best !== centred && Math.abs(bestD) < cards[0].offsetWidth * 0.5) {
+        // The half-card threshold is hysteresis: the selection changes hands when the new
+        // card is genuinely closer to the middle, not the instant it becomes marginally
+        // nearer. One place decides, one place applies it.
+        if (!centred || (best !== centred && Math.abs(bestD) < cards[0].offsetWidth * 0.5)) {
             if (centred) centred.classList.remove('is-centred');
-            best.classList.add('is-centred');
-            centred = best;
-        } else if (!centred) {
             best.classList.add('is-centred');
             centred = best;
         }
@@ -350,6 +350,14 @@ for (let i = 0; i < faq.length; i++) {
     // happens to be. Recomputing from scrollLeft stalls at both ends: once the rail is
     // clamped against its limit the nearest card stops changing, so the same target is
     // chosen forever and the button appears dead. Tracking the index cannot stall.
+    //
+    // This function SCROLLS and nothing else. It used to also move the .is-centred class
+    // straight away, and that produced a visible blink: `scroll-behavior` is smooth, so at
+    // the moment of the click the rail has not moved yet — and the very next scroll frame
+    // turn() found the OLD card still nearest the middle and marked it back. The class
+    // ping-ponged, and with it the 8% scale. Measured over CDP: the incoming card lost
+    // 39px of height at 83ms and got it back at 172ms, which is exactly the flicker Sergio
+    // described. One owner for the selection, and turn() is it.
     function step(direction) {
         var i = cards.indexOf(centred);
         if (i < 0) {
@@ -361,12 +369,7 @@ for (let i = 0; i < faq.length; i++) {
         }
         var next = Math.max(0, Math.min(cards.length - 1, i + direction));
         if (next === i) return;
-        // Mark it immediately so the selection follows the button even in the rare case
-        // where the rail physically cannot bring that card all the way to the middle.
-        if (centred) centred.classList.remove('is-centred');
-        centred = cards[next];
-        centred.classList.add('is-centred');
-        scroller.scrollLeft = centreOf(centred) - scroller.clientWidth / 2;
+        scroller.scrollLeft = centreOf(cards[next]) - scroller.clientWidth / 2;
     }
 
     function syncNav() {
