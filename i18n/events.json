@@ -172,6 +172,26 @@
       }
     },
     {
+      "id": "cienciathon-2025",
+      "category": "hackathon",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2025-10-24T00:00",
+      "end": "2025-10-26T00:00",
+      "image": "events/cienciathon-2025.webp",
+      "link": "https://cienciathon.org/",
+      "title": { "es": "VII Cienciathon", "en": "VII Cienciathon" },
+      "summary": {
+        "es": "Séptima edición del maratón del Parque Científico, con el reto «Guardianes del Mar» y hasta 1.200 € para los ganadores.",
+        "en": "The Science Park's seventh marathon, built around the \"Sea Guardians\" brief, with up to 1,200 € for the winning teams."
+      },
+      "location": { "es": "Sala Innospace, PCA", "en": "Innospace room, Science Park" },
+      "image_alt": {
+        "es": "Presentación de MultitecUA en el VII Cienciathon, con la pantalla mostrando «¿Qué es Multitec?»",
+        "en": "MultitecUA presenting at the VII Cienciathon, the screen reading \"What is Multitec?\""
+      }
+    },
+    {
       "id": "multifiesta-2025",
       "category": "social",
       "role": "organiza",

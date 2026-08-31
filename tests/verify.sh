@@ -214,6 +214,7 @@ budget_check assets/images/events/gdg-cloud-run-2025.webp         57000
 budget_check assets/images/events/nasa-space-apps-2025.webp       32000
 budget_check assets/images/events/multifiesta-2025.webp           54000
 budget_check assets/images/events/gamejam-2026.webp               38000
+budget_check assets/images/events/cienciathon-2025.webp           43000
 
 # WHY: total page weight is the number a visitor actually feels. 3.68 MB was the homepage
 # before Stage 1. This is the sum on disk of every image the homepage references.
