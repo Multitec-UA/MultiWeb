@@ -1842,6 +1842,7 @@ h1.title {
     --ev-accent: #ff3a41;   /* Rojo 1, brandbook p.20 — 5.05:1 on the ground below */
     --ev-ground: #17171a;
     --ev-card-w: 300px;
+    --ev-gap: 28px;          /* used by .ev-track's gap AND by the rail spacers' width */
     background: radial-gradient(115% 75% at 50% 0%, #2c2c30 0%, #1d1d21 55%, var(--ev-ground) 100%);
     color: #fff;
     /* The cards arc outwards in 3D. Without this the page itself scrolls sideways at
@@ -1915,14 +1916,39 @@ h1.title {
 .ev-track {
     display: flex;
     align-items: stretch;
-    gap: 28px;
+    gap: var(--ev-gap);
     list-style: none;
     margin: 0;
-    /* Half the rail minus half a card, so the first and the last event can both reach
-       the middle of the wheel. The percentage resolves against .ev-scroller, which is
-       what makes this correct at every width without measuring anything in JavaScript. */
-    padding: 0 max(16px, calc(50% - var(--ev-card-w) / 2));
     transform-style: preserve-3d;
+}
+
+/* The trailing half of the rail, as a box rather than as space.
+   Neither the track's padding-right nor the last card's margin-right is included in
+   Chrome's scrollable overflow for a flex container — both measured at 543px declared and
+   63px of scrollWidth delivered, which left the last event 480px short of the middle. A
+   pseudo-element is a real flex item, so its width is ordinary layout and does count. It
+   is not a .ev-card, so the script's card list is unaffected. */
+/* The two halves of the rail, as BOXES rather than as space, so the first and the last
+   event can each reach the middle of the wheel.
+
+   Three things were measured to arrive at this, and each ruled out something simpler:
+     - the track's `padding-right` is not part of Chrome's scrollable overflow for a flex
+       container: 543px declared, 63px of scrollWidth delivered;
+     - nor is a `margin-right` on the last card: same 63px;
+     - and while the leading half was `padding-left`, every percentage inside the track
+       resolved against the track's CONTENT box (1386 − 543 = 843) rather than against the
+       rail, so a spacer asking for `50% − 150px` got 271.5px.
+   With no padding on the track, its content box IS the rail, both percentages resolve to
+   the same 543px, and both are real flex items whose width is ordinary layout. Neither is
+   a .ev-card, so the script's card list is untouched. */
+.ev-track:before,
+.ev-track:after {
+    content: "";
+    flex: none;
+    /* minus the gap, because the spacers are flex items and the track's gap applies
+       between them and the first/last card too — measured: the first card sat 28px past
+       the middle until this term was subtracted. */
+    width: max(16px, calc(50% - var(--ev-card-w) / 2 - var(--ev-gap)));
 }
 
 /* ---- one card -------------------------------------------------------------- */
@@ -1932,8 +1958,18 @@ h1.title {
     --a: 0;        /* its absolute value, 0 at the centre, 1 at the edges    */
     --boost: 1;    /* the next event nudges this up; see .is-next below      */
     flex: 0 0 var(--ev-card-w);
+    /* The snap TARGET, and deliberately untransformed. Chrome computes a snap area from
+       the transformed border box, so while the 3D lived here the snap points were the
+       positions of rotated, receded cards rather than the positions of the cards — the
+       rail settled anywhere, the arrows drifted, and nothing ended up in the middle.
+       That was Sergio's "se queda como desvirtuado y no se ve qué tarjeta está
+       seleccionada". The wheel moved one level in, to .ev-inner, and the snap points went
+       back to being where the cards actually are. */
     scroll-snap-align: center;
     transform-style: preserve-3d;
+}
+
+.ev-card .ev-inner {
     /* Read outwards: turn away from the viewer, sink backwards, drop along the rim, and
        tilt with it. The rotate() is what stops it looking like a flat fan — a card on
        the rim of a wheel is not upright. */
@@ -2177,7 +2213,6 @@ h1.title {
 .ev-foot {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 14px;
     margin-top: auto;               /* pins the strip to the bottom of every card */
     padding: 11px 20px;
@@ -2186,6 +2221,12 @@ h1.title {
 }
 
 .ev-emblem {
+    /* margin-left:auto instead of justify-content:space-between on the parent. With
+       space-between, a card whose state line was empty left the mark as the only child
+       and it slid to the LEFT — so the marks were on the right on some cards and the left
+       on others. Sergio: "quiero que estén todos siempre en el mismo sitio, y deje ese
+       espacio para texto, aunque no exista." auto margin pins it right regardless. */
+    margin-left: auto;
     flex: none;
     height: 22px;
     width: auto;
@@ -2277,12 +2318,54 @@ h1.title {
     background: rgba(23, 23, 26, .86);
 }
 
-/* Next is louder by exactly three things: a hairline ring in the accent, a deeper
-   shadow, and 4% of scale. Not a glow, not a colour flood — it has to read as "this one
-   first" while still being obviously the same card as its neighbours. */
+/* Two different states, and they stack.
+
+   `is-next` is a fact about the CALENDAR: this is the first event that has not happened.
+   It says so with a hairline ring in the accent and the PRÓXIMO pill.
+
+   `is-centred` is a fact about the STRIP: this is the card you are looking at. The script
+   marks whichever one is nearest the middle, always exactly one, so there is no
+   in-between state — stopping between two cards used to leave nothing selected and the
+   wheel read as broken. It says so with scale, a deeper shadow and a full-strength
+   family mark, and it never borrows the accent, so "selected" and "next" stay
+   distinguishable when they are not the same card. */
 .ev-card.is-next {
-    --boost: 1.04;
+    --boost: 1.03;
     z-index: 2;
+}
+
+.ev-card.is-centred {
+    --boost: 1.08;
+    z-index: 4;
+}
+
+.ev-card.is-centred .ev-inner {
+    box-shadow: 0 34px 70px rgba(0, 0, 0, .62), 0 0 0 1px rgba(255, 255, 255, .16);
+}
+
+.ev-card.is-centred .ev-emblem {
+    opacity: 1;
+}
+
+/* Selected AND next: the ring has to survive the selected card's own outline, so it is
+   restated here rather than being overridden by source order. */
+.ev-card.is-centred.is-next {
+    --boost: 1.11;
+}
+
+.ev-card.is-centred.is-next .ev-inner,
+.ev-card.is-centred.is-running .ev-inner {
+    box-shadow: 0 34px 70px rgba(0, 0, 0, .62), 0 0 0 2px var(--ev-accent);
+}
+
+/* A past card that is the one being looked at gets its photograph back: it is the card
+   under the cursor in all but name, and a grey selected card looks like a mistake. */
+.ev-card.is-centred.is-past .ev-media img {
+    filter: grayscale(.15);
+}
+
+.ev-card.is-centred.is-past .ev-inner {
+    background: #fff;
 }
 
 .ev-card.is-next .ev-inner {
@@ -2354,9 +2437,9 @@ h1.title {
    better gesture. */
 
 @media only screen and (max-width: 767px) {
-    .events { --ev-card-w: 272px; }
+    .events { --ev-card-w: 272px; --ev-gap: 20px; }
 
-    .ev-card {
+    .ev-card .ev-inner {
         transform:
             rotateY(calc(var(--t) * -22deg))
             translateZ(calc(var(--a) * -90px))
@@ -2376,7 +2459,7 @@ h1.title {
    complete, ordered, perfectly readable calendar. */
 
 @media (prefers-reduced-motion: reduce) {
-    .ev-card {
+    .ev-card .ev-inner {
         transform: scale(var(--boost));
         opacity: 1;
     }

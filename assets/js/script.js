@@ -201,17 +201,24 @@ for (let i = 0; i < faq.length; i++) {
     // 2026-10-15 and 2026-10-15T17:00 are all valid. A month resolves to its first day,
     // which is only ever used for ordering and for the has-it-happened test.
     function at(value) {
-        var m = /^(\d{4})-(\d{2})(?:-(\d{2}))?(?:T(\d{2}):(\d{2}))?$/.exec(value || '');
+        // FOUR shapes: 2015, 2026-10, 2026-10-15 and 2026-10-15T17:00. The month is
+        // OPTIONAL, and that is the whole point of this rewrite — it used to require
+        // `-MM`, so every year-only card fell out of here, got no state at all, and sat
+        // in the middle of the wheel in full colour with no CELEBRADO pill. Five of them.
+        // Sergio found it by looking at the page.
+        var m = /^(\d{4})(?:-(\d{2})(?:-(\d{2})(?:T(\d{2}):(\d{2}))?)?)?$/.exec(value || '');
         if (!m) return null;
-        return new Date(+m[1], +m[2] - 1, +(m[3] || 1), +(m[4] || 0), +(m[5] || 0), 0, 0);
+        return new Date(+m[1], +(m[2] || 1) - 1, +(m[3] || 1), +(m[4] || 0), +(m[5] || 0), 0, 0);
     }
 
-    // The end of a month-precision event is the end of that month, not its first day —
-    // otherwise "OCTUBRE 2026" would go grey on the 2nd of October.
+    // A coarse date ends when its PERIOD ends, not on its first day: "OCTUBRE 2026" must
+    // not go grey on the 2nd of October, and "2015" must not go grey on the 2nd of January.
     function endOf(card) {
         var raw = card.getAttribute('data-end') || card.getAttribute('data-start') || '';
         var d = at(raw);
-        if (d && raw.length === 7) return new Date(d.getFullYear(), d.getMonth() + 1, 0, 23, 59);
+        if (!d) return null;
+        if (raw.length === 4) return new Date(d.getFullYear(), 11, 31, 23, 59);
+        if (raw.length === 7) return new Date(d.getFullYear(), d.getMonth() + 1, 0, 23, 59);
         return d;
     }
 
@@ -254,18 +261,21 @@ for (let i = 0; i < faq.length; i++) {
             if (now > end) {
                 card.classList.add('is-past');
                 pill = L.past;
-                if (state) { state.textContent = ''; state.hidden = true; }
+                // Emptied, NOT hidden: the strip below reserves this line so the
+                // family mark stays on the right on every card. Sergio: "quiero que
+                // estén todos siempre en el mismo sitio, y deje ese espacio para
+                // texto, aunque no exista."
+                if (state) { state.textContent = ''; }
             } else {
                 if (!featured) featured = card;
                 if (now >= start) {
                     card.classList.add('is-running');
-                    if (state) { state.textContent = L.running; state.hidden = false; }
+                    if (state) { state.textContent = L.running; }
                 } else if (state) {
                     // Counting down to a day nobody has committed to is a lie with a
                     // number attached. A tentative date says so instead.
                     state.textContent = card.getAttribute('data-tentative')
                         ? L.tbc : label(daysUntil(now, start));
-                    state.hidden = false;
                 }
             }
 
@@ -288,18 +298,37 @@ for (let i = 0; i < faq.length; i++) {
     // are 3D-transformed by the value this sets, so measuring their painted rectangle
     // here would feed the transform back into its own input and the strip would shiver.
     var ticking = false;
+    var centred = null;
+
+    function centreOf(card) {
+        return card.offsetLeft + card.offsetWidth / 2 - scroller.offsetLeft;
+    }
 
     function turn() {
         ticking = false;
         var mid = scroller.scrollLeft + scroller.clientWidth / 2 + scroller.offsetLeft;
         var reach = scroller.clientWidth / 2 + cards[0].offsetWidth / 2;
         if (reach <= 0) return;
+        var best = null, bestD = Infinity;
         for (var i = 0; i < cards.length; i++) {
             var c = cards[i];
-            var t = (c.offsetLeft + c.offsetWidth / 2 - mid) / reach;
-            t = Math.max(-1, Math.min(1, t));
+            var d = c.offsetLeft + c.offsetWidth / 2 - mid;
+            var t = Math.max(-1, Math.min(1, d / reach));
             c.style.setProperty('--t', t.toFixed(3));
             c.style.setProperty('--a', Math.abs(t).toFixed(3));
+            if (Math.abs(d) < bestD) { bestD = Math.abs(d); best = c; }
+        }
+        // One card is ALWAYS the selected one. Without this, stopping between two cards
+        // left nothing marked and the strip read as broken -- which is what the arrow
+        // buttons were doing, because they scrolled by a fixed distance rather than to a
+        // card. Nearest-to-centre wins, so there is no in-between state to be in.
+        if (best !== centred && Math.abs(bestD) < cards[0].offsetWidth * 0.5) {
+            if (centred) centred.classList.remove('is-centred');
+            best.classList.add('is-centred');
+            centred = best;
+        } else if (!centred) {
+            best.classList.add('is-centred');
+            centred = best;
         }
         syncNav();
     }
@@ -314,9 +343,30 @@ for (let i = 0; i < faq.length; i++) {
     var prev = wheel.querySelector('.ev-prev');
     var next = wheel.querySelector('.ev-next');
 
+    // Scroll to the NEXT CARD's centre, not by "one card plus the gap". The old version
+    // drifted: scroll-snap would settle wherever the arithmetic landed, and after a few
+    // presses no card was in the middle at all.
+    // Step from the card that is CURRENTLY MARKED, not from wherever the scroll position
+    // happens to be. Recomputing from scrollLeft stalls at both ends: once the rail is
+    // clamped against its limit the nearest card stops changing, so the same target is
+    // chosen forever and the button appears dead. Tracking the index cannot stall.
     function step(direction) {
-        var by = cards[0].offsetWidth + 28;   // one card plus the gap in .ev-track
-        scroller.scrollLeft += direction * by;
+        var i = cards.indexOf(centred);
+        if (i < 0) {
+            var mid = scroller.scrollLeft + scroller.clientWidth / 2, bestD = Infinity;
+            for (var k = 0; k < cards.length; k++) {
+                var d = Math.abs(centreOf(cards[k]) - mid);
+                if (d < bestD) { bestD = d; i = k; }
+            }
+        }
+        var next = Math.max(0, Math.min(cards.length - 1, i + direction));
+        if (next === i) return;
+        // Mark it immediately so the selection follows the button even in the rare case
+        // where the rail physically cannot bring that card all the way to the middle.
+        if (centred) centred.classList.remove('is-centred');
+        centred = cards[next];
+        centred.classList.add('is-centred');
+        scroller.scrollLeft = centreOf(centred) - scroller.clientWidth / 2;
     }
 
     function syncNav() {
@@ -342,8 +392,7 @@ for (let i = 0; i < faq.length; i++) {
     var target = featured || cards[cards.length - 1];
     var behaviour = scroller.style.scrollBehavior;
     scroller.style.scrollBehavior = 'auto';
-    scroller.scrollLeft = target.offsetLeft + target.offsetWidth / 2
-        - scroller.offsetLeft - scroller.clientWidth / 2;
+    scroller.scrollLeft = centreOf(target) - scroller.clientWidth / 2;
     scroller.style.scrollBehavior = behaviour;
 
     turn();

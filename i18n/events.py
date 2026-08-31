@@ -440,7 +440,7 @@ def render(lang, strings, asset_prefix="../assets/v8", events=None):
             '                                        <p class="ev-where">%s</p>\n'
             '                                    </div>\n'
             '                                    <div class="ev-foot">\n'
-            '                                        <p class="ev-state" hidden></p>\n'
+            '                                        <p class="ev-state"></p>\n'
             '                                        <img class="ev-emblem" src="%s/images/emblems/%s"'
             ' alt="" width="120" height="24" loading="lazy" decoding="async" aria-hidden="true">\n'
             '                                    </div>\n'

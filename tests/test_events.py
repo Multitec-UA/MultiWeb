@@ -194,6 +194,7 @@ def main() -> int:
     tpl = (build.TEMPLATES / "index.html").read_text(encoding="utf-8")
     js = (ROOT / "assets" / "js" / "script.js").read_text(encoding="utf-8")
     css = (ROOT / "assets" / "css" / "style.css").read_text(encoding="utf-8")
+    globals().update(js=js, css=css, tpl=tpl)
 
     declared_attrs = set(re.findall(r'data-(pill-\w+|cd-\w+)="\{\{', tpl))
     wanted_attrs = set(re.findall(r"getAttribute\('data-(pill-\w+|cd-\w+)'\)", js))
@@ -209,6 +210,77 @@ def main() -> int:
         check(("'" + cls + "'") in js or ('"' + cls + '"') in js,
               "the script sets .%s" % cls)
         check((".ev-card." + cls) in css, "the stylesheet styles .ev-card.%s" % cls)
+
+    # -- 6b. the four defects Sergio found on the page, each pinned ------------------
+    # None of these were caught by a test. All four were caught by him looking at it, which
+    # is the argument for the screenshot step — but each one has a checkable signature, so
+    # from here on they are the suite's problem and not his.
+
+    # (a) Year-only dates got no state at all: the script's date parser required `-MM`
+    # after the year, so five past cards sat in the middle of the wheel in full colour
+    # with no CELEBRADO pill. Every date shape in the data must be one the parser accepts.
+    # the locator has to survive comments being added inside the function, which is
+              # exactly what broke it the first time
+    m = re.search(r"function at\(value\) \{.*?var m = /([^/]+)/", js, re.S)
+    check(bool(m), "the script's date parser can be found")
+    if m:
+        # RUN the pattern against every date in the file rather than reading it. The first
+        # version of this check looked for a substring and passed on the OLD regex, because
+        # the substring it looked for was the day group, not the month. A test that reads
+        # code instead of exercising it is how a false pass happens.
+        pattern = m.group(1).replace("\\d", "[0-9]")
+        rx = re.compile(pattern)
+        unparsed = [e["id"] + " (" + e["start"] + ")" for e in rows
+                    if not rx.match(e["start"])]
+        check(not unparsed,
+              "the script's date parser accepts all %d dates in the file" % len(rows),
+              ", ".join(unparsed[:6]))
+        years = [e for e in rows if len(e["start"]) == 4]
+        check(bool(years), "there are year-only events for that to matter (%d)" % len(years))
+    check("raw.length === 4" in js,
+          "a year-only event ends in DECEMBER, not on the 2nd of January")
+    check("raw.length === 7" in js,
+          "a month-only event ends at the END of its month")
+
+    # (b) The family mark drifted left on any card whose state line was empty, because the
+    # strip used space-between and the mark became the only child.
+    check("justify-content: space-between" not in
+          (re.search(r"\.ev-foot \{(.*?)\}", css, re.S).group(1) if re.search(r"\.ev-foot \{", css) else ""),
+          "the card footer does not space-between (that is what moved the mark)")
+    check(re.search(r"\.ev-emblem \{[^}]*margin-left: auto", css, re.S) is not None,
+          "the family mark is pinned right with an auto margin")
+    check('class="ev-state" hidden' not in tpl and "ev-state\" hidden" not in js,
+          "the state line is emptied, never hidden — the row stays reserved")
+
+    # (c) There is always exactly one selected card. Stopping between two left none.
+    check("is-centred" in js and ".ev-card.is-centred" in css,
+          "the script marks a centred card and the stylesheet styles it")
+    check(re.search(r"\.ev-card\.is-centred \{[^}]*--boost", css, re.S) is not None,
+          "the centred card is visibly bigger than its neighbours")
+
+    # (c2) The 3D transform must NOT sit on the snap target. Chrome derives a scroll-snap
+    # area from the TRANSFORMED border box, so while the wheel lived on .ev-card the snap
+    # points were the positions of rotated, receded cards instead of the positions of the
+    # cards. Measured over CDP: an arrow press asked for 11808 and settled at 11906, then
+    # stalled, then jumped 1,300px backwards. With the transform on .ev-inner every press
+    # lands exactly on its target. This is the check that keeps it there.
+    snap_block = re.search(r"\n\.ev-card \{(.*?)\n\}", css, re.S)
+    check(bool(snap_block), "the .ev-card rule can be found")
+    if snap_block:
+        body = snap_block.group(1)
+        check("scroll-snap-align: center" in body,
+              ".ev-card is the scroll-snap target")
+        check("rotateY" not in body,
+              "the snap target carries NO 3D transform — that is what broke the snapping",
+              body.strip()[:120])
+    check(re.search(r"\.ev-card \.ev-inner \{[^}]*rotateY", css, re.S) is not None,
+          "the wheel's rotation lives one level in, on .ev-inner")
+
+    # (d) The arrows moved by a fixed distance and drifted out of alignment.
+    check("cards[0].offsetWidth + 28" not in js,
+          "the arrows no longer scroll by a hardcoded card-plus-gap distance")
+    check("centreOf(target) - scroller.clientWidth / 2" in js,
+          "the arrows scroll to a card's centre")
 
     # -- 7. the wheel degrades ------------------------------------------------------
     # With scripting off --t and --a are never written, so their declared defaults are
