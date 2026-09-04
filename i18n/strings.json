@@ -99,6 +99,10 @@
       "es": "Inscríbete",
       "en": "Join us"
     },
+    "nav_members": {
+      "es": "Socios",
+      "en": "Members"
+    },
     "hero_title": {
       "es": "Somos la asociación MultitecUA",
       "en": "We are MultitecUA"
@@ -170,6 +174,90 @@
     "join_cta": {
       "es": "MÁS INFORMACIÓN E INSCRIPCIÓN",
       "en": "MORE INFORMATION AND SIGN-UP"
+    },
+    "members_title": {
+      "es": "Zona de socios",
+      "en": "Members' area"
+    },
+    "members_intro": {
+      "es": "Ser socio de Multitec no acaba en el carné. Tienes un portal privado donde están, en un solo sitio, los servicios de la asociación y tus propios datos: tu ficha, tu cuota, tus accesos y lo último que se mueve en la comunidad.",
+      "en": "Being a Multitec member does not end with the card. You get a private portal that gathers, in one place, the association's services and your own details: your record, your fee, your accesses and whatever the community has been up to."
+    },
+    "members_portal_eyebrow": {
+      "es": "Para todos los socios",
+      "en": "For every member"
+    },
+    "members_portal_title": {
+      "es": "Portal de socios",
+      "en": "Members' portal"
+    },
+    "members_portal_body": {
+      "es": "Tu tablero. Lo primero que ves al entrar es tu ficha: tu número de socio y hasta qué día está pagada la cuota.",
+      "en": "Your board. The first thing you see when you go in is your own record: your member number and the day your fee is paid up to."
+    },
+    "members_portal_item_1": {
+      "es": "Tu ficha de socio, tu cuota y tus accesos",
+      "en": "Your member record, your fee and your accesses"
+    },
+    "members_portal_item_2": {
+      "es": "Minecraft, Discord, la biblioteca y las carpetas del Drive",
+      "en": "Minecraft, Discord, the library and the Drive folders"
+    },
+    "members_portal_item_3": {
+      "es": "Las novedades de la comunidad, sin ir a buscarlas",
+      "en": "What is new around the association, without going to look for it"
+    },
+    "members_portal_cta": {
+      "es": "Entrar al portal",
+      "en": "Open the portal"
+    },
+    "members_portal_note": {
+      "es": "Se entra con tu cuenta @multitecua.com, la misma del correo. No hay contraseña nueva que recordar.",
+      "en": "Sign in with your @multitecua.com account, the same one as your mail. There is no new password to remember."
+    },
+    "members_board_eyebrow": {
+      "es": "Solo junta directiva",
+      "en": "Board members only"
+    },
+    "members_board_title": {
+      "es": "Panel de la junta directiva",
+      "en": "Board panel"
+    },
+    "members_board_body": {
+      "es": "El mismo portal tiene un segundo tablero, reservado a quien está en la junta. Ahí está lo que hace falta para llevar la asociación al día.",
+      "en": "The same portal holds a second board, kept for whoever is on the committee. It has what running the association day to day actually takes."
+    },
+    "members_board_item_1": {
+      "es": "El libro de miembros: altas, bajas y cuotas",
+      "en": "The members' book: joiners, leavers and fees"
+    },
+    "members_board_item_2": {
+      "es": "Cobros, cuentas y copias de seguridad",
+      "en": "Payments, accounts and backups"
+    },
+    "members_board_item_3": {
+      "es": "El estado de los servicios que la asociación mantiene",
+      "en": "The state of the services the association runs"
+    },
+    "members_board_cta": {
+      "es": "Entrar al panel",
+      "en": "Open the panel"
+    },
+    "members_board_note": {
+      "es": "Si no eres de la junta, el panel no se abre. Lo decide tu cuenta, no el enlace.",
+      "en": "If you are not on the committee it will not open. Your account decides that, not the link."
+    },
+    "members_foot": {
+      "es": "¿Todavía no eres socio?",
+      "en": "Not a member yet?"
+    },
+    "members_foot_cta": {
+      "es": "Hazte socio de Multitec",
+      "en": "Join Multitec"
+    },
+    "members_help": {
+      "es": "¿Eres socio y no consigues entrar? Escríbenos a",
+      "en": "A member who cannot get in? Write to us at"
     },
     "aria_instagram": {
       "es": "MultitecUA en Instagram",

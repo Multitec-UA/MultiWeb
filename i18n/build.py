@@ -53,7 +53,7 @@ DEFAULT = "es"
 SITE = "https://multitecua.com"
 # Kept in step with the /assets/vN/ segment in the templates by tests/verify.sh
 # group 7 and by test_events.py, so a version bump cannot leave the cards behind.
-ASSETS = "../assets/v8"
+ASSETS = "../assets/v9"
 
 # The endonym is deliberately NOT a translated string: a language is offered in its own
 # language, so an English reader on the Spanish page recognises the word without reading

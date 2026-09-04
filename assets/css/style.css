@@ -1034,6 +1034,42 @@ h1.title {
     row-gap: 8px;
 }
 
+/* Adding "Socios" on 2026-09-04 pushed the Spanish desktop row over its column and
+   dropped the language switch to a second line at every width from 996px up. Measured,
+   because the numbers are the whole argument.
+
+   The row is a .col-xs-8, which at the 1170px container is 780px wide — and Bootstrap 3
+   gives every column 15px of padding on each side, so 750px of it is usable. The Spanish
+   navigation was 727px of content and fitted. "Socios" costs 68px and made it 795.
+
+   Two things were paying for that and neither is visible:
+
+     * 15px of gutter between eight items is 120px of a 750px row;
+     * the wordmark is 180px wide and its column is 390px. The navigation was squeezed
+       into two thirds of the bar so that a logo could leave a third of it empty.
+
+   12px gutters bring the row to 774, and a 25/75 split gives it an 847px content box to
+   sit in. Both are scoped above the menu breakpoint: below 995px .menu-links is
+   display:none, the only .menu-link left is the language switch beside the hamburger,
+   and the 4/8 split is what keeps a 180px wordmark and the toggle apart on a 360px
+   phone. Between 996 and 1199px the Spanish row still wraps to two lines — it did before
+   this change too, 727px in a 617px box, which is what the flex-wrap comment below has
+   always been about. English now fits on one line at every desktop width, which it did
+   not before. */
+@media only screen and (min-width: 996px) {
+    .navigation-bar .col-xs-4 {
+        width: 25%;
+    }
+
+    .navigation-bar .col-xs-8 {
+        width: 75%;
+    }
+
+    .menu-links .menu-link {
+        margin-right: 12px;
+    }
+}
+
 .menu-link {
     /* A navigation label never breaks mid-item. */
     white-space: nowrap;
@@ -1615,6 +1651,280 @@ h1.title {
 
     .find-us-address {
         margin-bottom: 18px;
+    }
+}
+
+/* -----------------------------------------------------------------------------
+   MEMBERS' AREA — the two doors into socios.multitecua.com. Added 2026-09-04.
+
+   It sits between #inscription and #workstation, which are both .expert (#f8f8f8), so
+   this one is white and its panels are the grey: three bands in a row all the same
+   colour is one long band, and the section would have disappeared into its neighbours.
+   The panels are the same #f8f8f8 and the same 20px radius as .find-us and the contact
+   cards, so a new component still reads as this site's.
+
+   The heading treatment is lifted wholesale from .events, which had the identical
+   problem: .title's red rule is an absolutely positioned :after at a hard `top`, tuned
+   at three widths for a heading with 100px of clear space under it. Put a standfirst
+   there and at 390px the rule lands in the middle of the sentence. Static, as a block,
+   it pushes the paragraph down at every width with no offset to keep in step.
+
+   The two panels are equal-height by flex and their CTA blocks are pushed to the bottom
+   with margin-top:auto, because only one of them has a bullet list — without it the two
+   buttons sat 60px apart and the row read as two unrelated things.
+   ----------------------------------------------------------------------------- */
+.members .title {
+    margin-bottom: 30px;
+}
+
+.members .title:after {
+    position: static;
+    display: block;
+    top: auto;
+    left: auto;
+    margin: 22px auto 0;
+}
+
+.members-intro {
+    font-family: var(--second-font);
+    font-size: 16px;
+    line-height: 1.7;
+    /* #6f6f6f is 5.1:1 on white. */
+    color: #4a4a4a;
+    max-width: 46em;
+    margin: 0 auto;
+}
+
+.members-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 30px;
+    margin-top: 45px;
+    text-align: left;
+}
+
+.members-panel {
+    display: flex;
+    flex-direction: column;
+    /* 300px, not 260px: the board panel's title is "Panel de la junta directiva" and
+       below 300px it takes three lines while its neighbour takes one. */
+    flex: 1 1 300px;
+    background-color: #f8f8f8;
+    border-radius: 20px;
+    padding: 32px;
+}
+
+/* The committee's panel is the secondary of the two and says so quietly — a rule down
+   its edge rather than a different fill, which would have made the row look like an
+   error state. Not a coloured left tab on an alert; this is a card, not a message. */
+.members-panel-board {
+    box-shadow: inset 0 0 0 1px #e4e2e0;
+}
+
+.members-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.members-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
+    border-radius: 100%;
+    background-color: var(--main-color);
+    /* White on #a30006 is 8.2:1. The site's other disc icons do the same. */
+    color: #fff;
+    font-size: 26px;
+}
+
+.members-mark .ic-fa {
+    /* .ic-fa's -0.21em baseline nudge is for a glyph on a text baseline; inside a flex
+       centre it just pushes the mark 5px low. */
+    vertical-align: 0;
+}
+
+.members-head-text {
+    min-width: 0;
+}
+
+.members-eyebrow {
+    font-family: var(--main-font);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.4;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    /* 5.1:1 on #f8f8f8 at 13px — the same pair .find-us-eyebrow settled on. */
+    color: #6f6f6f;
+    margin: 0 0 4px;
+}
+
+.members-name {
+    font-family: var(--main-font);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.3;
+    text-transform: none;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 0;
+}
+
+.members-body {
+    font-family: var(--second-font);
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4a4a4a;
+    margin: 0 0 18px;
+}
+
+.members-list {
+    list-style: none;
+    margin: 0 0 22px;
+    padding: 0;
+}
+
+.members-list li {
+    position: relative;
+    font-family: var(--second-font);
+    font-size: 15px;
+    line-height: 1.6;
+    color: #4a4a4a;
+    padding-left: 26px;
+    margin-bottom: 10px;
+}
+
+/* A square rotated 45 degrees: the association's mark is a hexagon and a bullet that
+   tries to be one at 8px is a smudge. Drawn in CSS so it costs no request and inherits
+   the accent. */
+.members-list li:before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--main-color);
+    transform: rotate(45deg);
+}
+
+.members-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-top:auto is what keeps the two buttons on one line when only one panel
+       has a list above it. */
+    margin-top: auto;
+    min-height: 44px;
+    padding: 10px 26px;
+    font-family: var(--second-font);
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #fff;
+    background-color: var(--main-color);
+    border-radius: 4px;
+    /* Bootstrap 3's .btn is white-space:nowrap, which turns a long label into sideways
+       page scroll instead of a second line. Group 16 exists because of that. */
+    max-width: 100%;
+    white-space: normal;
+    align-self: flex-start;
+    transition: all 0.3s ease-in-out;
+}
+
+.members-btn:hover,
+.members-btn:focus {
+    color: var(--main-color);
+    background-color: #fff;
+    box-shadow: inset 0 0 0 1px var(--main-color);
+}
+
+.members-btn-ghost {
+    color: var(--main-color);
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1px var(--main-color);
+}
+
+.members-btn-ghost:hover,
+.members-btn-ghost:focus {
+    color: #fff;
+    background-color: var(--main-color);
+    box-shadow: none;
+}
+
+.members-note {
+    font-family: var(--second-font);
+    font-size: 13px;
+    line-height: 1.6;
+    /* Saying where the button goes, and with which account, before it is tapped. IAP
+       answers a stranger with a bare Google sign-in screen and no explanation at all. */
+    color: #6f6f6f;
+    margin: 14px 0 0;
+}
+
+.members-foot,
+.members-help {
+    font-family: var(--second-font);
+    line-height: 1.7;
+    text-align: center;
+}
+
+.members-foot {
+    font-size: 16px;
+    color: #4a4a4a;
+    margin: 45px 0 0;
+}
+
+.members-help {
+    font-size: 14px;
+    color: #6f6f6f;
+    margin: 8px 0 0;
+}
+
+.members-foot a,
+.members-help a {
+    color: var(--main-color);
+    font-weight: 500;
+    /* An inline link inside a sentence needs more than colour: #a30006 on white is
+       8.2:1 against the ground but only 2.4:1 against the #4a4a4a text beside it. */
+    text-decoration: underline;
+    /* 44px of tappable height around a link that sits inside a line of prose, without
+       moving the line: padding would, an inline-block with a line-height does not. */
+    display: inline-block;
+    line-height: 44px;
+}
+
+@media only screen and (min-width: 768px) {
+    /* Both panels bottom-anchor their CTA block, so the two buttons only line up if the
+       notes underneath them are the same height — and between 768 and ~1100px one note
+       wraps to three lines while the other stays at two, which put the buttons 21px
+       apart. Three lines of 13px/1.6, reserved. Below 768 the panels stack and there is
+       nothing to align, which is why this is not in the base rule. */
+    .members-note {
+        min-height: 4.8em;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .members-panel {
+        padding: 26px 22px;
+        flex-basis: 100%;
+    }
+
+    .members-grid {
+        gap: 22px;
+        margin-top: 35px;
+    }
+
+    .members-btn {
+        /* A thumb on a 360px screen: full width beats a 180px target floated left. */
+        align-self: stretch;
     }
 }
 
