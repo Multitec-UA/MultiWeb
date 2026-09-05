@@ -546,6 +546,32 @@
       }
     },
     {
+      "id": "multi-acampada-2026",
+      "series": "multi-acampada",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2026-09-25",
+      "end": null,
+      "tentative": true,
+      "image": "events/multi-acampada.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Multi Acampada",
+        "en": "Multi Acampada"
+      },
+      "summary": {
+        "es": "Un fin de semana de acampada para socios, con tiendas y hoguera, fuera de la ciudad y sin más plan que desconectar del curso.",
+        "en": "A weekend of camping for members, with tents and a campfire, out of town and with no plan beyond switching off from term."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de una tienda de campaña y una hoguera, en colores planos, para la Multi Acampada",
+        "en": "A flat-colour illustration of a tent and a campfire, standing in for the Multi Acampada"
+      }
+    },
+    {
       "id": "nasa-space-apps-2025",
       "series": "nasa-space-apps",
       "category": "hackathon",
@@ -1106,12 +1132,12 @@
       "category": "taller",
       "role": "colabora",
       "audience": "publico",
-      "start": "2026-09-30",
-      "end": null,
+      "start": "2026-09-30T18:00",
+      "end": "2026-09-30T20:00",
       "tentative": false,
       "image": "events/ill-taller-a.svg",
       "image_kind": "illustration",
-      "link": null,
+      "link": "https://gdg.community.dev/e/mcv73g/",
       "title": {
         "es": "Gobernanza de IA en GCP",
         "en": "AI Governance on GCP"
