@@ -36,32 +36,32 @@
   ],
   "strings": {
     "index_meta_description": {
-      "es": "Bienvenido a MultitecUA. Somos una asociación de la Universidad de Alicante dedicada a fomentar la ciencia, la tecnología y la innovación.",
-      "en": "MultitecUA is a student association at the University of Alicante for anyone who is curious about science, technology and building things."
+      "es": "La asociación de estudiantes de ciencia y tecnología de la Universidad de Alicante: hackathons, game jams, talleres, la Multicasa y más de {members} socios. Hazte socio por {fee} al año.",
+      "en": "The science and technology student association of the University of Alicante: hackathons, game jams, workshops, the Multicasa and {members}-plus members. Join for {fee} a year."
     },
     "index_title": {
       "es": "MultitecUA | Asociación de ciencia y tecnología",
       "en": "MultitecUA | Science and technology association"
     },
     "index_og_title": {
-      "es": "MultitecUA | Asociación de ciencia y tecnología · Alicante",
-      "en": "MultitecUA | Science and technology association · Alicante"
+      "es": "MultitecUA · Asociación de ciencia y tecnología de la Universidad de Alicante",
+      "en": "MultitecUA · Science and technology association of the University of Alicante"
     },
     "index_og_description": {
-      "es": "MultitecUA es una asociación dedicada a fomentar la ciencia, la tecnología y la innovación.",
-      "en": "MultitecUA is a student association for science, technology and innovation at the University of Alicante."
+      "es": "La asociación de estudiantes de ciencia y tecnología de la Universidad de Alicante: hackathons, game jams, talleres, la Multicasa y más de {members} socios. Hazte socio por {fee} al año.",
+      "en": "The science and technology student association of the University of Alicante: hackathons, game jams, workshops, the Multicasa and {members}-plus members. Join for {fee} a year."
     },
     "og_image_alt": {
       "es": "Miembros de MultitecUA con el logotipo de la asociación",
       "en": "Members of MultitecUA with the association's wordmark"
     },
     "index_twitter_title": {
-      "es": "MultitecUA | Asociación de la Universidad de Alicante",
-      "en": "MultitecUA | A University of Alicante association"
+      "es": "MultitecUA · Asociación de ciencia y tecnología de la Universidad de Alicante",
+      "en": "MultitecUA · Science and technology association of the University of Alicante"
     },
     "index_twitter_description": {
-      "es": "MultitecUA es una asociación de la Universidad de Alicante dedicada a fomentar la tecnología y la innovación entre estudiantes mediante la gamificación.",
-      "en": "MultitecUA is a University of Alicante association that gets students into technology and innovation by turning it into something they play at."
+      "es": "La asociación de estudiantes de ciencia y tecnología de la Universidad de Alicante: hackathons, game jams, talleres, la Multicasa y más de {members} socios. Hazte socio por {fee} al año.",
+      "en": "The science and technology student association of the University of Alicante: hackathons, game jams, workshops, the Multicasa and {members}-plus members. Join for {fee} a year."
     },
     "twitter_label_reading": {
       "es": "Tiempo de lectura",
