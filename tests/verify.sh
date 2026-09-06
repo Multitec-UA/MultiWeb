@@ -165,10 +165,10 @@ done
 # CSS says height: auto. Adding the attributes without this is how a "no visual change"
 # change becomes a squashed logo.
 sizedmissingauto=0
-for cls in association-logo menu-logo; do
+for cls in 'brand img' 'hex-frame img'; do
   block=$(awk -v c=".$cls" '$0 ~ "^"c" *\\{" {f=1} f {print} f && /\}/ {f=0}' assets/css/style.css)
-  grep -q 'height: *auto' <<<"$block" \
-    || { echo "  .$cls sizes an <img> but never says height: auto"; sizedmissingauto=$((sizedmissingauto+1)); }
+  grep -qE 'height: *(auto|100%)|width: *auto' <<<"$block" \
+    || { echo "  .$cls sizes an <img> but never says height: auto (or 100% of a fixed-ratio frame)"; sizedmissingauto=$((sizedmissingauto+1)); }
 done
 [ "$sizedmissingauto" -eq 0 ] && pass "CSS rules that size an <img> also set height: auto" \
                               || fail "$sizedmissingauto rule(s) size an <img> without height: auto"
@@ -258,8 +258,12 @@ for f in $(grep -oE 'assets/(v[0-9]+/)?images/([A-Za-z0-9_-]+/)?[A-Za-z0-9_.-]+'
     *) CHROME=$((CHROME + sz)) ;;
   esac
 done
-if [ "$CHROME" -le 700000 ]; then pass "page chrome and press imagery: $CHROME B (budget 700000)"
-else fail "page chrome and press imagery: $CHROME B, over the 700000 budget"; fi
+# 700000 -> 950000 on 2026-09-05: the redesign put seven photographs on the page that were
+# not there before (the hero, five activity tiles, the Multicasa), all under 80 KB each and
+# all but the hero loading="lazy". Bootstrap, jQuery and Owl (~250 KB) left the same day, so
+# what a visitor downloads on arrival is still smaller than it was.
+if [ "$CHROME" -le 950000 ]; then pass "page chrome and press imagery: $CHROME B (budget 950000)"
+else fail "page chrome and press imagery: $CHROME B, over the 950000 budget"; fi
 # 60 KB per picture at 800x500 WebP is generous for a card drawn at 300x176; anything over
 # it is an export that was not resized, which is the mistake this catches.
 if [ "$BIGGEST" -le 60000 ]; then pass "largest single event image: $BIGGEST B (ceiling 60000)"
@@ -372,12 +376,19 @@ goog=$(goog_hits | wc -l)
 [ "$goog" -eq 0 ] && pass "no page or stylesheet requests fonts from Google" \
                   || { goog_hits; fail "$goog reference(s) still request a Google-hosted font"; }
 
+# One family since 2026-09-05: Ubuntu is the brand face (brandbook p.22) and the redesign
+# dropped Lora, Poppins and Raleway with the template that used them. Three weights, and
+# every one must be a real file — a weight the CSS asks for and the browser has to fake
+# is the defect this group was written about.
 missingface=0
-for fam in Ubuntu Poppins Lora Raleway; do
-  grep -q "font-family: '$fam';" assets/css/style.css || { echo "  no @font-face for $fam"; missingface=$((missingface+1)); }
+for w in 400 500 700; do
+  grep -q "font-weight: $w; font-display: swap; src: url(../fonts/ubuntu" assets/css/style.css \
+    || { echo "  no Ubuntu $w @font-face"; missingface=$((missingface+1)); }
 done
-[ "$missingface" -eq 0 ] && pass "all four families are declared as @font-face" \
-                         || fail "$missingface family/families lost their @font-face"
+grep -qE "font-family: '(Poppins|Lora|Raleway)'" assets/css/*.css \
+  && { echo "  a retired family is back"; missingface=$((missingface+1)); }
+[ "$missingface" -eq 0 ] && pass "Ubuntu 400, 500 and 700 are declared as @font-face, and no retired family is back" \
+                         || fail "$missingface font-face problem(s)"
 
 # WHY: the whole point of self-hosting is that the bytes are ours and bounded. latin +
 # latin-ext only: the cyrillic, greek, vietnamese and devanagari subsets Google was
@@ -391,12 +402,13 @@ done
 # Raised again to 360000 on 2026-08-29 for Poppins 700 (13,248 B, two files), the same
 # defect as Ubuntu's and the last one: .faq-question is `font-weight: bold` and every
 # <strong> in a FAQ answer is 700, in a family that only ever shipped 400.
+# 360000 -> 240000 on 2026-09-05: six files, one family. Lowered, not raised.
 nfonts=$(find assets/fonts -name '*.woff2' 2>/dev/null | wc -l)
 fontbytes=$(find assets/fonts -name '*.woff2' -printf '%s\n' 2>/dev/null | awk '{t+=$1} END {print t+0}')
-if [ "$nfonts" -gt 0 ] && [ "$fontbytes" -le 360000 ]; then
-  pass "$nfonts self-hosted woff2, $fontbytes B on disk (budget 360000)"
+if [ "$nfonts" -gt 0 ] && [ "$fontbytes" -le 240000 ]; then
+  pass "$nfonts self-hosted woff2, $fontbytes B on disk (budget 240000)"
 else
-  fail "self-hosted fonts: $nfonts file(s), $fontbytes B (budget 360000)"
+  fail "self-hosted fonts: $nfonts file(s), $fontbytes B (budget 240000)"
 fi
 
 # WHY: every heading on this site is Ubuntu at font-weight 700, and until 2026-08-29 no
@@ -407,26 +419,13 @@ for wght in 400:ubuntu-latin 700:ubuntu-700-latin; do
   f="assets/fonts/${wght#*:}.woff2"
   [ -s "$f" ] || fail "Ubuntu ${wght%%:*} is missing: $f"
 done
-grep -q "font-weight: 700;" assets/css/style.css \
-  && grep -q "ubuntu-700-latin.woff2" assets/css/style.css \
+grep -q "font-weight: 700; font-display: swap; src: url(../fonts/ubuntu-700-latin.woff2)" assets/css/style.css \
   && pass "Ubuntu ships a real 700, not a synthetic one" \
   || fail "style.css declares no Ubuntu 700 @font-face"
 grep -q "ubuntu-700-latin.woff2" assets/css/404.css \
   && pass "404.css carries the same Ubuntu 700" \
   || fail "404.css draws headings at 700 with no 700 face"
 
-# WHY: the identical defect in the other family, found while fixing Ubuntu's and left
-# open until 2026-08-29. Poppins is --second-font: it draws .faq-question (font-weight:
-# bold), every <strong> inside a .faq-answer, and .link-item on enlaces.html at 600. With
-# only a 400 face on disk the browser smeared all of them. 404.css is deliberately NOT
-# included: nothing on that page asks Poppins for a weight above 500, so the face would
-# be downloaded by nobody.
-for f in assets/fonts/poppins-latin.woff2 assets/fonts/poppins-700-latin.woff2; do
-  [ -s "$f" ] || fail "Poppins is missing a weight: $f"
-done
-grep -q "poppins-700-latin.woff2" assets/css/style.css \
-  && pass "Poppins ships a real 700, not a synthetic one" \
-  || fail "style.css declares no Poppins 700 @font-face"
 
 # WHY: a src: url() that 404s is a font that silently falls back to Times. Group 1 resolves
 # every url(../...) in our stylesheets, but only if the rules are actually reachable from
@@ -481,17 +480,18 @@ done
 # WHY: the toggle sits in its own .col-xs-8. If it were merely invisible rather than
 # display:none above 995px it would still take grid columns and wrap the desktop navigation
 # onto a second line.
-grep -qE '^\.menu-toggle-wrap \{' assets/css/style.css && \
-  awk '/^\.menu-toggle-wrap \{/{f=1} f{print} f&&/\}/{exit}' assets/css/style.css | grep -q 'display: *none' \
-  && pass "the toggle is display:none by default (desktop keeps one nav row)" \
+# Since 2026-09-05 the toggle sits in .head-tools, shown by default (phone first) and hidden
+# from 996px up inside the same media query that shows the desktop .nav.
+awk '/min-width: 996px/{f=1} f{print} f&&/^\}/{exit}' assets/css/style.css | grep -q '\.head-tools *{ *display: *none' \
+  && pass "the toggle is display:none from 996px up (desktop keeps one nav row)" \
   || fail "the mobile toggle is not display:none above the breakpoint"
-grep -q 'max-width: 995px' assets/css/style.css \
-  && pass "the menu breakpoint is still the site's own 995px" \
-  || fail "no 995px breakpoint in style.css"
+grep -q 'min-width: 996px' assets/css/style.css \
+  && pass "the menu breakpoint is still the site's own 996px" \
+  || fail "no 996px breakpoint in style.css"
 
 # WHY: aria-expanded that never changes is worse than none — it tells a screen reader the
 # menu is shut while it is open.
-grep -q "attr('aria-expanded'" assets/js/script.js \
+grep -q "setAttribute('aria-expanded'" assets/js/script.js \
   && pass "script.js keeps aria-expanded in sync with the panel" \
   || fail "script.js never updates aria-expanded"
 
@@ -501,23 +501,14 @@ head1 "12. The FAQ can be opened without a mouse"
 # aria-expanded, no key handler. A keyboard or switch user could not open any of them,
 # including "¿Cómo puedo unirme?", the answer most likely to decide whether somebody pays
 # the 12 euros. Audit item 2.4.
-qs=$(cat src/index.html src/en/index.html | grep -c 'class="faq-question"')
-btn=$(cat src/index.html src/en/index.html | grep -c 'class="faq-question" role="button" tabindex="0" aria-expanded="false"')
-[ "$qs" -gt 0 ] && [ "$qs" -eq "$btn" ] \
-  && pass "all $qs FAQ questions are role=button, tabindex=0, aria-expanded (both languages)" \
-  || fail "$btn of $qs FAQ questions are keyboard-reachable"
-# every aria-controls must point at an id that exists, or the answer is announced by nobody
-danglers=0
-for f in src/index.html src/en/index.html; do
-for id in $(grep -oE 'aria-controls="faq-answer-[0-9]+"' "$f" | sed -E 's/.*"(.*)"/\1/'); do
-  grep -q "id=\"$id\"" "$f" || { echo "  $f aria-controls=$id points at nothing"; danglers=$((danglers+1)); }
-done
-done
-[ "$danglers" -eq 0 ] && pass "every FAQ aria-controls resolves to an answer" \
-                      || fail "$danglers dangling aria-controls"
-grep -q 'keydown' assets/js/script.js && grep -q '"Enter"' assets/js/script.js \
-  && pass "script.js answers Enter and Space like a real button" \
-  || fail "script.js has no Enter/Space handler for the FAQ"
+# Since 2026-09-05 each question is a native <details><summary>: focusable, toggled by
+# Enter and Space, announced as expanded/collapsed, with no script and nothing to keep in
+# sync. The check is that every question IS one, in both languages.
+qs=$(cat src/index.html src/en/index.html | grep -c '<details class="faq-item"')
+sm=$(cat src/index.html src/en/index.html | grep -c '<summary>')
+[ "$qs" -ge 14 ] && [ "$qs" -eq "$sm" ] \
+  && pass "all $qs FAQ questions are native <details>/<summary> (both languages)" \
+  || fail "$qs <details> vs $sm <summary> — a FAQ question is not a disclosure widget"
 
 # ---------------------------------------------------------------------------
 head1 "13. The targets a thumb has to hit"
@@ -527,15 +518,15 @@ head1 "13. The targets a thumb has to hit"
 # CSS is responsible for; the sizes are asserted here rather than in a browser because a
 # rendered measurement needs Chrome and this file must run offline.
 tap_rule() { # <file> <selector-regex> <description>
-  awk -v s="$2" '$0 ~ s"[ ,{]" {f=1} f{print} f&&/\}/{f=0}' "$1" | grep -q 'min-height: *44px\|line-height: *44px\|width: *44px' \
+  awk -v s="$2" '$0 ~ s"[ ,{]" {f=1} f{print} f&&/\}/{f=0}' "$1" | grep -qE 'min-height: *((4[4-9]|5[0-9]|6[0-9])px|var\(--tap\))|line-height: *44px|width: *(44px|var\(--tap\))' \
     && pass "$3" || fail "$3 — no 44px floor found"
 }
 tap_rule assets/css/enlaces.css '^\.link-item' "enlaces: .link-item has a 44px floor"
 tap_rule assets/css/style.css   '^\.menu'      "the mobile menu toggle is at least 44px"
 tap_rule assets/css/style.css   '\.menu-item ul li a' "menu panel entries are at least 44px"
-awk '/max-width: 995px/{f=1} f&&/\.social-icons-form ul li a/{g=1} g{print} g&&/\}/{exit}' assets/css/style.css \
-  | grep -q '44px' && pass "social icons are 44px on a phone (36px desktop row untouched)" \
-                   || fail "social icons have no 44px floor below 995px"
+tap_rule assets/css/style.css   '^\.social-row a' "social icons are 44px at every width"
+tap_rule assets/css/style.css   '^\.btn'       "every .btn clears the 44px floor"
+tap_rule assets/css/style.css   '^\.nav a'     "desktop nav links clear the 44px floor"
 
 # ---------------------------------------------------------------------------
 head1 "14. The heading outline is navigable"
@@ -575,24 +566,27 @@ grep -q "\$('.expert').height()" <<<"$CODE" \
 grep -qE "\.height\([^)]" <<<"$CODE" \
   && fail "script.js writes an element height from JavaScript" \
   || pass "script.js writes no element heights at all"
-awk '/#inscription \.row/{f=1} f{print} f&&/\}/{exit}' assets/css/style.css | grep -q 'display: *flex' \
-  && pass "#inscription matches its two columns with flex instead" \
-  || fail "#inscription has no CSS that makes its columns equal"
+awk '/^\.join-grid \{/{f=1} f{print} f&&/\}/{exit}' assets/css/style.css | grep -q 'display: *grid' \
+  && pass "#inscription lays out its two columns with CSS grid" \
+  || fail "#inscription has no CSS that lays out its columns"
 
 # ---------------------------------------------------------------------------
 head1 "16. Nothing pushes the page sideways"
 # WHY: .vira-btn carried 80px of horizontal padding at every width, which made GESTIONAR
 # SUSCRIPCIÓN 419px wide inside a 390px viewport and scrolled the payment page sideways by
 # 14px. clamp() keeps the desktop value exactly. Audit items 2.2 and 2.3.
-awk '/^\.vira-btn \{/{f=1} f{print} f&&/\}/{exit}' assets/css/style.css > /tmp/verify-btn.$$
-grep -q 'padding: 15px clamp(' /tmp/verify-btn.$$ \
-  && pass ".vira-btn padding is clamped (80px on desktop, ~24-31px on a phone)" \
-  || fail ".vira-btn still has fixed horizontal padding"
-grep -q '80px' /tmp/verify-btn.$$ \
-  && pass ".vira-btn keeps its 80px desktop padding" || fail ".vira-btn lost its desktop padding"
-grep -q 'border-color' /tmp/verify-btn.$$ \
-  && pass ".vira-btn has a visible border (the ghost variant reads as a button)" \
-  || fail ".vira-btn has no border — the ghost variant reads as plain text"
+# Since 2026-09-05 the button is .btn: 24px of horizontal padding at every width, and a
+# 2px border so the quiet and ghost variants still read as buttons.
+awk '/^\.btn \{/{f=1} f{print} f&&/\}/{exit}' assets/css/style.css > /tmp/verify-btn.$$
+grep -q 'padding: 0 var(--s5)' /tmp/verify-btn.$$ \
+  && pass ".btn padding is 24px each side at every width" \
+  || fail ".btn has unexpected horizontal padding"
+grep -qE 'padding:[^;]*[5-9][0-9]px' /tmp/verify-btn.$$ \
+  && fail ".btn carries a fixed padding wide enough to overflow a phone" \
+  || pass ".btn has no padding that can overflow a 390px phone"
+grep -q 'border: 2px solid' /tmp/verify-btn.$$ \
+  && pass ".btn has a visible border (the quiet variants read as buttons)" \
+  || fail ".btn has no border"
 rm -f /tmp/verify-btn.$$
 
 # ---------------------------------------------------------------------------
@@ -802,22 +796,11 @@ for dead in 'forms.gle/NsEx9PLxG9cKZWiV8' 'youtube.com/@multitecua7745'; do
 done
 [ "$deadfail" -eq 0 ] && pass "neither known-dead URL is referenced anywhere" || fail "a known-dead URL is back in the tree"
 
-# WHY: the members' Claude seats service must NOT be reachable from the public site.
-# Sergio, 2026-08-29: "ahora mismo no tiene que ser accesible desde ningún sitio". It is
-# still in Stripe test mode and the board has not opened it, so a link to it from the
-# page students arrive at from Instagram sends them to something that cannot serve them.
-# Three links to it were added earlier the same day, on index.html, inscripcion.html and
-# enlaces.html, on an instruction that turned out to be wrong; they are gone. This check
-# is what stops them coming back in six months when nobody remembers the conversation.
-# When the board does open the service, delete this check in the same commit that adds
-# the link, so the decision is visible in one diff.
-seats=$(grep -rniE 'claude\.multitecua|//claude\.' src assets i18n 2>/dev/null || true)
-if [ -z "$seats" ]; then
-  pass "nothing links to the members-only seats service (it is not public yet)"
-else
-  printf '%s\n' "$seats" | sed 's/^/    /'
-  fail "a link to the members-only seats service is back — it must not be reachable from the public site"
-fi
+# The check that forbade any link to claude.multitecua.com was deleted on 2026-09-05: the
+# board announced the seats to the members on 2026-09-04 ("Multi Claude Max x5 — ya es
+# oficial", MultitecUA Oficial WhatsApp group), so the service is open and the public page
+# may name it. The check said to delete it in the same commit that adds the link; this is
+# that commit.
 
 if curl -sS -o /dev/null --max-time 12 https://www.ua.es/ 2>/dev/null; then
   UA_STR='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
@@ -1019,7 +1002,10 @@ rm -rf "$STAGE" /tmp/verify-detect.$$
 # in both languages this number moves by whatever that page scores, twice — and the right
 # fix for all six of these is still to fix the two <section> paddings once, in the
 # template, which clears three findings on each side at the same time.
-DETECT_CEILING=${DETECT_CEILING:-13}
+# 13 -> 0 on 2026-09-05: the redesign removed the vendored CSS the seven library findings
+# lived in and rebuilt inscripcion.html without the side tab and the two unpadded sections.
+# A finding now is a regression, not a tracked debt.
+DETECT_CEILING=${DETECT_CEILING:-0}
 case "$rc" in
   0) pass "detector exit 0 — clean" ;;
   2) if [ "${n:-999}" -le "$DETECT_CEILING" ]; then
@@ -1091,7 +1077,7 @@ else
 fi
 
 # And it must reach Google Maps only as a link the visitor taps.
-if grep -q 'find-us-btn' src/index.html && grep -q 'rel="noopener noreferrer"' src/index.html; then
+if grep -q 'google.com/maps/search/?api=1' src/index.html && grep -q 'rel="noopener noreferrer"' src/index.html; then
   pass "directions are a tapped link, opened with rel=noopener noreferrer"
 else
   fail "the directions link is missing or unsafe"

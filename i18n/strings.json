@@ -1,10 +1,16 @@
 {
   "vars": {
-    "members": "100",
-    "fee": "12 €"
+    "members": "250",
+    "fee": "12 €",
+    "events_count": "120",
+    "gamejam_editions": "13",
+    "founded": "2018"
   },
   "same_in_both": [
+    "act_cienciathon_title",
+    "act_gamejam_title",
     "contact_email_label",
+    "contact_telegram_label",
     "enl_link_email",
     "enl_link_instagram",
     "enl_link_linkedin",
@@ -13,6 +19,7 @@
     "enl_link_youtube",
     "events_cat_hackathon",
     "events_cat_jam",
+    "nav_multicasa",
     "press_1",
     "press_2",
     "press_3",
@@ -20,7 +27,12 @@
     "press_5",
     "press_6",
     "press_7",
-    "press_8"
+    "press_8",
+    "price_amount",
+    "stat_events",
+    "stat_gamejam",
+    "stat_members",
+    "stat_years"
   ],
   "strings": {
     "index_meta_description": {
@@ -67,21 +79,13 @@
       "es": "Abrir el menú",
       "en": "Open the menu"
     },
-    "nav_home": {
-      "es": "Inicio",
-      "en": "Home"
-    },
     "nav_about": {
-      "es": "Sobre Nosotros",
-      "en": "About us"
+      "es": "Qué es",
+      "en": "About"
     },
     "nav_events": {
       "es": "Eventos",
       "en": "Events"
-    },
-    "nav_media": {
-      "es": "Medios",
-      "en": "Press"
     },
     "nav_faq": {
       "es": "Preguntas",
@@ -90,10 +94,6 @@
     "nav_contact": {
       "es": "Contacto",
       "en": "Contact"
-    },
-    "nav_join_caps": {
-      "es": "INSCRÍBETE",
-      "en": "JOIN US"
     },
     "nav_join": {
       "es": "Inscríbete",
@@ -104,16 +104,12 @@
       "en": "Members"
     },
     "hero_title": {
-      "es": "Somos la asociación MultitecUA",
-      "en": "We are MultitecUA"
-    },
-    "hero_subtitle": {
-      "es": "Universidad de Alicante",
-      "en": "University of Alicante"
+      "es": "Somos <em>Multitec</em>",
+      "en": "We are <em>Multitec</em>"
     },
     "hero_cta": {
-      "es": "¡ME APUNTO!",
-      "en": "COUNT ME IN!"
+      "es": "Hazte socio · {fee} al año",
+      "en": "Join · {fee} a year"
     },
     "about_title": {
       "es": "Asociación de la UA",
@@ -144,36 +140,32 @@
       "en": "Sharing what we know"
     },
     "purpose_1_body": {
-      "es": "Compartimos información de diferentes ámbitos y aprendemos en comunidad sobre nuevas tecnologías, nuevas ciencias y nuevas experiencias. Entérate de eventos, ofertas laborales y noticias interesantes con nosotros.",
-      "en": "We pass around what we find, across every field, and learn about new technology, new science and new experiences together. Events, job openings and news worth reading reach you through us."
+      "es": "Compartimos lo que encontramos: ofertas de empleo, becas, convocatorias y noticias de ciencia y tecnología, en los grupos de socios y en redes.",
+      "en": "We pass around what we find: job openings, grants, calls and science and technology news, in the members’ groups and on social media."
     },
     "purpose_2_title": {
       "es": "Eventos",
       "en": "Events"
     },
     "purpose_2_body": {
-      "es": "Participamos en eventos presenciales y online con diferentes enfoques para poder desarrollarnos, aprender nuevas habilidades y descubrir nuestro lado más inquieto. ¡También nos encanta organizarlos junto a nuestros colaboradores!",
-      "en": "We take part in events on campus and online — all kinds — to grow, pick up new skills and find out how restless we really are. We love putting them on with our partners, too."
+      "es": "Organizamos la Gamejam Alicante, el Cienciathon y talleres todo el curso, y colaboramos con el DevFest, la NASA Space Apps y las jornadas de la UA. Los socios los viven desde dentro, como staff.",
+      "en": "We run Gamejam Alicante, the Cienciathon and workshops all year, and we take part in DevFest, NASA Space Apps and the UA’s own days. Members see them from the inside, as staff."
     },
     "purpose_3_title": {
       "es": "Proyectos",
       "en": "Projects"
     },
     "purpose_3_body": {
-      "es": "Nos encanta quedar entre nosotros para proponer nuevos proyectos y aprender en el proceso. Si tienes una idea o una motivación, ¡ponla sobre la mesa para poder hacerla todos juntos y desarrollar nuestras habilidades en comunidad!",
-      "en": "We meet up to put new projects on the table and learn on the way. If you have an idea, or just the itch to build something, bring it — we will build it together and get better at it as a group."
+      "es": "Club de cohetería, impresión 3D, Arduino y robótica, el servidor de Minecraft, esta misma web. Si tienes una idea, ponla sobre la mesa: hay más de {members} socios con quien hacerla.",
+      "en": "A rocketry club, 3D printing, Arduino and robotics, the Minecraft server, this very website. If you have an idea, put it on the table: there are {members}-plus members to build it with."
     },
     "join_title": {
       "es": "Forma parte de Multitec",
       "en": "Become part of Multitec"
     },
-    "join_body": {
-      "es": "Para formar parte de esta familia, haz clic en el botón de abajo y rellena el cuestionario. Inscribirse no es gratuito, existe un cuota de <b class=\"red_text\">{fee} anuales</b> destinada al mantenimiento y desarrollo de la asociación. En la sección de <a href=\"#faq\"><b class=\"red_text\">preguntas</b></a> puedes consultar los beneficios de ser miembro.",
-      "en": "To join this family, press the button below and fill in the form. Membership is not free: there is a <b class=\"red_text\">{fee} a year</b> fee that keeps the association running and growing. The <a href=\"#faq\"><b class=\"red_text\">questions</b></a> section lists what being a member gets you."
-    },
     "join_cta": {
-      "es": "MÁS INFORMACIÓN E INSCRIPCIÓN",
-      "en": "MORE INFORMATION AND SIGN-UP"
+      "es": "Inscribirme ahora",
+      "en": "Sign me up"
     },
     "members_title": {
       "es": "Zona de socios",
@@ -480,8 +472,8 @@
       "en": "The Multicasa:"
     },
     "faq_b4": {
-      "es": "Un espacio exclusivo para los miembros, equipado con:",
-      "en": "A space that is only for members, with:"
+      "es": "Un espacio exclusivo para socios en el campus, con mesas de estudio, impresoras 3D, electrónica y consola. Está descrito más arriba, en <a href=\"#multicasa\">La Multicasa</a>.",
+      "en": "A members-only space on campus, with study desks, 3D printers, electronics and a console. It is described above, under <a href=\"#multicasa\">The Multicasa</a>."
     },
     "faq_b4_item1": {
       "es": "Mesas de estudio y coworking para socios e invitados.",
@@ -580,8 +572,8 @@
       "en": "How do I join?"
     },
     "faq_a4": {
-      "es": "Para unirte a Multitec, simplemente debes ir a la sección de <a style=\"text-decoration: underline; color: #fff\" href=\"inscripcion.html\">inscripción</a> y pagar la cuota anual de <b>{fee}</b>.",
-      "en": "Go to the <a style=\"text-decoration: underline; color: #fff\" href=\"inscripcion.html\">sign-up page</a> and pay the <b>{fee}</b> yearly fee. That is all there is to it."
+      "es": "Para unirte a Multitec, ve a la página de <a href=\"inscripcion.html\">inscripción</a> y paga la cuota anual de <b>{fee}</b>. La junta aprueba el alta en menos de 48 horas.",
+      "en": "To join Multitec, go to the <a href=\"inscripcion.html\">sign-up page</a> and pay the annual fee of <b>{fee}</b>. The board approves you within 48 hours."
     },
     "faq_q5": {
       "es": "¿Hay algún requisito para unirse?",
@@ -632,8 +624,8 @@
       "en": "Email"
     },
     "contact_telegram": {
-      "es": "También puedes unirte a nuestro grupo de <a class=\"telegram\" href=\"https://t.me/MultitecUA\">Telegram</a>",
-      "en": "You can also join our <a class=\"telegram\" href=\"https://t.me/MultitecUA\">Telegram</a> group"
+      "es": "Únete al grupo abierto de la asociación: <a href=\"https://t.me/MultitecUA\">t.me/MultitecUA</a>",
+      "en": "Join the association’s open group: <a href=\"https://t.me/MultitecUA\">t.me/MultitecUA</a>"
     },
     "find_us_eyebrow": {
       "es": "Ven a vernos",
@@ -696,12 +688,8 @@
       "en": "Sign-up and membership"
     },
     "insc_subtitle": {
-      "es": "Únete a la comunidad tecnológica más activa de la UA",
-      "en": "Join the busiest technology community at the UA"
-    },
-    "insc_price": {
-      "es": "{fee} / año",
-      "en": "{fee} / year"
+      "es": "Únete a la comunidad tecnológica más activa de la Universidad de Alicante. Una cuota al año y estás dentro.",
+      "en": "Join the most active tech community at the University of Alicante. One fee a year and you are in."
     },
     "insc_price_note": {
       "es": "Cuota anual para el mantenimiento y desarrollo de la asociación.",
@@ -712,12 +700,12 @@
       "en": "You can cancel your subscription whenever you want."
     },
     "insc_cta_subscribe": {
-      "es": "SUSCRIBIRSE",
-      "en": "SUBSCRIBE"
+      "es": "Suscribirse",
+      "en": "Subscribe"
     },
     "insc_cta_manage": {
-      "es": "GESTIONAR SUSCRIPCIÓN",
-      "en": "MANAGE SUBSCRIPTION"
+      "es": "Gestionar mi suscripción",
+      "en": "Manage my subscription"
     },
     "insc_approval_title": {
       "es": "Aprobación de la junta directiva",
@@ -748,8 +736,8 @@
       "en": "An @multitecua.com account, with 1 TB of Google Drive"
     },
     "insc_benefit_3": {
-      "es": "Cuenta compartida de ChatGPT y herramientas IA",
-      "en": "A shared ChatGPT account and other AI tools"
+      "es": "Claude Max a mitad de precio, por el acuerdo de la asociación con Anthropic (<a href=\"https://claude.multitecua.com\">claude.multitecua.com</a>)",
+      "en": "Claude Max at half price, through the association’s agreement with Anthropic (<a href=\"https://claude.multitecua.com\">claude.multitecua.com</a>)"
     },
     "insc_benefit_4": {
       "es": "Acceso a la Multicasa (Coworking, Impresión 3D, Electrónica, Juegos)",
@@ -894,6 +882,306 @@
     "e404_join": {
       "es": "Inscríbete",
       "en": "Join us"
+    },
+    "skip_link": {
+      "es": "Saltar al contenido",
+      "en": "Skip to content"
+    },
+    "nav_label": {
+      "es": "Navegación principal",
+      "en": "Main navigation"
+    },
+    "nav_activities": {
+      "es": "Actividades",
+      "en": "Activities"
+    },
+    "nav_multicasa": {
+      "es": "Multicasa",
+      "en": "Multicasa"
+    },
+    "hero_eyebrow": {
+      "es": "Asociación de estudiantes · Universidad de Alicante",
+      "en": "Student association · University of Alicante"
+    },
+    "hero_sub": {
+      "es": "La comunidad de ciencia y tecnología de la Universidad de Alicante.",
+      "en": "The science and technology community of the University of Alicante."
+    },
+    "hero_lede": {
+      "es": "Hackathons, game jams, talleres, un club de cohetería, un servidor de Minecraft y un local propio en el campus. Desde 2018, hecho por estudiantes y para estudiantes.",
+      "en": "Hackathons, game jams, workshops, a rocketry club, a Minecraft server and a place of our own on campus. Since 2018, run by students, for students."
+    },
+    "hero_cta2": {
+      "es": "Ver eventos",
+      "en": "See the events"
+    },
+    "alt_hero": {
+      "es": "Tres participantes de la Gamejam Alicante riéndose delante de una pantalla, en el Parque Científico",
+      "en": "Three Gamejam Alicante participants laughing at a screen, at the Science Park"
+    },
+    "hero_caption": {
+      "es": "Gamejam Alicante 2025, en el Parque Científico de Alicante.",
+      "en": "Gamejam Alicante 2025, at the Alicante Science Park."
+    },
+    "stat_members": {
+      "es": "+{members}",
+      "en": "+{members}"
+    },
+    "stat_members_label": {
+      "es": "socios",
+      "en": "members"
+    },
+    "stat_years": {
+      "es": "{founded}",
+      "en": "{founded}"
+    },
+    "stat_years_label": {
+      "es": "año de fundación",
+      "en": "founded"
+    },
+    "stat_events": {
+      "es": "+{events_count}",
+      "en": "+{events_count}"
+    },
+    "stat_events_label": {
+      "es": "eventos desde 2010",
+      "en": "events since 2010"
+    },
+    "stat_gamejam": {
+      "es": "{gamejam_editions}",
+      "en": "{gamejam_editions}"
+    },
+    "stat_gamejam_label": {
+      "es": "ediciones de Gamejam Alicante",
+      "en": "editions of Gamejam Alicante"
+    },
+    "about_kicker": {
+      "es": "Quiénes somos",
+      "en": "Who we are"
+    },
+    "act_kicker": {
+      "es": "Lo que hacemos",
+      "en": "What we do"
+    },
+    "act_title": {
+      "es": "Actividades que nos definen",
+      "en": "The things we are known for"
+    },
+    "act_lede": {
+      "es": "Organizamos algunas de las citas tecnológicas más veteranas de Alicante y colaboramos con quien las hace posibles: la Universidad, el Parque Científico y las comunidades de la ciudad.",
+      "en": "We run some of the longest-standing tech events in Alicante and work with the people who make them possible: the University, the Science Park and the city’s communities."
+    },
+    "act_gamejam_kicker": {
+      "es": "Desde 2010 · {gamejam_editions} ediciones",
+      "en": "Since 2010 · {gamejam_editions} editions"
+    },
+    "act_gamejam_title": {
+      "es": "Gamejam Alicante",
+      "en": "Gamejam Alicante"
+    },
+    "act_gamejam_body": {
+      "es": "48 horas para crear un videojuego desde cero, en equipo. La game jam más veterana de la provincia, en el Parque Científico de la UA.",
+      "en": "48 hours to build a video game from nothing, as a team. The longest-running game jam in the province, at the UA Science Park."
+    },
+    "alt_act_gamejam": {
+      "es": "Participantes de la Gamejam Alicante 2025 junto al cartel naranja del evento",
+      "en": "Gamejam Alicante 2025 participants beside the event’s orange banner"
+    },
+    "act_cienciathon_kicker": {
+      "es": "Desde 2019 · 7 ediciones",
+      "en": "Since 2019 · 7 editions"
+    },
+    "act_cienciathon_title": {
+      "es": "Cienciathon",
+      "en": "Cienciathon"
+    },
+    "act_cienciathon_body": {
+      "es": "Un hackathon de ciencia con el Parque Científico de Alicante: retos reales de empresas y grupos de investigación, resueltos en un fin de semana.",
+      "en": "A science hackathon with the Alicante Science Park: real challenges from companies and research groups, solved over a weekend."
+    },
+    "alt_act_cienciathon": {
+      "es": "Un equipo del Cienciathon 2024 trabajando alrededor de una mesa con portátiles",
+      "en": "A Cienciathon 2024 team working around a table with laptops"
+    },
+    "act_talleres_kicker": {
+      "es": "Todo el curso",
+      "en": "All year round"
+    },
+    "act_talleres_title": {
+      "es": "Cursos y talleres",
+      "en": "Courses and workshops"
+    },
+    "act_talleres_body": {
+      "es": "Programar desde cero, impresión 3D, IA en tu propia máquina, la nube de Google. Gratis para socios y casi siempre abiertos a todos.",
+      "en": "Programming from scratch, 3D printing, AI on your own machine, Google’s cloud. Free for members and nearly always open to everyone."
+    },
+    "alt_act_talleres": {
+      "es": "Socios de Multitec visitando el laboratorio de fabricación aditiva de FEMPA",
+      "en": "Multitec members visiting FEMPA’s additive manufacturing lab"
+    },
+    "act_gdg_kicker": {
+      "es": "Con GDG Alicante",
+      "en": "With GDG Alicante"
+    },
+    "act_gdg_title": {
+      "es": "Charlas y DevFest",
+      "en": "Talks and DevFest"
+    },
+    "act_gdg_body": {
+      "es": "Compartimos casa con Google Developer Group Alicante: charlas cada mes y el DevFest, la cita anual con cientos de asistentes.",
+      "en": "We share a home with Google Developer Group Alicante: a talk every month and DevFest, the annual gathering with hundreds of attendees."
+    },
+    "alt_act_gdg": {
+      "es": "Ponente en el escenario del DevFest Alicante 2025, con el logo de Multitec en el panel de patrocinadores",
+      "en": "Speaker on stage at DevFest Alicante 2025, with the Multitec logo on the sponsor wall"
+    },
+    "act_comunidad_kicker": {
+      "es": "Vida de asociación",
+      "en": "Life in the association"
+    },
+    "act_comunidad_title": {
+      "es": "Acampada, LAN party, torneos",
+      "en": "Camping, LAN party, tournaments"
+    },
+    "act_comunidad_body": {
+      "es": "La Multiacampada, la Multifiesta, torneos de pádel y noches de LAN. La parte que no cabe en un currículum y es la que más se recuerda.",
+      "en": "The Multiacampada, the Multifiesta, padel tournaments and LAN nights. The part that never fits on a CV and is the part people remember."
+    },
+    "alt_act_comunidad": {
+      "es": "Socios reunidos en la Multifiesta de 2025",
+      "en": "Members gathered at the 2025 Multifiesta"
+    },
+    "casa_kicker": {
+      "es": "Nuestro local",
+      "en": "Our place"
+    },
+    "casa_title": {
+      "es": "La Multicasa",
+      "en": "The Multicasa"
+    },
+    "casa_lede": {
+      "es": "Un espacio para socios en el Colegio Mayor de la Universidad de Alicante, junto a la parada de bus del Aulario II: para estudiar, montar cosas, jugar y quedar.",
+      "en": "A members’ space at the University of Alicante halls of residence, next to the Aulario II bus stop: to study, build things, play and meet up."
+    },
+    "casa_note": {
+      "es": "Se abre para los socios; los avisos de apertura llegan por los grupos de la asociación.",
+      "en": "It opens for members; opening notices go out through the association’s groups."
+    },
+    "casa_caption": {
+      "es": "Los socios de Multitec, en una de las quedadas de la asociación.",
+      "en": "Multitec members at one of the association’s get-togethers."
+    },
+    "alt_multicasa": {
+      "es": "Gran grupo de socios de Multitec con la camiseta de la asociación bajo un arco de piedra",
+      "en": "A large group of Multitec members in the association T-shirt under a stone arch"
+    },
+    "join_kicker": {
+      "es": "Hazte socio",
+      "en": "Join"
+    },
+    "join_lede": {
+      "es": "Una cuota al año, la junta te da el alta y ya estás dentro: el local, tu cuenta @multitecua.com, los grupos, el servidor y todo lo que hagamos este curso.",
+      "en": "One fee a year, the board signs you up and you are in: the place, your @multitecua.com account, the groups, the server and everything we do this year."
+    },
+    "price_amount": {
+      "es": "{fee}",
+      "en": "{fee}"
+    },
+    "price_period": {
+      "es": "al año",
+      "en": "a year"
+    },
+    "step_1_title": {
+      "es": "Paga la cuota",
+      "en": "Pay the fee"
+    },
+    "step_1_body": {
+      "es": "Con tarjeta, en la página de inscripción. Un minuto.",
+      "en": "By card, on the sign-up page. One minute."
+    },
+    "step_2_title": {
+      "es": "La junta aprueba tu alta",
+      "en": "The board approves you"
+    },
+    "step_2_body": {
+      "es": "Es un paso manual y puede tardar hasta 48 horas. Si no se aprueba, el dinero se devuelve solo.",
+      "en": "It is a manual step and can take up to 48 hours. If it is not approved, the money comes back on its own."
+    },
+    "step_3_title": {
+      "es": "Recibe la bienvenida",
+      "en": "Get your welcome"
+    },
+    "step_3_body": {
+      "es": "Tu cuenta @multitecua.com, los grupos y el paquete de bienvenida: camiseta, boli y pulsera.",
+      "en": "Your @multitecua.com account, the groups and the welcome pack: T-shirt, pen and wristband."
+    },
+    "join_cta2": {
+      "es": "Ver las preguntas frecuentes",
+      "en": "Read the FAQ"
+    },
+    "perks_title": {
+      "es": "Qué incluye ser socio",
+      "en": "What membership includes"
+    },
+    "insc_benefit_11": {
+      "es": "Servidor de Minecraft de la asociación, solo para socios",
+      "en": "The association’s Minecraft server, members only"
+    },
+    "members_kicker": {
+      "es": "Ya eres socio",
+      "en": "Already a member"
+    },
+    "press_kicker": {
+      "es": "En los medios",
+      "en": "In the press"
+    },
+    "press_hint": {
+      "es": "Desliza para ver más noticias",
+      "en": "Swipe for more stories"
+    },
+    "faq_kicker": {
+      "es": "Dudas frecuentes",
+      "en": "Common questions"
+    },
+    "contact_kicker": {
+      "es": "Habla con nosotros",
+      "en": "Talk to us"
+    },
+    "contact_telegram_label": {
+      "es": "Telegram",
+      "en": "Telegram"
+    },
+    "aria_telegram": {
+      "es": "Grupo de Telegram de MultitecUA",
+      "en": "MultitecUA Telegram group"
+    },
+    "band_title": {
+      "es": "¿Te apuntas?",
+      "en": "Coming?"
+    },
+    "band_text": {
+      "es": "Cualquier estudiante o egresado de la Universidad de Alicante puede hacerse socio, en cualquier momento del curso.",
+      "en": "Any student or graduate of the University of Alicante can join, at any point in the year."
+    },
+    "band_cta": {
+      "es": "Hazte socio",
+      "en": "Become a member"
+    },
+    "band_cta2": {
+      "es": "Escríbenos",
+      "en": "Write to us"
+    },
+    "insc_price_label": {
+      "es": "Cuota de socio",
+      "en": "Membership fee"
+    },
+    "insc_band_title": {
+      "es": "¿Alguna duda antes de pagar?",
+      "en": "Any doubts before paying?"
+    },
+    "insc_band_text": {
+      "es": "Las respuestas a lo que más nos preguntan están en la portada, y para todo lo demás tienes el correo de la asociación.",
+      "en": "The answers to what we get asked most are on the home page, and for anything else there is the association’s mail."
     }
   }
 }

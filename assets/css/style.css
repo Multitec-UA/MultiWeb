@@ -1,2123 +1,704 @@
-/* ---------------------------------------------------------------------------
-   Webfonts, self-hosted (audit item 2.8).
+/* style.css — multitecua.com, redesigned 2026-09-05.
+ *
+ * One stylesheet, no framework. Bootstrap 3, jQuery and Owl Carousel are gone: every
+ * layout below is CSS grid or flex, the press strip is scroll-snap, and the FAQ is
+ * <details>. The structure follows the household design system
+ * (quantumpc-management-agent/docs/design/tokens.css) and the identity is the Multitec
+ * brandbook (docs/design/brand-multitec.css): every hex in this file is either on page
+ * 20 of the brandbook or a transparent/alpha of one of those.
+ *
+ * What was deliberately KEPT from the 2016 site, because it is the identity people
+ * recognise: Rojo #A30006 as the only accent, uppercase Ubuntu headings over a short red
+ * rule, the association's own photographs, the dark events wheel (2026-08-31), and the
+ * hexagon from the logo, which is the one decorative shape the brand allows.
+ *
+ * The legacy variable names (--main-color, --main-font, --second-font) are kept as
+ * aliases because enlaces.css and 404.css still read them.
+ */
 
-   They used to arrive as three @import rules against Google's font CSS endpoint, which
-   meant: the browser had to download and parse this stylesheet before it even
-   learned the font requests existed, every visitor's IP went to Google on every
-   page view, and first paint waited on two extra DNS+TLS hops.
+/* ── webfonts: Ubuntu, self-hosted, latin + latin-ext ─────────────────────────
+   The brand face (brandbook p.22). Three weights: 400 body, 500 UI, 700 headings.
+   Lora, Poppins and Raleway were removed with the template that used them. */
+@font-face { font-family: 'Ubuntu'; font-style: normal; font-weight: 400; font-display: swap; src: url(../fonts/ubuntu-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Ubuntu'; font-style: normal; font-weight: 400; font-display: swap; src: url(../fonts/ubuntu-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Ubuntu'; font-style: normal; font-weight: 500; font-display: swap; src: url(../fonts/ubuntu-500-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Ubuntu'; font-style: normal; font-weight: 500; font-display: swap; src: url(../fonts/ubuntu-500-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Ubuntu'; font-style: normal; font-weight: 700; font-display: swap; src: url(../fonts/ubuntu-700-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Ubuntu'; font-style: normal; font-weight: 700; font-display: swap; src: url(../fonts/ubuntu-700-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 
-   These files are the exact faces those three @imports were delivering, byte for
-   byte, taken from Google's font CDN and kept to the latin and latin-ext subsets
-   (this site is Spanish and English; the cyrillic, greek, vietnamese and
-   devanagari subsets were downloaded by nobody). The @font-face set is
-   deliberately NOT "corrected":
-
-     - Ubuntu now ships 400 AND 700. It shipped 400 only until 2026-08-29, and so
-       did the three @imports before it: they asked for `Ubuntu:wght@400;700`, which
-       is v2 syntax sent to the v1 css? endpoint, which ignores it and returns
-       regular. Every uppercase Ubuntu heading on this site — and every heading is
-       Ubuntu at font-weight:700 — was therefore drawn in the browser's SYNTHETIC
-       bold, an algorithmic smear of the regular face, for years. The real 700 is
-       here now; it is a designed weight and it is what the CSS has always asked
-       for.
-     - Poppins now ships 400 AND 700, for exactly the same reason and fixed on the
-       same day. `.faq-question { font-weight: bold }` and every <strong> inside a
-       `.faq-answer` ask Poppins for 700; only 400 was ever delivered, so all seven
-       FAQ questions and all eleven bold benefit labels were synthetic too. 13,248 B
-       for the pair. A request for 500 (.menu-btn, .link-button) still resolves to the
-       400 face and is NOT synthesised — the browser picks the nearest real weight
-       below 600 — so those are unchanged.
-     - Lora and Raleway are variable files, so one woff2 covers all their weights.
-
-   Fourteen files; a Spanish visitor downloads five of them (Ubuntu 400 + 700,
-   Poppins 400 + 700, Lora latin = 118 KB) — the two extras are the bolds the
-   browser used to fake.
-   --------------------------------------------------------------------------- */
-/* Ubuntu 400 normal, latin */
-@font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(../fonts/ubuntu-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Ubuntu 400 normal, latin-ext */
-@font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(../fonts/ubuntu-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Ubuntu 700 bold, latin */
-@font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(../fonts/ubuntu-700-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Ubuntu 700 bold, latin-ext */
-@font-face {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(../fonts/ubuntu-700-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Poppins 400 normal, latin */
-@font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(../fonts/poppins-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Poppins 400 normal, latin-ext */
-@font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(../fonts/poppins-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Poppins 700 bold, latin */
-@font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(../fonts/poppins-700-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Poppins 700 bold, latin-ext */
-@font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(../fonts/poppins-700-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Lora 400 italic, latin */
-@font-face {
-    font-family: 'Lora';
-    font-style: italic;
-    font-weight: 400;
-    font-display: swap;
-    src: url(../fonts/lora-italic-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Lora 400 italic, latin-ext */
-@font-face {
-    font-family: 'Lora';
-    font-style: italic;
-    font-weight: 400;
-    font-display: swap;
-    src: url(../fonts/lora-italic-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Lora 400 normal, latin */
-@font-face {
-    font-family: 'Lora';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(../fonts/lora-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Lora 400 normal, latin-ext */
-@font-face {
-    font-family: 'Lora';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url(../fonts/lora-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Lora 700 normal, latin */
-@font-face {
-    font-family: 'Lora';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(../fonts/lora-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Lora 700 normal, latin-ext */
-@font-face {
-    font-family: 'Lora';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(../fonts/lora-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Raleway 300 normal, latin */
-@font-face {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
-    src: url(../fonts/raleway-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Raleway 300 normal, latin-ext */
-@font-face {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
-    src: url(../fonts/raleway-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Raleway 600 normal, latin */
-@font-face {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url(../fonts/raleway-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Raleway 600 normal, latin-ext */
-@font-face {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url(../fonts/raleway-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Raleway 700 normal, latin */
-@font-face {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(../fonts/raleway-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Raleway 700 normal, latin-ext */
-@font-face {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url(../fonts/raleway-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-/* Raleway 900 normal, latin */
-@font-face {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 900;
-    font-display: swap;
-    src: url(../fonts/raleway-latin.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-/* Raleway 900 normal, latin-ext */
-@font-face {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 900;
-    font-display: swap;
-    src: url(../fonts/raleway-latin-ext.woff2) format('woff2');
-    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-
-/*Global Settings*/
-
+/* ── tokens ──────────────────────────────────────────────────────────────── */
 :root {
-    /*Colours*/
-    --main-color: #a30006;
-    /*Fonts*/
-    --main-font: 'Ubuntu', sans-serif;
-    --second-font: 'Poppins', sans-serif;
+    /* brandbook p.20 */
+    --mt-red:    #A30006;
+    --mt-grey:   #BCBFBE;
+    --mt-white:  #FFFFFF;
+    --mt-red-1:  #FF3A41;
+    --mt-red-4:  #630004;
+    --mt-red-5:  #330002;
+    --mt-grey-1: #F6F6F6;
+    --mt-grey-2: #DEE5E5;
+    --mt-grey-3: #7C8484;
+    --mt-grey-4: #505353;
+    --mt-grey-5: #1E2121;
+
+    --ink:        var(--mt-grey-1);   /* page ground — tinted, never #fff */
+    --ink-raised: var(--mt-white);    /* a panel that is genuinely lifted */
+    --ink-sunken: var(--mt-grey-2);
+    --line:       var(--mt-grey-2);
+    --text:       var(--mt-grey-5);   /* 15.6:1 on Gris 1 */
+    --text-dim:   var(--mt-grey-4);   /*  7.4:1 on Gris 1 */
+    --accent:     var(--mt-red);      /*  8.6:1 on Gris 1; white on it is 8.6:1 too */
+    --on-accent:  var(--mt-white);
+    --dark:       var(--mt-grey-5);   /* the one dark band: the events wheel */
+    --dark-accent: var(--mt-red-1);   /* Rojo on Gris 5 is 2.1:1; Rojo 1 is 5.4:1 */
+
+    --font-ui: 'Ubuntu', ui-sans-serif, system-ui, sans-serif;
+    /* legacy aliases, read by enlaces.css and 404.css */
+    --main-color: var(--mt-red);
+    --main-font: var(--font-ui);
+    --second-font: var(--font-ui);
+
+    /* type ramp — 1.25 between steps, nothing functional under 13px */
+    --t-sm:   0.8125rem;   /* 13 */
+    --t-base: 1rem;        /* 16 */
+    --t-md:   1.25rem;     /* 20 */
+    --t-lg:   1.625rem;    /* 26 */
+    --t-xl:   2.125rem;    /* 34 */
+    --t-2xl:  2.75rem;     /* 44 */
+    --t-hero: clamp(2.125rem, 1.3rem + 4vw, 3.5rem);   /* 34 → 56 */
+    --lh-body: 1.55;
+    --lh-tight: 1.15;
+    --measure: 68ch;
+
+    --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
+    --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+    --tap: 44px;
+    --r-sm: 3px; --r: 5px; --r-lg: 8px; --r-xl: 14px;
+    --ease: cubic-bezier(.2, .6, .3, 1);
+    --dur: 160ms;
+
+    --wrap: 1180px;
+    --gutter: clamp(16px, 4vw, 40px);
+    --head-h: 68px;
 }
+
+/* ── base ────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--head-h) + 12px); }
 
 body {
-    font-family: 'Lora', serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: var(--main-font);
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #424242;
-    margin-bottom: 35px;
-    margin-top: 0;
-}
-
-h1 {
-    font-size: 45px;
-}
-
-h2 {
-    font-size: 32px;
-}
-
-h3 {
-    font-size: 21px;
-}
-
-p {
-    font-family: var(--second-font);
-    font-size: 16px;
-    color: #767676;
-}
-
-a {
-    transition: all 0.3s ease-in-out;
-}
-
-section {
-    text-align: center;
-}
-
-ul { 
-    padding:0 
-}
-
-.blockquote p {
-    font-size: 32px;
-    line-height: 45px;
-    padding-left: 30px;
-    border-left: 3px solid #424242;
-    color: #424242;
-}
-
-.title {
-    position: relative;
-    margin-bottom: 100px;
-}
-
-.subtitle {
-    margin-top: 10px;
-    font-weight: 100;
-    text-transform: none;
-    font-size: 15px;
-}
-
-.section-title{
-    font-size: 32px;
-    line-height: 1.42857143;
-    font-family: var(--main-font);
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #424242;
-    margin-bottom: 100px;
-    margin-top: 0;
-}
-
-.text-title {
-    font-family: var(--second-font);
-    text-transform: none;
-    color: #fff;
-    margin-top: 10px;
-    letter-spacing: 2px;
-    font-weight: normal;
-}
-
-/* The hero subtitle is a <p>, not an <h2>: it is a line of prose under the h1,
-   not a section of the document (audit item 2.6). These four declarations are
-   what the <h2> was getting from the heading rules above, restated, so the swap
-   moves nothing -- without them `.header p` would give it 32px/1.43 and 40px of
-   padding-bottom and push the ¡ME APUNTO! button 15px down. */
-.header .text-title {
-    font-size: 32px;
-    line-height: 1.1;
-    margin-bottom: 35px;
-    padding-bottom: 0;
-}
-
-/* Same idea for the two headings that gain a level: an <h1> on inscripcion.html
-   is the page title and must still be drawn at the 32px section-title size, and
-   the contact heading becomes an <h2> whose <p> line-height is restated so the
-   section below it does not move up by 10px. */
-h1.title {
-    font-size: 32px;
-}
-
-.title:after {
-    content: '';
-    height: 5px;
-    width: 40px;
-    background-color: var(--main-color);
-    position: absolute;
-    top: 80px;
-    left: calc(50% - 20px);
-}
-
-.association-logo {
-    width: 25rem;
-    height: auto;
-}
-
-.menu-logo {
-    width: 180px;
-    /* 180px inside a .col-xs-4, which at a 360px viewport is 120px wide — the wordmark
-       has always overhung its own column by 60px and collided with whatever the right of
-       the bar held. Measured on the build before this one: at a 320px viewport the
-       document scrolled sideways to 353px and the word MENU sat on the letters "EC".
-       The language switch made that collision start at 360px, the width of most Android
-       phones, so it is now worth fixing rather than noting.
-
-       min() and not a breakpoint, because the column is a percentage and so the clash
-       is continuous: 40vw tracks it exactly. 180px at 450px and above, so every tablet
-       and every desktop is the size it has always been; 156px at 390, 144 at 360, 128
-       at 320. A browser that does not know min() drops this line and keeps the 180px
-       above it, which is what it renders today. */
-    width: min(180px, 40vw);
-    height: auto;
-    filter: brightness(90%);
-}
-
-.menu-logo::hover {
-    width: 50px;
-}
-
-
-
-/*Bootstrap*/
-
-.navbar-vira {
-    background-image: none;
-    background-color: transparent;
-    margin-bottom: 0;
-    border-radius: 0;
-    border-color: transparent;
-    transition: all 0.3s ease-in-out;
-}
-
-.form-control option {
-    color: #424242;
-}
-
-.form-control {
-    border-radius: 0;
-    font-family: var(--second-font);
-    padding: 25px;
-    font-size: 18px;
-    background-color: transparent;
-    color: #424242;
-    margin-bottom: 30px;
-    border-color: var(--main-color);
-}
-
-.form-control:focus {
-    border-color: var(--main-color);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(81, 194, 185, 0.6);
-}
-
-.form-control::-webkit-input-placeholder {
-    color: #fff;
-}
-
-.form-control:-moz-placeholder {
-    /* Firefox 18- */
-    color: #fff;
-}
-
-.form-control::-moz-placeholder {
-    /* Firefox 19+ */
-    color: #fff;
-}
-
-.form-control:-ms-input-placeholder {
-    color: #fff;
-}
-
-.element .form-control::-webkit-input-placeholder {
-    color: #424242;
-}
-
-.element .form-control:-moz-placeholder {
-    /* Firefox 18- */
-    color: #424242;
-}
-
-.element .form-control::-moz-placeholder {
-    /* Firefox 19+ */
-    color: #424242;
-}
-
-.element .form-control:-ms-input-placeholder {
-    color: #424242;
-}
-
-
-/*Helper class*/
-
-.mt80 {
-    margin-top: 80px;
-}
-
-.mb80 {
-    margin-bottom: 80px;
-}
-
-.mr60 {
-    margin-right: 60px;
-}
-
-.bg-img {
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
-}
-
-.bg-img div {
-    z-index: 1;
-    position: relative;
-}
-
-.bg-img:after {
-    position: absolute;
-    content: '';
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-}
-
-.section {
-    padding: 100px 0;
-}
-
-
-/*Vira Card*/
-
-.vira-card {
-    text-align: center;
-    /*margin-bottom: 45px;*/
-}
-
-.vira-card .vira-card-header {
-    margin-bottom: 25px;
-}
-
-.vira-card .vira-card-header .card-icon {
-    border: 1px solid var(--main-color);
-    border-radius: 100%;
-    display: inline-block;
-    height: 120px;
-    width: 120px;
-    line-height: 120px;
-    position: relative;
-}
-
-.vira-card .vira-card-header .card-icon .fa {
-    margin-top: 45px;
-    font-size: 30px;
-}
-
-.vira-card .vira-card-header .card-icon:after {
-    content: '';
-    height: 100px;
-    width: 100px;
-    background-color: var(--main-color);
-    border-radius: 100%;
-    position: absolute;
-    top: 9px;
-    left: 9px;
-}
-
-.vira-card .vira-card-header .card-icon span {
-    color: #fff;
-    font-size: 45px;
-    position: relative;
-    z-index: 1;
-}
-
-.vira-card .vira-card-content h3 {
-    position: relative;
-    margin-bottom: 10px;
-}
-
-.vira-card .vira-card-content h3>a {
-    color: #1a1a1a;
-}
-
-.vira-card .vira-card-content p {
-    font-size: 15px;
-}
-
-.news-newspaper {
-    font-style: italic;
-}
-
-.vira-card .vira-card-content .social-icons {
-    margin-top: 30px;
-}
-
-
-/*Button*/
-
-.vira-btn {
-    font-family: var(--main-font);
-    color: var(--main-color);
-    font-weight: 700;
-    letter-spacing: 3px;
-    /* 80px of horizontal padding is 160px of chrome around the label. On the
-       payment page that made GESTIONAR SUSCRIPCIÓN 419px wide inside a 390px
-       viewport and the whole page scrolled sideways by 14px. clamp() keeps the
-       desktop value exactly (8vw is over 80px from 1000px up) and lets the phone
-       have 24-31px. Audit item 2.2. */
-    padding: 15px clamp(24px, 8vw, 80px);
-    margin-bottom: 30px;
-    background-color: transparent;
-    /* Bootstrap's .btn already reserves `border: 1px solid transparent`, so
-       colouring it in costs zero layout: the ghost variant simply stops reading
-       as a paragraph of red text. Audit item 2.3. */
-    border-color: var(--main-color);
-    transition: all 0.3s ease-in-out;
-}
-
-.vira-btn:hover {
-    background-color: var(--main-color);
-    color: #fff;
-}
-
-.news-btn {
-    font-family: var(--second-font);
-    color: #fff;
-    font-weight: 500;
-    letter-spacing: 1px;
-    /* The same defect Stage 2 fixed on .vira-btn (audit item 2.2), on the button it
-       missed. MÁS INFORMACIÓN E INSCRIPCIÓN measures 323px at a 320px viewport and
-       scrolls the whole homepage sideways to 353px — measured on this build and on the
-       one before it, so it is not new. Bootstrap 3's .btn is white-space: nowrap, which
-       is what turns a long label into horizontal overflow instead of a second line.
-       max-width keeps it inside its column; normal lets it wrap when it has to. The
-       desktop rendering does not move: at 1100px the label is 322px in a 458px column
-       and never reaches either limit. */
-    max-width: 100%;
-    white-space: normal;
-    padding: 5px 30px;
-    background-color: transparent;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--main-color);
-    margin-top: 20px;
-}
-
-.news-btn:hover {
-    color: #fff;
-    background-color: #fff;
-    border-color: var(--main-color);
-    color: var(--main-color);
-}
-
-.menu-btn {
-    font-family: var(--second-font);
-    color: #fff;
-    font-weight: 500;
-    letter-spacing: 1px;
-    padding: 3px 10px;
-    background-color: transparent;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--main-color);
-}
-
-.menu-btn:hover {
-    color: #fff;
-    background-color: #fff;
-    border-color: var(--main-color);
-    color: var(--main-color);
-}
-
-.ins-btn {
-    font-family: var(--second-font);
-    color: #fff;
-    font-weight: 500;
-    letter-spacing: 2px;
-    padding: 5px 30px;
-    background-color: transparent;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--main-color);
-    margin-top: 20px;
-}
-
-.ins-btn:hover {
-    color: #fff;
-    background-color: #fff;
-    border-color: var(--main-color);
-    color: var(--main-color);
-}
-
-.solid {
-    background-color: var(--main-color);
-    color: #fff;
-}
-
-.solid:hover {
-    background-color: #fff;
-    color: var(--main-color);
-}
-
-.small-btn {
-    padding: 10px 130px;
-}
-
-
-/*Element page*/
-
-.element .navigation-bar {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.element .navigation-bar a {
-    color: #424242;
-}
-
-.element .dark-bar {
-    background-color: #fff;
-}
-
-.element .menu:after {
-    color: #424242;
-}
-
-.element .title:after {
-    left: 0;
-    top: 60px;
-}
-
-.headings p {
-    margin-bottom: 80px;
-}
-
-.social-icons ul {
-    text-align: center;
-    padding-left: 0;
-    display: inline-block;
-}
-
-/* The markup is now <ul><li><a><span>, the way HTML requires — it used to be
-   <ul><a><li><span>, with <a> as a direct child of <ul>, which is invalid. The <li> keeps
-   every box property it always had, so the pill is pixel-identical; the <a> is made a
-   block so it fills that pill and inherits its colour instead of Bootstrap's link blue. */
-.social-icons ul li {
-    display: inline-block;
-    list-style-type: none;
-    border: 2px solid var(--main-color);
-    background-color: var(--main-color);
-    color: #fff;
-    font-size: 18px;
-    line-height: 32px;
-    width: 36px;
-    border-radius: 5rem;
-}
-
-.social-icons ul li a {
-    display: block;
-    color: inherit;
-}
-
-/* The inline SVG social marks (see the sprite at the top of index.html). Sized in em
-   so the two existing font-size rules — 18px here, 18px on .social-icons-form — keep
-   driving them exactly as they drove the icon-font glyph, and filled with currentColor
-   so :hover inverting the pill still inverts the mark. */
-.ic {
-    /* 0.9em, not 1em: an icon-font glyph is drawn inside its em box with side bearings,
-       so the Ionicons mark came out around 14px in the 36 x 32px pill. An SVG has no
-       bearings and 1em filled the pill edge to edge. 0.9em of 18px is 16.2px — 45% of
-       the pill across, 51% down — which is where the old row sat, only sharper. */
-    width: 0.9em;
-    height: 0.9em;
-    fill: currentColor;
-    vertical-align: -0.12em;
-}
-
-/* The Font Awesome card icons. Their source viewBoxes are not square — 0 0 640 512 for
-   the gears, 0 0 448 512 for the calendar — and `width: auto` on an <svg> with no
-   intrinsic size resolves to the CSS default 300px, not to the aspect ratio: the first
-   build of this drew a 300 x 27px box and pushed every glyph out of its 120px circle,
-   invisibly. So each <symbol> carries a viewBox padded out to a square centred on the
-   original, exactly the way an icon font sits a glyph in a square em box, and these are
-   square too. */
-.ic-fa {
-    /* 1.08em / -0.21em is measured, not guessed: at 0.9em the gem's ink came out 27x23px
-       inside the 100px disc where the icon font drew it 33x27, and raising the box without
-       lowering the baseline offset by half the growth would have floated it upwards.
-       Measured after: within a pixel of the glyph it replaces, same centre. */
-    width: 1.08em;
-    height: 1.08em;
-    fill: currentColor;
-    vertical-align: -0.21em;
-}
-
-.social-icons-form ul li {
-    display: inline-block;
-    list-style-type: none;
-    color: var(--main-color);
-    font-size: 18px;
-    line-height: 32px;
-    width: 36px;
-    margin-top: 30px;
-}
-
-.social-icons-form ul li a {
-    display: block;
-    color: inherit;
-}
-
-/* 36 x 32px is below every touch-target floor there is, and this is the row a
-   thumb reaches for. Raised to 44 x 44 on the phone only: at 36px per icon the
-   desktop row is a deliberate piece of the design and does not move. Audit
-   item 2.5. */
-@media only screen and (max-width: 995px) {
-    .social-icons-form ul li {
-        width: 44px;
-    }
-
-    .social-icons-form ul li a {
-        min-height: 44px;
-        line-height: 44px;
-    }
-}
-
-.social-icons {
-    margin-top: 30px;
-}
-
-.social-icons ul li:hover {
-    color: var(--main-color);
-    background-color: #fff;
-}
-
-
-/*Navigation*/
-
-/* The mobile menu. Below 995px .menu-links is display:none and, until now, that
-   was the whole story: a phone got the logo and nothing else -- no navigation
-   and no INSCRÍBETE, on the page students arrive at from Instagram. The panel
-   and the toggle were styled here and driven by script.js for years; only the
-   markup was missing. Audit item 2.1. Nothing in this block applies above
-   995px. */
-
-#menu-item {
-    /* Absolutely positioned under the bar rather than in flow: opening the menu
-       must not push the hero down, and it means the open/shut animation is
-       transform + opacity only. Nothing here animates a layout property -- the
-       original `transition: all` over margin-top did, and it also slid the links
-       up over the navigation bar instead of behind it. */
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    transform: translateY(-8px);
-    opacity: 0;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s;
-}
-
-/* Above the breakpoint the panel is not merely hidden, it does not exist: with a
-   box on the page (even at opacity 0) it is a composited layer the desktop never
-   needs, and the desktop is exactly what this change is not allowed to touch. */
-@media only screen and (min-width: 996px) {
-    #menu-item {
-        display: none;
-    }
-}
-
-.menu-item {
-    background-color: #1a1a1a;
-    text-align: center;
-    font-size: 16px;
-    text-transform: uppercase;
-}
-
-.menu-item ul {
-    padding-left: 0;
-    margin-bottom: 0;
-}
-
-/* <ul><li><a> and not the template's <ul><a><li>, which is invalid HTML and
-   which tests/verify.sh check 4 rejects. */
-.menu-item ul li {
-    list-style-type: none;
-}
-
-.menu-item ul li a {
-    display: block;
-    padding: 15px 0;
-    min-height: 44px;
-    color: #fff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.menu-item ul li a:hover,
-.menu-item ul li a:focus {
-    color: var(--main-color);
-    text-decoration: none;
-}
-
-/* The join button keeps its colour in the panel: it is the reason the menu is
-   being restored at all. */
-.menu-item ul li a.menu-item-cta,
-.menu-item ul li a.menu-item-cta:hover,
-.menu-item ul li a.menu-item-cta:focus {
-    background-color: var(--main-color);
-    color: #fff;
-    border-bottom: none;
-}
-
-.menu-item ul li a:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: -2px;
-}
-
-/* Collapsed with max-height rather than the old margin-top: -377px, which was a
-   magic number equal to the height of a panel that never existed and which slid
-   the links up *over* the navigation bar instead of clipping them. visibility
-   also takes the links out of the tab order while the panel is shut. */
-/* Both selectors carry the id, because the rule that sets the shut state above
-   does too: `.show-menu { opacity: 1 }` alone loses to `#menu-item { opacity: 0 }`
-   and the panel toggles its class, animates nothing, and stays invisible.
-   visibility and not just opacity: a transparent panel would still be in the tab
-   order, and a keyboard user would fall into an invisible menu. */
-#menu-item.hide-menu {
-    visibility: hidden;
-}
-
-#menu-item.show-menu {
-    transform: none;
-    opacity: 1;
-    visibility: visible;
-}
-
-.dark-bar {
-    background-color: #fff;
-    background-image: none;
-    -webkit-box-shadow: 0px 10px 40px -17px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0px 10px 40px -17px rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 10px 40px -17px rgba(0, 0, 0, 0.5);
-}
-
-.navigation-bar {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 15px 0;
-    font-size: 30px;
-}
-
-.navigation-bar a {
-    color: #fff;
-}
-
-/* The toggle. It is hidden above 995px, where .menu-links is the navigation;
-   the two are never on screen together. 44x44 because it is the single most
-   important target on a phone. */
-.menu-toggle-wrap {
-    display: none;
-}
-
-@media only screen and (max-width: 995px) {
-    .menu-toggle-wrap {
-        /* flex, so the language switch and the toggle sit on one line and neither has
-           to be positioned against the other. */
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-    }
-}
-
-.menu {
-    /* A real <button>: it is a control, it opens and closes something on this
-       page, and Space has to work as well as Enter without any script saying so. */
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-end;
-    min-width: 44px;
-    min-height: 44px;
-    line-height: 44px;
-    font: inherit;
-    background: none;
-    border: 0;
-    padding: 0;
-    /* .navigation-bar a is white and this bar is white (.menu-container). */
-    color: #1a1a1a;
-}
-
-.menu:hover,
-.menu:focus {
-    color: var(--main-color);
-    text-decoration: none;
-}
-
-.menu:focus-visible {
-    outline: 2px solid var(--main-color);
-    outline-offset: 4px;
-}
-
-/* The MENU label is drawn inside the button's own left padding.
-
-   It used to be `left: -65px` — absolutely positioned OUTSIDE the button, over whatever
-   happened to sit beside it. Nothing ever did, until the language switch moved into this
-   bar and the label landed on top of it: measured on that build, the link was 60 x 44px
-   and visible, and a click at its centre did not navigate, because the label was in
-   front of it. Moving the label into the button's padding draws it in exactly the same
-   place relative to the bars and stops it overlapping its neighbour. */
-.menu {
-    padding-left: 65px;
-}
-
-.menu:after {
-    position: absolute;
-    left: 0;
-    top: 0;
-    line-height: 44px;
-    color: #1a1a1a;
-    font-size: 16px;
-    font-family: var(--main-font);
-    letter-spacing: 1px;
-}
-
-.menu:hover:after,
-.menu:focus:after {
-    color: var(--main-color);
-}
-
-/* The bars and the cross are one inline SVG and the class on the button picks
-   which one is drawn. The template's ion-navicon would have been the obvious
-   choice; the icon font it came from is gone from this site entirely now, and
-   this is the pattern that replaced it everywhere. */
-.menu .menu-icon-x,
-.menu.c .menu-icon-bars {
-    display: none;
-}
-
-.menu.c .menu-icon-x {
-    display: inline;
-}
-
-.menu-container {
-    background-color: #fff;
-    color: #1a1a1a;
-}
-
-/* The row of desktop navigation links.
-
-   The markup has carried `d-flex flex-row` since the template this site came from, and
-   those are Bootstrap 4 class names — this project is on Bootstrap 3.3.7 and defines
-   neither, so the row has always been inline anchors laid out by `text-align: right`.
-   Making it the flex row it already says it is costs nothing to look at and buys back
-   the collapsed inter-tag whitespace that six gaps between seven inline items were
-   spending, which is what makes room for the language switch without pushing INSCRÍBETE
-   onto a second line. Measured at 1200px: 7 items on one row before, 7 on one row after
-   with the switch added.
-
-   Below 995px the media query further down in this file sets .menu-links to display:
-   none and the phone panel takes over, so nothing here applies to a phone. */
-.menu-links {
-    display: flex;
-    /* wrap, not nowrap: between 995 and ~1160px the Spanish row does not fit and never
-       has — on the build before this one INSCRÍBETE already sat on a second line at
-       1100px. Wrapping keeps that behaviour (the overflow drops to a right-aligned
-       second row) instead of squeezing "Sobre Nosotros" onto two lines inside its own
-       item, which is what nowrap did. */
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-end;
-    row-gap: 8px;
-}
-
-/* Adding "Socios" on 2026-09-04 pushed the Spanish desktop row over its column and
-   dropped the language switch to a second line at every width from 996px up. Measured,
-   because the numbers are the whole argument.
-
-   The row is a .col-xs-8, which at the 1170px container is 780px wide — and Bootstrap 3
-   gives every column 15px of padding on each side, so 750px of it is usable. The Spanish
-   navigation was 727px of content and fitted. "Socios" costs 68px and made it 795.
-
-   Two things were paying for that and neither is visible:
-
-     * 15px of gutter between eight items is 120px of a 750px row;
-     * the wordmark is 180px wide and its column is 390px. The navigation was squeezed
-       into two thirds of the bar so that a logo could leave a third of it empty.
-
-   12px gutters bring the row to 774, and a 25/75 split gives it an 847px content box to
-   sit in. Both are scoped above the menu breakpoint: below 995px .menu-links is
-   display:none, the only .menu-link left is the language switch beside the hamburger,
-   and the 4/8 split is what keeps a 180px wordmark and the toggle apart on a 360px
-   phone. Between 996 and 1199px the Spanish row still wraps to two lines — it did before
-   this change too, 727px in a 617px box, which is what the flex-wrap comment below has
-   always been about. English now fits on one line at every desktop width, which it did
-   not before. */
-@media only screen and (min-width: 996px) {
-    .navigation-bar .col-xs-4 {
-        width: 25%;
-    }
-
-    .navigation-bar .col-xs-8 {
-        width: 75%;
-    }
-
-    .menu-links .menu-link {
-        margin-right: 12px;
-    }
-}
-
-.menu-link {
-    /* A navigation label never breaks mid-item. */
-    white-space: nowrap;
-    font-family: 'Ubuntu', sans-serif !important;
-    font-size: 0.6em;
-    color: #1a1a1a !important;
-    margin-right: 15px;
-}
-
-.menu-link:hover {
-    text-decoration: none;
-    color: #a30006 !important;
-}
-
-.m:after {
-    content: 'MENU';
-}
-
-/* ---------------------------------------------------------------------------
-   The language switch. Spanish first, English one tap away.
-
-   It is a plain <a> to the other language's copy of the page the visitor is on
-   (/ <-> /en/), so: it works with JavaScript off, it survives being shared —
-   the URL carries the language — and a crawler can follow it. There is no
-   cookie and no Accept-Language negotiation on purpose: an unqualified visit to
-   multitecua.com is Spanish, always, and the switch is right here for the
-   exceptions.
-
-   A globe and not a flag. A flag names a country; the English half of this site
-   exists for the Erasmus student who could be from anywhere, and half of them
-   would not recognise a Union Jack as "the language I read". The two-letter code
-   beside it is the unambiguous part.
-
-   Everything here is padding and colour: no min-height, no display change, so
-   the anchor sits on the same line box as the six links beside it and the
-   navigation row is exactly as tall as it was.
-   --------------------------------------------------------------------------- */
-.menu-link.lang-link {
-    margin-left: 12px;
-    margin-right: 0;
-    padding: 4px 8px;
-    flex: 0 0 auto;
-    border: 1px solid rgba(26, 26, 26, 0.35);
-    border-radius: 3px;
-    letter-spacing: 1px;
-    white-space: nowrap;
-}
-
-.menu-link.lang-link:hover,
-.menu-link.lang-link:focus {
-    border-color: var(--main-color);
-}
-
-.menu-link.lang-link .ic-fa {
-    /* 0.95em keeps the globe optically level with the two capitals beside it;
-       the -0.15em is half the difference between that and the cap height, the
-       same correction .ic-fa makes for the card icons. */
-    width: 0.95em;
-    height: 0.95em;
-    vertical-align: -0.15em;
-    margin-right: 4px;
-}
-
-/* The phone copy. There are two switches in the markup, exactly as there are two
-   copies of the navigation links: one inside .menu-links, which is display:none below
-   995px, and one inside .menu-toggle-wrap, which is display:none above it. At most one
-   is ever on screen.
-
-   The phone copy is in the BAR and not in the slide-down panel, and that is the whole
-   point of it: the panel is opened by script, so a switch inside it is unreachable with
-   JavaScript off — measured, on this build, before this rule existed. In the bar it is
-   two taps from nothing: it is simply a link, sitting next to MENU, at every width.
-   44px tall because it is a phone target. */
-.menu-toggle-wrap .lang-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 44px;
-    margin-right: 14px;
-    vertical-align: middle;
-    font-size: 16px;
-}
-
-
-.c:after {
-    content: 'CLOSE';
-}
-
-
-/*Home page*/
-
-.header {
-    background-image: url(../images/multitec-banner.webp);
-    height: 100vh;
-    position: relative;
-    min-height: 659px;
-}
-
-.intro-box {
-    height: 100vh;
-    display: table;
-    text-align: center;
-    width: 100%;
-}
-
-.intro {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.header h1 {
     margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: var(--t-base);
+    line-height: var(--lh-body);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
 }
 
-.header h1,
-.header p {
-    color: #fff;
-    letter-spacing: 2px;
-}
+h1, h2, h3, h4 { margin: 0; line-height: var(--lh-tight); font-weight: 700; letter-spacing: -0.01em; }
+h1 { font-size: var(--t-hero); }
+h2 { font-size: var(--t-xl); }
+h3 { font-size: var(--t-md); }
+p { margin: 0; max-width: var(--measure); }
+p + p { margin-top: var(--s4); }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+figure { margin: 0; }
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease); }
+a:hover { color: var(--mt-red-4); }
+strong, b { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+::selection { background: var(--accent); color: var(--on-accent); }
 
-.header p {
-    font-size: 32px;
-    padding-top: 0;
-    padding-bottom: 40px;
-}
+/* Skip link: the first tab stop on the page. */
+.skip { position: absolute; left: var(--s4); top: -100px; z-index: 100; padding: var(--s3) var(--s4); background: var(--accent); color: var(--on-accent); border-radius: var(--r); font-weight: 500; }
+.skip:focus { top: var(--s4); outline-offset: 0; }
 
-.header .vira-btn {
-    background-color: var(--main-color);
-    color: #fff;
-}
+.wrap { width: min(var(--wrap), 100% - 2 * var(--gutter)); margin-inline: auto; }
+.section { padding-block: clamp(56px, 9vw, 104px); }
+.section-tight { padding-block: clamp(40px, 6vw, 72px); }
+.alt { background: var(--ink-raised); }
 
-.header .vira-btn:hover {
-    background-color: #fff;
-    color: #424242;
-}
-
-.about {
-    background-color: #f8f8f8;
-}
-
-.about img {
-    margin: 30px auto;
+/* ── the section signature: uppercase Ubuntu over a 40 × 4 red rule ──────── */
+.kicker {
     display: block;
+    font-size: var(--t-sm);
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--s3);
 }
-
-.about span {
-    font-family: 'Raleway';
-    font-weight: 600;
+.title {
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    font-size: var(--t-xl);
 }
-
-.expert {
-    background-color: #f8f8f8;
-}
-
-.expert p {
-    line-height: 200%;
-}
-
-.expert .bg-img {
-    background-image: url(../images/multitec-inscripcion.webp);
-    background-position-x: 85%;
-    height: 100%;
-}
-
-/* ---------------------------------------------------------------------------
-   #inscription is a split panel: a photograph on the left, text on the right.
-   The photo column has no content of its own, so something has to give it a
-   height, and that something used to be script.js:
-
-       var h = $('.expert').height();
-       $('.expert .col-sm-6 div').height(h);
-
-   read once at DOM-ready. Below 768px the paragraph beside it is 8 lines in
-   Poppins and 7 in the fallback face, at 32px a line, so the panel came out
-   729px if the webfont had not arrived yet and 761px if it had -- a layout that
-   depended on network timing, and the reason a Stage 1 with no visual change in
-   it still moved a 32px band on a phone.
-
-   Flex says the same thing at the layout level: side by side, the two columns
-   are the same height by construction, with no measurement and nothing to race.
-   Stacked, there is no second column to match, so the photo is a band sized in
-   CSS. Audit item 2.0 / 1.12.
-   --------------------------------------------------------------------------- */
-@media only screen and (min-width: 768px) {
-    #inscription .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: stretch;
-    }
-
-    #inscription .bg-img {
-        height: auto;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    /* 90vh is 760px on the 390x844 phone this was measured on -- one pixel off
-       the 761px the JavaScript produced when it won its own race, and the same
-       number on every load. */
-    #inscription .bg-img {
-        height: 90vh;
-        min-height: 320px;
-        max-height: 760px;
-    }
-}
-
-.expert .bg-img:after {
-    display: none;
-}
-
-.expert .section {
-    padding-left: 30px;
-    padding-right: 30px;
-}
-
-.vira-quote {
-    /*padding: 120px 0;*/
-    color: #fff;
-    font-style: italic;
-}
-
-.vira-quote p {
-    font-size: 32px;
-    color: #fff;
-}
-
-.vira-quote .quote {
-    margin-bottom: 40px;
-}
-
-.vira-quote .author {
-    font-size: 21px;
-    margin-bottom: 40px;
-}
-
-.watch {
-    font-size: 32px;
-    color: #fff;
-    padding: 150px 0;
-}
-
-.watch a {
-    border: 2px solid #fff;
-    margin-left: 10px;
-    margin-right: 10px;
-    line-height: 70px;
-    border-radius: 100%;
-    width: 70px;
-    height: 70px;
-    padding: 0;
-    font-size: 21px;
-    color: #fff;
-}
-
-.watch a:hover,
-.watch a:active,
-.watch a:focus {
-    background-color: #fff;
-    color: #424242;
-}
-
-.subscribe {
-    background-color: var(--main-color);
-}
-
-.subscribe .vira-btn {
-    margin-bottom: 0;
-    color: #424242;
-    font-weight: 700;
-    border-color: #fff;
-    background-color: #fff;
-}
-
-.subscribe .vira-btn:hover {
-    background-color: transparent;
-    color: #fff;
-}
-
-.subscribe .form-control {
-    width: 320px;
-    margin-bottom: 0;
-    border-color: #fff;
-    color: #fff;
-}
-
-.contact .vira-card {
-    background-color: #f8f8f8;
-    padding: 35px 0;
-    transition: all 0.3s ease-in-out;
-    margin-bottom: 45px;
-}
-
-.faq-title{
-    font-size: 32px;
-    color: #fff;
-    font-family: var(--main-font);
-}
-
-.faq-title:after{
-    content: '';
-    height: 5px;
+.title::after {
+    content: "";
+    display: block;
     width: 40px;
-    background-color: white;
-    position: absolute;
-    top: 81px;
-    left: calc(50% - 20px);
+    height: 4px;
+    margin-top: var(--s4);
+    background: var(--accent);
+    border-radius: 2px;
 }
+.title.centered { text-align: center; }
+.title.centered::after { margin-inline: auto; }
+.lede { font-size: var(--t-md); color: var(--text-dim); line-height: 1.45; }
+.section-head { margin-bottom: clamp(28px, 4vw, 48px); }
+.section-head .lede { margin-top: var(--s4); }
+.section-head.centered { text-align: center; }
+.section-head.centered .lede { margin-inline: auto; }
+.dim { color: var(--text-dim); }
+.small { font-size: var(--t-sm); }
 
-.faq-container{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.faq-question {
-    font-family: var(--second-font);
-    font-weight: bold;
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
-    padding: 30px 20px;
-    width: 60%;
-    border: none;
-    outline: none;
-    transition: 0.4s;
-    margin: auto;
-    text-transform: uppercase;
-}
-
-.faq-question:hover {
-    font-size: 21px;
-}
-
-/* The questions are role="button" tabindex="0" now (audit item 2.4), so they
-   have to show where the keyboard is. Only ever visible to a keyboard user. */
-.faq-question:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: -6px;
-}
-
-
-/* Audit item 4.2. The ten benefit bullets carried style="text-align: justify"
-   inline, which is 20 of the 31 findings the detector had left on this site and,
-   far more to the point, is at its worst exactly where this text lives: a 15px
-   Poppins paragraph in a ~370px column on a phone, where justification has to
-   stretch four or five words to fill a line and opens rivers of white down the
-   block. The other six answers had no text-align at all and were inheriting
-   `center` from `section`, so the FAQ was showing centred prose in one place and
-   justified prose in another. One rule now, left, for all of them — which is
-   also what every line of running text on this site wants. */
-.faq-answer {
-    font-family: var(--second-font);
-    font-weight: 100;
-    font-size: 15px;
-    color: #fff;
-    text-align: left;
-    padding: 0 250px;
-    overflow: hidden;
-    display: block;
-
-    animation-duration: 0.4s;
-    animation-name: animate-fade;
-    animation-fill-mode: backwards;
-}
-
-
-.faq-question:after {
-    content: "+";
-    font-size: 20px;
-    color: #fff;
-    float: right;
-}
-
-.faq-active:after {
-    content: "-";
-}
-
-.contact .vira-card .vira-card-header {
-    margin-bottom: 15px;
-    font-size: 21px;
-    color: var(--main-color);
-}
-
-.contact .vira-card .vira-card-content h3 {
-    letter-spacing: 2px;
-    margin-bottom: 45px;
-}
-
-.contact .vira-card .vira-card-content h3:after {
-    top: 40px;
-}
-
-.contact .vira-card .vira-card-content p {
-    font-size: 18px;
-}
-
-.contact-title{
-    font-size: 21px;
-    letter-spacing: 2px;
-    margin-bottom: 45px;
-    font-family: var(--main-font);
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #424242;
-    margin-bottom: 35px;
-    margin-top: 0;
-}
-
-/* -----------------------------------------------------------------------------
-   FIND US — what replaced the Google Maps iframe on 2026-08-29.
-
-   The iframe was not broken: rendered in a clean headless Chromium at 390px it drew
-   the map and the marker perfectly. It failed on a real phone because that browser
-   blocked a third-party frame, which is what tracking protection, privacy browsers and
-   content blockers all do, and it is the same grey broken-content box in every one of
-   them. That is the argument for removing it: a contact section that renders only for
-   visitors who let Google run a frame is not a contact section, and every visitor who
-   did let it was disclosed to Google before they had asked for anything. Three CDNs
-   came out of this site today for exactly that reason; this was the fourth.
-
-   Everything below is served from our own container and needs no network at all. The
-   plate is inline SVG, deliberately an abstraction and not a copy of a map: it carries
-   no street names and claims nothing it cannot back up. The address is the claim, and
-   the button is the map — one tap, the visitor's own choice, and Google hears about it
-   only then.
-
-   It matches .contact .vira-card above it — same #f8f8f8, same radius — so the section
-   reads as four panels, not as three panels and a gap where something used to be.
-   ----------------------------------------------------------------------------- */
-.find-us {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 30px;
-    background-color: #f8f8f8;
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 45px;
-    text-align: left;
-}
-
-.find-us-plate {
-    flex: 1 1 260px;
-    /* The plate keeps the 4:3 the iframe had, so the band is the same shape in the
-       page it has always been. */
-    max-width: 380px;
-}
-
-.find-us-plate svg {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-.fu-bg {
-    fill: #ecebe9;
-}
-
-.fu-road {
-    stroke: #fdfdfc;
-    stroke-width: 9;
-    fill: none;
-}
-
-.fu-road-main {
-    stroke-width: 14;
-}
-
-.fu-block {
-    fill: #dedbd7;
-}
-
-.fu-green {
-    fill: #dfe7dc;
-}
-
-.fu-pin {
-    fill: var(--main-color);
-}
-
-.fu-pin-dot {
-    fill: #fff;
-}
-
-.find-us-body {
-    flex: 1 1 260px;
-}
-
-.find-us-eyebrow {
-    font-family: var(--main-font);
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 1.5;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    /* #8a8a8a on #f8f8f8 is 3.5:1 and this is 13px text. #6f6f6f is 5.1:1. */
-    color: #6f6f6f;
-    margin-bottom: 10px;
-}
-
-.find-us-place {
-    font-family: var(--main-font);
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 1.35;
-    color: #1a1a1a;
-    margin-bottom: 6px;
-}
-
-.find-us-address {
-    font-family: var(--second-font);
-    font-size: 16px;
-    line-height: 1.6;
-    /* <address> is italic in every UA stylesheet and this is not a signature block. */
-    font-style: normal;
-    color: #4a4a4a;
-    margin-bottom: 22px;
-}
-
-.find-us-btn {
+/* ── buttons ─────────────────────────────────────────────────────────────── */
+.btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
-    padding: 10px 26px;
-    font-family: var(--second-font);
+    gap: var(--s2);
+    min-height: var(--tap);
+    padding: 0 var(--s5);
+    border: 2px solid var(--accent);
+    border-radius: var(--r);
+    background: var(--accent);
+    color: var(--on-accent);
+    font: inherit;
     font-weight: 500;
-    font-size: 15px;
-    letter-spacing: 1px;
-    color: #fff;
-    background-color: var(--main-color);
-    border-radius: 4px;
-    max-width: 100%;
-    white-space: normal;
-    transition: all 0.3s ease-in-out;
+    letter-spacing: .02em;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.btn:hover, .btn:focus-visible { background: var(--mt-red-4); border-color: var(--mt-red-4); color: var(--on-accent); }
+.btn-quiet { background: transparent; color: var(--accent); }
+.btn-quiet:hover, .btn-quiet:focus-visible { background: var(--accent); color: var(--on-accent); }
+.btn-ghost { background: transparent; border-color: var(--line); color: var(--text); }
+.btn-ghost:hover, .btn-ghost:focus-visible { border-color: var(--text); background: transparent; color: var(--text); }
+.btn-lg { min-height: 52px; padding-inline: var(--s6); font-size: var(--t-md); }
+.btn .ic { width: 1.1em; height: 1.1em; }
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--s3); }
+
+/* ── icons ───────────────────────────────────────────────────────────────── */
+.ic, .ic-fa { width: 20px; height: 20px; fill: currentColor; flex: none; }
+
+/* ── header ──────────────────────────────────────────────────────────────── */
+.site-head {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(246, 246, 246, .92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.site-head.is-stuck { border-bottom-color: var(--line); }
+.head-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--s4);
+    min-height: var(--head-h);
+}
+.brand { display: inline-flex; align-items: center; min-height: var(--tap); }
+.brand img { width: auto; height: 30px; }
+.nav { display: none; margin-left: auto; align-items: center; gap: var(--s1); }
+.nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding: 0 var(--s3);
+    border-radius: var(--r);
+    color: var(--text);
+    font-weight: 500;
+    text-decoration: none;
+}
+.nav a:hover, .nav a:focus-visible { color: var(--accent); background: var(--ink-sunken); }
+.nav .btn { margin-left: var(--s2); color: var(--on-accent); }
+.nav .btn:hover { background: var(--mt-red-4); }
+.lang-link { gap: var(--s1); font-weight: 500; letter-spacing: .04em; }
+.lang-link .ic { width: 16px; height: 16px; }
+
+/* Phone: language + hamburger on the right, panel below the bar. */
+.head-tools { display: flex; align-items: center; gap: var(--s2); margin-left: auto; }
+.head-tools .lang-link { display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 var(--s3); border: 1px solid var(--line); border-radius: var(--r); color: var(--text); text-decoration: none; }
+.menu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--tap);
+    height: var(--tap);
+    min-height: 44px;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+}
+.menu .menu-icon-x { display: none; }
+.menu.c .menu-icon-bars { display: none; }
+.menu.c .menu-icon-x { display: block; }
+.menu-item {
+    display: none;
+    border-top: 1px solid var(--line);
+    padding: var(--s2) 0 var(--s4);
+}
+.menu-item.show-menu { display: block; }
+.menu-item ul li a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 var(--gutter);
+    color: var(--text);
+    font-size: var(--t-md);
+    font-weight: 500;
+    text-decoration: none;
+}
+.menu-item ul li a:hover, .menu-item ul li a:focus-visible { background: var(--ink-sunken); color: var(--accent); }
+.menu-item ul li a.menu-item-cta { margin: var(--s3) var(--gutter) 0; justify-content: center; background: var(--accent); color: var(--on-accent); border-radius: var(--r); }
+
+@media (min-width: 996px) {
+    .nav { display: flex; }
+    .nav a { white-space: nowrap; }
+    .head-tools { display: none; }
+    .menu-item { display: none !important; }
+    .brand img { height: 34px; }
+}
+/* Between the breakpoint and the full container the seven links plus the button share
+   ~900px: tighter padding, and a hair smaller, so none of them wraps to two lines. */
+@media (min-width: 996px) and (max-width: 1179px) {
+    .nav a { padding: 0 var(--s2); font-size: 15px; }
+    .nav .btn { padding: 0 var(--s4); }
 }
 
-.find-us-btn .ic-fa {
-    width: 1.05em;
-    height: 1.05em;
-    margin-right: 10px;
-    flex: 0 0 auto;
+/* ── hero ────────────────────────────────────────────────────────────────── */
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(40px, 7vw, 88px) clamp(48px, 7vw, 88px);
+}
+.hero-grid {
+    display: grid;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+}
+.hero-copy { max-width: 620px; }
+.hero h1 { text-transform: uppercase; letter-spacing: .01em; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero .sub { margin-top: var(--s4); font-size: var(--t-lg); font-weight: 500; line-height: 1.25; }
+.hero .lede { margin-top: var(--s4); }
+.hero .btn-row { margin-top: var(--s6); }
+.hero-photo { position: relative; }
+.hex-frame {
+    /* The brand's own shape (brandbook p.24) — the one thing here that is decoration. */
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    aspect-ratio: 1;
+    width: min(100%, 520px);
+    margin-inline: auto;
+    background: var(--accent);
+}
+.hex-frame img { width: 100%; height: 100%; object-fit: cover; }
+.hex-mark {
+    position: absolute;
+    width: 22%;
+    aspect-ratio: 1;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: var(--accent);
+    right: 2%;
+    bottom: 8%;
+    opacity: .92;
+}
+.hex-mark.two { width: 11%; right: -2%; bottom: 30%; background: var(--mt-grey); opacity: .8; }
+.hero-caption { margin-top: var(--s3); text-align: center; font-size: var(--t-sm); color: var(--text-dim); }
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s4) var(--s5);
+    margin-top: clamp(40px, 6vw, 72px);
+    padding-top: var(--s6);
+    border-top: 1px solid var(--line);
+}
+.stat b { display: block; font-size: var(--t-xl); line-height: 1; letter-spacing: -0.02em; color: var(--accent); }
+.stat span { display: block; margin-top: var(--s2); font-size: var(--t-sm); color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; }
+
+@media (min-width: 768px) {
+    .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) {
+    .hero-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
 }
 
-.find-us-btn:hover,
-.find-us-btn:focus {
-    color: var(--main-color);
-    background-color: #fff;
-    box-shadow: inset 0 0 0 1px var(--main-color);
+/* ── about ───────────────────────────────────────────────────────────────── */
+.about-grid { display: grid; gap: clamp(32px, 5vw, 72px); }
+.about-text p + p { margin-top: var(--s4); }
+/* The house motto. A big red opening mark rather than a left rule: the rule is the
+   "side tab" the detector rejects, and the mark says "quotation" on its own. */
+.quote {
+    position: relative;
+    margin: var(--s6) 0 0;
+    padding: var(--s3) 0 0 var(--s7);
+    font-size: var(--t-md);
+    font-weight: 500;
+    line-height: 1.4;
+}
+.quote::before {
+    content: "\201C";
+    position: absolute;
+    left: 0;
+    top: -0.1em;
+    font-size: 4.5rem;
+    line-height: 1;
+    font-weight: 700;
+    color: var(--accent);
+}
+.quote cite { display: block; margin-top: var(--s2); font-size: var(--t-sm); font-style: normal; color: var(--text-dim); }
+.pillars { display: grid; gap: var(--s5); }
+.pillar { display: grid; grid-template-columns: 56px 1fr; gap: var(--s4); padding-top: var(--s5); border-top: 1px solid var(--line); }
+.pillar:first-child { border-top: 0; padding-top: 0; }
+.pillar-n {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 700;
+    font-size: var(--t-md);
+}
+.pillar h3 { text-transform: uppercase; letter-spacing: .04em; font-size: var(--t-base); }
+.pillar p { margin-top: var(--s2); color: var(--text-dim); }
+@media (min-width: 900px) {
+    .about-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: start; }
 }
 
-.find-us-note {
-    font-family: var(--second-font);
-    font-size: 13px;
-    line-height: 1.6;
-    /* Saying where the button goes before it is tapped. The old iframe went there
-       without asking. */
-    color: #6f6f6f;
-    margin: 12px 0 0;
+/* ── what we do: the flagship activities ─────────────────────────────────── */
+.tiles { display: grid; gap: var(--s4); }
+.tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background: var(--dark);
+    color: var(--mt-white);
+    text-decoration: none;
+    isolation: isolate;
+}
+/* The photograph is .tile-photo, not a bare image tag: the family mark in the corner is an
+   image too, and a selector on the tag stretched a 120 × 24 logo over the whole tile. */
+.tile .tile-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; transition: transform 600ms var(--ease); }
+.tile::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, rgba(30, 33, 33, .08) 0%, rgba(30, 33, 33, .55) 40%, rgba(30, 33, 33, .94) 100%);
+}
+.tile:hover .tile-photo, .tile:focus-visible .tile-photo { transform: scale(1.04); }
+.tile-body { margin-top: auto; padding: var(--s5); }
+.tile-kicker { font-size: var(--t-sm); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--mt-grey); }
+.tile h3 { margin-top: var(--s2); font-size: var(--t-lg); text-transform: uppercase; letter-spacing: .02em; color: var(--mt-white); text-shadow: 0 1px 2px rgba(30, 33, 33, .6); }
+.tile p { margin-top: var(--s2); color: var(--mt-grey-2); font-size: var(--t-base); text-shadow: 0 1px 2px rgba(30, 33, 33, .6); }
+.tile-mark { position: absolute; top: var(--s4); right: var(--s4); height: 26px; width: auto; opacity: .9; }
+.tile.wide { min-height: 360px; }
+/* Five tiles, three of them wide. Two columns on a tablet (a wide tile takes both), a
+   12-column grid on a desktop: wide = 6, plain = 3, so both rows fill exactly. */
+@media (min-width: 640px) {
+    .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tile.wide { grid-column: span 2; }
+}
+@media (min-width: 1000px) {
+    .tiles { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .tile { grid-column: span 3; }
+    .tile.wide { grid-column: span 6; }
 }
 
-@media only screen and (max-width: 767px) {
-    .find-us {
-        padding: 24px;
-        gap: 22px;
-        text-align: center;
-    }
-
-    .find-us-plate {
-        /* Centred and capped, so it is a plate and not a stretched banner on a phone. */
-        margin: 0 auto;
-        max-width: 300px;
-        flex-basis: 100%;
-    }
-
-    .find-us-body {
-        flex-basis: 100%;
-    }
-
-    .find-us-address {
-        margin-bottom: 18px;
-    }
+/* ── the Multicasa ───────────────────────────────────────────────────────── */
+.casa-grid { display: grid; gap: clamp(28px, 5vw, 64px); align-items: center; }
+.casa-photo { border-radius: var(--r-xl); overflow: hidden; }
+.casa-photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.casa-photo figcaption { padding: var(--s3) 0 0; font-size: var(--t-sm); color: var(--text-dim); }
+.casa-list { display: grid; gap: var(--s3) var(--s4); margin-top: var(--s5); }
+@media (min-width: 640px) { .casa-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.casa-list li { display: flex; gap: var(--s3); align-items: flex-start; font-size: var(--t-base); }
+.casa-list li::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: .45em; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); }
+.casa-note { margin-top: var(--s5); font-size: var(--t-sm); color: var(--text-dim); }
+@media (min-width: 900px) {
+    .casa-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); }
+    .casa-grid.flip .casa-photo { order: 2; }
 }
 
-/* -----------------------------------------------------------------------------
-   MEMBERS' AREA — the two doors into socios.multitecua.com. Added 2026-09-04.
-
-   It sits between #inscription and #workstation, which are both .expert (#f8f8f8), so
-   this one is white and its panels are the grey: three bands in a row all the same
-   colour is one long band, and the section would have disappeared into its neighbours.
-   The panels are the same #f8f8f8 and the same 20px radius as .find-us and the contact
-   cards, so a new component still reads as this site's.
-
-   The heading treatment is lifted wholesale from .events, which had the identical
-   problem: .title's red rule is an absolutely positioned :after at a hard `top`, tuned
-   at three widths for a heading with 100px of clear space under it. Put a standfirst
-   there and at 390px the rule lands in the middle of the sentence. Static, as a block,
-   it pushes the paragraph down at every width with no offset to keep in step.
-
-   The two panels are equal-height by flex and their CTA blocks are pushed to the bottom
-   with margin-top:auto, because only one of them has a bullet list — without it the two
-   buttons sat 60px apart and the row read as two unrelated things.
-   ----------------------------------------------------------------------------- */
-.members .title {
-    margin-bottom: 30px;
-}
-
-.members .title:after {
-    position: static;
-    display: block;
-    top: auto;
-    left: auto;
-    margin: 22px auto 0;
-}
-
-.members-intro {
-    font-family: var(--second-font);
-    font-size: 16px;
-    line-height: 1.7;
-    /* #6f6f6f is 5.1:1 on white. */
-    color: #4a4a4a;
-    max-width: 46em;
-    margin: 0 auto;
-}
-
-.members-grid {
+/* ── join ────────────────────────────────────────────────────────────────── */
+.join-grid { display: grid; gap: clamp(28px, 5vw, 64px); align-items: start; }
+.price {
     display: flex;
     flex-wrap: wrap;
-    align-items: stretch;
-    gap: 30px;
-    margin-top: 45px;
-    text-align: left;
+    align-items: baseline;
+    gap: var(--s2) var(--s3);
+    margin-top: var(--s5);
+}
+.price b { font-size: var(--t-2xl); line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
+.price span { font-size: var(--t-md); color: var(--text-dim); }
+.steps { counter-reset: step; display: grid; gap: var(--s4); margin-top: var(--s6); }
+.steps li { position: relative; padding-left: 52px; counter-increment: step; }
+.steps li::before {
+    content: counter(step);
+    position: absolute; left: 0; top: 0;
+    display: grid; place-items: center;
+    width: 36px; height: 36px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: var(--accent); color: var(--on-accent);
+    font-weight: 700;
+}
+.steps li b { display: block; font-weight: 700; }
+.steps li span { color: var(--text-dim); }
+.perks { display: grid; gap: var(--s3); }
+.perks li { display: flex; gap: var(--s3); align-items: flex-start; padding: var(--s3) 0; border-top: 1px solid var(--line); }
+.perks li:first-child { border-top: 0; padding-top: 0; }
+.perks .ic { width: 22px; height: 22px; color: var(--accent); margin-top: .1em; }
+.perks li b { font-weight: 700; }
+.perks li span { color: var(--text-dim); }
+.join .btn-row { margin-top: var(--s6); }
+.social-row { display: flex; flex-wrap: wrap; gap: var(--s2); margin-top: var(--s5); }
+.social-row a {
+    display: inline-grid; place-items: center;
+    width: var(--tap); height: var(--tap); min-height: 44px;
+    border: 1px solid var(--line); border-radius: var(--r);
+    color: var(--text);
+}
+.social-row a:hover, .social-row a:focus-visible { border-color: var(--accent); color: var(--accent); }
+@media (min-width: 900px) {
+    .join-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); }
 }
 
+/* ── members' area ───────────────────────────────────────────────────────── */
+.members-grid { display: grid; gap: var(--s4); }
 .members-panel {
     display: flex;
     flex-direction: column;
-    /* 300px, not 260px: the board panel's title is "Panel de la junta directiva" and
-       below 300px it takes three lines while its neighbour takes one. */
-    flex: 1 1 300px;
-    background-color: #f8f8f8;
-    border-radius: 20px;
-    padding: 32px;
+    padding: var(--s5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    background: var(--ink-raised);
+}
+.members-head { display: flex; align-items: center; gap: var(--s3); }
+.members-mark { display: grid; place-items: center; width: 44px; height: 44px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); color: var(--on-accent); }
+.members-mark .ic-fa { width: 22px; height: 22px; }
+.members-eyebrow { font-size: var(--t-sm); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
+.members-name { font-size: var(--t-md); }
+.members-body { margin-top: var(--s4); }
+.members-list { display: grid; gap: var(--s2); margin-top: var(--s4); color: var(--text-dim); }
+.members-list li { display: flex; gap: var(--s3); }
+.members-list li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: .55em; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); }
+.members-panel .btn { margin-top: var(--s5); align-self: flex-start; }
+.members-note { margin-top: var(--s3); font-size: var(--t-sm); color: var(--text-dim); }
+.members-foot { margin-top: var(--s6); }
+.members-foot p + p { margin-top: var(--s2); }
+@media (min-width: 768px) {
+    .members-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .members-panel .btn { margin-top: auto; padding-top: 0; }
+    .members-panel .members-note { margin-top: var(--s3); }
+    .members-panel .btn { margin-top: var(--s5); }
 }
 
-/* The committee's panel is the secondary of the two and says so quietly — a rule down
-   its edge rather than a different fill, which would have made the row look like an
-   error state. Not a coloured left tab on an alert; this is a card, not a message. */
-.members-panel-board {
-    box-shadow: inset 0 0 0 1px #e4e2e0;
+/* ── press ───────────────────────────────────────────────────────────────── */
+.press-strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(78vw, 320px);
+    gap: var(--s4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: var(--s1) var(--gutter) var(--s4);
+    margin-inline: calc(-1 * var(--gutter));
+    scrollbar-width: thin;
+    scrollbar-color: var(--mt-grey) transparent;
 }
-
-.members-head {
+.press-card {
+    scroll-snap-align: start;
     display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 18px;
-}
-
-.members-mark {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
-    width: 52px;
-    height: 52px;
-    border-radius: 100%;
-    background-color: var(--main-color);
-    /* White on #a30006 is 8.2:1. The site's other disc icons do the same. */
-    color: #fff;
-    font-size: 26px;
-}
-
-.members-mark .ic-fa {
-    /* .ic-fa's -0.21em baseline nudge is for a glyph on a text baseline; inside a flex
-       centre it just pushes the mark 5px low. */
-    vertical-align: 0;
-}
-
-.members-head-text {
-    min-width: 0;
-}
-
-.members-eyebrow {
-    font-family: var(--main-font);
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 1.4;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    /* 5.1:1 on #f8f8f8 at 13px — the same pair .find-us-eyebrow settled on. */
-    color: #6f6f6f;
-    margin: 0 0 4px;
-}
-
-.members-name {
-    font-family: var(--main-font);
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 1.3;
-    text-transform: none;
-    color: #1a1a1a;
-    margin: 0;
-    padding: 0;
-}
-
-.members-body {
-    font-family: var(--second-font);
-    font-size: 15px;
-    line-height: 1.7;
-    color: #4a4a4a;
-    margin: 0 0 18px;
-}
-
-.members-list {
-    list-style: none;
-    margin: 0 0 22px;
-    padding: 0;
-}
-
-.members-list li {
-    position: relative;
-    font-family: var(--second-font);
-    font-size: 15px;
-    line-height: 1.6;
-    color: #4a4a4a;
-    padding-left: 26px;
-    margin-bottom: 10px;
-}
-
-/* A square rotated 45 degrees: the association's mark is a hexagon and a bullet that
-   tries to be one at 8px is a smudge. Drawn in CSS so it costs no request and inherits
-   the accent. */
-.members-list li:before {
-    content: '';
-    position: absolute;
-    left: 4px;
-    top: 8px;
-    width: 8px;
-    height: 8px;
-    background-color: var(--main-color);
-    transform: rotate(45deg);
-}
-
-.members-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    /* margin-top:auto is what keeps the two buttons on one line when only one panel
-       has a list above it. */
-    margin-top: auto;
-    min-height: 44px;
-    padding: 10px 26px;
-    font-family: var(--second-font);
-    font-weight: 500;
-    font-size: 15px;
-    letter-spacing: 1px;
-    color: #fff;
-    background-color: var(--main-color);
-    border-radius: 4px;
-    /* Bootstrap 3's .btn is white-space:nowrap, which turns a long label into sideways
-       page scroll instead of a second line. Group 16 exists because of that. */
-    max-width: 100%;
-    white-space: normal;
-    align-self: flex-start;
-    transition: all 0.3s ease-in-out;
-}
-
-.members-btn:hover,
-.members-btn:focus {
-    color: var(--main-color);
-    background-color: #fff;
-    box-shadow: inset 0 0 0 1px var(--main-color);
-}
-
-.members-btn-ghost {
-    color: var(--main-color);
-    background-color: transparent;
-    box-shadow: inset 0 0 0 1px var(--main-color);
-}
-
-.members-btn-ghost:hover,
-.members-btn-ghost:focus {
-    color: #fff;
-    background-color: var(--main-color);
-    box-shadow: none;
-}
-
-.members-note {
-    font-family: var(--second-font);
-    font-size: 13px;
-    line-height: 1.6;
-    /* Saying where the button goes, and with which account, before it is tapped. IAP
-       answers a stranger with a bare Google sign-in screen and no explanation at all. */
-    color: #6f6f6f;
-    margin: 14px 0 0;
-}
-
-.members-foot,
-.members-help {
-    font-family: var(--second-font);
-    line-height: 1.7;
-    text-align: center;
-}
-
-.members-foot {
-    font-size: 16px;
-    color: #4a4a4a;
-    margin: 45px 0 0;
-}
-
-.members-help {
-    font-size: 14px;
-    color: #6f6f6f;
-    margin: 8px 0 0;
-}
-
-.members-foot a,
-.members-help a {
-    color: var(--main-color);
-    font-weight: 500;
-    /* An inline link inside a sentence needs more than colour: #a30006 on white is
-       8.2:1 against the ground but only 2.4:1 against the #4a4a4a text beside it. */
-    text-decoration: underline;
-    /* 44px of tappable height around a link that sits inside a line of prose, without
-       moving the line: padding would, an inline-block with a line-height does not. */
-    display: inline-block;
-    line-height: 44px;
-}
-
-@media only screen and (min-width: 768px) {
-    /* Both panels bottom-anchor their CTA block, so the two buttons only line up if the
-       notes underneath them are the same height — and between 768 and ~1100px one note
-       wraps to three lines while the other stays at two, which put the buttons 21px
-       apart. Three lines of 13px/1.6, reserved. Below 768 the panels stack and there is
-       nothing to align, which is why this is not in the base rule. */
-    .members-note {
-        min-height: 4.8em;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    .members-panel {
-        padding: 26px 22px;
-        flex-basis: 100%;
-    }
-
-    .members-grid {
-        gap: 22px;
-        margin-top: 35px;
-    }
-
-    .members-btn {
-        /* A thumb on a 360px screen: full width beats a 180px target floated left. */
-        align-self: stretch;
-    }
-}
-
-.footer {
-    background-color: #202020;
-    text-align: center;
-    padding: 30px 0;
-}
-
-.footer span {
-    color: var(--main-color);
-}
-
-.footer a {
-    color: #fff;
-}
-
-.footer-container{
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.footer-row {
-    display: flex;
-    justify-content: center!important;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-
-.footer-center{
-    text-align: center!important;
-}
-
-.footer-nav-links{
-    display: flex;
-    justify-content: space-around;
-    list-style:none;
-    font-family: var(--second-font);
-    padding: 0;
-}
-
-.footer-copy {
-    font-size: 14px;
-    font-family: var(--second-font);
-    font-style: italic;
-    color: #fff;
-}
-
-.footer-little{
-    font-size: 14px;
-    color: #fff;
-}
-
-/*animations*/
-
-.vira-card .vira-card-header .card-icon:after {
-    transition: all 0.3s ease-in-out;
-}
-
-.vira-card:hover .vira-card-header .card-icon:after {
-    height: 120px;
-    width: 120px;
-    top: -1px;
-    left: -1px;
-}
-
-.owl-theme .owl-dots .owl-dot span {
-    background-color: var(--main-color);
-    margin: 5px;
-}
-
-.owl-theme .owl-dots .owl-dot.active span,
-.owl-theme .owl-dots .owl-dot:hover span {
-    background-color: var(--main-color);
-    height: 14px;
-    width: 14px;
-    margin: 3px;
-}
-
-@media (max-width: 767px) {
-    .vira-card {
-        margin-bottom: 60px;
-    }
-
-    .maps{
-        border-radius: 20px;
-        width: 350px; 
-        height: 225px;
-    }
-}
-
-::-webkit-scrollbar {
-    width: 1.4rem;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--main-color);
-    width: 1rem;
-    border-radius: 5px;
-    border: 3px solid #fff;
-}
-
-.red_text {
-    color: var(--main-color);
-}
-
-.telegram {
-    color: var(--main-color);
-    font-weight: bold;
-}
-
-.telegram:hover{
-    text-decoration: underline;
-    color: var(--main-color);
-}
-
-.youtube {
-    -webkit-box-shadow: 10px 10px 61px -18px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 10px 10px 61px -18px rgba(0, 0, 0, 0.75);
-    box-shadow: 10px 10px 61px -18px rgba(0, 0, 0, 0.75);
-}
-
-.video-container {
-    height: 0;
+    flex-direction: column;
+    border-radius: var(--r-lg);
     overflow: hidden;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    position: relative;
-    
+    background: var(--ink-raised);
+    border: 1px solid var(--line);
+}
+.press-card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.press-body { padding: var(--s4); }
+.press-outlet { font-size: var(--t-sm); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
+.press-card h3 { margin-top: var(--s2); font-size: var(--t-base); line-height: 1.35; }
+.press-card h3 a { color: var(--text); text-decoration: none; }
+.press-card h3 a::after { content: ""; position: absolute; inset: 0; }
+.press-card { position: relative; }
+.press-card:hover h3 a, .press-card:focus-within h3 a { color: var(--accent); }
+.press-hint { margin-top: var(--s2); font-size: var(--t-sm); color: var(--text-dim); }
+@media (min-width: 1000px) {
+    .press-strip { grid-auto-columns: minmax(0, 1fr); grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-flow: row; overflow: visible; padding: 0; margin: 0; }
+    .press-hint { display: none; }
 }
 
-.video-container iframe,
-.video-container object,
-.video-container embed {
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
+/* ── FAQ ─────────────────────────────────────────────────────────────────── */
+.faq-list { max-width: 820px; }
+.faq-item { border-top: 1px solid var(--line); }
+.faq-item:last-child { border-bottom: 1px solid var(--line); }
+.faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s4);
+    min-height: 56px;
+    padding: var(--s3) 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: var(--t-md);
+    font-weight: 500;
+    line-height: 1.3;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+    content: "+";
+    flex: none;
+    display: grid; place-items: center;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    color: var(--accent);
+    font-weight: 400;
+    font-size: var(--t-md);
+    transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.faq-item[open] summary::after { content: "–"; background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.faq-item summary:hover { color: var(--accent); }
+.faq-body { padding: 0 0 var(--s5); color: var(--text-dim); }
+.faq-body p + p, .faq-body ul + p, .faq-body p + ul { margin-top: var(--s3); }
+.faq-body ul { display: grid; gap: var(--s2); }
+.faq-body li { padding-left: var(--s5); position: relative; }
+.faq-body li::before { content: ""; position: absolute; left: 0; top: .55em; width: 9px; height: 9px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); }
+.faq-body li b { color: var(--text); }
+.faq-body ul ul { margin-top: var(--s2); }
+.faq-body ul ul li::before { background: var(--mt-grey); }
+
+/* ── contact ─────────────────────────────────────────────────────────────── */
+.contact-grid { display: grid; gap: clamp(28px, 5vw, 64px); }
+.contact-list { display: grid; gap: var(--s4); }
+.contact-list li { display: grid; grid-template-columns: 44px 1fr; gap: var(--s4); align-items: start; padding-top: var(--s4); border-top: 1px solid var(--line); }
+.contact-list li:first-child { border-top: 0; padding-top: 0; }
+.contact-ic { display: grid; place-items: center; width: 44px; height: 44px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); color: var(--on-accent); }
+.contact-ic .ic-fa { width: 20px; height: 20px; }
+.contact-label { font-size: var(--t-sm); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
+.contact-list li p { margin-top: var(--s1); }
+.contact-list a { font-weight: 500; }
+.contact-list .social-row { margin-top: var(--s2); }
+
+.find-us {
+    display: grid;
+    gap: var(--s5);
+    padding: var(--s5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    background: var(--ink-raised);
+}
+.find-us-plate svg { width: 100%; height: auto; border-radius: var(--r-lg); }
+.fu-bg { fill: var(--mt-grey-2); }
+.fu-road { stroke: var(--mt-white); stroke-width: 10; fill: none; }
+.fu-road-main { stroke-width: 16; }
+.fu-block { fill: var(--mt-grey); opacity: .55; }
+.fu-green { fill: var(--mt-grey-3); opacity: .5; }   /* the campus green, in the brand's grey: the plate is a diagram, not a map */
+.fu-pin { fill: var(--accent); }
+.fu-pin-dot { fill: var(--mt-white); }
+.find-us-place { font-size: var(--t-md); font-weight: 700; }
+.find-us-address { color: var(--text-dim); }
+.find-us .btn { margin-top: var(--s4); }
+.find-us-note { margin-top: var(--s3); font-size: var(--t-sm); color: var(--text-dim); }
+@media (min-width: 640px) {
+    .find-us { grid-template-columns: 200px 1fr; align-items: center; }
+}
+@media (min-width: 900px) {
+    .contact-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; }
 }
 
-@keyframes animate-fade {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+/* ── the closing band: the one place the whole ground is red ─────────────── */
+.band {
+    background: var(--accent);
+    color: var(--on-accent);
+}
+.band .wrap { display: grid; gap: var(--s5); align-items: center; }
+.band h2 { text-transform: uppercase; font-size: var(--t-xl); }
+.band p { margin-top: var(--s3); color: var(--mt-grey-2); }
+.band .btn { background: var(--mt-white); border-color: var(--mt-white); color: var(--accent); }
+.band .btn:hover, .band .btn:focus-visible { background: var(--mt-grey-1); border-color: var(--mt-grey-1); color: var(--mt-red-4); }
+.band .btn-quiet { background: transparent; color: var(--on-accent); border-color: rgba(255, 255, 255, .6); }
+.band .btn-quiet:hover, .band .btn-quiet:focus-visible { background: rgba(255, 255, 255, .12); border-color: var(--mt-white); color: var(--on-accent); }
+.band :focus-visible { outline-color: var(--mt-white); }
+@media (min-width: 900px) {
+    .band .wrap { grid-template-columns: minmax(0, 1fr) auto; }
 }
 
-@media only screen and (max-width: 995px) {
-    .menu-links {
-        display: none;
-    }
-
-    .maps{
-        border-radius: 20px;
-        width: 400px; 
-        height: 250px;
-    }
-    .faq-answer {
-        padding: 0 10px;
-    }
-
-    .title:after {
-        top: 100px;
-    }
+/* ── footer ──────────────────────────────────────────────────────────────── */
+.site-foot { background: var(--dark); color: var(--mt-grey); padding-block: var(--s7) var(--s6); }
+.foot-partners { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s5) var(--s6); }
+.foot-partners p { flex-basis: 100%; font-size: var(--t-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--mt-grey); }
+.foot-partners img { height: 56px; width: auto; opacity: .9; }
+@media (min-width: 768px) { .foot-partners img { height: 72px; } }
+.foot-partners a:hover img { opacity: 1; }
+.foot-grid { display: grid; gap: var(--s5); margin-top: var(--s7); padding-top: var(--s5); border-top: 1px solid var(--mt-grey-4); }
+.foot-grid a { color: var(--mt-grey-1); }
+.foot-grid a:hover { color: var(--dark-accent); }
+.foot-nav { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s4); }
+.foot-nav a { display: inline-flex; align-items: center; min-height: var(--tap); text-decoration: none; font-weight: 500; }
+.site-foot .social-row a { border-color: var(--mt-grey-4); color: var(--mt-grey-1); }
+.site-foot .social-row a:hover, .site-foot .social-row a:focus-visible { border-color: var(--dark-accent); color: var(--dark-accent); }
+.site-foot .social-row { margin-top: 0; }
+.foot-copy { font-size: var(--t-sm); color: var(--mt-grey); }
+.site-foot :focus-visible { outline-color: var(--dark-accent); }
+@media (min-width: 768px) {
+    .foot-partners p { flex-basis: auto; margin-right: var(--s3); }
+    .foot-grid { grid-template-columns: 1fr auto; align-items: center; }
+    .foot-copy { grid-column: 1 / -1; }
 }
 
-@media only screen and (max-width: 400px) {
-    .maps{
-        border-radius: 20px;
-        width: 300px; 
-        height: 200px;
-    }
-
-    .faq-answer {
-        padding: 0 10px;
-    }
-
-    .title:after {
-        top: 120px;
-    }
-
-    .title:after {
-        top: 95px;
-    }
+/* ── inscripcion.html ────────────────────────────────────────────────────── */
+.insc-hero { padding-block: clamp(40px, 6vw, 72px) 0; }
+.insc-grid { display: grid; gap: clamp(28px, 5vw, 64px); align-items: start; }
+.price-card {
+    padding: var(--s5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    background: var(--ink-raised);
+}
+.price-card .price { margin-top: var(--s2); }
+.price-card .btn-row { margin-top: var(--s5); }
+.price-card .btn { flex: 1 1 220px; white-space: normal; }
+.price-card .small { margin-top: var(--s4); }
+.approval {
+    margin-top: var(--s5);
+    padding: var(--s4) var(--s5);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--ink);
+}
+.approval h2 { font-size: var(--t-base); text-transform: uppercase; letter-spacing: .06em; }
+.approval p { margin-top: var(--s2); color: var(--text-dim); }
+@media (min-width: 900px) {
+    .insc-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); }
 }
 
+/* ── reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
 
-
-/* ==========================================================================
+/* =========================================================================
    The events wheel  (#events)
    ==========================================================================
    A horizontal strip of identical cards, oldest on the left, that leans into a
@@ -2163,27 +744,15 @@ h1.title {
 
 .events .title {
     color: #fff;
-    margin-bottom: 30px;
 }
 
-/* The site's section rule is an absolutely positioned :after at a hard `top`, and three
-   media queries move that top to 100px, 95px and 120px at narrower widths. Every one of
-   those was tuned for a heading with 100px of space under it and nothing in between; this
-   heading has a standfirst under it, so at 390px the rule landed in the middle of the
-   sentence. Taking it out of the absolute flow makes it a block that sits under the
-   heading and pushes the paragraph down, at every width, with no offset to keep in step. */
-.events .title:after {
-    position: static;
-    display: block;
-    top: auto;
-    left: auto;
-    margin: 22px auto 0;
+.events .title::after {
     background-color: var(--ev-accent);
 }
 
 .events-intro {
     color: #bcbfbe;          /* Gris, 9.66:1 on the ground */
-    font-family: var(--second-font);
+    font-family: var(--font-ui);
     font-size: 15px;
     max-width: 46em;
     margin: 0 auto;
@@ -2358,7 +927,7 @@ h1.title {
     border-radius: 4px;
     background: #ececee;
     color: #5a5a5a;              /* 6.5:1 on #ececee */
-    font-family: var(--second-font);
+    font-family: var(--font-ui);
     font-size: 11px;
     font-weight: 400;
     letter-spacing: .3px;
@@ -2371,7 +940,7 @@ h1.title {
     position: absolute;
     bottom: 12px;
     margin: 0;
-    font-family: var(--main-font);
+    font-family: var(--font-ui);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1.5px;
@@ -2404,7 +973,7 @@ h1.title {
     top: 12px;
     left: 12px;
     margin: 0;
-    font-family: var(--main-font);
+    font-family: var(--font-ui);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1.4px;
@@ -2441,7 +1010,7 @@ h1.title {
 }
 
 .ev-when {
-    font-family: var(--main-font);
+    font-family: var(--font-ui);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 1.6px;
@@ -2482,7 +1051,7 @@ h1.title {
 }
 
 .ev-summary {
-    font-family: var(--second-font);
+    font-family: var(--font-ui);
     font-size: 14px;
     line-height: 1.5;
     color: #4a4a4a;
@@ -2490,7 +1059,7 @@ h1.title {
 }
 
 .ev-where {
-    font-family: var(--second-font);
+    font-family: var(--font-ui);
     font-size: 13px;
     color: #5a5a5a;                     /* 6.9:1 */
     margin: 0;
@@ -2571,7 +1140,7 @@ h1.title {
        wherever the paragraph left it and the row of cards reads as eight different
        cards, which is the one thing this whole section is built not to be. */
     margin: 0;
-    font-family: var(--main-font);
+    font-family: var(--font-ui);
     font-size: 13px;
     font-weight: 700;
     letter-spacing: .6px;
@@ -2745,9 +1314,10 @@ h1.title {
 .ev-next { right: 14px; }
 
 .ev-hint {
+    max-width: none;
     text-align: center;
     color: #bcbfbe;
-    font-family: var(--second-font);
+    font-family: var(--font-ui);
     font-size: 13px;
     letter-spacing: .4px;
     margin: 6px 0 0;
