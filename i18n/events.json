@@ -572,6 +572,35 @@
       }
     },
     {
+      "id": "retroalacant-2026",
+      "series": "ferias",
+      "category": "jornada",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2026-09-12T10:00",
+      "end": "2026-09-12T22:00",
+      "tentative": false,
+      "image": "events/retroalacant-2026.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Retroalacant 2026",
+        "en": "Retroalacant 2026"
+      },
+      "summary": {
+        "es": "Doce horas gratis de recreativas, pinball y consolas clásicas, con el torneo solidario de Street Fighter II: se juega donando comida.",
+        "en": "Twelve free hours of arcade cabinets, pinball and classic consoles, plus the charity Street Fighter II tournament: you play by donating food."
+      },
+      "location": {
+        "es": "Las Cigarreras, Alicante",
+        "en": "Las Cigarreras, Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de una recreativa, un mando y un pinball, mientras no hay foto de este evento",
+        "en": "An illustration of an arcade cabinet, a gamepad and a pinball, standing in until there is a photo"
+      }
+    },
+    {
       "id": "nasa-space-apps-2025",
       "series": "nasa-space-apps",
       "category": "hackathon",
