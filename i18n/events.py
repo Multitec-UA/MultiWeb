@@ -63,7 +63,20 @@ OPTIONAL = {"location"}
 # What the association actually did here. Sergio, 2026-08-31: the card has to say whether
 # "es una colaboración, es una organización o si simplemente hemos asistido", because
 # claiming to have run somebody else's event is the one thing this section must not do.
-ROLES = ("organiza", "colabora", "asiste")
+#
+# `difunde` is the fourth, added 2026-09-10, and it exists to make a whole class of event
+# publishable without inventing anything. A member announces a third party's event in
+# `Socios` or on `MultitecUA Oficial`; the date, the venue and the programme are all
+# sourced, and the ONLY unanswerable field is what Multitec did — because Multitec did
+# not organise it, did not co-run it, and nobody committed to attending. The three
+# original values force a lie in every direction, so the daily autoscan logged the Street
+# Fighter II tournament as unpublishable (2026-09-09) and it took Sergio asking to get it
+# on the page.
+#
+# `difunde` says the one thing that IS a fact and IS verifiable from the evidence the scan
+# already holds: the association put this in front of its members. That is why it is safe
+# to publish unattended, and `asiste` is not.
+ROLES = ("organiza", "colabora", "asiste", "difunde")
 
 # Who could come. `socios` exists because a members' event has no registration link and
 # never will -- that is not a hole in the data, it is a different kind of event.
@@ -388,7 +401,7 @@ def _e(text):
     return html.escape(text, quote=True)
 
 
-def render(lang, strings, asset_prefix="../assets/v11", events=None):
+def render(lang, strings, asset_prefix="../assets/v12", events=None):
     """The <li> list for the events wheel, in one language.
 
     `strings` is the resolved i18n table (build.py hands over a lookup so the labels the

@@ -363,6 +363,10 @@
       "es": "Asistimos",
       "en": "We take part"
     },
+    "events_role_difunde": {
+      "es": "Difundimos",
+      "en": "We share it"
+    },
     "events_aud_publico": {
       "es": "Abierto a todos",
       "en": "Open to everyone"

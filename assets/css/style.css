@@ -1001,6 +1001,15 @@ strong, b { font-weight: 700; }
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .28);
 }
 
+/* `difunde` is the quietest of the four on purpose: we did not run it and we did not
+   promise to turn up, we passed it on. White pill with INK text, so it cannot be read as
+   `colabora` (white pill, red text) at a glance on a moving wheel. */
+.ev-role-difunde {
+    background: rgba(255, 255, 255, .92);
+    color: #17171a;                     /* 17.4:1 on the pill */
+    box-shadow: inset 0 0 0 1px rgba(23, 23, 26, .25);
+}
+
 .ev-body {
     display: flex;
     flex-direction: column;
