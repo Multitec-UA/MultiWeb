@@ -1788,10 +1788,10 @@
       "role": "organiza",
       "audience": "publico",
       "start": "2026-02-27T18:00",
-      "end": null,
+      "end": "2026-02-27T20:00",
       "tentative": false,
-      "image": "events/ill-taller-c.svg",
-      "image_kind": "illustration",
+      "image": "events/taller-fotografia-2026.webp",
+      "image_kind": "poster",
       "link": "https://docs.google.com/forms/d/e/1FAIpQLSeN40G62zz0DS_Q6aA_eIlIOTsUPjOIo8KuBE1UYDXEWH8fbA/viewform",
       "title": {
         "es": "Taller de fotografía",
@@ -1806,8 +1806,8 @@
         "en": "Salón de Grados 1, EPS"
       },
       "image_alt": {
-        "es": "Ilustración de colores planos que representa un taller, mientras no hay foto de este evento",
-        "en": "A flat-colour illustration standing in for a workshop, until this event has a photograph"
+        "es": "Cartel del taller de fotografía amateur de Multitec, con un móvil, un carrete y una cámara Kodak",
+        "en": "Poster for Multitec's amateur photography workshop, with a phone, a film roll and a Kodak camera"
       }
     },
     {
@@ -1816,27 +1816,27 @@
       "category": "taller",
       "role": "organiza",
       "audience": "publico",
-      "start": "2026-02",
-      "end": null,
-      "tentative": true,
-      "image": "events/ill-taller-b.svg",
-      "image_kind": "illustration",
+      "start": "2026-02-06T17:00",
+      "end": "2026-02-06T19:00",
+      "tentative": false,
+      "image": "events/taller-fanzine-2026.webp",
+      "image_kind": "poster",
       "link": null,
       "title": {
         "es": "Taller de fanzine",
         "en": "Fanzine workshop"
       },
       "summary": {
-        "es": "Taller de fanzine dentro de la programación del Mes Cultural: recortar, pegar, fotocopiar y llevarte el tuyo a casa.",
-        "en": "A fanzine workshop inside the Cultural Month programme: cut, paste, photocopy, and take your own one home with you."
+        "es": "Crea tu propio fanzine científico: el material está incluido, no hace falta saber dibujar y sólo hay veinte plazas.",
+        "en": "Make your own science fanzine: the materials are included, no drawing skill is needed, and there are only twenty places."
       },
       "location": {
         "es": "Escuela Politécnica Superior, UA",
         "en": "Polytechnic School, UA"
       },
       "image_alt": {
-        "es": "Ilustración de colores planos que representa un taller, mientras no hay foto de este evento",
-        "en": "A flat-colour illustration standing in for a workshop, until this event has a photograph"
+        "es": "Cartel recortable del taller de fanzine, con letras de revista pegadas y la fecha del 6 de febrero",
+        "en": "Cut-and-paste poster for the fanzine workshop, with magazine lettering and the 6 February date"
       }
     },
     {
@@ -1845,27 +1845,27 @@
       "category": "jornada",
       "role": "organiza",
       "audience": "publico",
-      "start": "2026-02",
-      "end": null,
-      "tentative": true,
-      "image": "events/ill-jornada-a.svg",
-      "image_kind": "illustration",
+      "start": "2026-02-18T10:00",
+      "end": "2026-02-18T14:00",
+      "tentative": false,
+      "image": "events/exposicion-videojuegos-2026.webp",
+      "image_kind": "poster",
       "link": null,
       "title": {
         "es": "Exposición de videojuegos",
         "en": "Student games showcase"
       },
       "summary": {
-        "es": "Exposición abierta de videojuegos hechos por estudiantes. Se propuso para el Mes Cultural y no consta que llegara a hacerse.",
-        "en": "An open showcase of games made by students. It was proposed for the Cultural Month and there is no record that it happened."
+        "es": "Exposición abierta de videojuegos hechos por estudiantes de la UA, con inscripción para quien quiera enseñar el suyo.",
+        "en": "An open showcase of video games built by UA students, with sign-up for anyone who wants to show their own work."
       },
       "location": {
-        "es": "Escuela Politécnica Superior, UA",
-        "en": "Polytechnic School, UA"
+        "es": "Aula L18, EPS I",
+        "en": "Room L18, EPS I"
       },
       "image_alt": {
-        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
-        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+        "es": "Cartel pixel-art de la exposición de videojuegos de estudiantes, con la fecha, la hora y el aula",
+        "en": "Pixel-art poster for the student video game showcase, giving the date, the time and the room"
       }
     },
     {
@@ -1906,8 +1906,8 @@
       "start": "2024-10-19",
       "end": null,
       "tentative": false,
-      "image": "events/ill-hackathon-b.svg",
-      "image_kind": "illustration",
+      "image": "events/hackathon-onklub-2024.webp",
+      "image_kind": "poster",
       "link": "https://onklub.es/hackathon-ciberseguridad-alicante/",
       "title": {
         "es": "Hackathon de ciberseguridad",
@@ -1919,8 +1919,8 @@
       },
       "location": null,
       "image_alt": {
-        "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
-        "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
+        "es": "Cartel del hackathon de ciberseguridad de ONKLUB e INCIBE, con 48 horas y premios de hasta 1000 euros",
+        "en": "Poster for the ONKLUB and INCIBE cybersecurity hackathon, 48 hours and prizes of up to 1000 euros"
       }
     },
     {
