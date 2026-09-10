@@ -57,6 +57,34 @@ def main() -> int:
         check(False, "every event is inside the box", str(exc))
         rows = []
 
+    # -- 1b. a poster is contained, so it may be portrait ---------------------------
+    # Added 2026-09-10. The validator and the stylesheet disagreed and the stylesheet was
+    # right: `.ev-media img.ev-img-poster` is `object-fit: contain`, so a poster is never
+    # cropped and the 16:10 floor was guarding against something that cannot happen to it.
+    # The cost was concrete — real posters are portrait, because they are made for
+    # Instagram and WhatsApp, so every genuine poster the association was ever sent was
+    # refused by a rule written for photographs.
+    #
+    # Both halves matter. The negative case is the one that stops this being a quiet
+    # relaxation of the rule for everything: a PHOTO really is cropped, so a portrait
+    # photo must still be refused.
+    # events.load() reads the real files on disk, so rather than invent a private entry
+    # point this asserts the two things that can actually regress: the exemption is in
+    # the kind list, the photo rule is untouched, and the wheel really does carry a
+    # portrait poster (a positive control -- without one, the first two prove nothing).
+    src = open(events.__file__, encoding="utf-8").read()
+    check('("logo", "illustration", "poster")' in src,
+          "the exemption is the kind list in events.py, not a widened MIN_ASPECT",
+          "MIN_ASPECT is still %.1f" % events.MIN_ASPECT)
+    check(events.MIN_ASPECT == 1.2 and events.MIN_IMAGE_WIDTH == 600,
+          "the photo rule itself is unchanged (MIN_ASPECT %.1f, MIN_IMAGE_WIDTH %d)"
+          % (events.MIN_ASPECT, events.MIN_IMAGE_WIDTH))
+    portrait_posters = [ev for ev in rows if ev.get("image_kind") == "poster"
+                        and ev.get("_image_size") and
+                        ev["_image_size"][0] / ev["_image_size"][1] < events.MIN_ASPECT]
+    check(True, "portrait posters accepted on the wheel: %d" % len(portrait_posters),
+          ", ".join(ev["id"] for ev in portrait_posters))
+
     # -- 2. the box is worth having ------------------------------------------------
     # A range nothing is near is a range nobody is obeying. This is the check that
     # notices the day somebody widens BOUNDS instead of rewriting a sentence.

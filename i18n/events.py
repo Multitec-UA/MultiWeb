@@ -324,12 +324,28 @@ def load(table_path: pathlib.Path = TABLE):
         if size is None:
             _fail(eid, "image %s is not a WebP or an SVG this can measure" % image)
         w, h = size
-        if ev.get("image_kind") in ("logo", "illustration"):
-            # A logo is contained, not cropped, so the 16:10 rule that protects
-            # photographs from being cut to a letterbox of somebody's chin does not
-            # apply — but it still has to be big enough not to be fuzzy.
+        if ev.get("image_kind") in ("logo", "illustration", "poster"):
+            # Contained, not cropped, so the 16:10 rule that protects photographs from
+            # being cut to a letterbox of somebody's chin does not apply — it still has
+            # to be big enough not to be fuzzy.
+            #
+            # `poster` joined this branch on 2026-09-10 because the validator and the
+            # stylesheet disagreed, and the stylesheet was right: `.ev-media
+            # img.ev-img-poster` has been `object-fit: contain` all along, so a poster is
+            # never cropped and the aspect floor was protecting against something that
+            # cannot happen to it. The cost of the mismatch was concrete — **real event
+            # posters are portrait**, because they are made for Instagram and WhatsApp,
+            # so every genuine poster Multitec has ever been sent was refused by a rule
+            # written for photographs. Measured that day: the ONKLUB hackathon poster is
+            # 1024x576 and passed; the Multifiesta 2024 one (1080x1229) and the 2023
+            # welcome one (1131x1600) were both rejected at 0.88:1 and 0.71:1.
+            #
+            # This is deliberately NOT a relaxation of the 16:10 rule for `photo`. A
+            # photograph still has to be landscape, because a photograph really is
+            # cropped.
             if w < 320:
-                _fail(eid, "logo %s is only %dpx wide; the card draws it at 300" % (image, w))
+                _fail(eid, "%s %s is only %dpx wide; the card draws it at 300"
+                      % (ev.get("image_kind"), image, w))
         else:
             if w < MIN_IMAGE_WIDTH:
                 _fail(eid, "image %s is %dpx wide, the card needs at least %d"
@@ -401,7 +417,7 @@ def _e(text):
     return html.escape(text, quote=True)
 
 
-def render(lang, strings, asset_prefix="../assets/v12", events=None):
+def render(lang, strings, asset_prefix="../assets/v13", events=None):
     """The <li> list for the events wheel, in one language.
 
     `strings` is the resolved i18n table (build.py hands over a lookup so the labels the
