@@ -3496,6 +3496,35 @@
         "es": "Ilustración de un curso práctico de impresión 3D en resina, mientras no hay foto",
         "en": "An illustration standing in for hands-on resin 3D printing course"
       }
+    },
+    {
+      "id": "devfest-valencia-2026",
+      "series": "jornadas",
+      "category": "jornada",
+      "role": "asiste",
+      "audience": "publico",
+      "start": "2026-11-20",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-jornada-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "DevFest Valencia",
+        "en": "DevFest Valencia"
+      },
+      "summary": {
+        "es": "La cita anual del Google Developer Group de Valencia. La asociación se desplaza a verla, esta vez como público y no como organización.",
+        "en": "Google Developer Group Valencia's annual DevFest. The association travels over for this one as an attendee and not as an organiser."
+      },
+      "location": {
+        "es": "Valencia",
+        "en": "Valencia"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
+      }
     }
   ]
 }
