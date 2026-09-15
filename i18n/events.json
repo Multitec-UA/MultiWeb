@@ -13,6 +13,9 @@
     "          statement of how well the date is known. 00:00 means the time is unrecorded.",
     "tentative true = our best information, not a promise. Prints `aprox.` and replaces the",
     "          countdown with 'fecha por confirmar'.",
+    "cancelled true = it was called off. The row STAYS -- the card goes grey, wears a",
+    "          CANCELADO badge, loses its countdown and is never the next event. Say why",
+    "          in the summary: a badge with no reason reads as a mistake.",
     "image_kind photo (cropped) | poster (letterboxed) | logo (contained, for a mark or a",
     "          drawn illustration when no picture of this edition exists).",
     "",
@@ -357,6 +360,7 @@
       "start": "2026-09-16",
       "end": "2026-09-17",
       "tentative": false,
+      "cancelled": true,
       "image": "events/logo-ua.webp",
       "image_kind": "logo",
       "link": "https://web.ua.es/es/bienvenida-a-la-ua/",
@@ -365,8 +369,8 @@
         "en": "UA welcome days"
       },
       "summary": {
-        "es": "Multitec monta un stand en las jornadas: te contamos la asociación y los socios pueden ir de staff, con el debut del Piano de Limones v5.",
-        "en": "Multitec runs a stand at the welcome days: come hear about the association, and members can join the staff for the Piano de Limones v5 debut."
+        "es": "Multitec no estará: la organización nos ha comunicado que no queda espacio en las jornadas y que se da prioridad a las empresas.",
+        "en": "Multitec will not be there: the organisers say there is no room left at the welcome days and that companies are given priority."
       },
       "location": {
         "es": "Soportales Biblioteca General",

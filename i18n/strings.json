@@ -303,6 +303,10 @@
       "es": "Celebrado",
       "en": "Already held"
     },
+    "events_pill_cancelled": {
+      "es": "Cancelado",
+      "en": "Cancelled"
+    },
     "events_cd_days": {
       "es": "Faltan %d días",
       "en": "%d days to go"

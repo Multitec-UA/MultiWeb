@@ -206,6 +206,66 @@ def main() -> int:
         check("ev-img-logo" in sheet and "object-fit: contain" in sheet,
               "the stylesheet contains logos rather than cropping them")
 
+    # -- 4e. cancelled: the row stays, and every part of the page agrees it is off ----
+    # Sergio, 2026-09-15, about the UA welcome days: "ponlo como cancelado. Nueva, nueva
+    # etiqueta." Deleting the row would be the silent disappearance the section exists to
+    # avoid — somebody has this in their calendar and the page is how they find out.
+    #
+    # It is the one state NOT decided in the browser, because it does not depend on today.
+    # That splits the wiring across four files, so each half is pinned here: the renderer
+    # marks the card, the script stands back, and the stylesheet has something to draw.
+    # read here rather than leaning on section 6's copies: those are defined further down
+    js_src = (ROOT / "assets" / "js" / "script.js").read_text(encoding="utf-8")
+    css_src = (ROOT / "assets" / "css" / "style.css").read_text(encoding="utf-8")
+    cancelled = [e for e in rows if e.get("cancelled")]
+    print("     (%d cancelled)" % len(cancelled))
+    check(all(isinstance(e.get("cancelled", False), bool) for e in rows),
+          "cancelled is a boolean wherever it appears")
+    if cancelled:
+        out = events.render("es", lambda k, l: strings[k][l], events=cancelled)
+        check(out.count('data-cancelled="1"') == len(cancelled),
+              "every cancelled event tells the script to leave it alone")
+        check(out.count("ev-card " + events.CANCELLED_CLASS) == len(cancelled),
+              "every cancelled card carries .%s in the committed HTML, so it reads as "
+              "cancelled with scripting off too" % events.CANCELLED_CLASS)
+        check(out.count('class="ev-pill ev-pill-cancelled"') == len(cancelled),
+              "every cancelled card wears the badge, once")
+        # The countdown row is rendered empty and stays empty: the script returns before
+        # it would write one. A cancelled event counting down to itself is the same lie
+        # `tentative` exists to prevent, with a worse punchline.
+        check('<p class="ev-state"></p>' in out,
+              "a cancelled card bakes in no countdown — the row is reserved and empty")
+        # The badge is a word before it is a colour, and the site is bilingual.
+        label_row = strings.get("events_pill_cancelled", {})
+        check(all(label_row.get(l, "").strip() for l in build.LANGUAGES),
+              "the badge has a label in both languages",
+              repr(label_row))
+        for e in cancelled:
+            check(all(len(e["summary"][l]) >= events.BOUNDS["summary"][0]
+                      for l in events.LANGUAGES),
+                  "%s still says something in both languages" % e["id"])
+    # The early return has to come BEFORE `featured` is chosen, or a cancelled event would
+    # be crowned PRÓXIMO and the real next event would lose its ring. Order, not presence.
+    mark = re.search(r"function markStates\(\) \{(.*?)\n    \}", js_src, re.S)
+    check(bool(mark), "markStates() can be found")
+    if mark:
+        body = mark.group(1)
+        skip = body.find("data-cancelled")
+        featured_at = body.find("featured = card")
+        check(skip != -1, "the script notices data-cancelled")
+        check(skip != -1 and featured_at != -1 and skip < featured_at,
+              "a cancelled event is skipped before the next event is chosen, so it can "
+              "never be PRÓXIMO and never counts down")
+    check(".ev-card." + events.CANCELLED_CLASS in css_src,
+          "the stylesheet styles .ev-card.%s" % events.CANCELLED_CLASS)
+    check(".ev-pill-cancelled" in css_src, "the stylesheet styles the cancelled badge")
+    # Colour is never the only signal: the accent belongs to PRÓXIMO, and a struck-through
+    # title is what survives grey-scale, colour-blindness and a phone in the sun.
+    check(re.search(r"\.ev-card\.is-cancelled[^{]*\{[^}]*line-through", css_src, re.S) is not None,
+          "a cancelled card is struck through, not merely recoloured")
+    check(re.search(r"\.ev-pill-cancelled \{[^}]*var\(--mt-red-4\)", css_src, re.S) is not None,
+          "the badge is Rojo 4, not the accent PRÓXIMO already owns")
+
     # -- 5. every category has a label, and every label a category -------------------
     declared = set(raw["categories"])
     labelled = {k[len("events_cat_"):] for k in strings if k.startswith("events_cat_")}

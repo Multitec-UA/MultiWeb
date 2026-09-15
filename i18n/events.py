@@ -149,6 +149,23 @@ ID_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 # attached.
 WHEN_RE = re.compile(r"^\d{4}(-\d{2}(-\d{2}(T\d{2}:\d{2})?)?)?$")
 
+# `cancelled: true` is the fourth state a card can be in, and the only one that is a fact
+# about the WORLD rather than about today's date -- which is why it is rendered here, into
+# the committed HTML, and not decided in the browser like past/next/running. A cancelled
+# event with scripting off would otherwise sit in the flat fallback row looking exactly
+# like one that is still happening.
+#
+# Sergio, 2026-09-15, on the UA welcome days the association had a stand at: "ponlo como
+# cancelado. Nueva, nueva etiqueta." The row STAYS. Deleting it would be the silent
+# disappearance the events section exists to avoid -- people had it in their calendar, and
+# a card that says it is off is the only way they learn that from this page.
+#
+# What it changes: the card goes grey and loses its picture's colour, its title and date
+# are struck through, it wears the CANCELADO badge in the badge slot, and assets/js/
+# script.js skips it entirely -- so it is never PRÓXIMO, never counts down, and never
+# stands between a reader and the event that IS next.
+CANCELLED_CLASS = "is-cancelled"
+
 def precision(when: str) -> str:
     """`month`, `day` or `exact`, from the shape of the string itself."""
     return {4: "year", 7: "month", 10: "day", 16: "exact"}[len(when)]
@@ -282,6 +299,8 @@ def load(table_path: pathlib.Path = TABLE):
             _fail(eid, "end is before start")
         if not isinstance(ev.get("tentative", False), bool):
             _fail(eid, "tentative must be true or false")
+        if not isinstance(ev.get("cancelled", False), bool):
+            _fail(eid, "cancelled must be true or false")
         if ev.get("series") not in SERIES_EMBLEM:
             _fail(eid, "series %r has no emblem. Add it to SERIES_EMBLEM in i18n/events.py "
                        "-- a card without its family mark is the thing the strip exists for"
@@ -375,7 +394,7 @@ def strings_used(table_path: pathlib.Path = TABLE):
     return ({"events_cat_" + c for c in raw["categories"]}
             | {"events_role_" + r for r in ROLES}
             | {"events_aud_" + a for a in AUDIENCES}
-            | {"events_approx"})
+            | {"events_approx", "events_pill_cancelled"})
 
 
 def when_label(ev, lang):
@@ -449,6 +468,13 @@ def render(lang, strings, asset_prefix="../assets/v14", events=None):
             time_span += '<span class="ev-approx">%s</span>' % _e(strings("events_approx", lang))
         link = ev.get("link")
         category = strings("events_cat_" + ev["category"], lang)
+        # Cancelled is drawn here, not in the browser: it does not depend on today. The
+        # badge sits in the same slot PRÓXIMO and CELEBRADO use, because a card only ever
+        # holds one of the three and the script leaves this one alone.
+        cancelled = bool(ev.get("cancelled"))
+        cancel_badge = ("" if not cancelled else
+                        '                                        <p class="ev-pill ev-pill-cancelled">%s</p>\n'
+                        % _e(strings("events_pill_cancelled", lang)))
 
         # The heading is the link when there is one, so the accessible name of the link
         # is the event's name rather than "more information" repeated eight times.
@@ -456,14 +482,15 @@ def render(lang, strings, asset_prefix="../assets/v14", events=None):
                    % (_e(link), title)) if link else title
 
         out.append(
-            '                            <li class="ev-card" style="--i:%d"'
-            ' data-start="%s"%s%s>\n'
+            '                            <li class="ev-card%s" style="--i:%d"'
+            ' data-start="%s"%s%s%s>\n'
             '                                <article class="ev-inner">\n'
             '                                    <div class="ev-media">\n'
             '                                        <img class="ev-img ev-img-%s" src="%s/images/%s"'
             ' alt="%s" width="%d" height="%d" loading="lazy" decoding="async">\n'
             '                                        <p class="ev-cat">%s</p>\n'
             '                                        <p class="ev-role ev-role-%s">%s</p>\n'
+            '%s'
             '                                    </div>\n'
             '                                    <div class="ev-body">\n'
             '                                        <p class="ev-when">'
@@ -480,12 +507,14 @@ def render(lang, strings, asset_prefix="../assets/v14", events=None):
             '                                </article>\n'
             '                            </li>'
             % (
+                " " + CANCELLED_CLASS if cancelled else "",
                 index,
                 _e(ev["start"]),
                 (' data-end="%s"' % _e(ev["end"])) if ev.get("end") else "",
                 ' data-tentative="1"' if tentative else "",
+                ' data-cancelled="1"' if cancelled else "",
                 _e(kind), asset_prefix, _e(ev["image"]), _e(ev["image_alt"][lang]), w, h,
-                _e(category), _e(ev["role"]), _e(role),
+                _e(category), _e(ev["role"]), _e(role), cancel_badge,
                 _e(ev["start"]), _e(when_label(ev, lang)), time_span,
                 heading,
                 _e(ev["summary"][lang]),

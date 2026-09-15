@@ -153,6 +153,13 @@
         featured = null;
 
         cards.forEach(function (card) {
+            // A cancelled card is the one state this pass does not own. It is a fact
+            // about the world, not about today, so i18n/events.py renders it into the
+            // HTML -- class, badge and all -- and the only thing left to do here is
+            // nothing at all. Leaving early is what keeps it out of `featured`: a
+            // cancelled event must never be PRÓXIMO and must never count down, and the
+            // reader's real next event is the one after it.
+            if (card.getAttribute('data-cancelled')) return;
             var start = at(card.getAttribute('data-start'));
             if (!start) return;
             var end = endOf(card) || start;

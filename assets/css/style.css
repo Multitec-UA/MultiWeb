@@ -1218,6 +1218,50 @@ strong, b { font-weight: 700; }
     background: rgba(23, 23, 26, .86);
 }
 
+/* ---- cancelled --------------------------------------------------------------
+   The third state, and the only one the script does not own: `cancelled: true` in
+   i18n/events.json renders straight into the committed HTML, because whether an event was
+   called off does not change at midnight. The card STAYS on the wheel -- people had it in
+   their calendar, and this page is the only place that can tell them otherwise.
+
+   Three signals, none of them colour alone: the word CANCELADO in the badge slot, a rule
+   struck through the title and the date, and a picture with the life taken out of it.
+   Struck-through text is the one that survives a grey-scale screenshot, a colour-blind
+   reader and a phone in the sun -- the badge's colour is the confirmation, not the news.
+
+   Rojo 4 for the badge and not Rojo: #A30006 is PRÓXIMO, and two states in the same red
+   on the same strip is how a reader learns to trust neither. #630004 is the brandbook's
+   own dark red (p.20), 12.6:1 under white, and visibly deader than the accent beside it. */
+.ev-card.is-cancelled .ev-media img {
+    filter: grayscale(1) contrast(.9);
+    opacity: .5;
+}
+
+/* Same de-raised ground as a past card: this one is over too, just for a worse reason.
+   No opacity on the parent -- that would dim the role chip and the badge along with it. */
+.ev-card.is-cancelled .ev-inner {
+    background: #ececed;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, .38);
+}
+
+.ev-card.is-cancelled .ev-title,
+.ev-card.is-cancelled .ev-when time {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--mt-red);
+}
+
+.ev-card.is-cancelled .ev-when { color: #5a5a5a; }
+
+/* Nothing brings the picture back on hover. A past card lights up because there is a real
+   photograph under the grey and that is worth discovering; a cancelled one has nothing
+   underneath but a date that is not going to happen. */
+.ev-pill-cancelled {
+    background: var(--mt-red-4);    /* #630004 — white on it is 12.6:1 */
+    color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .34);
+}
+
 /* Two different states, and they stack.
 
    `is-next` is a fact about the CALENDAR: this is the first event that has not happened.
