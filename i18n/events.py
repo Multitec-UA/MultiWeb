@@ -417,7 +417,7 @@ def _e(text):
     return html.escape(text, quote=True)
 
 
-def render(lang, strings, asset_prefix="../assets/v13", events=None):
+def render(lang, strings, asset_prefix="../assets/v14", events=None):
     """The <li> list for the events wheel, in one language.
 
     `strings` is the resolved i18n table (build.py hands over a lookup so the labels the

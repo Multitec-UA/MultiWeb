@@ -1164,8 +1164,8 @@
       "start": "2026-09-30T18:00",
       "end": "2026-09-30T20:00",
       "tentative": false,
-      "image": "events/ill-taller-a.svg",
-      "image_kind": "illustration",
+      "image": "events/gdg-2026-09-30.webp",
+      "image_kind": "poster",
       "link": "https://gdg.community.dev/e/mcv73g/",
       "title": {
         "es": "Gobernanza de IA en GCP",
@@ -1180,8 +1180,8 @@
         "en": "ULab, Alicante"
       },
       "image_alt": {
-        "es": "Ilustración de un taller práctico con ordenadores, mientras no hay imagen de esta edición",
-        "en": "An illustration standing in for a hands-on workshop, while this edition has no picture"
+        "es": "Banner del taller: una pasarela LiteLLM con límites de tokens y de presupuesto en Google Cloud",
+        "en": "Workshop banner: a LiteLLM gateway with token and budget limits running on Google Cloud"
       }
     },
     {
