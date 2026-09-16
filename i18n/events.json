@@ -2901,8 +2901,8 @@
       "start": "2019",
       "end": null,
       "tentative": false,
-      "image": "events/ill-taller-c.svg",
-      "image_kind": "illustration",
+      "image": "events/escape-room-multitec.webp",
+      "image_kind": "photo",
       "link": null,
       "title": {
         "es": "Escape Room Multitec",
@@ -2917,8 +2917,8 @@
         "en": "Various venues"
       },
       "image_alt": {
-        "es": "Ilustración de una sala de escape con acertijos, llaves y una cuenta atrás, mientras no hay foto",
-        "en": "An illustration standing in for escape room with puzzles, keys and a countdown clock"
+        "es": "Tres miembros de Multitec ante el panel de la escape room, con el rótulo ESCAPEROOM y el logotipo",
+        "en": "Three Multitec members in front of the escape room backdrop, with the ESCAPEROOM sign and the logo"
       }
     },
     {
