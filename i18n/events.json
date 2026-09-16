@@ -3529,6 +3529,35 @@
         "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
       }
+    },
+    {
+      "id": "modo-founder-2026",
+      "series": "fempa",
+      "category": "taller",
+      "role": "difunde",
+      "audience": "publico",
+      "start": "2026-10-06",
+      "end": "2026-11-10",
+      "tentative": false,
+      "image": "events/modo-founder-2026.svg",
+      "image_kind": "illustration",
+      "link": "https://www.fempa.es/noticias/actualidad/modo-founder-aterriza-en-el-parque-cientifico-de-alicante-seis-talleres-para-pasar-de-la-idea-a-una-propuesta-capaz-de-convencer",
+      "title": {
+        "es": "MODO FOUNDER",
+        "en": "MODO FOUNDER"
+      },
+      "summary": {
+        "es": "Seis talleres gratuitos los martes por la tarde para llevar una idea desde la validación hasta el pitch, con Alicante Emprende.",
+        "en": "Six free workshops on Tuesday afternoons taking an idea from validation through to the pitch, run with Alicante Emprende."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Ilustración plana con una pantalla, un gráfico al alza y una bombilla, mientras no hay foto del evento",
+        "en": "A flat illustration with a pitch screen, a rising chart and a lightbulb, standing in until there is a photo"
+      }
     }
   ]
 }
