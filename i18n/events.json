@@ -3558,6 +3558,32 @@
         "es": "Ilustración plana con una pantalla, un gráfico al alza y una bombilla, mientras no hay foto del evento",
         "en": "A flat illustration with a pitch screen, a rising chart and a lightbulb, standing in until there is a photo"
       }
+    },
+    {
+      "id": "feria-asociaciones-2026",
+      "series": "ferias",
+      "category": "jornada",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-12-10",
+      "end": null,
+      "tentative": true,
+      "image": "events/ill-jornada-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Feria de Asociaciones UA",
+        "en": "UA Associations Fair"
+      },
+      "summary": {
+        "es": "La feria en la que las asociaciones de la UA se dan a conocer. La fecha sigue provisional y el vicerrectorado nos pide opinión sobre cómo montarla.",
+        "en": "The fair where the UA associations introduce themselves. The date is still provisional and the vice-rectorate is asking us how to organise it."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos con un edificio, un puesto con toldo y gente, mientras no hay foto del evento",
+        "en": "A flat-colour illustration of a building, a stall with an awning and people, standing in for a photograph"
+      }
     }
   ]
 }
