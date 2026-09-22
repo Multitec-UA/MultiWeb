@@ -639,7 +639,7 @@
       "category": "hackathon",
       "role": "organiza",
       "audience": "publico",
-      "start": "2026-11-14",
+      "start": "2026-11-13",
       "end": "2026-11-15",
       "tentative": true,
       "image": "events/logo-nasa-space-apps.webp",
@@ -650,16 +650,16 @@
         "en": "NASA Space Apps"
       },
       "summary": {
-        "es": "Tercera sede alicantina seguida del mayor hackathon del mundo. Las fechas son las mundiales; la sede local se prepara.",
-        "en": "Alicante's third consecutive site of the world's largest hackathon. The dates are the global ones; the local site is being prepared."
+        "es": "Tercera sede alicantina seguida del mayor hackathon del mundo: tres días resolviendo retos de la NASA con sus datos abiertos. Inscripción gratuita.",
+        "en": "Alicante's third consecutive site of the world's largest hackathon: three days solving NASA's challenges with NASA's open data. Free entry."
       },
       "location": {
-        "es": "San Vicente del Raspeig",
-        "en": "San Vicente del Raspeig"
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
       },
       "image_alt": {
-        "es": "Logotipo del NASA Space Apps Challenge, usado mientras no hay cartel local",
-        "en": "The NASA Space Apps Challenge logo, standing in until the local poster exists"
+        "es": "Logotipo del NASA Space Apps Challenge, usado mientras el cartel local sigue en preparación",
+        "en": "The NASA Space Apps Challenge logo, standing in while the local poster is still being finished"
       }
     },
     {
