@@ -3584,6 +3584,35 @@
         "es": "Ilustración de colores planos con un edificio, un puesto con toldo y gente, mientras no hay foto del evento",
         "en": "A flat-colour illustration of a building, a stall with an awning and people, standing in for a photograph"
       }
+    },
+    {
+      "id": "bugamap-2026",
+      "series": "hackathons-externos",
+      "category": "jornada",
+      "role": "difunde",
+      "audience": "publico",
+      "start": "2026-10-06T16:00",
+      "end": "2026-10-06T20:00",
+      "tentative": false,
+      "image": "events/ill-jornada-a.svg",
+      "image_kind": "illustration",
+      "link": "https://centroempleo.ua.es/es/noticias/2026/participa-en-el-campeonato-bugamap-de-fundacion-mapfre-2026-2027.html",
+      "title": {
+        "es": "Campeonato BUGAMAP",
+        "en": "BUGAMAP Championship"
+      },
+      "summary": {
+        "es": "Equipos de cuatro a seis estudiantes de grado compiten una tarde en el campeonato gratuito de simulación empresarial de Fundación MAPFRE.",
+        "en": "Teams of four to six undergraduates spend an afternoon competing in Fundación MAPFRE's free insurance business-simulation championship."
+      },
+      "location": {
+        "es": "Aulario III · UA",
+        "en": "Aulario III · UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos de un edificio del campus, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration of a campus building, standing in until this event has a photograph"
+      }
     }
   ]
 }
