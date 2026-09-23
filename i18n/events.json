@@ -557,7 +557,7 @@
       "audience": "socios",
       "start": "2026-09-25",
       "end": null,
-      "tentative": true,
+      "tentative": false,
       "image": "events/multi-acampada.svg",
       "image_kind": "illustration",
       "link": null,
