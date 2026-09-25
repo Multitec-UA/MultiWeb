@@ -328,9 +328,9 @@
       "category": "hackathon",
       "role": "organiza",
       "audience": "publico",
-      "start": "2026-10",
-      "end": null,
-      "tentative": true,
+      "start": "2026-10-16",
+      "end": "2026-10-18",
+      "tentative": false,
       "image": "events/logo-cienciathon.webp",
       "image_kind": "logo",
       "link": "https://cienciathon.org/",
@@ -339,8 +339,8 @@
         "en": "VIII Cienciathon"
       },
       "summary": {
-        "es": "Octava edición del maratón de ciencia y tecnología del Parque Científico. La fecha exacta y el reto aún no se han anunciado.",
-        "en": "The Science Park's eighth science and technology marathon. The exact dates and the challenge have not been announced yet."
+        "es": "Octava edición del maratón de ciencia y tecnología del Parque Científico: tres días para resolver un reto de economía circular propuesto por Actiu.",
+        "en": "The Science Park's eighth science and technology marathon: three days to solve a real circular-economy challenge set by the company Actiu."
       },
       "location": {
         "es": "Parque Científico de Alicante",
@@ -1157,6 +1157,35 @@
       "image_alt": {
         "es": "Cartel de la charla sobre modelos de lenguaje ejecutados en hardware propio",
         "en": "Poster for the talk on running language models on your own hardware"
+      }
+    },
+    {
+      "id": "investigaqueer-2026",
+      "series": "jornadas",
+      "category": "jornada",
+      "role": "difunde",
+      "audience": "publico",
+      "start": "2026-09-29T09:30",
+      "end": "2026-09-29T20:00",
+      "tentative": false,
+      "image": "events/ill-jornada-c.svg",
+      "image_kind": "illustration",
+      "link": "https://web.ua.es/es/inclusion/diversidad-afectivo-sexual/i-jornada-investigaqueer/i-jornada-investigaqueer.html",
+      "title": {
+        "es": "I Jornada InvestigaQueer",
+        "en": "I Jornada InvestigaQueer"
+      },
+      "summary": {
+        "es": "Investigación y activismo LGTBIQ+ en la UA: trabajos sobre diversidad, asociaciones y voluntariados, y una conferencia de Mikel Herrán (PutoMikel).",
+        "en": "LGBTIQ+ research and activism at the UA: work on sexual and gender diversity, student groups and volunteering, and a talk by Mikel Herrán (PutoMikel)."
+      },
+      "location": {
+        "es": "Salón de Actos · EPS I",
+        "en": "Salón de Actos · EPS I"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una jornada, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for an open day, until this event has a photograph"
       }
     },
     {
