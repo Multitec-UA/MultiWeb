@@ -3642,6 +3642,35 @@
         "es": "Ilustración de colores planos de un edificio del campus, mientras no hay foto de este evento",
         "en": "A flat-colour illustration of a campus building, standing in until this event has a photograph"
       }
+    },
+    {
+      "id": "matsuri-2026",
+      "series": "ferias",
+      "category": "social",
+      "role": "difunde",
+      "audience": "publico",
+      "start": "2026-10-03T12:00",
+      "end": "2026-10-03T22:00",
+      "tentative": false,
+      "image": "events/ill-social-c.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Matsuri 2026",
+        "en": "Matsuri 2026"
+      },
+      "summary": {
+        "es": "Festival gratuito de cultura japonesa en el parque El Canyar de les Portelles, de 12:00 a 22:00, organizado por Friky Asociación.",
+        "en": "A free festival of Japanese culture in El Canyar de les Portelles park, from 12:00 to 22:00, organised by the Friky Asociación."
+      },
+      "location": {
+        "es": "El Canyar · Mutxamel",
+        "en": "El Canyar · Mutxamel"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
     }
   ]
 }
