@@ -1197,6 +1197,7 @@
       "start": "2026-09-30T18:00",
       "end": "2026-09-30T20:00",
       "tentative": false,
+      "cancelled": true,
       "image": "events/gdg-2026-09-30.webp",
       "image_kind": "poster",
       "link": "https://gdg.community.dev/e/mcv73g/",
@@ -1205,8 +1206,8 @@
         "en": "AI Governance on GCP"
       },
       "summary": {
-        "es": "Workshop práctico de 90 minutos para desplegar una pasarela LiteLLM en Cloud Run y controlar el gasto en IA con límites de tokens.",
-        "en": "A hands-on 90-minute workshop deploying a LiteLLM gateway on Cloud Run and keeping AI spending in check with token limits."
+        "es": "Cancelado por causas de fuerza mayor de los ponentes. El taller sobre la pasarela LiteLLM en Cloud Run no se celebrará este miércoles 30.",
+        "en": "Cancelled for reasons of force majeure affecting the speakers. The workshop on a LiteLLM gateway on Cloud Run will not take place on the 30th."
       },
       "location": {
         "es": "ULab, Alicante",
