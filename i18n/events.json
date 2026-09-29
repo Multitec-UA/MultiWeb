@@ -641,10 +641,10 @@
       "audience": "publico",
       "start": "2026-11-13",
       "end": "2026-11-15",
-      "tentative": true,
+      "tentative": false,
       "image": "events/logo-nasa-space-apps.webp",
       "image_kind": "logo",
-      "link": "https://www.spaceappschallenge.org/",
+      "link": "https://www.spaceappschallenge.org/2026/local-events/san-vicente-del-raspeig/",
       "title": {
         "es": "NASA Space Apps",
         "en": "NASA Space Apps"
@@ -658,8 +658,8 @@
         "en": "Alicante Science Park"
       },
       "image_alt": {
-        "es": "Logotipo del NASA Space Apps Challenge, usado mientras el cartel local sigue en preparación",
-        "en": "The NASA Space Apps Challenge logo, standing in while the local poster is still being finished"
+        "es": "Logotipo del NASA Space Apps Challenge, usado mientras el cartel de la sede local no está en esta web",
+        "en": "The NASA Space Apps Challenge logo, standing in for the local site's own poster"
       }
     },
     {
@@ -1200,7 +1200,7 @@
       "cancelled": true,
       "image": "events/gdg-2026-09-30.webp",
       "image_kind": "poster",
-      "link": "https://gdg.community.dev/e/mcv73g/",
+      "link": null,
       "title": {
         "es": "Gobernanza de IA en GCP",
         "en": "AI Governance on GCP"
