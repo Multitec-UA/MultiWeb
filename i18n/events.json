@@ -331,8 +331,8 @@
       "start": "2026-10-16",
       "end": "2026-10-18",
       "tentative": false,
-      "image": "events/logo-cienciathon.webp",
-      "image_kind": "logo",
+      "image": "events/cienciathon-2026.webp",
+      "image_kind": "poster",
       "link": "https://cienciathon.org/",
       "title": {
         "es": "VIII Cienciathon",
@@ -347,8 +347,8 @@
         "en": "Alicante Science Park"
       },
       "image_alt": {
-        "es": "Isotipo del Parque Científico, el logotipo que usa la web del Cienciathon, mientras no hay cartel",
-        "en": "The Science Park isotype, which cienciathon.org uses as its own logo, standing in for a poster"
+        "es": "Cartel con letras verdes sobre un salón de sillones de colores, y los logos de los organizadores abajo",
+        "en": "Poster with green lettering over a lounge of colourful armchairs, and the organisers' logos along the bottom"
       }
     },
     {
