@@ -3645,6 +3645,35 @@
       }
     },
     {
+      "id": "crearte-2026",
+      "series": "charlas",
+      "category": "charla",
+      "role": "difunde",
+      "audience": "publico",
+      "start": "2026-10-14T19:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-charla-b.svg",
+      "image_kind": "illustration",
+      "link": "https://centroempleo.ua.es/es/noticias/2026/y-si-la-creatividad-fuera-tu-mejor-herramienta-para-encontrar-empleo-o-emprender-fernando-botella-presenta-crearte-en-alicante.html",
+      "title": {
+        "es": "CREARTE · Fernando Botella",
+        "en": "CREARTE · Fernando Botella"
+      },
+      "summary": {
+        "es": "Conferencia práctica sobre creatividad, iniciativa y pensamiento crítico para buscar empleo o emprender. Con reserva; cada asistente recibe el libro.",
+        "en": "A hands-on talk on creativity, initiative and critical thinking for finding a job or starting a business. Booking needed; each attendee gets the book."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Parque Científico de Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
+      }
+    },
+    {
       "id": "matsuri-2026",
       "series": "ferias",
       "category": "social",
