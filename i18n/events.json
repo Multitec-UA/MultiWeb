@@ -3645,6 +3645,35 @@
       }
     },
     {
+      "id": "lanzadera-aceleradora-2026",
+      "series": "charlas",
+      "category": "charla",
+      "role": "difunde",
+      "audience": "publico",
+      "start": "2026-10-14T12:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-charla-c.svg",
+      "image_kind": "illustration",
+      "link": "https://centroempleo.ua.es/es/noticias/2026/tu-proyecto-esta-listo-para-entrar-en-una-aceleradora.html",
+      "title": {
+        "es": "Del potencial al crecimiento",
+        "en": "From potential to growth"
+      },
+      "summary": {
+        "es": "Jornada con Lanzadera sobre qué se valora al seleccionar proyectos para una aceleradora. Gratuita, con inscripción previa y plazas limitadas.",
+        "en": "A session with Lanzadera on what really counts when an accelerator selects projects. Free, with prior registration and limited places."
+      },
+      "location": {
+        "es": "Sala Ernest Lluch, Económicas · UA",
+        "en": "Sala Ernest Lluch, Económicas · UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
+      }
+    },
+    {
       "id": "crearte-2026",
       "series": "charlas",
       "category": "charla",
