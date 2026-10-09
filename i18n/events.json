@@ -3703,6 +3703,35 @@
       }
     },
     {
+      "id": "carrera-ntt-data-2026",
+      "series": "torneos",
+      "category": "social",
+      "role": "difunde",
+      "audience": "publico",
+      "start": "2026-10-18T09:30",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-a.svg",
+      "image_kind": "illustration",
+      "link": "https://alicanteplaza.es/alicanteplaza/deportesalicante/la-v-carrera-ntt-data-empresas-busca-alcanzar-los-2000-corredores-y-las-180-companias",
+      "title": {
+        "es": "V Carrera NTT DATA Empresas",
+        "en": "V Carrera NTT DATA Empresas"
+      },
+      "summary": {
+        "es": "Quinta edición: 5 km, 10 km o caminata de 5 km, con salida y llegada en la sede de NTT DATA. Corren particulares y equipos de empresas.",
+        "en": "Fifth edition: run 5 km or 10 km, or walk 5 km, starting and finishing at NTT DATA's Alicante office. Open to runners and company teams."
+      },
+      "location": {
+        "es": "NTT DATA · Playa de San Juan",
+        "en": "NTT DATA · Playa de San Juan"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
+    },
+    {
       "id": "matsuri-2026",
       "series": "ferias",
       "category": "social",
