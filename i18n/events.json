@@ -3788,6 +3788,32 @@
         "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
       }
+    },
+    {
+      "id": "multifiesta-2026",
+      "series": "multifiesta",
+      "category": "social",
+      "role": "organiza",
+      "audience": "socios",
+      "start": "2026-11-20",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-social-a.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Multifiesta 2026",
+        "en": "Multifiesta 2026"
+      },
+      "summary": {
+        "es": "La fiesta de la asociación. La junta ya la está organizando y ha abierto una encuesta entre los socios para decidir el formato.",
+        "en": "The association's own party. The board is already organising it and has opened a poll among members to decide what form it takes."
+      },
+      "location": null,
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
+      }
     }
   ]
 }
