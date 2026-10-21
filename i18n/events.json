@@ -3814,6 +3814,64 @@
         "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
       }
+    },
+    {
+      "id": "charla-coheteria-2026",
+      "series": "charlas",
+      "category": "charla",
+      "role": "organiza",
+      "audience": "publico",
+      "start": "2026-10-23T19:00",
+      "end": null,
+      "tentative": false,
+      "image": "events/ill-charla-b.svg",
+      "image_kind": "illustration",
+      "link": null,
+      "title": {
+        "es": "Charla de cohetes",
+        "en": "Rocketry talk"
+      },
+      "summary": {
+        "es": "El equipo de cohetería de la asociación cuenta cómo nació, cómo se ha abierto paso en la cohetería española y cómo construyó su primer cohete.",
+        "en": "The association's rocketry team tells how it started, how it found its way into Spanish rocketry, and how it built its very first rocket."
+      },
+      "location": {
+        "es": "Politécnica IV, UA",
+        "en": "Polytechnic IV, UA"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
+      }
+    },
+    {
+      "id": "hackathon-accesibilidad-2026",
+      "series": "hackathons-externos",
+      "category": "hackathon",
+      "role": "difunde",
+      "audience": "publico",
+      "start": "2026-11-26",
+      "end": "2026-12-03",
+      "tentative": false,
+      "image": "events/ill-hackathon-c.svg",
+      "image_kind": "illustration",
+      "link": "https://hackathonaccesibilidad.es/",
+      "title": {
+        "es": "Hackathon Accesible",
+        "en": "Accessible Hackathon"
+      },
+      "summary": {
+        "es": "Primera edición: equipos de estudiantes de la UA resuelven en siete días retos de accesibilidad e inclusión planteados por empresas. Gratuito.",
+        "en": "First edition: UA student teams spend seven days solving accessibility and inclusion challenges set by companies. Free to take part."
+      },
+      "location": {
+        "es": "Parque Científico de Alicante",
+        "en": "Alicante Science Park"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
+      }
     }
   ]
 }
