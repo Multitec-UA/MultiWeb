@@ -3872,6 +3872,35 @@
         "es": "Ilustración de colores planos que representa un hackathon, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for a hackathon, until this event has a photograph"
       }
+    },
+    {
+      "id": "gdg-2026-11-12",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-11-12T16:30",
+      "end": "2026-11-12T18:30",
+      "tentative": false,
+      "image": "events/ill-charla-a.svg",
+      "image_kind": "illustration",
+      "link": "https://gdg.community.dev/e/mb36kp/",
+      "title": {
+        "es": "Flujo de desarrollo con IA",
+        "en": "AI development workflow"
+      },
+      "summary": {
+        "es": "Charla online sobre cómo trabajar con agentes de IA usando Antigravity y Open Spec: menos tokens, menos código defensivo y subagentes coordinados.",
+        "en": "An online talk on working with AI agents through Antigravity and Open Spec: fewer tokens, less defensive code and coordinated subagents."
+      },
+      "location": {
+        "es": "Online",
+        "en": "Online"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
+      }
     }
   ]
 }
