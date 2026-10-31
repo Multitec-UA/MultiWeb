@@ -3901,6 +3901,35 @@
         "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
       }
+    },
+    {
+      "id": "gdg-2026-11-25",
+      "series": "gdg-alicante",
+      "category": "charla",
+      "role": "colabora",
+      "audience": "publico",
+      "start": "2026-11-25T18:30",
+      "end": "2026-11-25T20:30",
+      "tentative": false,
+      "image": "events/ill-charla-a.svg",
+      "image_kind": "illustration",
+      "link": "https://gdg.community.dev/e/m68pcn/",
+      "title": {
+        "es": "AI-Native SDLC",
+        "en": "AI-Native SDLC"
+      },
+      "summary": {
+        "es": "The Agile Monkeys enseña con ejemplos reales cómo cambia el desarrollo cuando los agentes de IA proponen e implementan y las personas aprueban.",
+        "en": "The Agile Monkeys show, with real examples, how development changes when AI agents propose and implement the work and people approve and merge it."
+      },
+      "location": {
+        "es": "Auditorio de ULab, Alicante",
+        "en": "ULab auditorium, Alicante"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
+      }
     }
   ]
 }
