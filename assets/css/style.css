@@ -396,16 +396,26 @@ strong, b { font-weight: 700; }
     isolation: isolate;
 }
 /* The photograph is .tile-photo, not a bare image tag: the family mark in the corner is an
-   image too, and a selector on the tag stretched a 120 × 24 logo over the whole tile. */
-.tile .tile-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; transition: transform 600ms var(--ease); }
+   image too, and a selector on the tag stretched a 120 × 24 logo over the whole tile.
+   z-index -2, one below ::before: at equal z-index the photo comes later in the tree,
+   paints on top and hides the gradient, which left the text straight on the photo. */
+.tile .tile-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 600ms var(--ease); }
 .tile::before {
     content: "";
     position: absolute; inset: 0; z-index: -1;
-    background: linear-gradient(180deg, rgba(30, 33, 33, .08) 0%, rgba(30, 33, 33, .55) 40%, rgba(30, 33, 33, .94) 100%);
+    /* Only a light tint: the dark scrim lives on .tile-body, behind the text alone, so
+       the photo above the text stays clear whatever the tile's height. */
+    background: linear-gradient(180deg, rgba(30, 33, 33, 0) 0%, rgba(30, 33, 33, .15) 100%);
 }
 .tile:hover .tile-photo, .tile:focus-visible .tile-photo { transform: scale(1.04); }
-.tile-body { margin-top: auto; padding: var(--s5); }
-.tile-kicker { font-size: var(--t-sm); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--mt-grey); }
+/* The scrim fades in over the extra top padding, then holds dark enough for 4.5:1 over
+   the lightest part of every photo. */
+.tile-body {
+    margin-top: auto;
+    padding: var(--s7) var(--s5) var(--s5);
+    background: linear-gradient(180deg, rgba(30, 33, 33, 0) 0, rgba(30, 33, 33, .75) var(--s7), rgba(30, 33, 33, .85) 100%);
+}
+.tile-kicker { font-size: var(--t-sm); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--mt-grey-2); }
 .tile h3 { margin-top: var(--s2); font-size: var(--t-lg); text-transform: uppercase; letter-spacing: .02em; color: var(--mt-white); text-shadow: 0 1px 2px rgba(30, 33, 33, .6); }
 .tile p { margin-top: var(--s2); color: var(--mt-grey-2); font-size: var(--t-base); text-shadow: 0 1px 2px rgba(30, 33, 33, .6); }
 .tile-mark { position: absolute; top: var(--s4); right: var(--s4); height: 26px; width: auto; opacity: .9; }
