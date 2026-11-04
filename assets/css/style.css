@@ -424,8 +424,7 @@ strong, b { font-weight: 700; }
 
 /* ── the Multicasa ───────────────────────────────────────────────────────── */
 .casa-grid { display: grid; gap: clamp(28px, 5vw, 64px); align-items: center; }
-.casa-photo { border-radius: var(--r-xl); overflow: hidden; }
-.casa-photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.casa-photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; border-radius: var(--r-xl); }
 .casa-photo figcaption { padding: var(--s3) 0 0; font-size: var(--t-sm); color: var(--text-dim); }
 .casa-list { display: grid; gap: var(--s3) var(--s4); margin-top: var(--s5); }
 @media (min-width: 640px) { .casa-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
