@@ -1277,13 +1277,26 @@ strong, b { font-weight: 700; }
     z-index: 2;
 }
 
+/* The selected card leaves the 3D context and drops the will-change hint, so Chrome draws
+   its text at the boosted size instead of stretching a scale-1 bitmap by --boost. Chrome
+   only re-rasterises at the final scale when the layer's transform is purely 2D: inside
+   the preserve-3d chain the perspective makes it 3D, and so does any --t other than 0
+   (the script rounds a sub-pixel offset to 0 for this). will-change pins the scale the
+   layer was first drawn at, so a card that becomes selected later kept its old bitmap.
+   All three are needed; measured in Chrome with GPU raster, 1280px, the selected title's
+   edge sharpness went from 2012 to 4160, the same as an 8% scale with no 3D at all.
+   Firefox was already sharp and is unaffected. Mid-turn, flattening drops the card's own
+   perspective, which reads 1-2% larger for the frames of the handover, inside the boost's
+   own ease; at rest --t is 0 and flat and 3D draw the same box. */
 .ev-card.is-centred {
     --boost: 1.08;
     z-index: 4;
+    transform-style: flat;
 }
 
 .ev-card.is-centred .ev-inner {
     box-shadow: 0 34px 70px rgba(0, 0, 0, .62), 0 0 0 1px rgba(255, 255, 255, .16);
+    will-change: auto;
 }
 
 .ev-card.is-centred .ev-emblem {
