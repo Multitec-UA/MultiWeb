@@ -73,6 +73,13 @@
     --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
     --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
     --tap: 44px;
+    /* The logo's hexagon: regular, flat top and bottom, points left and right.
+       Inscribed in a square box it fills the width and is √3/2 ≈ 86.6% as tall,
+       so it sits 6.7% in from the top and bottom edges. */
+    --hex: polygon(0% 50%, 25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%);
+    /* The same regular hexagon turned 90° (point up), for the hero photo frame and
+       its decorative marks: it fills the height and is 86.6% as wide. */
+    --hex-pointy: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
     --r-sm: 3px; --r: 5px; --r-lg: 8px; --r-xl: 14px;
     --ease: cubic-bezier(.2, .6, .3, 1);
     --dur: 160ms;
@@ -299,18 +306,21 @@ strong, b { font-weight: 700; }
 .hero-photo { position: relative; }
 .hex-frame {
     /* The brand's own shape (brandbook p.24) — the one thing here that is decoration. */
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    aspect-ratio: 1;
+    /* A point-up regular hexagon 8% larger than one inscribed in the square box:
+       the box grows 8% taller (aspect-ratio 25/27) and the hexagon is
+       1.08 × √3/2 ≈ 93.5% of its width, so it sits 3.23% in from each side. */
+    clip-path: polygon(50% 0%, 96.77% 25%, 96.77% 75%, 50% 100%, 3.23% 75%, 3.23% 25%);
+    aspect-ratio: 25 / 27;
     width: min(100%, 520px);
     margin-inline: auto;
     background: var(--accent);
 }
-.hex-frame img { width: 100%; height: 100%; object-fit: cover; }
+.hex-frame img { width: 100%; height: 100%; object-fit: cover; object-position: right center; }
 .hex-mark {
     position: absolute;
     width: 22%;
     aspect-ratio: 1;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: var(--hex-pointy);
     background: var(--accent);
     right: 2%;
     bottom: 8%;
@@ -369,7 +379,7 @@ strong, b { font-weight: 700; }
     place-items: center;
     width: 56px;
     height: 56px;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: var(--hex);
     background: var(--accent);
     color: var(--on-accent);
     font-weight: 700;
@@ -429,7 +439,7 @@ strong, b { font-weight: 700; }
 .casa-list { display: grid; gap: var(--s3) var(--s4); margin-top: var(--s5); }
 @media (min-width: 640px) { .casa-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .casa-list li { display: flex; gap: var(--s3); align-items: flex-start; font-size: var(--t-base); }
-.casa-list li::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: .45em; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); }
+.casa-list li::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: .45em; clip-path: var(--hex); background: var(--accent); }
 .casa-note { margin-top: var(--s5); font-size: var(--t-sm); color: var(--text-dim); }
 @media (min-width: 900px) {
     .casa-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); }
@@ -454,7 +464,7 @@ strong, b { font-weight: 700; }
     position: absolute; left: 0; top: 0;
     display: grid; place-items: center;
     width: 36px; height: 36px;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: var(--hex);
     background: var(--accent); color: var(--on-accent);
     font-weight: 700;
 }
@@ -490,14 +500,14 @@ strong, b { font-weight: 700; }
     background: var(--ink-raised);
 }
 .members-head { display: flex; align-items: center; gap: var(--s3); }
-.members-mark { display: grid; place-items: center; width: 44px; height: 44px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); color: var(--on-accent); }
+.members-mark { display: grid; place-items: center; width: 44px; height: 44px; clip-path: var(--hex); background: var(--accent); color: var(--on-accent); }
 .members-mark .ic-fa { width: 22px; height: 22px; }
 .members-eyebrow { font-size: var(--t-sm); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
 .members-name { font-size: var(--t-md); }
 .members-body { margin-top: var(--s4); }
 .members-list { display: grid; gap: var(--s2); margin-top: var(--s4); color: var(--text-dim); }
 .members-list li { display: flex; gap: var(--s3); }
-.members-list li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: .55em; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); }
+.members-list li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: .55em; clip-path: var(--hex); background: var(--accent); }
 .members-panel .btn { margin-top: var(--s5); align-self: flex-start; }
 .members-note { margin-top: var(--s3); font-size: var(--t-sm); color: var(--text-dim); }
 .members-foot { margin-top: var(--s6); }
@@ -581,7 +591,7 @@ strong, b { font-weight: 700; }
 .faq-body p + p, .faq-body ul + p, .faq-body p + ul { margin-top: var(--s3); }
 .faq-body ul { display: grid; gap: var(--s2); }
 .faq-body li { padding-left: var(--s5); position: relative; }
-.faq-body li::before { content: ""; position: absolute; left: 0; top: .55em; width: 9px; height: 9px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); }
+.faq-body li::before { content: ""; position: absolute; left: 0; top: .55em; width: 9px; height: 9px; clip-path: var(--hex); background: var(--accent); }
 .faq-body li b { color: var(--text); }
 .faq-body ul ul { margin-top: var(--s2); }
 .faq-body ul ul li::before { background: var(--mt-grey); }
@@ -591,7 +601,7 @@ strong, b { font-weight: 700; }
 .contact-list { display: grid; gap: var(--s4); }
 .contact-list li { display: grid; grid-template-columns: 44px 1fr; gap: var(--s4); align-items: start; padding-top: var(--s4); border-top: 1px solid var(--line); }
 .contact-list li:first-child { border-top: 0; padding-top: 0; }
-.contact-ic { display: grid; place-items: center; width: 44px; height: 44px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); color: var(--on-accent); }
+.contact-ic { display: grid; place-items: center; width: 44px; height: 44px; clip-path: var(--hex); background: var(--accent); color: var(--on-accent); }
 .contact-ic .ic-fa { width: 20px; height: 20px; }
 .contact-label { font-size: var(--t-sm); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
 .contact-list li p { margin-top: var(--s1); }
