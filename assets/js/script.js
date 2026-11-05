@@ -226,6 +226,10 @@
         for (var i = 0; i < cards.length; i++) {
             var c = cards[i];
             var d = c.offsetLeft + c.offsetWidth / 2 - mid;
+            // Snapping leaves the card a fraction of a pixel off-centre, which made --t
+            // 0.001 rather than 0: a 3D transform, and Chrome then stretched the selected
+            // card's bitmap instead of drawing its text sharp (see .ev-card.is-centred).
+            if (Math.abs(d) < 1) d = 0;
             var t = Math.max(-1, Math.min(1, d / reach));
             c.style.setProperty('--t', t.toFixed(3));
             c.style.setProperty('--a', Math.abs(t).toFixed(3));
