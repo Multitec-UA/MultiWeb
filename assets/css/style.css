@@ -73,6 +73,13 @@
     --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
     --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
     --tap: 44px;
+    /* The logo's hexagon: regular, flat top and bottom, points left and right.
+       Inscribed in a square box it fills the width and is √3/2 ≈ 86.6% as tall,
+       so it sits 6.7% in from the top and bottom edges. */
+    --hex: polygon(0% 50%, 25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%);
+    /* The same regular hexagon turned 90° (point up), for the hero photo frame and
+       its decorative marks: it fills the height and is 86.6% as wide. */
+    --hex-pointy: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%);
     --r-sm: 3px; --r: 5px; --r-lg: 8px; --r-xl: 14px;
     --ease: cubic-bezier(.2, .6, .3, 1);
     --dur: 160ms;
@@ -299,18 +306,21 @@ strong, b { font-weight: 700; }
 .hero-photo { position: relative; }
 .hex-frame {
     /* The brand's own shape (brandbook p.24) — the one thing here that is decoration. */
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    aspect-ratio: 1;
+    /* A point-up regular hexagon 8% larger than one inscribed in the square box:
+       the box grows 8% taller (aspect-ratio 25/27) and the hexagon is
+       1.08 × √3/2 ≈ 93.5% of its width, so it sits 3.23% in from each side. */
+    clip-path: polygon(50% 0%, 96.77% 25%, 96.77% 75%, 50% 100%, 3.23% 75%, 3.23% 25%);
+    aspect-ratio: 25 / 27;
     width: min(100%, 520px);
     margin-inline: auto;
     background: var(--accent);
 }
-.hex-frame img { width: 100%; height: 100%; object-fit: cover; }
+.hex-frame img { width: 100%; height: 100%; object-fit: cover; object-position: right center; }
 .hex-mark {
     position: absolute;
     width: 22%;
     aspect-ratio: 1;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: var(--hex-pointy);
     background: var(--accent);
     right: 2%;
     bottom: 8%;
@@ -369,7 +379,7 @@ strong, b { font-weight: 700; }
     place-items: center;
     width: 56px;
     height: 56px;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: var(--hex);
     background: var(--accent);
     color: var(--on-accent);
     font-weight: 700;
@@ -396,16 +406,26 @@ strong, b { font-weight: 700; }
     isolation: isolate;
 }
 /* The photograph is .tile-photo, not a bare image tag: the family mark in the corner is an
-   image too, and a selector on the tag stretched a 120 × 24 logo over the whole tile. */
-.tile .tile-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; transition: transform 600ms var(--ease); }
+   image too, and a selector on the tag stretched a 120 × 24 logo over the whole tile.
+   z-index -2, one below ::before: at equal z-index the photo comes later in the tree,
+   paints on top and hides the gradient, which left the text straight on the photo. */
+.tile .tile-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 600ms var(--ease); }
 .tile::before {
     content: "";
     position: absolute; inset: 0; z-index: -1;
-    background: linear-gradient(180deg, rgba(30, 33, 33, .08) 0%, rgba(30, 33, 33, .55) 40%, rgba(30, 33, 33, .94) 100%);
+    /* Only a light tint: the dark scrim lives on .tile-body, behind the text alone, so
+       the photo above the text stays clear whatever the tile's height. */
+    background: linear-gradient(180deg, rgba(30, 33, 33, 0) 0%, rgba(30, 33, 33, .15) 100%);
 }
 .tile:hover .tile-photo, .tile:focus-visible .tile-photo { transform: scale(1.04); }
-.tile-body { margin-top: auto; padding: var(--s5); }
-.tile-kicker { font-size: var(--t-sm); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--mt-grey); }
+/* The scrim fades in over the extra top padding, then holds dark enough for 4.5:1 over
+   the lightest part of every photo. */
+.tile-body {
+    margin-top: auto;
+    padding: var(--s7) var(--s5) var(--s5);
+    background: linear-gradient(180deg, rgba(30, 33, 33, 0) 0, rgba(30, 33, 33, .75) var(--s7), rgba(30, 33, 33, .85) 100%);
+}
+.tile-kicker { font-size: var(--t-sm); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--mt-grey-2); }
 .tile h3 { margin-top: var(--s2); font-size: var(--t-lg); text-transform: uppercase; letter-spacing: .02em; color: var(--mt-white); text-shadow: 0 1px 2px rgba(30, 33, 33, .6); }
 .tile p { margin-top: var(--s2); color: var(--mt-grey-2); font-size: var(--t-base); text-shadow: 0 1px 2px rgba(30, 33, 33, .6); }
 .tile-mark { position: absolute; top: var(--s4); right: var(--s4); height: 26px; width: auto; opacity: .9; }
@@ -424,13 +444,12 @@ strong, b { font-weight: 700; }
 
 /* ── the Multicasa ───────────────────────────────────────────────────────── */
 .casa-grid { display: grid; gap: clamp(28px, 5vw, 64px); align-items: center; }
-.casa-photo { border-radius: var(--r-xl); overflow: hidden; }
-.casa-photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; }
+.casa-photo img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3; border-radius: var(--r-xl); }
 .casa-photo figcaption { padding: var(--s3) 0 0; font-size: var(--t-sm); color: var(--text-dim); }
 .casa-list { display: grid; gap: var(--s3) var(--s4); margin-top: var(--s5); }
 @media (min-width: 640px) { .casa-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .casa-list li { display: flex; gap: var(--s3); align-items: flex-start; font-size: var(--t-base); }
-.casa-list li::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: .45em; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); }
+.casa-list li::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: .45em; clip-path: var(--hex); background: var(--accent); }
 .casa-note { margin-top: var(--s5); font-size: var(--t-sm); color: var(--text-dim); }
 @media (min-width: 900px) {
     .casa-grid { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); }
@@ -455,7 +474,7 @@ strong, b { font-weight: 700; }
     position: absolute; left: 0; top: 0;
     display: grid; place-items: center;
     width: 36px; height: 36px;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    clip-path: var(--hex);
     background: var(--accent); color: var(--on-accent);
     font-weight: 700;
 }
@@ -491,14 +510,14 @@ strong, b { font-weight: 700; }
     background: var(--ink-raised);
 }
 .members-head { display: flex; align-items: center; gap: var(--s3); }
-.members-mark { display: grid; place-items: center; width: 44px; height: 44px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); color: var(--on-accent); }
+.members-mark { display: grid; place-items: center; width: 44px; height: 44px; clip-path: var(--hex); background: var(--accent); color: var(--on-accent); }
 .members-mark .ic-fa { width: 22px; height: 22px; }
 .members-eyebrow { font-size: var(--t-sm); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
 .members-name { font-size: var(--t-md); }
 .members-body { margin-top: var(--s4); }
 .members-list { display: grid; gap: var(--s2); margin-top: var(--s4); color: var(--text-dim); }
 .members-list li { display: flex; gap: var(--s3); }
-.members-list li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: .55em; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); }
+.members-list li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: .55em; clip-path: var(--hex); background: var(--accent); }
 .members-panel .btn { margin-top: var(--s5); align-self: flex-start; }
 .members-note { margin-top: var(--s3); font-size: var(--t-sm); color: var(--text-dim); }
 .members-foot { margin-top: var(--s6); }
@@ -547,7 +566,6 @@ strong, b { font-weight: 700; }
 }
 
 /* ── FAQ ─────────────────────────────────────────────────────────────────── */
-.faq-list { max-width: 820px; }
 .faq-item { border-top: 1px solid var(--line); }
 .faq-item:last-child { border-bottom: 1px solid var(--line); }
 .faq-item summary {
@@ -582,7 +600,7 @@ strong, b { font-weight: 700; }
 .faq-body p + p, .faq-body ul + p, .faq-body p + ul { margin-top: var(--s3); }
 .faq-body ul { display: grid; gap: var(--s2); }
 .faq-body li { padding-left: var(--s5); position: relative; }
-.faq-body li::before { content: ""; position: absolute; left: 0; top: .55em; width: 9px; height: 9px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); }
+.faq-body li::before { content: ""; position: absolute; left: 0; top: .55em; width: 9px; height: 9px; clip-path: var(--hex); background: var(--accent); }
 .faq-body li b { color: var(--text); }
 .faq-body ul ul { margin-top: var(--s2); }
 .faq-body ul ul li::before { background: var(--mt-grey); }
@@ -592,7 +610,7 @@ strong, b { font-weight: 700; }
 .contact-list { display: grid; gap: var(--s4); }
 .contact-list li { display: grid; grid-template-columns: 44px 1fr; gap: var(--s4); align-items: start; padding-top: var(--s4); border-top: 1px solid var(--line); }
 .contact-list li:first-child { border-top: 0; padding-top: 0; }
-.contact-ic { display: grid; place-items: center; width: 44px; height: 44px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--accent); color: var(--on-accent); }
+.contact-ic { display: grid; place-items: center; width: 44px; height: 44px; clip-path: var(--hex); background: var(--accent); color: var(--on-accent); }
 .contact-ic .ic-fa { width: 20px; height: 20px; }
 .contact-label { font-size: var(--t-sm); font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); }
 .contact-list li p { margin-top: var(--s1); }
@@ -1278,13 +1296,26 @@ strong, b { font-weight: 700; }
     z-index: 2;
 }
 
+/* The selected card leaves the 3D context and drops the will-change hint, so Chrome draws
+   its text at the boosted size instead of stretching a scale-1 bitmap by --boost. Chrome
+   only re-rasterises at the final scale when the layer's transform is purely 2D: inside
+   the preserve-3d chain the perspective makes it 3D, and so does any --t other than 0
+   (the script rounds a sub-pixel offset to 0 for this). will-change pins the scale the
+   layer was first drawn at, so a card that becomes selected later kept its old bitmap.
+   All three are needed; measured in Chrome with GPU raster, 1280px, the selected title's
+   edge sharpness went from 2012 to 4160, the same as an 8% scale with no 3D at all.
+   Firefox was already sharp and is unaffected. Mid-turn, flattening drops the card's own
+   perspective, which reads 1-2% larger for the frames of the handover, inside the boost's
+   own ease; at rest --t is 0 and flat and 3D draw the same box. */
 .ev-card.is-centred {
     --boost: 1.08;
     z-index: 4;
+    transform-style: flat;
 }
 
 .ev-card.is-centred .ev-inner {
     box-shadow: 0 34px 70px rgba(0, 0, 0, .62), 0 0 0 1px rgba(255, 255, 255, .16);
+    will-change: auto;
 }
 
 .ev-card.is-centred .ev-emblem {
@@ -1340,9 +1371,13 @@ strong, b { font-weight: 700; }
     background: rgba(23, 23, 26, .72);
     color: #fff;
     padding: 0;
+    display: grid;
+    place-items: center;
     cursor: pointer;
     transition: background .2s ease, border-color .2s ease;
 }
+
+.ev-nav[hidden] { display: none; }
 
 .ev-nav:hover,
 .ev-nav:focus-visible {
@@ -1359,7 +1394,7 @@ strong, b { font-weight: 700; }
     width: 16px;
     height: 16px;
     fill: currentColor;
-    vertical-align: middle;
+    display: block;
 }
 
 .ev-prev { left: 14px; }
