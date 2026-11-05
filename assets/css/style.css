@@ -566,7 +566,6 @@ strong, b { font-weight: 700; }
 }
 
 /* ── FAQ ─────────────────────────────────────────────────────────────────── */
-.faq-list { max-width: 820px; }
 .faq-item { border-top: 1px solid var(--line); }
 .faq-item:last-child { border-bottom: 1px solid var(--line); }
 .faq-item summary {
