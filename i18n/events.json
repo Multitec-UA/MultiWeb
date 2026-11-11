@@ -3795,7 +3795,7 @@
       "category": "social",
       "role": "organiza",
       "audience": "socios",
-      "start": "2026-11-20",
+      "start": "2026-11-20T19:00",
       "end": null,
       "tentative": false,
       "image": "events/ill-social-a.svg",
@@ -3806,10 +3806,13 @@
         "en": "Multifiesta 2026"
       },
       "summary": {
-        "es": "La fiesta de la asociación. La junta ya la está organizando y ha abierto una encuesta entre los socios para decidir el formato.",
-        "en": "The association's own party. The board is already organising it and has opened a poll among members to decide what form it takes."
+        "es": "Asamblea de socios a las 19:00 en el salón de actos de la EPS I, cena en el Wok Buffet frente a la UA y fiesta gratis en Parole. Con la cuota al día.",
+        "en": "Members' assembly at 19:00 in the EPS I assembly hall, dinner at the Wok Buffet facing campus, then a free party at Parole. Paid-up members only."
       },
-      "location": null,
+      "location": {
+        "es": "Salón de actos, EPS I",
+        "en": "EPS I assembly hall"
+      },
       "image_alt": {
         "es": "Ilustración de colores planos que representa un encuentro, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for a get-together, until this event has a photograph"
