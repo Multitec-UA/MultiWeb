@@ -3933,6 +3933,35 @@
         "es": "Ilustración de colores planos que representa una charla, mientras no hay foto de este evento",
         "en": "A flat-colour illustration standing in for a talk, until this event has a photograph"
       }
+    },
+    {
+      "id": "santander-explorer-2027",
+      "series": "charlas",
+      "category": "taller",
+      "role": "difunde",
+      "audience": "publico",
+      "start": "2027-01",
+      "end": "2027-04",
+      "tentative": false,
+      "image": "events/ill-taller-c.svg",
+      "image_kind": "illustration",
+      "link": "https://centroempleo.ua.es/es/emprendimiento/explorer/explorer-2026-2027.html",
+      "title": {
+        "es": "Santander X Explorer",
+        "en": "Santander X Explorer"
+      },
+      "summary": {
+        "es": "Programa online y gratuito de doce semanas para convertir una idea en proyecto, con mentorías de la UA. Inscripción hasta el 10 de diciembre.",
+        "en": "A free online twelve-week programme to turn an idea into a real project, with mentoring from the UA. Sign up by 10 December."
+      },
+      "location": {
+        "es": "Online",
+        "en": "Online"
+      },
+      "image_alt": {
+        "es": "Ilustración de colores planos que representa un taller, mientras no hay foto de este evento",
+        "en": "A flat-colour illustration standing in for a workshop, until this event has a photograph"
+      }
     }
   ]
 }
