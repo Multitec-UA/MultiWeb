@@ -19,6 +19,11 @@
 # never ran, and a green build on a page nobody looked at is exactly the failure that let
 # gmap.js 404 in production for years.
 set -uo pipefail
+# The asset lock hashes `find | sort -z`, and sort orders by the locale's collation: the
+# same tree hashed 84f33e00... under en_US.UTF-8 and c902fcbd... under C (audit L-012), so
+# a normal shell reported "assets/ changed without a version bump" on an untouched tree.
+# A false failure trains people to ignore the real one. Pin the locale for the whole run.
+export LC_ALL=C
 
 # pipefail makes one shape in this file a liar: `printf '%s' "$page" | grep -q PAT`.
 # grep -q exits at the FIRST match, printf then takes SIGPIPE, and the pipeline reports
