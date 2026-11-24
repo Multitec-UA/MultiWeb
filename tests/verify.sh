@@ -907,10 +907,13 @@ ANCHOR = re.compile(r"<a\b[^>]*>")
 for page in pages:
     html = page.read_text(encoding="utf-8")
     anchors = ANCHOR.findall(html)
-    # A switch is an <a> that declares the language of what is on the other end. That is
-    # the marker rather than a class name, because the phone panel's copy is styled by
-    # the panel and carries no class of its own.
-    switches = [a for a in anchors if "hreflang=" in a]
+    # A switch is an <a> that declares the OTHER language for what is on the other end.
+    # That is the marker rather than a class name, because the phone panel's copy is
+    # styled by the panel and carries no class of its own. hreflang alone is not enough
+    # since 2026-11-24: the links to cohetes.multitecua.com declare the page's own
+    # language (hreflang="es" on /, "en" on /en/) and are not switches.
+    alt_lang = "es" if page.parent.name == "en" else "en"
+    switches = [a for a in anchors if 'hreflang="%s"' % alt_lang in a]
     if not switches:
         print("    %s has no language switch" % page)
     for a in switches:
