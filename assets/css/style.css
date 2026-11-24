@@ -446,7 +446,10 @@ strong, b { font-weight: 700; }
 /* The rocketry team's tile (2026-11-24) spans the whole row at every width: it links out to
    cohetes.multitecua.com, so it closes the grid as a banner instead of breaking its rows. */
 .tile.full { grid-column: 1 / -1; min-height: 380px; }
-.tile.full .tile-body { max-width: 760px; }
+/* The measure is limited on the children, not on .tile-body: the body carries the dark
+   scrim, and a 760px body left a hard vertical seam where the scrim stopped over the
+   photo (audit L-008). Full-width body, readable line length, same as the other tiles. */
+.tile.full .tile-body > * { max-width: 760px; }
 .tile-go { display: inline-flex; align-items: center; gap: var(--s2); margin-top: var(--s3); font-weight: 700; color: var(--mt-white); text-decoration: underline; text-underline-offset: 3px; }
 .tile-go .ic { width: 1.1em; height: 1.1em; fill: currentColor; }
 
