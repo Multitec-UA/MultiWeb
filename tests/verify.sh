@@ -1089,6 +1089,45 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+head1 "27. The rocketry site is linked where visitors land, in their language"
+# WHY: commit 64b9c5c linked cohetes.multitecua.com from the home page only, and every
+# English link pointed at the Spanish site root, which serves lang="es" and does not
+# negotiate (audit L-002..L-004, measured 2026-11-24). The home page, the sign-up page and
+# /enlaces (the Instagram link-in-bio) each have to carry the link, and an /en/ page has to
+# send its reader to /en/. The one exception is an event card heading: events.json has a
+# single `link` for both languages, so the "Charla de cohetes" card opens the Spanish root
+# from the English page too; it is recognised by its ev-title line and skipped.
+cohetes=$(python3 - <<'PYCOH' 2>&1
+import re
+ES = 'https://cohetes.multitecua.com/'
+EN = 'https://cohetes.multitecua.com/en/'
+out = []
+for page in ('index.html', 'inscripcion.html', 'enlaces.html'):
+    for lang, path, want in (('es', 'src/' + page, ES), ('en', 'src/en/' + page, EN)):
+        html = re.sub(r'<!--.*?-->', '', open(path, encoding='utf-8').read(), flags=re.S)
+        lines = [l for l in html.split('\n') if 'class="ev-title"' not in l]
+        hrefs = [h for l in lines
+                 for h in re.findall(r'href="(https://cohetes\.multitecua\.com[^"]*)"', l)]
+        if not hrefs:
+            out.append('%s has no link to the rocketry site' % path)
+        wrong = sorted(set(h for h in hrefs if h != want))
+        if wrong:
+            out.append('%s links %s, want %s' % (path, ', '.join(wrong), want))
+        for tag in (t for l in lines
+                    for t in re.findall(r'<a [^>]*href="https://cohetes\.multitecua\.com[^"]*"[^>]*>', l)):
+            if 'hreflang="%s"' % lang not in tag:
+                out.append('%s: no hreflang="%s" on %s' % (path, lang, tag[:80]))
+print('\n'.join(out), end='')
+PYCOH
+)
+if [ -z "$cohetes" ]; then
+  pass "home, sign-up and /enlaces link the rocketry site, /en/ pages to its /en/, with hreflang"
+else
+  fail "the rocketry link is missing or in the wrong language"
+  printf '%s\n' "$cohetes" | sed 's/^/    /' | head -8
+fi
+
+# ---------------------------------------------------------------------------
 printf '\n'
 if [ "$FAILED" -eq 0 ]; then printf '\033[32mverify.sh: all checks passed\033[0m\n'; else printf '\033[31mverify.sh: FAILURES above\033[0m\n'; fi
 exit "$FAILED"

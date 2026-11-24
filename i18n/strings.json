@@ -1196,6 +1196,14 @@
       "es": "Cohetes",
       "en": "Rocketry"
     },
+    "href_cohetes": {
+      "es": "https://cohetes.multitecua.com/",
+      "en": "https://cohetes.multitecua.com/en/"
+    },
+    "enl_section_cohetes": {
+      "es": "Equipo de cohetes",
+      "en": "Rocketry team"
+    },
     "act_cohetes_kicker": {
       "es": "Equipo de cohetería",
       "en": "Rocketry team"
