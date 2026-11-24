@@ -1213,12 +1213,8 @@
       "en": "Cohetes Multitec"
     },
     "act_cohetes_body": {
-      "es": "Diseñamos, construimos y lanzamos cohetes de alta potencia con aviónica propia. Lucentum subió a 459 m y logró la certificación L1; el siguiente apunta a 2.400 m. Conoce el proyecto y únete.",
-      "en": "We design, build and fly high-power rockets with our own avionics. Lucentum reached 459 m and earned the L1 certification; the next one aims at 2,400 m. Meet the project and join us."
-    },
-    "alt_act_cohetes": {
-      "es": "Cuatro fotogramas del lanzamiento de Lucentum: en la rampa, la ignición, el ascenso con su estela y el descenso con el paracaídas",
-      "en": "Four frames of Lucentum's launch: on the rail, ignition, the climb with its smoke trail and the descent under the parachute"
+      "es": "Diseñamos, construimos y lanzamos cohetes de alta potencia con aviónica propia. Lucentum voló a 459 m en una competición universitaria L1. El siguiente apunta a unos 2.400 m.",
+      "en": "We design, build and fly high-power rockets with our own avionics. Lucentum flew to 459 m at a university L1 competition. The next one aims at about 2,400 m."
     }
   }
 }
