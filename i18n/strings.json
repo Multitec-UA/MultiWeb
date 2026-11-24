@@ -156,9 +156,13 @@
       "es": "Proyectos",
       "en": "Projects"
     },
+    "purpose_3_link": {
+      "es": "Club de cohetería",
+      "en": "A rocketry club"
+    },
     "purpose_3_body": {
-      "es": "Club de cohetería, impresión 3D, Arduino y robótica, el servidor de Minecraft, esta misma web. Si tienes una idea, ponla sobre la mesa: hay más de {members} socios con quien hacerla.",
-      "en": "A rocketry club, 3D printing, Arduino and robotics, the Minecraft server, this very website. If you have an idea, put it on the table: there are {members}-plus members to build it with."
+      "es": ", impresión 3D, Arduino y robótica, el servidor de Minecraft, esta misma web. Si tienes una idea, ponla sobre la mesa: hay más de {members} socios con quien hacerla.",
+      "en": ", 3D printing, Arduino and robotics, the Minecraft server, this very website. If you have an idea, put it on the table: there are {members}-plus members to build it with."
     },
     "join_title": {
       "es": "Forma parte de Multitec",
