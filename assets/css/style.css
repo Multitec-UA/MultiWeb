@@ -279,11 +279,13 @@ strong, b { font-weight: 700; }
     .menu-item { display: none !important; }
     .brand img { height: 34px; }
 }
-/* Between the breakpoint and the full container the seven links plus the button share
-   ~900px: tighter padding, and a hair smaller, so none of them wraps to two lines. */
+/* Between the breakpoint and the full container the eight links plus the button share
+   ~900px: tighter padding, and a hair smaller, so none of them wraps to two lines and the
+   logo never gets squeezed (it did at 1000px once "Cohetes" joined the bar, 2026-11-24). */
+.brand { flex-shrink: 0; }
 @media (min-width: 996px) and (max-width: 1179px) {
-    .nav a { padding: 0 var(--s2); font-size: 15px; }
-    .nav .btn { padding: 0 var(--s4); }
+    .nav a { padding: 0 6px; font-size: 14px; }
+    .nav .btn { padding: 0 var(--s3); }
 }
 
 /* ── hero ────────────────────────────────────────────────────────────────── */
@@ -430,7 +432,7 @@ strong, b { font-weight: 700; }
 .tile p { margin-top: var(--s2); color: var(--mt-grey-2); font-size: var(--t-base); text-shadow: 0 1px 2px rgba(30, 33, 33, .6); }
 .tile-mark { position: absolute; top: var(--s4); right: var(--s4); height: 26px; width: auto; opacity: .9; }
 .tile.wide { min-height: 360px; }
-/* Five tiles, three of them wide. Two columns on a tablet (a wide tile takes both), a
+/* Five tiles, three of them wide, plus the full-width rocketry tile below. Two columns on a tablet (a wide tile takes both), a
    12-column grid on a desktop: wide = 6, plain = 3, so both rows fill exactly. */
 @media (min-width: 640px) {
     .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -441,6 +443,12 @@ strong, b { font-weight: 700; }
     .tile { grid-column: span 3; }
     .tile.wide { grid-column: span 6; }
 }
+/* The rocketry team's tile (2026-11-24) spans the whole row at every width: it links out to
+   cohetes.multitecua.com, so it closes the grid as a banner instead of breaking its rows. */
+.tile.full { grid-column: 1 / -1; min-height: 380px; }
+.tile.full .tile-body { max-width: 760px; }
+.tile-go { display: inline-flex; align-items: center; gap: var(--s2); margin-top: var(--s3); font-weight: 700; color: var(--mt-white); text-decoration: underline; text-underline-offset: 3px; }
+.tile-go .ic { width: 1.1em; height: 1.1em; fill: currentColor; }
 
 /* ── the Multicasa ───────────────────────────────────────────────────────── */
 .casa-grid { display: grid; gap: clamp(28px, 5vw, 64px); align-items: center; }

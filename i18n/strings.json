@@ -8,6 +8,7 @@
   },
   "same_in_both": [
     "act_cienciathon_title",
+    "act_cohetes_title",
     "act_gamejam_title",
     "contact_email_label",
     "contact_telegram_label",
@@ -1190,6 +1191,26 @@
     "insc_band_text": {
       "es": "Las respuestas a lo que más nos preguntan están en la portada, y para todo lo demás tienes el correo de la asociación.",
       "en": "The answers to what we get asked most are on the home page, and for anything else there is the association’s mail."
+    },
+    "nav_cohetes": {
+      "es": "Cohetes",
+      "en": "Rocketry"
+    },
+    "act_cohetes_kicker": {
+      "es": "Equipo de cohetería",
+      "en": "Rocketry team"
+    },
+    "act_cohetes_title": {
+      "es": "Cohetes Multitec",
+      "en": "Cohetes Multitec"
+    },
+    "act_cohetes_body": {
+      "es": "Diseñamos, construimos y lanzamos cohetes de alta potencia con aviónica propia. Lucentum subió a 459 m y logró la certificación L1; el siguiente apunta a 2.400 m. Conoce el proyecto y únete.",
+      "en": "We design, build and fly high-power rockets with our own avionics. Lucentum reached 459 m and earned the L1 certification; the next one aims at 2,400 m. Meet the project and join us."
+    },
+    "alt_act_cohetes": {
+      "es": "Cuatro fotogramas del lanzamiento de Lucentum: en la rampa, la ignición, el ascenso con su estela y el descenso con el paracaídas",
+      "en": "Four frames of Lucentum's launch: on the rail, ignition, the climb with its smoke trail and the descent under the parachute"
     }
   }
 }
