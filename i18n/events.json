@@ -3914,6 +3914,7 @@
       "start": "2026-11-25T18:30",
       "end": "2026-11-25T20:30",
       "tentative": false,
+      "cancelled": true,
       "image": "events/ill-charla-a.svg",
       "image_kind": "illustration",
       "link": "https://gdg.community.dev/e/m68pcn/",
@@ -3922,8 +3923,8 @@
         "en": "AI-Native SDLC"
       },
       "summary": {
-        "es": "The Agile Monkeys enseña con ejemplos reales cómo cambia el desarrollo cuando los agentes de IA proponen e implementan y las personas aprueban.",
-        "en": "The Agile Monkeys show, with real examples, how development changes when AI agents propose and implement the work and people approve and merge it."
+        "es": "Aplazado: la charla de The Agile Monkeys no se celebra el 25 de noviembre. Se busca una nueva fecha, de forma provisional el 25 de febrero.",
+        "en": "Postponed: the talk by The Agile Monkeys will not take place on 25 November. A new date is being set, provisionally 25 February."
       },
       "location": {
         "es": "Auditorio de ULab, Alicante",
