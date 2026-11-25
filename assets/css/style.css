@@ -450,6 +450,11 @@ strong, b { font-weight: 700; }
    scrim, and a 760px body left a hard vertical seam where the scrim stopped over the
    photo (audit L-008). Full-width body, readable line length, same as the other tiles. */
 .tile.full .tile-body > * { max-width: 760px; }
+/* The photo is the team beside Lucentum on the rail (2.25:1). On a wide tile (3.1:1) only the
+   vertical position matters: anchoring the bottom crops sky instead of heads, so the six faces
+   and the rocket's nose sit above the scrim (measured at 1440; "40%" put the faces under the
+   text). On a phone only the horizontal one matters: 70% keeps the rail inside the window. */
+.tile.full .tile-photo { object-position: 70% 100%; }
 .tile-go { display: inline-flex; align-items: center; gap: var(--s2); margin-top: var(--s3); font-weight: 700; color: var(--mt-white); text-decoration: underline; text-underline-offset: 3px; }
 .tile-go .ic { width: 1.1em; height: 1.1em; fill: currentColor; }
 
